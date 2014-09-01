@@ -18,7 +18,7 @@ function btnSubmit(){
 		popup('Clave',msj,0,0,1,'txtClave');
 		$("#txtClave").focus();
 		return false;
-	}
+	}	
 	login(usuario, clave);
 }
 
@@ -27,6 +27,7 @@ function login(usuario, clave){
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
 	var ajax_url = raiz+"src/"+modulo+"/login.php";
+
 	$.ajax({
 		type: 'POST',
 		url: ajax_url,
@@ -41,12 +42,12 @@ function login(usuario, clave){
 		beforeSend: function(){    
 			txt = "Validando credenciales, por favor espere...";
 		    msj = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp "+txt;
-		    popup('Autentificando',msj,0,0,3);  
+		    popup('Autentificando',msj,0,0,3);  		    
 		},
 		success: function(respuesta){ 
 			setTimeout(function(){	$(location).attr('href', respuesta.url)	}, 2000);
 		},
-		complete: function(){    
+		complete: function(){    			
 		    $("#popups-alerts").empty();
 		}
     });

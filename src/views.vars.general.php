@@ -61,8 +61,10 @@ function vars_login($urlParams){
 	## Envio de valores ##
 	$negocio = array(
 				 MORE 		=> incJs($Path[srcjs].$modulo.'login.js')
+				 			  .incCss($Path[css].'maruti-login.css')
 				,MODULE 	=> strtolower(MODULO)
 				,SECTION 	=> ($seccion)
+				,IMG 		=> $Path[img]
 			);
 	$texto = array(
 				 login 		=> $dic[general][login]

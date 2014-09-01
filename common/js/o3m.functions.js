@@ -65,15 +65,15 @@ function modal(idObjeto,w,h,tipo){
 function popup(Titulo,Contenido,w,h,Tipo,idInput,idObjeto){
 // Crea Ventana con contenido HTML para usar como Popup -> modal(idObjeto,w,h,tipo)
     var ClaseCss = 'modal';
-    if(!idObjeto){ var idObjeto = 'popoup_' + getRandomInt(1, 100);}
+    if(!idObjeto){ var idObjeto = 'o3m-popoup_' + getRandomInt(1, 100);}
     if(!Tipo){var Tipo = 0;}
     if(!w || w <= 0){var w = 400;}
     if(!h || h <= 0){var h = 200;}
     if(!Titulo){var Titulo = 'Sin titulo';}
     if(!Contenido){var Contenido = 'Sin contenido...';}
     var ventana = '<div id="' + idObjeto + '" class="' + ClaseCss + '" title="' + Titulo + '">' + Contenido + '</div>';
-    $("#popups-alerts").empty();
-    $("#popups-alerts").append(ventana);
+    $("#o3m-popups-alerts").empty();
+    $("#o3m-popups-alerts").append(ventana);
     modal(idObjeto,w,h,Tipo);
 
     // Resaltar input
