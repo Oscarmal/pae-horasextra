@@ -1,0 +1,35 @@
+<html>
+	<head>	
+		{INCLUDES}
+	</head>
+	<body>
+		<input type="hidden" id="mod" name="mod" value="{MODULE}" />
+		<input type="hidden" id="sec" name="sec" value="{SECTION}" />
+		<div id="tblLogin" style="text-align:center;">			
+			<table align="center">
+				<form id="frmLogin" method="post" action="">
+				<thead><th colspan="2">{login}</th></thead>
+				<tbody>
+					<tr><td colspan="2"><div id="msj">{MSJ}</div></td></tr>
+					<tr>
+						<td>{usuario}:</td>
+						<td><input type="text" id="txtUsuario" name="txtUsuario" size="20" maxlength="20" class="input"  /></td>
+					</tr>
+					<tr>
+						<td>{clave}:</td>
+						<td><input type="password" id="txtClave" name="txtClave" size="20" maxlength="20"/></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+						<span class="btn" id="btnEntrar" onclick="btnSubmit()">{entrar}</span>
+						</td>
+					</tr>
+				</tbody>				
+				</form>
+			</table>
+		</div>		
+		{FOOTER}
+		{POPUPS}		
+	</body>
+</html>

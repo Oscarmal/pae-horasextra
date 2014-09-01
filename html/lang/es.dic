@@ -1,0 +1,19 @@
+## DICCIONARIO ESPAÑOL-MX ##
+general|inicio=Inicio
+general|captura=Captura
+general|autorizacion=Autorización
+general|busqueda=Búsqueda
+general|reportes=Reportes
+general|administracion=Administración
+general|ayuda=Ayuda
+general|login=Iniciar sesión
+general|usuario=Usuario
+general|clave=Clave
+general|entrar=Entrar
+general|mensaje=Mensaje
+general|enlace=Enlace
+general|correo=Correo
+error|mensaje=No existe acción
+login|msj_entrar=Ingrese sus datos de usuario
+login|msj_noauth=Sin autorización para accesar
+login|msj_salir=Sesión Cerrada
