@@ -2,7 +2,7 @@
 ## Establece variables con ruta local
 ## $SiteFolder => El nombre de la carpeta del sitio: www/[Carpeta]
 ##
-session_name('o3m');
+session_name('o3m_he');
 session_start();
 $PublicFolder="www";
 $SiteFolder="horas-extra";

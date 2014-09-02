@@ -7,6 +7,30 @@
 */
 
 // -- Principales
+function contenedorHtml($template='error.html', $params=array(), $contenido_tpl='inicio.html', $contenido_params=array()){
+	global $Path;
+	#GENERAL
+	$htmlTpl = $Path['html'].$template;
+	$html = new Template($htmlTpl);
+	$html->set('PATH_JS', $Path[js]);
+	$html->set('PATH_CSS', $Path[css]);
+	$html->set('PATH_IMG', $Path[img]);
+	$more = ($params[MORE])?$params[MORE]:'';
+	$html->set('INCLUDES', includesHtml($more));
+	$html->set('FOOTER', footerHtml());
+	$html->set('POPUPS', popupsHtml());	
+	$html->set('CONTENIDO', contenidoHtml($contenido_tpl, $contenido_params));	
+	// Busca variables adicionales dentro array $params
+	if($tvars = count($params)){		
+		$vnames = array_keys($params);
+		$vvalues = array_values($params);
+		foreach($params as $vname => $vvalue){
+			$html->set($vname, $vvalue);
+		}
+	}
+	$html=$html->output();
+	return $html;
+}
 function contenidoHtml($template='error.html', $params=array()){
 	global $Path;
 	#GENERAL

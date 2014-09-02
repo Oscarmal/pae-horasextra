@@ -1,4 +1,4 @@
-<?php session_name('o3m'); session_start(); include_once($_SESSION['header_path']);
+<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
 /* O3M
 * Manejador de Vistas y asignación de variables
 * 
@@ -8,8 +8,16 @@ define(MODULO, 'GENERAL');
 # Vistas
 $vistas = array(
 			 LOGIN 	=> 'login.html'
-			,INICIO => 'inicio.html'
+			,INICIO => 'index.html'
 			,ERROR 	=> 'error.html'
+			);
+
+#Contenidos
+$contenidos = array(
+			 INICIO 		=> 'inicio.html'
+			,CAPTURA 		=> 'captura.html'
+			,AUTORIZACION	=> 'autorizacion.html'
+			,REPORTES 		=> 'reportes.html'
 			);
 
 # Comandos
@@ -63,8 +71,7 @@ function vars_login($urlParams){
 				 MORE 		=> incJs($Path[srcjs].$modulo.'login.js')
 				 			  .incCss($Path[css].'maruti-login.css')
 				,MODULE 	=> strtolower(MODULO)
-				,SECTION 	=> ($seccion)
-				,IMG 		=> $Path[img]
+				,SECTION 	=> ($seccion)				
 			);
 	$texto = array(
 				 login 		=> $dic[general][login]
@@ -72,20 +79,32 @@ function vars_login($urlParams){
 				,clave 		=> $dic[general][clave]
 				,entrar 	=> $dic[general][entrar]
 				,MSJ 		=> $msj
-			);
-	$data = array_merge($negocio, $texto);
+			);	
+	$data = array_merge($negocio, $texto);	
 	return $data;
 }
 function vars_inicio($urlParams){
-	global $var, $Path, $dic, $usuario;
+	global $var, $Path, $dic, $usuario, $contenidos;
 	## Logica de negocio ##
 	## Envio de valores ##
 	$negocio = array(
-				 MORE 		=> ''
+				 MORE 		=> ''				
+				,LINK_SALIR	=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'				
+				,TITULO		=> 'Tidtulo'
+				,ICONO		=> 'titulo_autorizaciones.png'
 				,CONTENIDO	=> $usuario[nombre]
-				,LINK_SALIR	=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'
 			);
-	$texto = array();
+	$texto = array(
+				 salir 		=> $dic[general][salir]
+				,usuario 	=> $dic[general][usuario]
+				,user 		=> $usuario[nombre]
+			);
+	// $contenidos_vars = array(
+	// 			 TITULO		=> 'Tidtulo'
+	// 			,ICONO		=> 'titulo_autorizaciones.png'
+	// 			,CONTENIDO	=> $usuario[nombre]
+	// 		);
+	// print(contenidoHtml($contenidos[INICIO], $contenidos_vars));
 	$data = array_merge($negocio, $texto);
 	return $data;
 }

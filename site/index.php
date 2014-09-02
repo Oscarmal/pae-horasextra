@@ -1,4 +1,4 @@
-<?php session_name('o3m'); session_start(); include_once($_SESSION['header_path']);?>
+<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);?>
 <?php 
 /* O3M
 * Manejador de Vistas
@@ -20,6 +20,10 @@ require_once($Path[src].$modulo[$mod]);
 $seccion = $in[s];
 $vista = vistas($seccion);
 $tpl_data = tpl_vars($seccion,$ins);
-print(contenidoHtml($vista, $tpl_data));
+if(enArray($in[s],array(LOGIN=>''))){
+	print(contenidoHtml($vista, $tpl_data));
+}else{
+	print(contenedorHtml($vista, $tpl_data));
+}
 /*O3M*/
 ?>

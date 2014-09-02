@@ -1,26 +1,27 @@
+<!doctype html>
 <html>
 	<head>	
 		{INCLUDES}
 	</head>
-	<body style="background:url({IMG}bg.png) 70% -70px no-repeat fixed; -webkit-background-size: cover; -moz-background-size: cover -o-background-size: cover; background-size: cover; ">
+	<body style="background:url({PATH_IMG}bg.png) 70% -70px no-repeat fixed; -webkit-background-size: cover; -moz-background-size: cover -o-background-size: cover; background-size: cover; ">
 		<input type="hidden" id="mod" name="mod" value="{MODULE}" />
 		<input type="hidden" id="sec" name="sec" value="{SECTION}" />
 		<div id="big"> 
 	        <div id="loginbox">            
 	            <form id="loginform" class="form-vertical" method="post" action="">				 
 	                    <div id="logo">
-	                        <img src="{IMG}login-logo.png" alt=""  style="padding-top:18px"/>{login}
+	                        <img src="{PATH_IMG}login-logo.png" alt=""  style="padding-top:18px"/>{login}
 	                    </div>                
 	                <div class="control-group">
 	                    <div class="controls">
-	                        <div class="main_input_box"> <img src="{IMG}usuario_login.png" alt=""/>
+	                        <div class="main_input_box"> <img src="{PATH_IMG}usuario_login.png" alt=""/>
 	                        <input type="text" id="txtUsuario" name="txtUsuario" placeholder="{usuario}" size="20" maxlength="20" />
 	                        </div>
 	                    </div>
 	                </div>
 	                <div class="control-group">
 	                    <div class="controls">
-	                        <div class="main_input_box"> <img src="{IMG}password_login.png" alt=""/> 
+	                        <div class="main_input_box"> <img src="{PATH_IMG}password_login.png" alt=""/> 
 	                        <input type="password" id="txtClave" name="txtClave" placeholder="{clave}" size="20" maxlength="20" />
 	                      </div>
 	                    </div>
@@ -47,9 +48,9 @@
 	       	<footer>
 	            <table width="100%" border="0" cellspacing="2" cellpadding="2">
 	              <tr>
-	                <th scope="col"><img src="{IMG}grpempresarial_pae-logo.png" alt="" class="admin"/></th>
+	                <th scope="col"><img src="{PATH_IMG}grpempresarial_pae-logo.png" alt="" class="admin"/></th>
 	                <th scope="col">&nbsp;</th>
-	                <th scope="col"><img src="{IMG}is-logo.png" alt="" class="admin"/></th>
+	                <th scope="col"><img src="{PATH_IMG}is-logo.png" alt="" class="admin"/></th>
 	              </tr>
 	          	</table>        
 	        </footer>

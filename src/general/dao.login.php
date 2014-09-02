@@ -1,4 +1,4 @@
-<?php session_name('o3m'); session_start(); include_once($_SESSION['header_path']);
+<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
 /**
 * 				Funciones "DAO"
 * Descripcion:	Ejecuta consultas SQL y devuelve el resultado.

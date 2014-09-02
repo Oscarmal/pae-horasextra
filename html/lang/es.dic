@@ -13,6 +13,7 @@ general|entrar=Entrar
 general|mensaje=Mensaje
 general|enlace=Enlace
 general|correo=Correo
+general|salir=Salir
 error|mensaje=No existe acción
 login|msj_entrar=Ingrese sus datos de usuario
 login|msj_noauth=Sin autorización para accesar

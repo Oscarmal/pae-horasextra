@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		{INCLUDES}
+	</head>
+	<body>
+		<div id="tblInicio" style="text-align:center;">
+			<a href="{LINK_SALIR}">Salir</a>
+		</div>
+
+		<div id="header">
+		   <table width="100%" border="0" cellspacing="2" cellpadding="5">
+		    <tr>
+		      <th width="30%" scope="col"><img src="{PATH_IMG}logo_grupo_pae.png" alt="" /></th>
+		      <th width="38%" scope="col">&nbsp;</th>
+		      <th width="8%" scope="col">
+		      	<img src="{PATH_IMG}usuario.png" alt="" width="22" height="22" class="icono" title="{user}"/>
+		      </th>
+		      <!-- <th width="8%" scope="col"><img src="{PATH_IMG}mensajes.png" alt="" width="22" height="22" class="icono"/></th>
+		      <th width="8%" scope="col"><img src="{PATH_IMG}ajustes.png" alt=""  width="22" height="22" class="icono"/></th> -->
+		      <th width="8%" scope="col">
+		      	<a href="{LINK_SALIR}">
+		      		<img src="{PATH_IMG}salir.png" title="{salir}"  width="22" height="22" class="icono"/>
+	      		</a>
+		      </th>
+		    </tr>
+		  </table>
+		  <div id='menuWrapper'>
+		    <div class='menu'>
+		      <ul>
+		        <li><a class='home-link' ><img src="{PATH_IMG}inicio.png" alt=""/></a></li>
+		        <li><a><img src="{PATH_IMG}captura.png" alt="" class="icono_dos"/>Captura</a>
+		          <!-- <ul>
+		            <li><a href="URL del enlace">Pestaña 2.1</a></li>
+		            <li><a href="URL del enlace">Pestaña 2.2</a></li>
+		            <li><a href="URL del enlace">Pestaña 2.3</a></li>
+		            <li><a href="URL del enlace">Pestaña 2.4</a></li>
+		          </ul> -->
+		        </li>
+		        <li><a><img src="{PATH_IMG}autorizacion.png" alt="" class="icono_dos"/>Autorizaciones</a></li>
+		        <li><a><img src="{PATH_IMG}consultas.png" alt="" class="icono_dos"/>Consulta</a></li>
+		        <li><a><img src="{PATH_IMG}reportes.png" alt="" class="icono_dos"/>Reportes</a></li>
+		      </ul>
+		    </div>   
+		    <!--Termina menu-->
+		  </div> 
+		  <!--Termina menuWrapper-->
+		</div>    
+		<!--Termina header-->
+		<!-- Inicia Contenido -->
+		<div id="content"> 		  
+		  <div class="container-fluid">
+		    <div class="container-fluid">		      
+		      <h3><img src="{PATH_IMG}{ICONO}" alt="" class="titulo"/>{TITULO}</h3>
+		      <div class="row-fluid">
+		        <div class="span12">
+		          <div class="widget-box">
+		            <div class="widget-title">
+		              <h5>{CONTENIDO}</h5>
+		            </div>		            
+		          </div>		          		          
+		        </div>
+		      </div>  
+		    </div>
+		  </div>		   		  
+		</div>  
+		<!-- Termina Contenido-->
+		{FOOTER}
+		{POPUPS}		
+	</body>
+</html>
