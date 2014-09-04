@@ -18,6 +18,8 @@ if(enArray($seccion,array(LOGIN=>''))){
 	$vista 		= vistas($seccion);
 	$tpl_data 	= tpl_vars($seccion,$ins);
 	print(contenidoHtml($vista, $tpl_data));
+	// Cierra sesión de usuario
+	unset($_SESSION[usuario]);
 }else{
 	require_once($Path[src].MOD_CONTENEDOR);
 	$vista 		= frm_vistas('CONTENEDOR');
