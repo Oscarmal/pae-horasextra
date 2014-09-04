@@ -98,6 +98,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 				 img_logo		=> $var[img_logo]
 				,ico_user		=> $var[ico_user]
 				,ico_exit		=> $var[ico_exit]
+				,LINK_SALIR		=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'
 			);
 	$HEADER 	= contenidoHtml($contenedor[FRM_HEADER], $header_opc);
 	// --
@@ -128,8 +129,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 
 	## Envio de valores ##
 	$negocio = array(
-				 MORE 			=> ''	
-				,LINK_SALIR		=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'
+				 MORE 			=> ''				
 				,FRM_HEADER		=> $HEADER
 				,FRM_MENU 		=> $MENU
 				,FRM_CONTENIDO	=> $CONTENIDO
