@@ -1,8 +1,9 @@
 ## ENGLISH DICTIONARY-USA ##
-general|inicio=Start
+general|inicio=Home
 general|captura=Capture
-general|autorizacion=Authorization
+general|autorizacion=Authorizations
 general|busqueda=Search
+general|consulta=Browse
 general|reportes=Reports
 general|administracion=Administration
 general|ayuda=Help
@@ -14,6 +15,7 @@ general|mensaje=Message
 general|enlace=Link
 general|correo=eMail
 general|salir=Exit
+general|msj_inicio=Welcome to system
 error|mensaje=No action
 login|msj_entrar=Enter your user data
 login|msj_noauth=No authorization to access

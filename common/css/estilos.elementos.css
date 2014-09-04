@@ -58,3 +58,6 @@ input:focus, textarea:focus, select:focus{
     position:relative;
     top:1px;
 }
+.txtFooter{
+    font-size: .6em;
+}

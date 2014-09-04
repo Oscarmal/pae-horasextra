@@ -5,19 +5,13 @@
 */
 // Modulo Padre
 define(MODULO, 'GENERAL');
+global $vistas, $contenidos, $icono;
+$icono = $var[ico_01];
 # Vistas
 $vistas = array(
 			 LOGIN 	=> 'login.html'
-			,INICIO => 'index.html'
+			,INICIO => 'inicio.html'
 			,ERROR 	=> 'error.html'
-			);
-
-#Contenidos
-$contenidos = array(
-			 INICIO 		=> 'inicio.html'
-			,CAPTURA 		=> 'captura.html'
-			,AUTORIZACION	=> 'autorizacion.html'
-			,REPORTES 		=> 'reportes.html'
 			);
 
 # Comandos
@@ -84,27 +78,19 @@ function vars_login($urlParams){
 	return $data;
 }
 function vars_inicio($urlParams){
-	global $var, $Path, $dic, $usuario, $contenidos;
+	global $var, $Path, $icono, $dic;
 	## Logica de negocio ##
+	$titulo = 'INICIO';
+	$contenido = $dic[general][msj_inicio];
+
 	## Envio de valores ##
 	$negocio = array(
 				 MORE 		=> ''				
-				,LINK_SALIR	=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'				
-				,TITULO		=> 'Tidtulo'
-				,ICONO		=> 'titulo_autorizaciones.png'
-				,CONTENIDO	=> $usuario[nombre]
+				,ICONO 		=> $icono
+				,TITULO		=> $titulo
+				,CONTENIDO 	=> $contenido
 			);
-	$texto = array(
-				 salir 		=> $dic[general][salir]
-				,usuario 	=> $dic[general][usuario]
-				,user 		=> $usuario[nombre]
-			);
-	// $contenidos_vars = array(
-	// 			 TITULO		=> 'Tidtulo'
-	// 			,ICONO		=> 'titulo_autorizaciones.png'
-	// 			,CONTENIDO	=> $usuario[nombre]
-	// 		);
-	// print(contenidoHtml($contenidos[INICIO], $contenidos_vars));
+	$texto = array();
 	$data = array_merge($negocio, $texto);
 	return $data;
 }

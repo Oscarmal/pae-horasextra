@@ -8,21 +8,20 @@
 // Valida parametro URL
 if(!$in[m]){header('location: '.$Raiz[url]);}
 // Modulos
-$modulo = array(
-			 GENERAL 	=> 'views.vars.general.php'
-			,CAPTURA 	=> 'views.vars.captura.php'
-			,CONSULTAS 	=> 'views.vars.consultas.php'
-			,REPORTES 	=> 'views.vars.reportes.php'
-			,ADMIN 		=> 'views.vars.admin.php'
-		);
-$mod = enArray($in[m],$modulo);
-require_once($Path[src].$modulo[$mod]);
+define(MOD_GENERAL, 'views.vars.general.php');
+define(MOD_CONTENEDOR, 'views.vars.contenedor.php');
+$modulo = $in[m];
 $seccion = $in[s];
-$vista = vistas($seccion);
-$tpl_data = tpl_vars($seccion,$ins);
-if(enArray($in[s],array(LOGIN=>''))){
+// Distingue entre Login y Contendor
+if(enArray($seccion,array(LOGIN=>''))){
+	require_once($Path[src].MOD_GENERAL);	
+	$vista 		= vistas($seccion);
+	$tpl_data 	= tpl_vars($seccion,$ins);
 	print(contenidoHtml($vista, $tpl_data));
 }else{
+	require_once($Path[src].MOD_CONTENEDOR);
+	$vista 		= frm_vistas('CONTENEDOR');
+	$tpl_data 	= frm_vars($modulo, $seccion,$ins);
 	print(contenedorHtml($vista, $tpl_data));
 }
 /*O3M*/

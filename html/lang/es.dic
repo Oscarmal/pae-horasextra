@@ -1,8 +1,9 @@
 ## DICCIONARIO ESPAÑOL-MX ##
 general|inicio=Inicio
 general|captura=Captura
-general|autorizacion=Autorización
+general|autorizacion=Autorizaciones
 general|busqueda=Búsqueda
+general|consulta=Consulta
 general|reportes=Reportes
 general|administracion=Administración
 general|ayuda=Ayuda
@@ -14,6 +15,7 @@ general|mensaje=Mensaje
 general|enlace=Enlace
 general|correo=Correo
 general|salir=Salir
+general|msj_inicio=Bienvenido al sistema
 error|mensaje=No existe acción
 login|msj_entrar=Ingrese sus datos de usuario
 login|msj_noauth=Sin autorización para accesar

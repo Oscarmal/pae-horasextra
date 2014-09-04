@@ -7,7 +7,7 @@
 */
 
 // -- Principales
-function contenedorHtml($template='error.html', $params=array(), $contenido_tpl='inicio.html', $contenido_params=array()){
+function contenedorHtml($template='error.html', $params=array()){
 	global $Path;
 	#GENERAL
 	$htmlTpl = $Path['html'].$template;
@@ -19,6 +19,8 @@ function contenedorHtml($template='error.html', $params=array(), $contenido_tpl=
 	$html->set('INCLUDES', includesHtml($more));
 	$html->set('FOOTER', footerHtml());
 	$html->set('POPUPS', popupsHtml());	
+	$contenido_tpl 		= ($params[CONT_VIEW]=='')?'error.html':$params[CONT_VIEW];
+	$contenido_params 	= (!$params[CONT_PARAMS])?array():$params[CONT_PARAMS];
 	$html->set('CONTENIDO', contenidoHtml($contenido_tpl, $contenido_params));	
 	// Busca variables adicionales dentro array $params
 	if($tvars = count($params)){		
