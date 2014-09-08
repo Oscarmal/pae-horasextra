@@ -20,3 +20,7 @@ error|mensaje=No action
 login|msj_entrar=Enter your user data
 login|msj_noauth=No authorization to access
 login|msj_salir=Closed Session
+captura|titulo=Ingreso de horas extra
+autorizacion|titulo=Autorización de horas extra
+consulta|titulo=Consultas
+reportes|titulo=Reportes
