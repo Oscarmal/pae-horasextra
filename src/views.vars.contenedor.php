@@ -107,8 +107,11 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$HEADER 	= contenidoHtml($contenedor[FRM_HEADER], $header_opc);
 		// --
 		// FRM_MENU
-		$menu_opc = array(				 
-					 txt_opc1		=> $dic[general][inicio]
+		require_once($Path[src].'build.menu.php');
+		$menu = buildMenu(4);
+		$menu_opc = array(	
+					 MENU 			=> $menu		 
+					,txt_opc1		=> $dic[general][inicio]
 					,img_opc1		=> $var[menu_opc1]
 					,LINK_OPC1		=> '../site/?m='.$var[GENERAL].'&s='.$var[INICIO]
 					,txt_opc2		=> $dic[general][captura]
