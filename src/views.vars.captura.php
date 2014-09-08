@@ -1,25 +1,26 @@
 <?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
 /* O3M
 * Manejador de Vistas y asignación de variables
-* 
+* CAPTURA
 */
 // Modulo Padre
-define(MODULO, 'CAPTURA');
 global $vistas, $contenidos, $icono;
 $icono = $var[ico_01];
-# Vistas
+# Vistas CONTENEDOR
 $vistas = array(
-			 CAPTURA 	=> 'frm_contenido.html'
-			,ERROR 	 	=> 'error.html'
+			 CAPTURA => 'frm_contenido.html'			
+			,ERROR 	 => 'error.html'
 			);
+# Contenidos HTML
+$contenidos = array(
+		 CAPTURA 	=> 'captura.html'
+		);
 
 # Comandos
 function vistas($cmd){
 	global $vistas;
-	// $modulo = strtolower(MODULO).'/';
 	$comando = strtoupper(enArray($cmd,$vistas));	
 	if(array_key_exists($comando,$vistas)){
-		// $html = $modulo.$vistas[$comando];
 		$html = $vistas[$comando];
 	}else{
 		$html = $vistas[ERROR];
@@ -32,7 +33,7 @@ function tpl_vars($cmd, $urlParams=array()){
 	global $vistas;
 	$cmd = strtoupper(enArray($cmd,$vistas));
 	if($cmd == 'CAPTURA'){
-		$vars = vars_captura($urlParams);
+		$vars = vars_captura($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
@@ -43,11 +44,11 @@ function tpl_vars($cmd, $urlParams=array()){
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
 
-function vars_captura($urlParams){
-	global $var, $Path, $icono, $dic;
+function vars_captura($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $contenidos;
 	## Logica de negocio ##
-	$titulo = 'Ingreso de horas extra';
-	$contenido = 'Formulario de captura';
+	$titulo 	= $dic[captura][titulo];
+	$contenido 	= contenidoHtml(strtolower($seccion).'/'.$contenidos[strtoupper($seccion)], array());
 
 	## Envio de valores ##
 	$negocio = array(

@@ -61,3 +61,9 @@ input:focus, textarea:focus, select:focus{
 .txtFooter{
     font-size: .6em;
 }
+.datepicker{
+    background-position: right center;
+    background-image: url(../img/calendar_icon.png);
+    background-repeat: no-repeat;
+    background-origin: content-box;
+}

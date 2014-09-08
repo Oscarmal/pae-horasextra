@@ -80,7 +80,7 @@ function vars_login($urlParams){
 function vars_inicio($urlParams){
 	global $var, $Path, $icono, $dic;
 	## Logica de negocio ##
-	$titulo = 'Inicio';
+	$titulo = $dic[general][titulo];
 	$contenido = $dic[general][msj_inicio];
 
 	## Envio de valores ##

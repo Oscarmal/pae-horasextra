@@ -1,0 +1,100 @@
+                  <div class="widget-box">
+                    <div class="widget-content nopadding">
+                      <table width="100%" border="0" cellspacing="2" cellpadding="2" class="captura">
+                        <tr>
+                          <th width="8%" scope="col">&nbsp;</th>
+                          <th width="14%" scope="col">&nbsp;</th>
+                          <th width="27%" scope="col">&nbsp;</th>
+                          <th width="19%" scope="col">&nbsp;</th>
+                          <th width="30%" scope="col">&nbsp;</th>
+                          <th width="2%" scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td><label class="control-label">Nombres:</label></td>
+                          <td colspan="3"> <input type="text" id="nombre" name="nombre" class="span3" placeholder="Nombres" /></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td><label class="control-label">Apellido Paterno:</label></td>
+                          <td><input type="text" id="paterno" name="materno"  placeholder="Apellido Paterno"/></td>
+                          <td><label class="control-label">Apellido Materno:</label></td>
+                          <td><input type="text" id="materno" name="materno" placeholder="Apellido Materno"/></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>                    
+                          <td><label class="control-label">Horas extra:</label></td>
+                          <td>
+                          <input type="text" name="horas" id="horas">
+
+
+<div class="input-append">
+    <input type="text" id="t2" value="14:30" class="input-small" readonly="">
+    <button class="btn" type="button" id="toggle-btn">
+        <i class="icon-time"></i>
+    </button>
+</div>
+
+
+                          
+                          </td>
+                          <td><label class="control-label">ID:</label></td>
+                          <td><input type="text" name="nombres" id="nombres"></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>                  
+                          <td><label class="control-label">Fecha de evento:</label></td>
+                          <td>
+                          <input type="text" name="fecha" id="fecha" class="datepicker">
+                          </td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td><label class="control-label">Fecha de registro:</label></td>
+                          <td><input type="text" name="hoy" id="hoy" class="datepicker"></td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td><input type="button" name="button10" id="button7" value="Enviar"></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td height="52">&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+
+<script type="text/javascript">
+    jquery_fecha('fecha');
+    jquery_fecha('hoy');
+
+$(function(){
+    $('#t2').clockface({
+        format: 'HH:mm',
+        trigger: 'manual'
+    });   
+ 
+    $('#toggle-btn').click(function(e){   
+        e.stopPropagation();
+        $('#t2').clockface('toggle');
+    });
+});
+</script>

@@ -115,4 +115,10 @@ function raizPath(Folder){
     return raiz;
 }
 
+function jquery_fecha(id_objeto){
+    $(function() {
+        $("#"+id_objeto).datepicker();
+    });
+}
+
 //O3M//
