@@ -4,6 +4,20 @@ $(document).ready(function(){
     $('input').change(function(){
           inputFocus(this.id);
     });
+    // Bootstrap
+    // $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
+    // $('select').select2();
+    // $('.colorpicker').colorpicker();
+    // $('.datepicker').datepicker();
+    // --
+
+    // JQueri UI
+    jQuery.datepicker.setDefaults($.datepicker.regional["es"]);
+    // $( ".selector" ).datepicker({ monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ] });
+    // $( ".selector" ).datepicker({ monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "Maj", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] });
+    // $( ".selector" ).datepicker({ dayNames: [ "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" ] });
+    // $( ".selector" ).datepicker({ dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ] });
+    // --
 });
 
 function changeCss(archivo) {

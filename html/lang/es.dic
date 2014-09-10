@@ -1,4 +1,11 @@
-## DICCIONARIO ESPAÑOL-MX ##
+### DICCIONARIO ESPAÑOL-MX ###
+## Titulos
+general|titulo=Inicio
+captura|titulo=Ingreso de horas extra
+autorizacion|titulo=Autorización de horas extra
+consulta|titulo=Consultas
+reportes|titulo=Reportes
+## Mensajes
 general|inicio=Inicio
 general|captura=Captura
 general|autorizacion=Autorizaciones
@@ -16,12 +23,11 @@ general|enlace=Enlace
 general|correo=Correo
 general|salir=Salir
 general|msj_inicio=Bienvenido al sistema
+# Error
 error|mensaje=No existe acción
+# Login
 login|msj_entrar=Ingrese sus datos de usuario
 login|msj_noauth=Sin autorización para accesar
 login|msj_salir=Sesión Cerrada
-general|titulo=Inicio
-captura|titulo=Ingreso de horas extra
-autorizacion|titulo=Autorización de horas extra
-consulta|titulo=Consultas
-reportes|titulo=Reportes
+# Captura
+captura|guardar=Guardar

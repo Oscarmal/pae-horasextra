@@ -45,7 +45,7 @@ function tpl_vars($cmd, $urlParams=array()){
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
 
 function vars_captura($seccion, $urlParams){
-	global $var, $Path, $icono, $dic, $contenidos;
+	global $var, $Path, $icono, $dic, $contenidos, $usuario;
 	## Logica de negocio ##
 	$titulo 	= $dic[captura][titulo];
 	$contenido 	= contenidoHtml(strtolower($seccion).'/'.$contenidos[strtoupper($seccion)], array());
@@ -53,11 +53,17 @@ function vars_captura($seccion, $urlParams){
 	## Envio de valores ##
 	$negocio = array(
 				 MORE 		=> ''				
-				,ICONO 		=> $icono
-				,TITULO		=> $titulo
-				,CONTENIDO 	=> $contenido
+								
 			);
-	$texto = array();
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+				,captura_fecha 	=> date('d/m/Y')
+				,empleado_num 	=> $usuario[empleado_num]
+				,empleado_nombre=> $usuario[nombre]
+				,guardar		=> $dic[captura][guardar]
+			);
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
