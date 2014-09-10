@@ -52,8 +52,7 @@ function vars_captura($seccion, $urlParams){
 
 	## Envio de valores ##
 	$negocio = array(
-				 MORE 		=> ''				
-								
+				 MORE 		=> ''	
 			);
 	$texto = array(
 				 ICONO 			=> $icono
