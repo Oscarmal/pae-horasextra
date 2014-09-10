@@ -135,13 +135,13 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		// --	
 		// FRM_CONTENIDO
 		$vista_new 	= vistas($seccion);
-		$tpl_data 	= tpl_vars($seccion,$urlParams);
-		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
+		$tpl_data 	= tpl_vars($seccion,$urlParams); 
+		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data); 
 		// --
 
 		## Envio de valores ##
 		$negocio = array(
-					 MORE 			=> ''				
+					 MORE 			=> $tpl_data[MORE]				
 					,FRM_HEADER		=> $HEADER
 					,FRM_MENU 		=> $MENU
 					,FRM_CONTENIDO	=> $CONTENIDO
