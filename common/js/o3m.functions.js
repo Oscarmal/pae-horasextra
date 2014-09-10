@@ -4,6 +4,7 @@ $(document).ready(function(){
     $('input').change(function(){
           inputFocus(this.id);
     });
+    reloj('txtReloj');
     // Bootstrap
     // $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
     // $('select').select2();
@@ -135,4 +136,31 @@ function jquery_fecha(id_objeto){
     });
 }
 
+function reloj(objName){ 
+/**
+* Muestra hora actual en vivo
+* <body onload="reloj('objName')">
+* <div id="reloj" onload="reloj('reloj')"></div>
+*
+*/
+    momentoActual = new Date(); 
+    hora = momentoActual.getHours();
+    minuto = momentoActual.getMinutes(); 
+    segundo = momentoActual.getSeconds(); 
+    str_segundo = new String (segundo); 
+    if (str_segundo.length == 1) {
+         segundo = "0" + segundo;
+    }
+    str_minuto = new String (minuto); 
+    if (str_minuto.length == 1) {
+         minuto = "0" + minuto; 
+    }
+    str_hora = new String (hora);
+    if (str_hora.length == 1) {
+         hora = "0" + hora;     
+    }
+    horaImprimible = hora + ":" + minuto + ":" + segundo; 
+    document.getElementById(objName).innerHTML=horaImprimible;
+    setTimeout("reloj('"+objName+"')",1000);
+}
 //O3M//
