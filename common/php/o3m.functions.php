@@ -245,10 +245,10 @@ function fechaHoy(){
 	$dia=date("l");
 	if ($dia=="Monday") $dia="Lunes";
 	if ($dia=="Tuesday") $dia="Martes";
-	if ($dia=="Wednesday") $dia="Miercoles";
+	if ($dia=="Wednesday") $dia="Miércoles";
 	if ($dia=="Thursday") $dia="Jueves";
 	if ($dia=="Friday") $dia="Viernes";
-	if ($dia=="Saturday") $dia="Sabado";
+	if ($dia=="Saturday") $dia="Sábado";
 	if ($dia=="Sunday") $dia="Domingo";
 	$dia2=date("d");
 	$mes=date("F");

@@ -143,23 +143,29 @@ function reloj(objName){
 * <div id="reloj" onload="reloj('reloj')"></div>
 *
 */
-    momentoActual = new Date(); 
-    hora = momentoActual.getHours();
-    minuto = momentoActual.getMinutes(); 
-    segundo = momentoActual.getSeconds(); 
-    str_segundo = new String (segundo); 
+    var horaActual = new Date(); 
+    var hora = horaActual.getHours();
+    var minuto = horaActual.getMinutes(); 
+    var segundo = horaActual.getSeconds(); 
+    var str_segundo = new String (segundo); 
     if (str_segundo.length == 1) {
          segundo = "0" + segundo;
     }
-    str_minuto = new String (minuto); 
+    var str_minuto = new String (minuto); 
     if (str_minuto.length == 1) {
          minuto = "0" + minuto; 
     }
-    str_hora = new String (hora);
+    var str_hora = new String (hora);
     if (str_hora.length == 1) {
          hora = "0" + hora;     
     }
-    horaImprimible = hora + ":" + minuto + ":" + segundo; 
+    // horaUTC = horaActual.getUTCHours();
+    if(str_hora>=12){
+        var txt = 'pm';
+    }else{ 
+        var txt = 'am';
+    }
+    horaImprimible = hora + ":" + minuto + ":" + segundo + ' ' + txt; 
     document.getElementById(objName).innerHTML=horaImprimible;
     setTimeout("reloj('"+objName+"')",1000);
 }

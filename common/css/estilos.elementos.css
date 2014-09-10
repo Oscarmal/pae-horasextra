@@ -71,3 +71,8 @@ input:focus, textarea:focus, select:focus{
     text-align: right;
     vertical-align: middle;
 }
+
+.fechaHeader{
+    font-size: 0.7em;
+    text-align: right;
+}
