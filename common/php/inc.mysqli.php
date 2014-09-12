@@ -29,7 +29,12 @@ function SQLQuery($SQL){
 		    	$conn = SQLConn(); //Llama conexión
 		    	$qry = $conn->query($SQL)or die(mysqli_connect_errno($conn).' -> '.mysqli_connect_error()); //Ejecuta query	    	 	
 		    	if(mysqli_num_rows($qry)){
-		    		$Result=mysqli_fetch_array($qry);
+		    		mysqli_data_seek($qry,0);
+		    		$i=0;
+		    		while($row = mysqli_fetch_array($qry)) {
+		    			$Result[$i] = $row;
+		    			$i++;
+					}	    		
 		    	}else{$Result=null;}
 		    	mysqli_close($conn); //Cierra conexión
 		    	return $Result;

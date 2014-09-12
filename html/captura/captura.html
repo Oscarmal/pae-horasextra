@@ -8,7 +8,9 @@
                           <th width="2%" scope="col">&nbsp;</th>
                         </tr>
                         <tr>
-                          <td>&nbsp;</td>
+                          <td>&nbsp;
+                          <input type="hidden" name="id_usuario" id="id_usuario" value="{id_usuario}">
+                          </td>
                           <td class="tbl_labels"><label class="control-label">No. Empleado:</label></td>
                           <td> <input type="text" name="empleado_num" id="empleado_num" value="{empleado_num}"  readonly></td>
                           <td>&nbsp;</td>
@@ -24,7 +26,7 @@
                           <td class="tbl_labels"><label class="control-label">Horas extra:</label></td>
                           <td>
                           <div class="input-append">
-                              <input type="text" id="horas" name="horas" placeholder="01:00" class="input-small" >
+                              <input type="text" id="txtHoras" name="txtHoras" placeholder="01:00" class="input-small" >
                               <button class="btn" type="button" id="toggle-btn">
                                   <i class="icon-time"></i>
                               </button>
@@ -36,7 +38,7 @@
                           <td>&nbsp;</td>
                           <td class="tbl_labels"><label class="control-label">Fecha de evento:</label></td>
                           <td>
-                          <input type="text" name="fecha" id="fecha" class="calendario">
+                          <input type="text" name="txtFecha" id="txtFecha" class="calendario">
                           </td>
                           <td>&nbsp;</td>
                         </tr>                   
@@ -65,19 +67,3 @@
                       </table>
                     </div>
                   </div>
-
- <script type="text/javascript">
-    jquery_fecha('fecha');
-
-// $(function(){
-//     $('#hora').clockface({
-//         format: 'HH:mm',
-//         trigger: 'manual'
-//     });   
- 
-//     $('#toggle-btn').click(function(e){   
-//         e.stopPropagation();
-//         $('#hora').clockface('toggle');
-//     });
-// });
- </script>

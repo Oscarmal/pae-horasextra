@@ -6,20 +6,19 @@
 // Modulo Padre
 global $vistas, $contenidos, $icono;
 $icono = $var[ico_01];
-# Vistas CONTENEDOR
+define(MODULO,'CAPTURA');
+# Vistas HTML
 $vistas = array(
-			 CAPTURA => 'frm_contenido.html'			
-			,ERROR 	 => 'error.html'
-			);
-# Contenidos HTML
-$contenidos = array(
-		 CAPTURA 	=> 'captura.html'
-		);
+		 INDEX 		=> 'index.html'
+		,CAPTURA 	=> 'captura.html'
+		,ERROR 	 	=> 'error.html'
+	);
 
-# Comandos
+# Vistas
 function vistas($cmd){
 	global $vistas;
-	$comando = strtoupper(enArray($cmd,$vistas));	
+	print_r(MODULO); die();
+	$comando = strtoupper(enArray(MODULO,$vistas));	
 	if(array_key_exists($comando,$vistas)){
 		$html = $vistas[$comando];
 	}else{
@@ -32,7 +31,9 @@ function vistas($cmd){
 function tpl_vars($cmd, $urlParams=array()){
 	global $vistas;
 	$cmd = strtoupper(enArray($cmd,$vistas));
-	if($cmd == 'CAPTURA'){
+	if($cmd == 'INDEX'){
+		$vars = vars_index($cmd, $urlParams);
+	}elseif($cmd == 'CAPTURA'){
 		$vars = vars_captura($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
@@ -44,23 +45,58 @@ function tpl_vars($cmd, $urlParams=array()){
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
 
-function vars_captura($seccion, $urlParams){
-	global $var, $Path, $icono, $dic, $contenidos, $usuario;
-	## Logica de negocio ##
-	$titulo 	= $dic[captura][titulo];
-	$contenido 	= contenidoHtml(strtolower($seccion).'/'.$contenidos[strtoupper($seccion)], array());
-
+function vars_index($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##	
+	require_once($Path[src].strtolower(MODULO).'/dao.captura.php');
+	$titulo 	= $dic[captura][index];
+	$tabla = captura_select(1,0,0,0,0,0,1);		
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr>';
+		for($i=0; $i<=count($registro); $i++){
+			$tbl_resultados .= '<td>'.$registro[$i].'</td>';
+		}
+		$tbl_resultados .= '</tr>';
+	}	
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
 	## Envio de valores ##
 	$negocio = array(
-				 MORE 		=> ''	
+				 // MORE 		=> incJs($Path[srcjs].strtolower($seccion).'/captura.js')	
+				 MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
 			);
 	$texto = array(
 				 ICONO 			=> $icono
 				,TITULO			=> $titulo
 				,CONTENIDO 		=> $contenido
-				,captura_fecha 	=> date('d/m/Y')
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+
+function vars_captura($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##
+	$titulo 	= $dic[captura][titulo];
+	$data_contenido = array();
+	$contenido 	= contenidoHtml(strtolower($seccion).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower($seccion).'/captura.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido				
+				,id_usuario 	=> $usuario[id_usuario]
 				,empleado_num 	=> $usuario[empleado_num]
 				,empleado_nombre=> $usuario[nombre]
+				,captura_fecha 	=> date('d/m/Y')
 				,guardar		=> $dic[captura][guardar]
 			);
 	$data = array_merge($negocio, $texto);

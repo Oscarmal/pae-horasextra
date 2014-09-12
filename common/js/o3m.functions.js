@@ -95,6 +95,7 @@ function popup(Titulo,Contenido,w,h,Tipo,idInput,idObjeto){
     if(idInput!=''){
         $("#"+idInput).addClass('input-error');
     }
+    return idObjeto;
 }
 
 function getRandomInt(min, max) {
