@@ -21,6 +21,7 @@ $contenedor = array(
 			,FRM_HEADER => 'frm_header.html'
 			,FRM_MENU 	=> 'frm_menu.html'
 			,FRM_FOOTER => 'frm_footer.html'
+			,FRM_CONTENT=> 'frm_contenido.html'
 		);
 
 // $visitas = MODULO => SECCIONES
@@ -31,7 +32,8 @@ $frm_vistas = array(
 			 	)
 			,CAPTURA => 
 			 	array(
-			 		 CAPTURA 		=> 'captura.html'			 		
+			 		 INDEX 			=> 'index.html'
+			 		,CAPTURA 		=> 'captura.html'			 		
 			 	)
 			,CONSULTA => 
 			 	array(
@@ -72,14 +74,15 @@ function frm_vistas($cmd){
 function frm_vars($modulo, $seccion, $urlParams=array()){
 	global $frm_vistas, $modulos;	
 	$mod  = strtoupper(enArray($modulo,$modulos));
-	$sec = strtoupper(enArray($seccion,$frm_vistas[$mod]));
+	$sec = strtoupper(enArray($seccion,$frm_vistas[$mod]));	
 	if($mod){
 		$inc = $modulos[$mod];
 	}
 	if($sec){
+
 		$vars = vars_frame($urlParams, $inc, $modulo, $seccion);
 	}else{
-		$vars = vars_frm_error($sec);
+		$vars = vars_frm_error($sec);		
 	}
 	return $vars;
 }
@@ -90,18 +93,18 @@ function frm_vars($modulo, $seccion, $urlParams=array()){
 
 function vars_frame($urlParams, $inc, $modulo, $seccion){
 // Carga la vista del Contenedor principal
-	global $var, $Path, $dic, $contenedor, $usuario;
+	global $var, $Path, $dic, $contenedor, $usuario;	
 	## Logica de negocio ##
 	if(!file_exists($Path[src].$inc)){				
 		print_error('El archivo no existe: '.$inc);
 	}else{
 		require_once($Path[src].$inc);	
-		
 		// FRM_HEADER
 		$header_opc = array(
 					 img_logo		=> $var[img_logo]
 					,ico_user		=> $var[ico_user]
 					,ico_exit		=> $var[ico_exit]
+					,fecha_hoy		=> fechaHoy()
 					,LINK_SALIR		=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'
 				);
 		$HEADER 	= contenidoHtml($contenedor[FRM_HEADER], $header_opc);
@@ -116,7 +119,11 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC1		=> '../site/?m='.$var[GENERAL].'&s='.$var[INICIO]
 					,txt_opc2		=> $dic[general][captura]
 					,img_opc2		=> $var[menu_opc2]
-					,LINK_OPC2		=> '../site/?m='.$var[CAPTURA].'&s='.$var[CAPTURA]
+					,LINK_OPC2		=> '#'
+					,txt_opc21		=> $dic[captura][index]
+					,LINK_OPC21		=> '../site/?m='.$var[CAPTURA].'&s='.$var[INDEX]
+					,txt_opc22		=> $dic[captura][horas_extra]
+					,LINK_OPC22		=> '../site/?m='.$var[CAPTURA].'&s='.$var[CAPTURA]
 					,txt_opc3		=> $dic[general][autorizacion]
 					,img_opc3		=> $var[menu_opc3]
 					,LINK_OPC3		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION]
@@ -134,9 +141,12 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$FOOTER 	= contenidoHtml($contenedor[FRM_FOOTER], $footer_opc);
 		// --	
 		// FRM_CONTENIDO
-		$vista_new 	= vistas($seccion);
+		// $vista_new 	= vistas($seccion);
+		$vista_new 	= $contenedor[FRM_CONTENT];
+		// print_r($seccion); die();
 		$tpl_data 	= tpl_vars($seccion,$urlParams); 
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data); 
+
 		// --
 
 		## Envio de valores ##
