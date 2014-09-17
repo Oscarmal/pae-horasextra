@@ -48,30 +48,31 @@ if($idioma=='EN'){
 }
 diccionario($Raiz[local].$dicFile);
 // Valida autentificación de Usuario
-if(!$_SESSION[usuario] && $in[s]!=$var[LOGIN]) { 
+if(!$_SESSION[user][id_usuario] && $in[s]!=$var[LOGIN]) { 
 	header('location: '.$Raiz[url].'?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2');
 	exit();
 }
 // Cierra de Sesión de usuario
-if($_SESSION[usuario] && $in[s]==$var[LOGIN] && $in[e]==2) { 
-	unset($_SESSION[usuario]);
+if($_SESSION[user][id_usuario] && $in[s]==$var[LOGIN] && $in[e]==2) { 
+	unset($_SESSION[user][id_usuario]);
 }
+
 // Variables de usuario
-$usuario[id_usuario]		= $_SESSION['id_usuario'];
-$usuario[usuario]			= $_SESSION['usuario'];
-$usuario[grupo]				= $_SESSION['grupo'];
-$usuario[id_personal]		= $_SESSION['id_personal'];
-$usuario[nombre]			= $_SESSION['nombre'];
-$usuario[empleado_num]		= $_SESSION['empleado_num'];
-$usuario[email]				= $_SESSION['email'];
-$usuario[empresa]			= $_SESSION['empresa'];
-$usuario[pais]				= $_SESSION['pais'];
-$usuario[mod1]				= $_SESSION['mod1'];
-$usuario[mod2]				= $_SESSION['mod2'];
-$usuario[mod3]				= $_SESSION['mod3'];
-$usuario[mod4]				= $_SESSION['mod4'];
-$usuario[mod5]				= $_SESSION['mod5'];
-$usuario[mod6]				= $_SESSION['mod6'];
+$usuario[id_usuario]		= $_SESSION[user]['id_usuario'];
+$usuario[usuario]			= $_SESSION[user]['usuario'];
+$usuario[grupo]				= $_SESSION[user]['grupo'];
+$usuario[id_personal]		= $_SESSION[user]['id_personal'];
+$usuario[nombre]			= $_SESSION[user]['nombre'];
+$usuario[empleado_num]		= $_SESSION[user]['empleado_num'];
+$usuario[email]				= $_SESSION[user]['email'];
+$usuario[empresa]			= $_SESSION[user]['empresa'];
+$usuario[pais]				= $_SESSION[user]['pais'];
+$usuario[mod1]				= $_SESSION[user]['mod1'];
+$usuario[mod2]				= $_SESSION[user]['mod2'];
+$usuario[mod3]				= $_SESSION[user]['mod3'];
+$usuario[mod4]				= $_SESSION[user]['mod4'];
+$usuario[mod5]				= $_SESSION[user]['mod5'];
+$usuario[mod6]				= $_SESSION[user]['mod6'];
 
 #Log Txt | (nombre_archivo, usuario ID, usuario_nombre, usuario, nivel, ruta, URLparams)
 if($cfg[log_onoff] && $in[s]!=$var[LOGIN]){
