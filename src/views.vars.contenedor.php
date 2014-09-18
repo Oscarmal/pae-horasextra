@@ -141,9 +141,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$FOOTER 	= contenidoHtml($contenedor[FRM_FOOTER], $footer_opc);
 		// --	
 		// FRM_CONTENIDO
-		// $vista_new 	= vistas($seccion);
 		$vista_new 	= $contenedor[FRM_CONTENT];
-		// print_r($seccion); die();
 		$tpl_data 	= tpl_vars($seccion,$urlParams); 
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data); 
 
