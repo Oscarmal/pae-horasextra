@@ -59,18 +59,18 @@ function guardar(horas, fecha){
 		beforeSend: function(){    
 			var txt = "Guardando información, por favor espere...";		    
 		    ventana = popup('Guardando...',popup_ventana+txt,0,0,3);
+		    alert('2222');
 		},
 		success: function(respuesta){ 
 			$("#"+ventana).dialog( "close" );
 			if(respuesta.success){				
 				txt = "La información ha sido guardada correctamente.";
-				ventana = popup('Éxito',popup_ventana+txt,0,0,3);
-				
+				ventana = popup('Éxito',popup_ventana+txt,0,0,3);				
 				setTimeout(function(){location.reload(true);}, 2000);
 			}else if(respuesta.success){
 				txt = respuesta.error;
 				ventana = popup('Error',popup_ventana+txt,0,0,3);
-			}					
+			}				
 		},
 		complete: function(){ 
 			setTimeout(function(){

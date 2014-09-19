@@ -6,12 +6,12 @@ require_once($Path[src].MODULO.'/dao.captura.php');
 // Lógica de negocio
 if($ins[accion]=='insert'){
 	if(!empty($ins[horas]) && !empty($ins[fecha])){
-		$success = true;
-		$msj = 'Guardado';
+		$success = captura_insert(1, $usuario[id_personal], $ins[fecha], $ins[horas]);
+		$msj = ($success)?'Guardado':'No guardó';
 	}else{
 		$success = false;
-		$msj = 'No guardó';	
-	}
+		$msj = "Sin guardar por falta de datos.";
+	}		
 	$data = array(success => $success, message => $msj);
 	$data = json_encode($data);
 }

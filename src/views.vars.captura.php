@@ -17,7 +17,6 @@ $vistas = array(
 # Vistas
 function vistas($cmd){
 	global $vistas;
-	print_r(MODULO); die();
 	$comando = strtoupper(enArray(MODULO,$vistas));	
 	if(array_key_exists($comando,$vistas)){
 		$html = $vistas[$comando];
