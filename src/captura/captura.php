@@ -6,7 +6,7 @@ require_once($Path[src].MODULO.'/dao.captura.php');
 // Lógica de negocio
 if($ins[accion]=='insert'){
 	if(!empty($ins[horas]) && !empty($ins[fecha])){
-		$success = captura_insert(1, $usuario[id_personal], $ins[fecha], $ins[horas]);
+		$success = captura_insert(1, $usuario[id_personal], fecha_form($in[fecha]), $in[horas]);
 		$msj = ($success)?'Guardado':'No guardó';
 	}else{
 		$success = false;

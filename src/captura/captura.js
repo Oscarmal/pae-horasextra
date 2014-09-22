@@ -58,8 +58,7 @@ function guardar(horas, fecha){
 		},
 		beforeSend: function(){    
 			var txt = "Guardando información, por favor espere...";		    
-		    ventana = popup('Guardando...',popup_ventana+txt,0,0,3);
-		    alert('2222');
+		    ventana = popup('Guardando...',popup_ventana+txt,0,0,3);		    
 		},
 		success: function(respuesta){ 
 			$("#"+ventana).dialog( "close" );
