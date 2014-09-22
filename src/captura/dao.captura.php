@@ -7,7 +7,7 @@
 */
 function captura_select($auth=0, $id_horas_extra=0, $id_personal=0, $empleado_num=0, $grupo=0, $orden=0, $desc=0){
 	if($auth){
-		global $db;
+		global $db, $usuario;
 		$filtro	= ($id_horas_extra)?" and a.id_horas_extra='$id_horas_extra'":'';
 		$filtro.= ($id_personal)?" and a.id_personal='$id_personal'":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num='$empleado_num'":'';
@@ -31,7 +31,7 @@ function captura_select($auth=0, $id_horas_extra=0, $id_personal=0, $empleado_nu
 
 function captura_insert($auth=0, $id_personal=0, $fecha='', $horas=0){
 	if($auth){
-		global $db;
+		global $db, $usuario;
 		$timestamp = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO $db[tbl_horas_extra] SET
 					id_personal='$id_personal',
