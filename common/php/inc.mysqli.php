@@ -59,14 +59,15 @@ function SQLDo($SQL){
 //Ejecuta consultas de modificación
 	global $cfg, $db, $usuario;
 	if($db[db_onoff]){
+
 		$SQL = utf8_decode($SQL);
 		$Cmd=array('INSERT', 'UPDATE', 'DELETE');
 		$vSql=explode(' ',$SQL);
-		if(in_array(strtoupper($vSql[0]),$Cmd)){
+		if(in_array(strtoupper($vSql[0]),$Cmd)){			
 		    try{
 		    	$conn = SQLConn(); //Llama conexión
-		    	$qry = $conn->query($SQL)or die(mysqli_connect_errno($conn).' -> '.mysqli_connect_error()); //Ejecuta query	    	 			    	
-		    	// Guardar LOGS
+		    	$qry = $conn->query($SQL)or die(mysqli_connect_errno($conn).' -> '.mysqli_connect_error()); //Ejecuta query	    	 	
+				// Guardar LOGS
 		    	if($cfg[querylog_onoff]){
 			    	$Id = $conn->insert_id;
 					$TotRows = $conn->affected_rows;
@@ -88,7 +89,7 @@ function SQLDo($SQL){
 							$table=strtolower($t2[0]);
 						}
 						if($table!=$db[tbl_online]){
-							SQLLogs($table,$idtable,$action,$SQL,'',$usuario[id_usuario]);	
+							$logs=SQLLogs($table,$idtable,$action,$SQL,'',$usuario[id_usuario]);	
 						}
 					}
 				}
