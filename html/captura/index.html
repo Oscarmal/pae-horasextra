@@ -1,16 +1,23 @@
                   <div class="widget-box">
                     <div class="widget-content nopadding">
-                      <table width="100%" border="0" cellspacing="2" cellpadding="2" class="captura">
+                      <table width="100%" border="1" cellspacing="2" cellpadding="2" class="display captura" id="jGrid">
                         <thead>
-                          <th>ID</th>
-                          <th>ID Personal</th>
-                          <th>Fecha</th>
-                          <th>Horas Extra</th>
-                          <th>ID Concepto</th>
-                          <th>ID Usuario</th>
-                          <th>Timestamp</th>
-                          <th>Activo</th>
+                          <tr>
+                            <th>ID</th>
+                            <th>ID Personal</th>
+                            <th>Fecha</th>
+                            <th>Horas Extra</th>
+                            <th>ID Concepto</th>
+                            <th>ID Usuario</th>
+                            <th>Timestamp</th>
+                            <th>Activo</th>
+                          </tr>
                         </thead>
+                        <tfoot>
+                          <tr>
+                            <th colspan="8">&nbsp</th>
+                          </tr>
+                        </tfoot>
                         <tbody>
                           {TBL_RESULTS}
                         </tbody>

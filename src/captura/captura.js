@@ -2,6 +2,7 @@
 $(document).ready(function(){
 	scriptJs_Enter(); //Carga detección de ENTER
 	jquery_fecha('txtFecha');
+	jgrid('jGrid');
 
 	// Campo de Horas
 	// $(function(){

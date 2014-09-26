@@ -51,8 +51,8 @@ function vars_index($seccion, $urlParams){
 	$titulo 	= $dic[captura][index];
 	$tabla = captura_select(1,0,0,0,0,0,1);		
 	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr>';
-		for($i=0; $i<=count($registro); $i++){
+		$tbl_resultados .= '<tr class="gradeA">';
+		for($i=0; $i<count($registro)/2; $i++){
 			$tbl_resultados .= '<td>'.$registro[$i].'</td>';
 		}
 		$tbl_resultados .= '</tr>';
@@ -63,8 +63,8 @@ function vars_index($seccion, $urlParams){
 	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
 	## Envio de valores ##
 	$negocio = array(
-				 // MORE 		=> incJs($Path[srcjs].strtolower($seccion).'/captura.js')	
-				 MODULE 	=> strtolower(MODULO)
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/captura.js')	
+				,MODULE 	=> strtolower(MODULO)
 				,SECTION 	=> ($seccion)				 
 			);
 	$texto = array(
