@@ -54,7 +54,7 @@
 }
 
 .dataTables_wrapper .ui-toolbar {
-	padding: 5px; 
+	padding: 5px;
 }
 
 .dataTables_paginate {
@@ -126,7 +126,7 @@ table.display thead th div.DataTables_sort_wrapper span {
 }
 
 .dataTables_length {
-	width: 40%;
+	width: 50%;
 	float: left;
 }
 
@@ -473,10 +473,10 @@ tr.even.gradeU td.sorting_3 {
 /*
  * Row highlighting example
  */
-.ex_highlight #jGrid tbody tr.even:hover, #jGrid tbody tr.even td.highlighted {
+.ex_highlight #example tbody tr.even:hover, #example tbody tr.even td.highlighted {
 	background-color: #ECFFB3;
 }
 
-.ex_highlight #jGrid tbody tr.odd:hover, #jGrid tbody tr.odd td.highlighted {
+.ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
 	background-color: #E6FF99;
 }

@@ -170,4 +170,6 @@ function reloj(objName){
     document.getElementById(objName).innerHTML=horaImprimible;
     setTimeout("reloj('"+objName+"')",1000);
 }
+
+
 //O3M//
