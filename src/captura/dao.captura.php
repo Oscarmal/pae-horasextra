@@ -5,9 +5,15 @@
 * Creación:		2014-08-27
 * @author 		Oscar Maldonado
 */
-function captura_select($auth=0, $id_horas_extra=0, $id_personal=0, $empleado_num=0, $grupo=0, $orden=0, $desc=0){
-	if($auth){
+function captura_select($data=array()){
+	if($data[auth]){
 		global $db, $usuario;
+		$id_horas_extra = $data[id_horas_extra];
+		$id_personal 	= $data[id_personal];
+		$empleado_num 	= $data[empleado_num];
+		$grupo 			= $data[grupo];
+		$orden 			= $data[orden];
+		$desc 			= $data[desc];
 		$filtro	= ($id_horas_extra)?" and a.id_horas_extra='$id_horas_extra'":'';
 		$filtro.= ($id_personal)?" and a.id_personal='$id_personal'":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num='$empleado_num'":'';
@@ -36,9 +42,12 @@ function captura_select($auth=0, $id_horas_extra=0, $id_personal=0, $empleado_nu
 	return $resultado;
 }
 
-function captura_insert($auth=0, $id_personal=0, $fecha='', $horas=0){
-	if($auth){
+function captura_insert($data=array()){
+	if($data[auth]){
 		global $db, $usuario;
+		$id_personal 	= $data[id_personal];
+		$fecha 			= $data[fecha];
+		$horas 			= $data[horas];
 		$h = explode(':', $horas);
 		$horas = (!$h[1]) ? $h[0].':00' : $h[0].':'.$h[1];
 		$timestamp = date('Y-m-d H:i:s');

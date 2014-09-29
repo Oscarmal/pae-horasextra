@@ -47,9 +47,13 @@ function tpl_vars($cmd, $urlParams=array()){
 function vars_index($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##	
-	require_once($Path[src].strtolower(MODULO).'/dao.captura.php');
+	require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 	$titulo 	= $dic[captura][index];
-	$tabla = captura_select(1,0,0,0,0,0,1);			
+	$sqlData = array(
+			 auth 			=> 1
+			,desc			=> 1
+		);
+	$tabla = captura_select($sqlData);			
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
 		for($i=0; $i<count($registro)/2; $i++){
