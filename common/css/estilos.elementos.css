@@ -63,7 +63,13 @@ input:focus, textarea:focus, select:focus{
 }
 .calendario{
     background-position: right center;
-    background-image: url(../img/calendar_icon.png);
+    background-image: url(../img/calendario_icon.png);
+    background-repeat: no-repeat;
+    background-origin: content-box;
+}
+.horas{
+    background-position: right center;
+    background-image: url(../img/reloj_icon.png);
     background-repeat: no-repeat;
     background-origin: content-box;
 }
