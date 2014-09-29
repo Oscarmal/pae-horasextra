@@ -137,7 +137,10 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);
 		// --	
 		// FRM_FOOTER
-		$footer_opc = array(ANIO => date('Y'));
+		$footer_opc = array(
+					 ANIO 		=> date('Y')
+					,IMG_FOOTER => $Path[img].$var[img_footer]
+				);
 		$FOOTER 	= contenidoHtml($contenedor[FRM_FOOTER], $footer_opc);
 		// --	
 		// FRM_CONTENIDO

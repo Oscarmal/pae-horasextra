@@ -27,14 +27,16 @@ body{
   height:<var>header-<a href="/lab/css/fixed/theory#length">&lt;length&gt;</a></var>;
  background-color: #ffffff;
  }
- div#footer{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:<var>footer-<a href="/lab/css/fixed/
-  theory#length">&lt;length&gt;</a></var>;
- }
+div#footer{
+    position: fixed;
+    left:0;
+    width:100%;
+    bottom: 0;
+    background-color: #29adb0;
+    z-index: 1;
+    text-align: center;
+    height: 42px;
+}
  
  div#content{
  	position: relative;
