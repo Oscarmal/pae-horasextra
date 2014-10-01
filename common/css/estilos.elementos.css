@@ -11,8 +11,8 @@
 
 input, textarea, select{
     background-color: #FFF;
-    border: #DDD solid 2px;
-    height: 40px;
+    /*border: #DDD solid 2px;*/
+    /*height: 40px;*/
     font-size: 16px;
 }
 
@@ -81,4 +81,20 @@ input:focus, textarea:focus, select:focus{
 .fechaHeader{
     font-size: 0.7em;
     text-align: right;
+}
+/*Iconos de Autorización*/
+.ico-autorizacion{
+    background: url(../img/autorizado_no.png) no-repeat center top;
+    width: 40px;
+    height: 40px;
+}
+.ico-autorizacion-si{
+    background: url(../img/autorizado_active.png) no-repeat center top;
+    width: 40px;
+    height: 40px;
+}
+.ico-autorizacion-no{
+    background: url(../img/no_autorizado_active.png) no-repeat center top;
+    width: 40px;
+    height: 40px;
 }
