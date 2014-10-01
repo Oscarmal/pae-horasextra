@@ -34,7 +34,7 @@ function jgrid(idTabla){
         "oLanguage": {            
             // "sUrl": "grid.json" /*Cargar diccionario en formato JSON*/
             /*Cambiar bloque de mostrar*/
-            "sLengthMenu": 'Mostrar <select>'+
+            "sLengthMenu": 'Mostrar <select id="jGridViewsList">'+
                  '<option value="10">10</option>'+
                  '<option value="25">25</option>'+
                  '<option value="50">50</option>'+
