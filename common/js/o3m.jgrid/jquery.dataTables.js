@@ -28,6 +28,8 @@ function jgrid(idTabla){
     $('#'+idTabla).dataTable({
         "sScrollY": 270,
         "bJQueryUI": true, // Usar theme de jQuery UI
+        "bPaginate": true,
+	 	"bSort": true ,
         /*Lenguaje ES*/                 
         "oLanguage": {            
             // "sUrl": "grid.json" /*Cargar diccionario en formato JSON*/
