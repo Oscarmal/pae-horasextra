@@ -1,4 +1,4 @@
-<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
+<?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
 /**
 * 				Funciones "DAO"
 * Descripcion:	Ejecuta consultas SQL y devuelve el resultado.
@@ -11,12 +11,18 @@ function captura_select($data=array()){
 		$id_horas_extra = $data[id_horas_extra];
 		$id_personal 	= $data[id_personal];
 		$empleado_num 	= $data[empleado_num];
+		$estatus		= $data[estatus];
 		$grupo 			= $data[grupo];
 		$orden 			= $data[orden];
 		$desc 			= $data[desc];
 		$filtro	= ($id_horas_extra)?" and a.id_horas_extra='$id_horas_extra'":'';
 		$filtro.= ($id_personal)?" and a.id_personal='$id_personal'":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num='$empleado_num'":'';
+		if($status && $status!=1){
+			$filtro.=" and d.estatus='$estatus'";
+		}elseif($estatus){
+			$filtro.=" and d.estatus IS NULL";
+		}
 		$desc 	= ($desc)?" DESC":' ASC';
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
 		$orden 	= ($orden)?"ORDER BY $orden".$desc:'ORDER BY a.id_horas_extra'.$desc;
@@ -30,7 +36,8 @@ function captura_select($data=array()){
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
-				WHERE 1=1 
+				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
+				WHERE 1 
 				$filtro $grupo $orden
 				;";
 		$resultado = SQLQuery($sql);

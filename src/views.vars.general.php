@@ -1,4 +1,4 @@
-<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
+<?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
 /* O3M
 * Manejador de Vistas y asignación de variables
 * 

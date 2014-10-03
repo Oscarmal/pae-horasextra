@@ -1,4 +1,4 @@
-<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
+<?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
 /* O3M
 * Manejador de Vistas y asignación de variables
 * 
@@ -37,15 +37,15 @@ $frm_vistas = array(
 			 	)
 			,CONSULTA => 
 			 	array(
-			 		 CONSULTA 		=> 'consulta.html'
+			 		 INDEX 		=> 'index.html'
 			 	) 
 			,AUTORIZACION => 
 			 	array(
-			 		 AUTORIZACION 	=> 'autorizacion.html'
+			 		 INDEX 			=> 'index.html'
 			 	) 
 			,REPORTES => 
 			 	array(
-			 		 REPORTES 		=> 'reportes.html'
+			 		 INDEX 			=> 'index.html'
 			 		,REPORTE1 		=> 'reporte1.html'
 			 		,REPORTE2 		=> 'reporte2.html'
 			 		,REPORTE3 		=> 'reporte3.html'
@@ -62,10 +62,9 @@ function frm_vistas($cmd){
 	global $contenedor; 
 	$seccion = $cmd;
 	if(array_key_exists($seccion,$contenedor)){
-		$html = strtolower($contenedor[$seccion]);		
+		$html = strtolower($contenedor[$seccion]);			
 	}else{
-		$html = $contenedor
-		[ERROR];
+		$html = $contenedor[ERROR];
 	}
 	return $html;
 }
@@ -79,7 +78,6 @@ function frm_vars($modulo, $seccion, $urlParams=array()){
 		$inc = $modulos[$mod];
 	}
 	if($sec){
-
 		$vars = vars_frame($urlParams, $inc, $modulo, $seccion);
 	}else{
 		$vars = vars_frm_error($sec);		
@@ -93,6 +91,7 @@ function frm_vars($modulo, $seccion, $urlParams=array()){
 
 function vars_frame($urlParams, $inc, $modulo, $seccion){
 // Carga la vista del Contenedor principal
+	// print_r($inc);	die();
 	global $var, $Path, $dic, $contenedor, $usuario;	
 	## Logica de negocio ##
 	if(!file_exists($Path[src].$inc)){				
@@ -126,13 +125,13 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC22		=> '../site/?m='.$var[CAPTURA].'&s='.$var[CAPTURA]
 					,txt_opc3		=> $dic[general][autorizacion]
 					,img_opc3		=> $var[menu_opc3]
-					,LINK_OPC3		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION]
+					,LINK_OPC3		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
-					,LINK_OPC4		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA]
+					,LINK_OPC4		=> '../site/?m='.$var[CONSULTA].'&s='.$var[INDEX]
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]
-					,LINK_OPC5		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTES]
+					,LINK_OPC5		=> '../site/?m='.$var[REPORTES].'&s='.$var[INDEX]
 				);
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);
 		// --	

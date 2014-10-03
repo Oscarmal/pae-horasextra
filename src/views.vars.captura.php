@@ -1,4 +1,4 @@
-<?php session_name('o3m_he'); session_start(); include_once($_SESSION['header_path']);
+<?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
 /* O3M
 * Manejador de Vistas y asignación de variables
 * CAPTURA
@@ -50,8 +50,9 @@ function vars_index($seccion, $urlParams){
 	require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 	$titulo 	= $dic[captura][index];
 	$sqlData = array(
-			 auth 			=> 1
-			,desc			=> 1
+			 auth 		=> 1
+			,estatus	=> 1
+			,desc		=> 1
 		);
 	$tabla = captura_select($sqlData);			
 	foreach ($tabla as $registro) {		
