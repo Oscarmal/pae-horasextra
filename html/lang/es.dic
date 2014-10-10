@@ -25,12 +25,13 @@ login|msj_entrar=Ingrese sus datos de usuario
 login|msj_noauth=Sin autorización para accesar
 login|msj_salir=Sesión Cerrada
 # Captura
-captura|titulo=Ingreso de horas extra
+captura|titulo=Ingreso de horas extra capturadas
 captura|index=Listado de horas extra
 captura|horas_extra=Nueva Captura
 captura|guardar=Guardar
 # Autorizacion
 autorizacion|titulo=Autorización de horas extra
+autorizacion|guardar=Aplicar Autorizaciones
 # Consulta
 consulta|titulo=Consultas
 # Reportes

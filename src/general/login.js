@@ -4,18 +4,20 @@ $(document).ready(function(){
 });
 
 function btnSubmit(){
+	var raiz = raizPath();
 	var usuario = $('#txtUsuario').val();
 	var clave = $('#txtClave').val();
 	var msj = '';
-	if(usuario == ''){
+	var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' valign='middle' align='texttop'>&nbsp";
+	if(usuario == ''){		
 		msj = 'Ingrese su Usuario, por favor...';
-		popup('Usuario',msj,0,0,1,'txtUsuario');
+		popup('Usuario',popup_ico+msj,0,0,1,'txtUsuario');
 		$("#txtUsuario").focus();
 		return false;
 	}
 	if(clave == ''){
 		msj = 'Ingrese su Clave, por favor...';
-		popup('Clave',msj,0,0,1,'txtClave');
+		popup('Clave',popup_ico+msj,0,0,1,'txtClave');
 		$("#txtClave").focus();
 		return false;
 	}	
@@ -39,10 +41,10 @@ function login(usuario, clave){
 			usuario : usuario,
 			clave : clave
 		},
-		beforeSend: function(){    
+		beforeSend: function(){
+			popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
 			txt = "Validando credenciales, por favor espere...";
-		    msj = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp "+txt;
-		    popup('Autentificando',msj,0,0,3);  		    
+		    popup('Autentificando',popup_ico+txt,0,0,3);  		    
 		},
 		success: function(respuesta){ 
 			setTimeout(function(){	$(location).attr('href', respuesta.url)	}, 2000);

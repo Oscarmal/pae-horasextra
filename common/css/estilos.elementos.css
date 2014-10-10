@@ -98,3 +98,32 @@ input:focus, textarea:focus, select:focus{
     width: 40px;
     height: 40px;
 }
+
+.popup-ico{
+    float: left; 
+    margin: 0px 15px 15px 0px;
+}
+
+.popup-txt{
+    margin-top: -5%;
+    margin-left: 30%;
+    width: 250px;
+    text-align: left;    
+}
+
+#btn-xls{
+    width: 150px;
+    margin-top: 1%;
+    margin-left: 35%;
+    text-align:center;
+}
+.xls{
+    width: 220px;
+    height:30px; 
+    margin-left: 35%;
+}
+.xls ul {
+    list-style-image: url(../img/excel.gif);
+    width: 90%;
+    margin: auto;
+}
