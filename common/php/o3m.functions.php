@@ -304,5 +304,153 @@ function fecha_form($fecha){
 	$fecha = date_format($fecha, 'Y-m-d H:i:s');
 	return $fecha;
 }
+
+function xls($descarga=true, $datos=array(), $colsTitulos=array(), $archivo='tmp', $tituloTabla='TABLA', $hoja=''){
+/*
+// Generación de XLS //
+$tabla = capturados_select($sqlData);
+$nameArchivo = 'HE_Horas-Extra';
+$nameHoja1 = 'HE - Horas Extra';
+$titulos = array('ID','Nombre Completo','No. Empleado','Fecha','Horas','Capturado por','Capturado el');
+xls($tabla, $titulos, $nameArchivo, 1, $nameHoja1, '');
+*/
+	global $Path;
+	require_once($Path[php].'class.spreadsheetExcelWriter.php');
+	// Parametros            
+	$x=0; #Filas
+	$y=0; #Columnas
+	$extensiones = array('/.xlsx/','/.xls/','/.csv/');
+	$archivo = preg_replace($extensiones, '', $archivo); #limpia extensiones
+	$archivo = $archivo.'_'.date('Ymd-His');
+	$hoja = (empty($hoja))?date('Ymd-His'):$hoja;
+	$filename[filename] = $archivo.'.xls';
+	if(!$descarga){            
+	    /*Para crear en directorio de servidor*/
+	    $filename[opc] = 'onserver';
+	    $filename[local] = $Path[tmp].$filename[filename];
+	    $filename[url] = $Path[tmpurl].$filename[filename];
+	    $xls = new Spreadsheet_Excel_Writer($filename[local]);            
+	}else{
+	    /*Para descarga*/
+	    $filename[opc] = 'download';
+	    $filename[url] = $archivo;
+	    $xls = new Spreadsheet_Excel_Writer();
+	    $xls->send($filename[url]);     #Envio de headers HTML
+	}
+	// Cracion de hoja
+	$hoja1 = $xls->addWorksheet($hoja);
+	// Formatos
+	#Colores: setCustomColor(Indice, R,G,B)
+	/*
+	    Indices Predefinidos:
+	          0 -> Error
+	          1 -> Blanco
+	          2 -> Rojo
+	          3 -> Verde
+	          4 -> Azul
+	          5 -> Amarillo
+	          6 -> Magenta
+	          7 -> Cyan
+	          8 -> Negro
+	*/
+	$xls->setCustomColor(9, 255, 255, 255);   #Blanco
+	$xls->setCustomColor(10, 0, 0, 0);        #Negro      
+	$xls->setCustomColor(11, 51, 51, 51);     #333333
+	$xls->setCustomColor(12, 221, 221, 221);  #DDDDDD
+	$xls->setCustomColor(13, 204, 204, 204);  #CCCCCC   
+	$xls->setCustomColor(14, 45, 186, 113);   #2DBA71 : Verde PAE
+	$xls->setCustomColor(15, 5, 110, 247);    #056EF7 : Azul
+	/*
+	$f0=$xls->addFormat(array(
+					 'Size' 		=> 10 		# Tamaños de letra
+	                      ,'Align' 		=> 'center'		# Alineacion
+	                      ,'Color' 		=> 'green'		# Color de letra
+	                      ,'Bold'		=> 1 		      # Negrita
+	                      ,'Underline'	=> 1 			# Subrrayado
+	                      ,'Pattern'  	=> 1       		# Patron de relleno
+	                      ,'FgColor' 		=> 'magenta'	# Color de fondo
+	                      ,'Border'		=> 1 			# Borde de celda
+	                      ,'BorderColor' 	=> 'blue'		# Color de borde
+	                      ,'TextRotation'   => ''			# Grados de Rotación de texto: -1, 0, 90, 180	
+	                      ,'Locked' 		=> 1 			# Bloquear celda
+	                	));
+	*/
+	#Titulos de tabla
+	$fTitulos = $xls->addFormat();
+	$fTitulos -> setFgColor(14);        # Fondo
+	$fTitulos -> setBgColor('magenta'); # Color de Patron
+	$fTitulos -> setPattern(1);         # Patron: 0-18 | 0 = no background
+	$fTitulos -> setColor(9);          # Color de fuente
+	$fTitulos -> setSize(11);           # Tamaño de fuente
+	$fTitulos -> setAlign(vcenter);     # Alineacion V: top, vcenter, bottom, vjustify, vequal_space
+	$fTitulos -> setAlign(center);      # Alineacion H: left, center, right, fill, justify, merge, equal_space
+	$fTitulos -> setBold(1);            # Negrita: 1=bold, 400=normal, 700=Bold, 1000=extraBold
+	$fTitulos -> setUnderline(false);    # Subrrayado
+	$fTitulos -> setBorder(1);          # Borde de celda: 1 => thin, 2 => thick
+	$fTitulos -> setBorderColor(9);    # Color de borde
+	$fTitulos -> setTextRotation(0);    # Grados de Rotación de texto: -1, 0, 90, 180  
+	// #Contenido
+	$fTxtOdd = $xls->addFormat();
+	$fTxtOdd -> setFgColor(9);        # Fondo
+	$fTxtOdd -> setColor(10);          # Color de fuente
+	$fTxtOdd -> setSize(11);           # Tamaño de fuente
+	$fTxtOdd -> setAlign(vcenter);     # Alineacion V: top, vcenter, bottom, vjustify, vequal_space
+	$fTxtOdd -> setAlign(center);      # Alineacion H: left, center, right, fill, justify, merge, equal_space
+	$fTxtOdd -> setBorder(1);          # Borde de celda: 1 => thin, 2 => thick
+	$fTxtOdd -> setBorderColor(13);    # Color de borde
+	// --
+	$fTxtEven = $xls->addFormat();
+	$fTxtEven -> setFgColor(12);        # Fondo
+	$fTxtEven -> setColor(10);          # Color de fuente
+	$fTxtEven -> setSize(11);           # Tamaño de fuente
+	$fTxtEven -> setAlign(vcenter);     # Alineacion V: top, vcenter, bottom, vjustify, vequal_space
+	$fTxtEven -> setAlign(center);      # Alineacion H: left, center, right, fill, justify, merge, equal_space
+	$fTxtEven -> setBorder(1);          # Borde de celda: 1 => thin, 2 => thick
+	$fTxtEven -> setBorderColor(13);    # Color de borde
+
+	// TODO: Funcion para auto-ajustar las columnas al ancho del contenido
+	// function autofit_columns($obj) { 
+	//     $col = 0;       
+	//     // var_dump($obj->_worksheets);
+	//     while ($width=$obj->col_sizes){   
+	//       if($width){   
+	//             $obj->set_column($col, $col, $width);
+	//       }
+	//       $col++;
+	//     }
+	// }
+	// autofit_columns($xls);
+
+	// Construccion de contenido 
+	// write($x,$y,$valor,$formato) ==> $x=>Fila; $y=>Columna
+	#Titulos
+	$hoja1->write($x, $y, $tituloTabla, $fTitulos);
+	$hoja1->mergeCells($x, $y, $x, count($colsTitulos)-1); # Combinar celdas      
+	$x++;
+	foreach($colsTitulos as $tCol){
+		$hoja1->write($x, $y, $tCol, $fTitulos);
+		$y++;
+	}
+	$x++;       
+	#Contenido
+	foreach($datos as $registro){	
+	    #Formatos            
+	    $fRegistro = (++$r%2==1)?($fTxtOdd):($fTxtEven);
+	    #Datos
+	    $soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$datos; #Seleccion de arreglo
+      	$y=0;
+      	for($i=0; $i<count($data)/2; $i++){		
+      		$hoja1->write($x, $y, $data[$i], $fRegistro);
+      		$y++;
+      	}
+      	$x++;
+	    if($soloUno) break;
+	}
+	// Cerrar y crear archivo
+	$resultado = $xls->close();
+	/*Fin de XLS*/
+	return $filename;
+}
 /*O3M*/
 ?>
