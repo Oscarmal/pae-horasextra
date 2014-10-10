@@ -305,30 +305,53 @@ function fecha_form($fecha){
 	return $fecha;
 }
 
-function xls($descarga=true, $datos=array(), $colsTitulos=array(), $archivo='tmp', $tituloTabla='TABLA', $hoja=''){
+// function xls($descarga=true, $datos=array(), $colsTitulos=array(), $archivo='tmp', $tituloTabla='TABLA', $hoja='', $directorio=false){
+function xls($params=array()){
 /*
 // Generación de XLS //
-$tabla = capturados_select($sqlData);
-$nameArchivo = 'HE_Horas-Extra';
-$nameHoja1 = 'HE - Horas Extra';
-$titulos = array('ID','Nombre Completo','No. Empleado','Fecha','Horas','Capturado por','Capturado el');
-xls($tabla, $titulos, $nameArchivo, 1, $nameHoja1, '');
+	  $tabla = xls_select($sqlData);
+      $titulos = array('ID','Nombre Completo','No. Empleado','Fecha','Horas','Estatus','Capturado por','Capturado el');
+      $xlsData = array(
+                         descarga         => false
+                        ,datos            => $tabla
+                        ,colsTitulos      => $titulos
+                        ,archivo          => 'HE_Horas-Extra'
+                        ,tituloTabla      => 'HE - Horas Extra'
+                        ,hoja             => 'Hoja1'
+                        ,directorio       => $cfg[path_docs].'autorizacion/'
+                  );
+      $xls = xls($xlsData);
 */
-	global $Path;
+	global $Path, $Raiz;
 	require_once($Path[php].'class.spreadsheetExcelWriter.php');
-	// Parametros            
+	// Parametros recibidos
+	$descarga	= (!isset($params[descarga]))?false:$params[descarga];
+	$datos 		= (!isset($params[datos]))?array():$params[datos];
+	$colsTitulos= (!isset($params[colsTitulos]))?array():$params[colsTitulos]; 
+	$archivo 	= (!isset($params[archivo]))?'tmp':$params[archivo];
+	$tituloTabla= (!isset($params[tituloTabla]))?'TABLA':$params[tituloTabla]; 
+	$hoja 		= (!isset($params[hoja]))?'':$params[hoja];
+	$directorio = (!isset($params[directorio]))?false:$params[directorio];
+	// Parametros inicales
 	$x=0; #Filas
 	$y=0; #Columnas
+	if (file_exists($Raiz[local].$directorio)){
+		$dirLocal 	= $Raiz[local].$directorio;
+		$dirUrl		= $Raiz[url].$directorio;
+	}else{
+		$dirLocal 	= $Path[tmp];
+		$dirUrl 	= $Path[tmpurl];
+	}
 	$extensiones = array('/.xlsx/','/.xls/','/.csv/');
-	$archivo = preg_replace($extensiones, '', $archivo); #limpia extensiones
-	$archivo = $archivo.'_'.date('Ymd-His');
-	$hoja = (empty($hoja))?date('Ymd-His'):$hoja;
+	$archivo 	 = preg_replace($extensiones, '', $archivo); #limpia extensiones
+	$archivo 	 = $archivo.'_'.date('Ymd-His');
+	$hoja 		 = (empty($hoja))?date('Ymd-His'):$hoja;
 	$filename[filename] = $archivo.'.xls';
 	if(!$descarga){            
 	    /*Para crear en directorio de servidor*/
 	    $filename[opc] = 'onserver';
-	    $filename[local] = $Path[tmp].$filename[filename];
-	    $filename[url] = $Path[tmpurl].$filename[filename];
+	    $filename[local] = $dirLocal.$filename[filename];
+	    $filename[url] = $dirUrl.$filename[filename];
 	    $xls = new Spreadsheet_Excel_Writer($filename[local]);            
 	}else{
 	    /*Para descarga*/
@@ -393,7 +416,7 @@ xls($tabla, $titulos, $nameArchivo, 1, $nameHoja1, '');
 	$fTxtOdd = $xls->addFormat();
 	$fTxtOdd -> setFgColor(9);        # Fondo
 	$fTxtOdd -> setColor(10);          # Color de fuente
-	$fTxtOdd -> setSize(11);           # Tamaño de fuente
+	$fTxtOdd -> setSize(10);           # Tamaño de fuente
 	$fTxtOdd -> setAlign(vcenter);     # Alineacion V: top, vcenter, bottom, vjustify, vequal_space
 	$fTxtOdd -> setAlign(center);      # Alineacion H: left, center, right, fill, justify, merge, equal_space
 	$fTxtOdd -> setBorder(1);          # Borde de celda: 1 => thin, 2 => thick
