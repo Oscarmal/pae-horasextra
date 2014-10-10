@@ -13,6 +13,9 @@ function capturados_select($data=array()){
 		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
 		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
 		$estatus		= (is_array($data[estatus]))?implode(',',$data[estatus]):$data[estatus];
+		$xls			= (is_array($data[xls]))?implode(',',$data[xls]):$data[xls];
+		$activo			= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
+		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
 		$filtro	= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
@@ -23,6 +26,9 @@ function capturados_select($data=array()){
 		}elseif($estatus){
 			$filtro.=" and d.estatus IS NULL";
 		}
+		$filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
+		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
 		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY a.id_horas_extra ASC';
 		$sql = "SELECT a.id_horas_extra
@@ -30,7 +36,8 @@ function capturados_select($data=array()){
 					,b.empleado_num
 					,DATE_FORMAT(a.fecha,'%d/%m/%Y') as fecha
 					,DATE_FORMAT(a.horas,'%H:%i') as horas
-					,xls
+					,d.estatus
+					,d.xls
 					,c.usuario as capturado_por
 					,a.timestamp as capturado_el
 				FROM $db[tbl_horas_extra] a
