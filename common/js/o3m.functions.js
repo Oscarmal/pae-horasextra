@@ -171,5 +171,16 @@ function reloj(objName){
     setTimeout("reloj('"+objName+"')",1000);
 }
 
+function buildBtn(idObjeto,texto,evento,clase){
+    if(idObjeto){
+        if(!texto){ texto = 'Botón';}       
+        if(!clase){ clase = 'btn';}
+        if(!evento){ evento = 'btnSubmit()';}
+        var objeto = '<input type="button" id="'+idObjeto+'" name="'+idObjeto+'" class="'+clase+'" value="'+texto+'" onclick="'+evento+'">';
+        return objeto;
+    }else{
+        return false;
+    }
+}
 
 //O3M//
