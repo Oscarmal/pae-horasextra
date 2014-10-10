@@ -7,6 +7,8 @@
 global $vistas, $contenidos, $icono;
 $icono = $var[ico_01];
 define(MODULO,'CAPTURA');
+require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
+require_once($Path[src].'build.contenidos.php');
 # Vistas HTML
 $vistas = array(
 		 INDEX 		=> 'index.html'
@@ -46,22 +48,9 @@ function tpl_vars($cmd, $urlParams=array()){
 
 function vars_index($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
-	## Logica de negocio ##	
-	require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
+	## Logica de negocio ##		
 	$titulo 	= $dic[captura][index];
-	$sqlData = array(
-			 auth 		=> 1
-			,estatus	=> 1
-			,desc		=> 1
-		);
-	$tabla = captura_select($sqlData);			
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr class="gradeA">';
-		for($i=0; $i<count($registro)/2; $i++){
-			$tbl_resultados .= '<td>'.$registro[$i].'</td>';
-		}
-		$tbl_resultados .= '</tr>';
-	}	
+	$tbl_resultados = build_grid_captura();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
