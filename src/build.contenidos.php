@@ -96,6 +96,9 @@ function build_grid_autorizadas(){
 				,'horas'
 				,'capturado_por'
 				,'capturado_el'
+				,'estatus'
+				,'concepto_clave'
+				,'xls'
 			);
 	$conceptos = conceptos_select(array(auth=>1));
 	foreach($conceptos as $concepto){
@@ -108,10 +111,10 @@ function build_grid_autorizadas(){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 		}
-		$tbl_resultados .= '<td align="center">
-								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
-								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
-							</td>';
+		// $tbl_resultados .= '<td align="center">
+		// 						<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+		// 						<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+		// 					</td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

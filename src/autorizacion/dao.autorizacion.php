@@ -38,12 +38,14 @@ function capturados_select($data=array()){
 					,DATE_FORMAT(a.horas,'%H:%i') as horas
 					,d.estatus
 					,d.xls
+					,e.clave as concepto_clave
 					,c.usuario as capturado_por
 					,a.timestamp as capturado_el
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
 				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
+				LEFT JOIN $db[tbl_conceptos] e ON d.id_concepto=e.id_concepto
 				WHERE 1 
 				$filtro $grupo $orden
 				;";

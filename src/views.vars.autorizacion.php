@@ -74,7 +74,7 @@ function vars_index($seccion, $urlParams){
 function vars_listado($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[autorizacion][listado];
+	$titulo 	= $dic[autorizacion][titulo2];
 	$tbl_resultados = build_grid_autorizadas();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
