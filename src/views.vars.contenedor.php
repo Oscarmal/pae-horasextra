@@ -42,6 +42,7 @@ $frm_vistas = array(
 			,AUTORIZACION => 
 			 	array(
 			 		 INDEX 			=> 'index.html'
+			 		,LISTADO		=> 'listado.php'
 			 	) 
 			,REPORTES => 
 			 	array(
@@ -112,10 +113,12 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		require_once($Path[src].'build.menu.php');
 		$menu = buildMenu(4);
 		$menu_opc = array(	
-					 MENU 			=> $menu		 
+					 MENU 			=> $menu
+					// Inicio
 					,txt_opc1		=> $dic[general][inicio]
 					,img_opc1		=> $var[menu_opc1]
 					,LINK_OPC1		=> '../site/?m='.$var[GENERAL].'&s='.$var[INICIO]
+					// Captura
 					,txt_opc2		=> $dic[general][captura]
 					,img_opc2		=> $var[menu_opc2]
 					,LINK_OPC2		=> '#'
@@ -123,12 +126,19 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC21		=> '../site/?m='.$var[CAPTURA].'&s='.$var[INDEX]
 					,txt_opc22		=> $dic[captura][horas_extra]
 					,LINK_OPC22		=> '../site/?m='.$var[CAPTURA].'&s='.$var[CAPTURA]
+					// Autorizaciones
 					,txt_opc3		=> $dic[general][autorizacion]
 					,img_opc3		=> $var[menu_opc3]
-					,LINK_OPC3		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]
+					,LINK_OPC3		=> '#'
+					,txt_opc31		=> $dic[autorizacion][listado]
+					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LISTADO]
+					,txt_opc32		=> $dic[autorizacion][index]
+					,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]					
+					// Consulta
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
 					,LINK_OPC4		=> '../site/?m='.$var[CONSULTA].'&s='.$var[INDEX]
+					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]
 					,LINK_OPC5		=> '../site/?m='.$var[REPORTES].'&s='.$var[INDEX]

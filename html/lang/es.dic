@@ -32,6 +32,8 @@ captura|guardar=Guardar
 # Autorizacion
 autorizacion|titulo=Autorización de horas extra
 autorizacion|guardar=Aplicar Autorizaciones
+autorizacion|index=Aplicar Autorizaciones
+autorizacion|listado=Listado de autorizaciones
 # Consulta
 consulta|titulo=Consultas
 # Reportes

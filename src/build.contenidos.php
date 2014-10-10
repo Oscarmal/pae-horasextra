@@ -34,6 +34,7 @@ function build_grid_captura(){
 	}
 	return $tbl_resultados;
 }
+
 function build_grid_autorizaciones(){
 // Construye grid de autorizaciones
 	$sqlData = array(
@@ -69,6 +70,44 @@ function build_grid_autorizaciones(){
 									'.$opts.'
 								</select>
 							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+
+function build_grid_autorizadas(){
+// Construye grid de autorizadas
+	$sqlData = array(
+			 auth 		=> true
+			,estatus 	=> 1
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = capturados_select($sqlData);	
+	$campos = array(
+				 'id_horas_extra'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'
+				,'capturado_por'
+				,'capturado_el'
+			);
+	$conceptos = conceptos_select(array(auth=>1));
+	foreach($conceptos as $concepto){
+		$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
+	}
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+		}
 		$tbl_resultados .= '<td align="center">
 								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
