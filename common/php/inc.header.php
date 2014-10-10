@@ -24,6 +24,7 @@ $Path[css]=$Raiz[url].$cfg[path_css];
 $Path[img]=$Raiz[url].$cfg[path_img];
 $Path[log]=$Raiz[local].$cfg[path_log];
 $Path[tmp]=$Raiz[local].$cfg[path_tmp];
+$Path[tmpurl]=$Raiz[url].$cfg[path_tmp];
 $Path[html]=$Raiz[local].$cfg[path_html];
 $Path[src]=$Raiz[local].$cfg[path_src];
 $Path[srcjs]=$Raiz[url].$cfg[path_src];
