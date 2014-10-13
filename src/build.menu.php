@@ -4,27 +4,23 @@
 * 
 */
 function buildMenu($elementos=0){
-	global $Path;
-	for($i=2; $i<=$elementos+1; $i++){
+	global $Path, $usuario;
+	for($i=1; $i<=$elementos+1; $i++){
 		$link 	= 'LINK_OPC'.$i;
 		$img 	= 'img_opc'.$i;
 		$txt 	= 'txt_opc'.$i;
-		switch($i){
-			case 2 : $submenu = '
-				<ul>
-		        	<li><a href="{LINK_OPC21}">{txt_opc21}</a></li>
-		        	<li><a href="{LINK_OPC22}">{txt_opc22}</a></li>
-		         </ul>';
-				break;
-			case 3 : $submenu = '
-				<ul>
-		        	<li><a href="{LINK_OPC31}">{txt_opc31}</a></li>
-		        	<li><a href="{LINK_OPC32}">{txt_opc32}</a></li>
-		         </ul>';
-				break;
-			default: $submenu = ''; break;
+		if($usuario[accesos][mod.$i]){
+			switch($i){
+				case 4 : $submenu = '
+					<ul>
+			        	<li><a href="{LINK_OPC41}">{txt_opc41}</a></li>
+			        	<li><a href="{LINK_OPC42}">{txt_opc42}</a></li>
+			         </ul>';
+					break;
+				default: $submenu = ''; break;
+			}
+			$opc   .= '<li><a href="{'.$link.'}" target="_self"><img src="'.$Path[img].'{'.$img.'}" alt="" class="icono_dos"/>{'.$txt.'}</a>'.$submenu.'</li>';
 		}
-		$opc   .= '<li><a href="{'.$link.'}" target="_self"><img src="'.$Path[img].'{'.$img.'}" alt="" class="icono_dos"/>{'.$txt.'}</a>'.$submenu.'</li>';
 	}
 	return $opc;
 }

@@ -70,12 +70,12 @@ $usuario[empleado_num]		= $_SESSION[user]['empleado_num'];
 $usuario[email]				= $_SESSION[user]['email'];
 $usuario[empresa]			= $_SESSION[user]['empresa'];
 $usuario[pais]				= $_SESSION[user]['pais'];
-$usuario[mod1]				= $_SESSION[user]['mod1'];
-$usuario[mod2]				= $_SESSION[user]['mod2'];
-$usuario[mod3]				= $_SESSION[user]['mod3'];
-$usuario[mod4]				= $_SESSION[user]['mod4'];
-$usuario[mod5]				= $_SESSION[user]['mod5'];
-$usuario[mod6]				= $_SESSION[user]['mod6'];
+$usuario[accesos][mod1]		= $_SESSION[user]['accesos']['mod1'];
+$usuario[accesos][mod2]		= $_SESSION[user]['accesos']['mod2'];
+$usuario[accesos][mod3]		= $_SESSION[user]['accesos']['mod3'];
+$usuario[accesos][mod4]		= $_SESSION[user]['accesos']['mod4'];
+$usuario[accesos][mod5]		= $_SESSION[user]['accesos']['mod5'];
+$usuario[accesos][mod6]		= $_SESSION[user]['accesos']['mod6'];
 
 #Log Txt | (nombre_archivo, usuario ID, usuario_nombre, usuario, nivel, ruta, URLparams)
 if($cfg[log_onoff] && $in[s]!=$var[LOGIN]){

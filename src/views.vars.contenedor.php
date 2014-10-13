@@ -8,9 +8,9 @@ require_once('views.vars.error.php');
 #Modulos
 $modulos = array(
 			 GENERAL 		=> 'views.vars.general.php'
-			,CAPTURA 		=> 'views.vars.captura.php'
-			,CONSULTAS 		=> 'views.vars.consultas.php'
+			,CAPTURA 		=> 'views.vars.captura.php'			
 			,AUTORIZACION 	=> 'views.vars.autorizacion.php'
+			,CONSULTA 		=> 'views.vars.consulta.php'
 			,REPORTES 		=> 'views.vars.reportes.php'
 			,ADMIN 			=> 'views.vars.admin.php'
 		);
@@ -32,18 +32,18 @@ $frm_vistas = array(
 			 	)
 			,CAPTURA => 
 			 	array(
-			 		 INDEX 			=> 'index.html'
-			 		,CAPTURA 		=> 'captura.html'			 		
+			 		 CAPTURA 		=> 'captura.html'			 		
+			 	)			
+			,AUTORIZACION => 
+			 	array(
+			 		 INDEX 			=> 'autorizacion.html'
 			 	)
 			,CONSULTA => 
 			 	array(
-			 		 INDEX 		=> 'index.html'
-			 	) 
-			,AUTORIZACION => 
-			 	array(
 			 		 INDEX 			=> 'index.html'
-			 		,LISTADO		=> 'listado.php'
-			 	) 
+			 		,CAPTURA 		=> 'captura_listado.html'
+			 		,AUTORIZACION 	=> 'autorizacion_listado.html'
+			 	)  
 			,REPORTES => 
 			 	array(
 			 		 INDEX 			=> 'index.html'
@@ -121,23 +121,19 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					// Captura
 					,txt_opc2		=> $dic[general][captura]
 					,img_opc2		=> $var[menu_opc2]
-					,LINK_OPC2		=> '#'
-					,txt_opc21		=> $dic[captura][index]
-					,LINK_OPC21		=> '../site/?m='.$var[CAPTURA].'&s='.$var[INDEX]
-					,txt_opc22		=> $dic[captura][horas_extra]
-					,LINK_OPC22		=> '../site/?m='.$var[CAPTURA].'&s='.$var[CAPTURA]
+					,LINK_OPC2		=> '../site/?m='.$var[CAPTURA].'&s='.$var[CAPTURA]
 					// Autorizaciones
 					,txt_opc3		=> $dic[general][autorizacion]
 					,img_opc3		=> $var[menu_opc3]
-					,LINK_OPC3		=> '#'
-					,txt_opc31		=> $dic[autorizacion][listado]
-					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LISTADO]
-					,txt_opc32		=> $dic[autorizacion][index]
-					,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]					
+					,LINK_OPC3		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]				
 					// Consulta
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
-					,LINK_OPC4		=> '../site/?m='.$var[CONSULTA].'&s='.$var[INDEX]
+					,LINK_OPC4		=> '#'
+					,txt_opc41		=> $dic[consulta][captura_menu]
+					,LINK_OPC41		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CAPTURA]
+					,txt_opc42		=> $dic[consulta][autorizacion_menu]
+					,LINK_OPC42		=> '../site/?m='.$var[CONSULTA].'&s='.$var[AUTORIZACION]
 					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]
