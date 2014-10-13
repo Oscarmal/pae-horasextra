@@ -225,6 +225,22 @@ function diccionario($filename='es.dic') {
 	}	   
 }
 
+function filtro_grupo($grupos=array()){
+// Validación de grupos de acceso
+	global $usuario;
+	switch ($usuario[grupo]){	
+		#Desarrollo:
+		case 1 : $filtro = $grupos[0]; break;
+		#Usuario Global:	
+		case 2 : $filtro = $grupos[1]; break;
+		#Supervisor:
+		case 3 : $filtro = $grupos[2]; break;
+		#Usuario:
+		default : $filtro = $grupos[3]; break;
+	}
+	return $filtro;
+}
+
 #-FIN Críticas-#
 
 ##################
