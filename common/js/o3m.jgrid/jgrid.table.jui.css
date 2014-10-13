@@ -92,7 +92,11 @@ table.display thead th div.DataTables_sort_wrapper span {
 }
 
 
-
+/*.dataTables_scrollHeadInner{
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}*/
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *

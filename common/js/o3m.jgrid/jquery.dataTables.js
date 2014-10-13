@@ -3122,6 +3122,8 @@ function jgrid(idTabla){
 			{
 				nScrollHead.style.overflow = "hidden";
 				nScrollHead.style.position = "relative";
+				// nScrollHeadInner.style.overflow = "hidden";
+				// nScrollHeadInner.style.position = "relative";
 				nScrollFoot.style.overflow = "hidden";
 				nScrollBody.style.overflow = "auto";
 			}
@@ -3129,8 +3131,9 @@ function jgrid(idTabla){
 			nScrollHead.style.border = "0";
 			nScrollHead.style.width = "100%";
 			nScrollFoot.style.border = "0";
-			nScrollHeadInner.style.width = oSettings.oScroll.sXInner !== "" ?
-				oSettings.oScroll.sXInner : "100%"; /* will be overwritten */
+			// nScrollHeadInner.style.width = oSettings.oScroll.sXInner !== "" ?
+			// 	oSettings.oScroll.sXInner : "100%"; /* will be overwritten */
+			nScrollHeadInner.style.width = "100%";
 			
 			/* Modify attributes to respect the clones */
 			nScrollHeadTable.removeAttribute('id');
@@ -3502,6 +3505,8 @@ function jgrid(idTabla){
 			var iOuterWidth = $(o.nTable).outerWidth();
 			nScrollHeadTable.style.width = _fnStringToCss( iOuterWidth );
 			nScrollHeadInner.style.width = _fnStringToCss( iOuterWidth );
+			// nScrollHeadTable.style.width = "100%";
+			// nScrollHeadInner.style.width = "100%";			
 		
 			// Figure out if there are scrollbar present - if so then we need a the header and footer to
 			// provide a bit more space to allow "overflow" scrolling (i.e. past the scrollbar)
