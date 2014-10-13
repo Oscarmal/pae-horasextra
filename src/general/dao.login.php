@@ -13,7 +13,7 @@ function login($usuario, $clave){
 				,a.grupo
 				,a.activo
 				,b.id_personal
-				,CONCAT(b.nombre,' ',b.paterno,' ',b.materno) as nombreCompleto
+				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombreCompleto
 				,b.empleado_num
 				,b.email
 				,c.nombre as empresa

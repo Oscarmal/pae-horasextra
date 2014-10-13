@@ -11,8 +11,7 @@ require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 require_once($Path[src].'build.contenidos.php');
 # Vistas HTML
 $vistas = array(
-		 INDEX 		=> 'index.html'
-		,LISTADO 	=> 'listado.html'
+		 INDEX 		=> 'autorizacion.html'
 		,ERROR 	 	=> 'error.html'
 	);
 
@@ -34,8 +33,6 @@ function tpl_vars($cmd, $urlParams=array()){
 	$cmd = strtoupper(enArray($cmd,$vistas));
 	if($cmd == 'INDEX'){
 		$vars = vars_index($cmd, $urlParams);
-	}elseif($cmd == 'LISTADO'){
-		$vars = vars_listado($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
@@ -66,30 +63,6 @@ function vars_index($seccion, $urlParams){
 				,TITULO			=> $titulo
 				,CONTENIDO 		=> $contenido
 				,guardar		=> $dic[autorizacion][guardar]
-			);
-	$data = array_merge($negocio, $texto);
-	return $data;
-}
-
-function vars_listado($seccion, $urlParams){
-	global $var, $Path, $icono, $dic, $vistas, $usuario;
-	## Logica de negocio ##		
-	$titulo 	= $dic[autorizacion][titulo2];
-	$tbl_resultados = build_grid_autorizadas();
-	$data_contenido = array(
-				TBL_RESULTS=> $tbl_resultados
-		);
-	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
-	## Envio de valores ##
-	$negocio = array(
-				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/listado.js')	
-				,MODULE 	=> strtolower(MODULO)
-				,SECTION 	=> ($seccion)				 
-			);
-	$texto = array(
-				 ICONO 			=> $icono
-				,TITULO			=> $titulo
-				,CONTENIDO 		=> $contenido
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;

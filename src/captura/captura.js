@@ -78,7 +78,7 @@ function guardar(horas, fecha){
 		complete: function(){ 
 			setTimeout(function(){
 				$("#"+ventana).dialog("close");
-				$(location).attr('href', 'index.php?m=d3df3bcb86e5dab0114773964cfab1f4&s=7d1bf948636232e0a8702ea5abbc4965');
+				$(location).attr('href', 'index.php?m=d3df3bcb86e5dab0114773964cfab1f4&s=d3df3bcb86e5dab0114773964cfab1f4');
 			}, 2000);
 		}
     });

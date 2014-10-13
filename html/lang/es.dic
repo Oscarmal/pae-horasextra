@@ -37,5 +37,9 @@ autorizacion|listado=Listado de Autorizaciones ap.
 autorizacion|titulo2=Listado de Autorizaciones aplicadas
 # Consulta
 consulta|titulo=Consultas
+consulta|captura_menu=Listado de Horas Extra
+consulta|captura_titulo=Listado de Horas Extra capturadas
+consulta|autorizacion_menu=Listado de Autorizaciones
+consulta|autorizacion_titulo=Listado de Autorizaciones aplicadas
 # Reportes
 reportes|titulo=Reportes

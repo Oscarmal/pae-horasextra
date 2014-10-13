@@ -18,7 +18,8 @@ function capturados_select($data=array()){
 		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
-		$filtro	= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.=filtro_grupo(array('','',"and b.personal='$usuario[empresa]'","and a.id_usuario='$usuario[id_usuario]'"));
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';
 		if($status && $status!=1){
@@ -133,7 +134,8 @@ function xls_select($data=array()){
 		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
-		$filtro	= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.=filtro_grupo(array('','',"and b.personal='$usuario[empresa]'","and a.id_usuario='$usuario[id_usuario]'"));
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';
 		if($status && $status!=1){

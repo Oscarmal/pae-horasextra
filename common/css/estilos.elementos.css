@@ -127,3 +127,8 @@ input:focus, textarea:focus, select:focus{
     width: 90%;
     margin: auto;
 }
+
+.link-xls{
+    padding-left: 25px;
+    background: url(../img/excel.gif) no-repeat left top;
+}
