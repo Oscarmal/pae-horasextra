@@ -59,10 +59,10 @@ function vars_index($seccion, $urlParams){
 				,SECTION 	=> ($seccion)				 
 			);
 	$texto = array(
-				 ICONO 			=> $icono
-				,TITULO			=> $titulo
-				,CONTENIDO 		=> $contenido
-				,guardar		=> $dic[autorizacion][guardar]
+				 ICONO 		=> $icono
+				,TITULO		=> $titulo
+				,CONTENIDO 	=> $contenido
+				,guardar	=> $dic[autorizacion][guardar]
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;

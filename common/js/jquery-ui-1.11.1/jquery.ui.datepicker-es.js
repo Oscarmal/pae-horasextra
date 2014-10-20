@@ -1,7 +1,8 @@
 jQuery(function ($) {
 $.datepicker.regional['es'] = {
 closeText: 'Cerrar',
-prevText: ' nextText: 'Sig>',
+prevText: '<Ant',
+nextText: 'Sig>',
 currentText: 'Hoy',
 monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],

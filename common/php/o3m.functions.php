@@ -241,6 +241,12 @@ function filtro_grupo($grupos=array()){
 	return $filtro;
 }
 
+function horas_int($horas){
+	$h = explode(':', $horas);
+	$horas = (!$h[1]) ? $h[0].':00' : $h[0].':'.$h[1];
+	return $horas;
+}
+
 #-FIN Críticas-#
 
 ##################

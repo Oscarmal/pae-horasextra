@@ -70,7 +70,10 @@ function modal(idObjeto,w,h,tipo){
         hide:       Hide,
         resizable:  Resizable,
         // position:   Position,
-        modal:      Modal
+        modal:      Modal,
+        overlay: { backgroundColor: "#000", opacity: 0.5 },
+        // buttons:{ "Close": function() { $(this).dialog('destroy'); }},
+        close: function(ev, ui) { /*$(this).close();*/ $(this).dialog('destroy'); },
     });
     
     $("#"+idObjeto).dialog( "open" );
@@ -108,9 +111,9 @@ function inputFocus(idInput){
     $("#"+idInput).removeClass("input-error");
 }
 
-function scriptJs_Enter(){
+function scriptJs_Enter(Folder){
 // Carga script externo para deteccion de ENTER y ejecuta => btnSubmit()
-    var raiz = raizPath();
+    var raiz = raizPath(Folder);
     $.getScript(raiz + "common/js/inc.enter.js", function(){
     });
 }

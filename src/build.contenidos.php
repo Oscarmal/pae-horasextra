@@ -37,16 +37,19 @@ function build_grid_autorizaciones(){
 			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 		}
 		$tbl_resultados .= '<td align="center">
-								<select id="concepto_'.$data[0].'" name="concepto_'.$data[0].'" onChange="ok(this)" class="campos">
-									<option value="" selected></option>
-									<option value="no">Rechazar</option>
-									'.$opts.'
-								</select>
+								<script>document.write(buildBtn(\'btnAutorizar_'.$data[id_horas_extra].'\',\'Autorizar\',\'autorizar('.$data[id_horas_extra].');\'));</script>
 							</td>';
-		$tbl_resultados .= '<td align="center">
-								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
-								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
-							</td>';
+		// $tbl_resultados .= '<td align="center">
+		// 						<select id="concepto_'.$data[0].'" name="concepto_'.$data[0].'" onChange="ok(this)" class="campos">
+		// 							<option value="" selected></option>
+		// 							<option value="no">Rechazar</option>
+		// 							'.$opts.'
+		// 						</select>
+		// 					</td>';
+		// $tbl_resultados .= '<td align="center">
+		// 						<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+		// 						<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+		// 					</td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

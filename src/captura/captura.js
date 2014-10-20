@@ -66,7 +66,8 @@ function guardar(horas, fecha){
 		},
 		success: function(respuesta){ 
 			$("#"+ventana).dialog( "close" );
-			if(respuesta.success){				
+			if(respuesta.success){
+				popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";	
 				txt = "<div class='popup-txt'>La información ha sido guardada correctamente.</div>";
 				ventana = popup('Éxito',popup_ico+txt,0,0,3);				
 				setTimeout(function(){location.reload(true);}, 2000);

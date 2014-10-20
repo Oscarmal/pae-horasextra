@@ -61,11 +61,13 @@ function autorizacion_insert($data=array()){
 	if($data[auth]){
 		global $db, $usuario;
 		$id_horas_extra = $data[id_horas_extra];
+		$horas 			= horas_int($data[horas]);
 		$id_concepto 	= $data[id_concepto];
 		$estatus 		= $data[estatus];
 		$timestamp = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
 					id_horas_extra='$id_horas_extra',
+					horas = '$horas',
 					id_concepto = '$id_concepto',
 					estatus ='$estatus',
 					id_usuario = '$usuario[id_usuario]',

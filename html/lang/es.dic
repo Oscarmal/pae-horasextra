@@ -31,6 +31,7 @@ captura|horas_extra=Captura de Horas Extra
 captura|guardar=Guardar
 # Autorizacion
 autorizacion|titulo=Autorización de horas extra
+autorizacion|cerrar=Cerrar
 autorizacion|guardar=Aplicar Autorizaciones
 autorizacion|index=Aplicar Autorizaciones
 autorizacion|listado=Listado de Autorizaciones ap.
