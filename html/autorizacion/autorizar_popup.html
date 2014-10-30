@@ -19,7 +19,10 @@
                   </tr>
                   <tr>
                     <th>Fecha:</th>
-                    <td>{fecha}</td>
+                    <td>
+                        {fecha}
+                        <input type="hidden" id="fecha" name="fecha" value="{fecha}"/>
+                    </td>
                   </tr>
                   <tr>
                     <th>Horas Extra:</th>
@@ -35,35 +38,42 @@
                         <div id="captura">                        
                             <table width="100%" border="0">
                                 <tr>
-                                    <td>Restan: </td>
-                                    <td class="slider-container">
+                                    <td align="right" width="30%">Restan: </td>
+                                    <td colspan="3" class="slider-container">
                                         <input type="text" id="restan" name="restan" readonly class="slider-label" />
                                     </td>
-                                    <td><span align="right" style="text-align: right; cursor: pointer;"><img src="{PATH_IMG}reload.png" id="reload" title="Reset"/></span></td>
+                                    <td align="right" valign="middle"><span style="cursor: pointer;"><img src="{PATH_IMG}reload.png" id="reload" title="Reset"/></span></td>
                                 </tr>
                                 <tr>
-                                    <td width="30%">Dobles: </td>
-                                    <td colspan="2" class="slider-container">
+                                    <td align="right">Semana: </td>
+                                    <td colspan="4" class="slider-container">
+                                        <input type="text" id="semana" name="semana" readonly class="slider-label" />
+                                        <div id="slider-semana" class="slider-bar"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Dobles: </td>
+                                    <td colspan="4" class="slider-container">
                                         <input type="text" id="dobles" name="dobles" readonly class="slider-label" />
                                         <div id="slider-dobles" class="slider-bar"></div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Triples: </td>
-                                    <td colspan="2" class="slider-container">
+                                    <td align="right">Triples: </td>
+                                    <td colspan="4" class="slider-container">
                                         <input type="text" id="triples" name="triples" readonly class="slider-label" />
                                         <div id="slider-triples" class="slider-bar"></div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Rechazadas: </td>
-                                    <td colspan="2" class="slider-container">
+                                    <td align="right">Rechazadas: </td>
+                                    <td colspan="4" class="slider-container">
                                         <input type="text" id="rechazadas" name="rechazadas" readonly class="slider-label" />
                                         <div id="slider-rechazadas" class="slider-bar"></div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" align="center">
+                                    <td colspan="5" align="center">
                                         <input id="btnCerrar" type="button" class="btn btn-gray" value="{cerrar}" onclick="location.reload(true);">
                                         &nbsp;&nbsp;&nbsp;
                                         <input id="btnGuardar" type="button" class="btn btn-gray" value="{guardar}" onclick="btnSubmit()">

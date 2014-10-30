@@ -17,6 +17,7 @@ function login($usuario, $clave){
 				,b.empleado_num
 				,b.email
 				,c.nombre as empresa
+				,c.id_empresa as id_empresa
 				,c.pais
 				,d.mod1
 				,d.mod2

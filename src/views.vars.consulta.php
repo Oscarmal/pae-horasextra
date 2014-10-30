@@ -5,7 +5,7 @@
 */
 // Modulo Padre
 global $vistas, $contenidos, $icono;
-$icono = $var[ico_01];
+$icono = $var[ico_03];
 define(MODULO,'CONSULTA');
 require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 require_once($Path[src].'build.contenidos.php');

@@ -5,12 +5,6 @@ $(document).ready(function(){
           inputFocus(this.id);
     });
     reloj('txtReloj');
-    // Bootstrap
-    // $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
-    // $('select').select2();
-    // $('.colorpicker').colorpicker();
-    // $('.datepicker').datepicker();
-    // --
 
     // JQueri UI
     jQuery.datepicker.setDefaults($.datepicker.regional["es"]);
@@ -186,4 +180,19 @@ function buildBtn(idObjeto,texto,evento,clase){
     }
 }
 
+function solo_num(e) { 
+    tecla = (document.all) ? e.keyCode : e.which; 
+    if (tecla==8 || tecla==13) return true; 
+    patron = /\d/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te); 
+} 
+
+function semanaNum(fecha){
+    var d = (!fecha)? new Date() : new Date(fecha);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    var data = Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+    return data;
+}
 //O3M//

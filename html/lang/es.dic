@@ -36,9 +36,10 @@ autorizacion|guardar=Aplicar Autorizaciones
 autorizacion|index=Aplicar Autorizaciones
 autorizacion|listado=Listado de Autorizaciones ap.
 autorizacion|titulo2=Listado de Autorizaciones aplicadas
+autorizacion|genera_xls=Generar Layout XLS
 # Consulta
 consulta|titulo=Consultas
-consulta|captura_menu=Listado de Horas Extra
+consulta|captura_menu=Listado de Horas Extra Cap.
 consulta|captura_titulo=Listado de Horas Extra capturadas
 consulta|autorizacion_menu=Listado de Autorizaciones
 consulta|autorizacion_titulo=Listado de Autorizaciones aplicadas

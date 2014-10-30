@@ -238,6 +238,7 @@ function filtro_grupo($grupos=array()){
 		#Usuario:
 		default : $filtro = $grupos[3]; break;
 	}
+	$filtro = (!$filtro)?'':$filtro;
 	return $filtro;
 }
 
@@ -341,6 +342,7 @@ function xls($params=array()){
                         ,tituloTabla      => 'HE - Horas Extra'
                         ,hoja             => 'Hoja1'
                         ,directorio       => $cfg[path_docs].'autorizacion/'
+                        ,id_empresa       => $usuario[id_empresa]
                   );
       $xls = xls($xlsData);
 */
@@ -364,9 +366,11 @@ function xls($params=array()){
 		$dirLocal 	= $Path[tmp];
 		$dirUrl 	= $Path[tmpurl];
 	}
+	$id_empresa  = str_pad($params[id_empresa], 2, '0', STR_PAD_LEFT);
+	$id_empresa .= '_';
 	$extensiones = array('/.xlsx/','/.xls/','/.csv/');
 	$archivo 	 = preg_replace($extensiones, '', $archivo); #limpia extensiones
-	$archivo 	 = $archivo.'_'.date('Ymd-His');
+	$archivo 	 = $archivo.'_'.$id_empresa.date('Ymd-His');
 	$hoja 		 = (empty($hoja))?date('Ymd-His'):$hoja;
 	$filename[filename] = $archivo.'.xls';
 	if(!$descarga){            
@@ -447,7 +451,7 @@ function xls($params=array()){
 	$fTxtEven = $xls->addFormat();
 	$fTxtEven -> setFgColor(12);        # Fondo
 	$fTxtEven -> setColor(10);          # Color de fuente
-	$fTxtEven -> setSize(11);           # Tamaño de fuente
+	$fTxtEven -> setSize(10);           # Tamaño de fuente
 	$fTxtEven -> setAlign(vcenter);     # Alineacion V: top, vcenter, bottom, vjustify, vequal_space
 	$fTxtEven -> setAlign(center);      # Alineacion H: left, center, right, fill, justify, merge, equal_space
 	$fTxtEven -> setBorder(1);          # Borde de celda: 1 => thin, 2 => thick

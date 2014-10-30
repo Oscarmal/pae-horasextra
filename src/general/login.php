@@ -15,7 +15,8 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 		$_SESSION[user]['id_personal']		= $usuario[id_personal];
 		$_SESSION[user]['nombre']			= $usuario[nombreCompleto];
 		$_SESSION[user]['empleado_num']  	= $usuario[empleado_num];
-		$_SESSION[user]['email'] 			= $usuario[email];
+		$_SESSION[user]['email'] 			= $usuario[email];		
+		$_SESSION[user]['id_empresa'] 		= $usuario[id_empresa];		
 		$_SESSION[user]['empresa'] 			= $usuario[empresa];
 		$_SESSION[user]['pais'] 			= $usuario[pais];
 		$_SESSION[user]['accesos']['mod1']	= $usuario[mod1];

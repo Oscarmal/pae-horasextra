@@ -1,7 +1,7 @@
 <?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
 require_once($Path[src].'autorizacion/dao.autorizacion.php');
 function xsl_autorizaciones($ids){
-      global $cfg;
+      global $usuario, $cfg;
       $sqlData = array(
       			 auth 	   => 1
                         ,id_horas_extra=> $ids
@@ -10,7 +10,21 @@ function xsl_autorizaciones($ids){
       $tabla = xls_select($sqlData);
       $nameArchivo = 'HE_Horas-Extra';
       $tituloTabla = 'HE - Horas Extra';
-      $titulos = array('ID','Nombre Completo','No. Empleado','Fecha','Horas','Estatus','Capturado por','Capturado el');
+      $titulos = array(
+                         'ID'
+                        ,'Nombre Completo'
+                        ,'No. Empleado'
+                        ,'Fecha'
+                        ,'Horas'
+                        ,'Capturado por'
+                        ,'Capturado el'
+                        ,'Dobles'
+                        ,'Triples'
+                        ,'Rechazadas'                        
+                        ,'Autorizado por'
+                        ,'Autorizado el'
+                        
+                  );
       $directorio = $cfg[path_docs].'autorizacion/';
       $xlsData = array(
                          descarga         => false
@@ -20,6 +34,7 @@ function xsl_autorizaciones($ids){
                         ,tituloTabla      => $tituloTabla
                         ,hoja             => ''
                         ,directorio       => $directorio
+                        ,id_empresa       => $usuario[id_empresa]
                   );
       $xls = xls($xlsData);
       $updateXls = array(

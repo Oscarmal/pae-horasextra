@@ -62,7 +62,7 @@ function vars_index($seccion, $urlParams){
 				 ICONO 		=> $icono
 				,TITULO		=> $titulo
 				,CONTENIDO 	=> $contenido
-				,guardar	=> $dic[autorizacion][guardar]
+				,genera_xls	=> $dic[autorizacion][genera_xls]
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;

@@ -69,6 +69,7 @@ $usuario[nombre]			= $_SESSION[user]['nombre'];
 $usuario[empleado_num]		= $_SESSION[user]['empleado_num'];
 $usuario[email]				= $_SESSION[user]['email'];
 $usuario[empresa]			= $_SESSION[user]['empresa'];
+$usuario[id_empresa]		= $_SESSION[user]['id_empresa'];
 $usuario[pais]				= $_SESSION[user]['pais'];
 $usuario[accesos][mod1]		= $_SESSION[user]['accesos']['mod1'];
 $usuario[accesos][mod2]		= $_SESSION[user]['accesos']['mod2'];

@@ -9,6 +9,7 @@ if($ins[accion]=='insert'){
 		$sqlData = array(
 			 auth 			=> 1
 			,id_personal	=> $usuario[id_personal]
+			,id_empresa		=> $usuario[id_empresa]
 			,fecha 			=> fecha_form($in[fecha])
 			,horas 			=> $in[horas]
 		);

@@ -53,11 +53,13 @@ function captura_insert($data=array()){
 	if($data[auth]){
 		global $db, $usuario;
 		$id_personal 	= $data[id_personal];
+		$id_empresa 	= $data[id_empresa];
 		$fecha 			= $data[fecha];
 		$horas 			= horas_int($data[horas]);
 		$timestamp = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO $db[tbl_horas_extra] SET
 					id_personal='$id_personal',
+					id_empresa='$id_empresa',
 					fecha = '$fecha',
 					horas ='$horas',
 					id_usuario = '$usuario[id_usuario]',

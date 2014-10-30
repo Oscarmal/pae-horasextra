@@ -19,9 +19,13 @@ function slider_horas(){
 // Contruye sliders con valores iniciales
 	var horas = $("#horas").val();	
 	horas = parseInt(horas);
+	var fecha = $("#fecha").val(); 
+	var f = fecha.split('/');
+	var semana = semanaNum('"'+f[2]+'-'+f[1]+'-'+f[0]+'"');
+	build_slider("slider-semana", semana, 53, 1, "semana");
 	build_slider("slider-dobles", 0, horas, 0, "dobles");
 	build_slider("slider-triples", 0, horas, 0, "triples");
-	build_slider("slider-rechazadas", 0, horas, 0, "rechazadas");	
+	build_slider("slider-rechazadas", 0, horas, 0, "rechazadas");
 }
 
 function build_slider(id_Objeto, valor, max, min, idMuestra) {
@@ -75,6 +79,7 @@ function rebuild_slider(horas){
 
 function btnSubmit(){
 	var raiz = raizPath();
+	var semana = parseInt($('#semana').val());
 	var maximo = parseInt($('#horas').val());
 	var dobles = parseInt($('#dobles').val());
 	var triples = parseInt($('#triples').val());
@@ -82,6 +87,13 @@ function btnSubmit(){
 	var restan = maximo-(dobles+triples+rechazadas);
 	var msj = '';
 	var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
+	if(semana>=1){
+		confirmar=confirm("Confirme que el número de semana es: "+semana+"");
+    	if(!confirmar){
+			$("#semana").focus();
+			return false;
+		}
+	}else{return false;}
 	if(restan!=0){
 		msj = "<div class='popup-txt'>Aún tiene <b>"+restan+"</b> horas por asignar en este registro...</div>";
 		popup('Validación',popup_ico+msj,0,0,1,'horas');
@@ -93,12 +105,14 @@ function btnSubmit(){
 
 function obtenerCampos(){
 	var id_horas_extra = $("#id_horas_extra").val();
+	var semana = parseInt($('#semana').val());
 	var dobles = parseInt($('#dobles').val());
 	var triples = parseInt($('#triples').val());
 	var rechazadas = parseInt($('#rechazadas').val());
 	// Creación de array con todos los datos capturados
 	var array = [
 		'id_horas_extra=' + id_horas_extra,
+		'semana=' + semana,
 		'dobles=' + dobles,
 		'triples=' + triples,
 		'rechazadas=' + rechazadas
