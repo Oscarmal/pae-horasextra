@@ -109,10 +109,10 @@ function build_grid_autorizadas(){
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
-			if($campos[$i]=='xls' && !empty($data[$campos[$i]])){
-				$tbl_resultados .= '<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>';
+			if($campos[$i]=='xls' ){
+				$tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
 			}else{
-				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
 			}
 		}
 		$tbl_resultados .= '</tr>';
