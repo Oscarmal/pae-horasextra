@@ -45,6 +45,7 @@ if($in[auth]){
 				$id_concepto[3]=($data[0]=='triples')?3:$id_concepto[3];
 			}
 			$id_horas_extra = $data_arr['id_horas_extra'];
+			$anio     = $data_arr['anio'];
 			$semana   = $data_arr['semana'];
 			$horas[0] = $data_arr['rechazadas'];
 			$horas[1] = $data_arr['simples'];
@@ -57,6 +58,7 @@ if($in[auth]){
 					$sqlData = array(
 						 auth 			=> true
 						,id_horas_extra	=> $id_horas_extra
+						,anio			=> $anio
 						,semana			=> $semana
 						,horas 			=> $horas[$i]
 						,id_concepto 	=> $id_concepto[$i]

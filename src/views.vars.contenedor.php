@@ -47,9 +47,8 @@ $frm_vistas = array(
 			,REPORTES => 
 			 	array(
 			 		 INDEX 			=> 'index.html'
-			 		,REPORTE1 		=> 'reporte1.html'
-			 		,REPORTE2 		=> 'reporte2.html'
-			 		,REPORTE3 		=> 'reporte3.html'
+			 		,REPORTE01 		=> 'rep_general.html'
+			 		,REPORTE02	 	=> 'rep_mensual.html'
 			 	)
 			,ADMIN => 
 			 	array(
@@ -137,7 +136,12 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]
-					,LINK_OPC5		=> '../site/?m='.$var[REPORTES].'&s='.$var[INDEX]
+					,LINK_OPC5		=> '#'
+					,txt_opc51		=> $dic[reportes][reporte01_menu]
+					,LINK_OPC51		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE01]
+					,txt_opc52		=> $dic[reportes][reporte02_menu]
+					,LINK_OPC52		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE02]
+					
 				);
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);
 		// --	

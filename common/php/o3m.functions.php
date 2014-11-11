@@ -501,5 +501,12 @@ function xls($params=array()){
 	/*Fin de XLS*/
 	return $filename;
 }
+
+function dump_var($variable,$tipo=0){
+	echo "<pre>";
+	if(!$tipo){ print_r($variable); }else{var_dump($variable);}
+	echo "</pre>";
+	die();
+}
 /*O3M*/
 ?>

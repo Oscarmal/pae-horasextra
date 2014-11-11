@@ -72,9 +72,11 @@ function autorizacion_insert($data=array()){
 		$horas 			= horas_int($data[horas]);
 		$id_concepto 	= $data[id_concepto];
 		$estatus 		= $data[estatus];
+		$anio			= $data[anio];
 		$timestamp = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
 					id_horas_extra='$id_horas_extra',
+					anio = '$anio',
 					semana = '$semana',
 					horas = '$horas',
 					id_concepto = '$id_concepto',
@@ -148,6 +150,7 @@ function xls_select($data=array()){
 		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
 		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
 		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		$anio			= (is_array($data[anio]))?implode(',',$data[anio]):$data[anio];
 		$estatus		= (is_array($data[estatus]))?implode(',',$data[estatus]):$data[estatus];
 		$xls			= (is_array($data[xls]))?implode(',',$data[xls]):$data[xls];
 		$activo			= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
@@ -163,6 +166,7 @@ function xls_select($data=array()){
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';
+		$filtro.= ($anio)?" and d.anio IN ($anio)":'';
 		if($status && $status!=1){
 			$filtro.=" and d.estatus IN ($estatus)";
 		}elseif($estatus){
@@ -183,7 +187,9 @@ function xls_select($data=array()){
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=0,d.horas,NULL)))),'%H:%i') AS horas_rechazadas
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=2,d.horas,NULL)))),'%H:%i') AS horas_dobles
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=3,d.horas,NULL)))),'%H:%i') AS horas_triples
-					/*,d.xls*/					
+					/*,d.xls*/	
+					,d.anio	
+					,d.semana			
 					,f.usuario as autorizado_por
 					,d.timestamp as autorizado_el
 				FROM $db[tbl_horas_extra] a

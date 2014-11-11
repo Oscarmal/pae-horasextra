@@ -153,6 +153,18 @@ input:focus, textarea:focus, select:focus{
     margin-left: 10px;    
     vertical-align: middle;
 }
+.slider-label-horas{
+    background-position: right center;
+    background-image: url(../img/reloj_icon.png);
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    float: left;
+    border: 0; 
+    color: #f6931f; 
+    font-weight:bold; 
+    width:30px;    
+    margin-top: -8px;
+}
 /*Textbox*/
 .txt-semanas{ 
     width:18px;
@@ -160,3 +172,97 @@ input:focus, textarea:focus, select:focus{
     color: #f6931f; 
     font-weight:bold;
 }
+/*Tabla Reportes*/
+table.reportes{
+    background-color: #efefef;
+    border: 1px solid #d8d8d8;
+}
+
+.tabla-reportes {
+    margin:0px;padding:0px;
+    width:100%;
+    box-shadow: 10px 10px 5px #888888;
+    border:1px solid #007f7f;
+    
+    -moz-border-radius-bottomleft:5px;
+    -webkit-border-bottom-left-radius:5px;
+    border-bottom-left-radius:5px;
+    
+    -moz-border-radius-bottomright:5px;
+    -webkit-border-bottom-right-radius:5px;
+    border-bottom-right-radius:5px;
+    
+    -moz-border-radius-topright:5px;
+    -webkit-border-top-right-radius:5px;
+    border-top-right-radius:5px;
+    
+    -moz-border-radius-topleft:5px;
+    -webkit-border-top-left-radius:5px;
+    border-top-left-radius:5px;
+}
+.tabla-reportes table{
+    border-collapse: collapse;
+        border-spacing: 0;
+    width:100%;
+    height:100%;
+    margin:0px;padding:0px;
+}
+.tabla-reportes thead th {
+    background:-o-linear-gradient(bottom, #00bfbf 5%, #408080 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #00bfbf), color-stop(1, #408080) );
+    background:-moz-linear-gradient( center top, #00bfbf 5%, #408080 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#00bfbf", endColorstr="#408080");  background: -o-linear-gradient(top,#00bfbf,#408080);
+    background-color:#00bfbf;
+    border:0px solid #007f7f;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:15px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
+}
+.tabla-reportes tr:nth-child(odd){ 
+    background:-o-linear-gradient(bottom, #aaffff 5%, #fff 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aaffff), color-stop(1, #fff) );
+    background:-moz-linear-gradient( center top, #aaffff 5%, #fff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#aaffff", endColorstr="#fff");  background: -o-linear-gradient(top,#aaffff,#fff);
+    
+    background-color:#E1FFFF; 
+}
+.tabla-reportes tr:nth-child(even){ 
+    /*background:-o-linear-gradient(bottom, #fff 5%, #aaffff 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fff), color-stop(1, #aaffff) );
+    background:-moz-linear-gradient( center top, #fff 5%, #aaffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#fff", endColorstr="#aaffff");  background: -o-linear-gradient(top,#fff,#aaffff);
+    */
+    background-color:#ffffff; 
+}
+.tabla-reportes td{
+    vertical-align:middle;
+    border:1px solid #007f7f;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:7px;
+    font-size:12px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#000000;
+}
+.tabla-reportes tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}
+.tabla-reportes tr td:last-child{
+    border-width:0px 0px 1px 0px;
+}
+.tabla-reportes tr:last-child td:last-child{
+    border-width:0px 0px 0px 0px;
+}
+
+.tabla-reportes tr:hover td{
+    background:-o-linear-gradient(bottom, #00bfbf 5%, #D9ECEC 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #00bfbf), color-stop(1, #D9ECEC) );
+    background:-moz-linear-gradient( center top, #00bfbf 5%, #D9ECEC 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#00bfbf", endColorstr="#D9ECEC");  background: -o-linear-gradient(top,#00bfbf,#D9ECEC);
+    background-color:#00bfbf;
+}
+.tabla-reportes tr{
+    text-align: center;
+    vertical-align: middle;
+}
+/*--*/

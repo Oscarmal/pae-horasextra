@@ -195,4 +195,53 @@ function semanaNum(fecha){
     var data = Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
     return data;
 }
+
+function dump_var(arr,level) {
+// Explota un array y regres su estructura
+// Uso: alert(dump_var(array));
+    var dumped_text = "";
+    if(!level) level = 0;   
+    //The padding given at the beginning of the line.
+    var level_padding = "";
+    for(var j=0;j<level+1;j++) level_padding += "    "; 
+    if(typeof(arr) == 'object') { //Array/Hashes/Objects 
+        for(var item in arr) {
+            var value = arr[item];          
+            if(typeof(value) == 'object') { //If it is an array,
+                dumped_text += level_padding + "'" + item + "' ...\n";
+                dumped_text += dump_var(value,level+1);
+            } else {
+                dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+            }
+        }
+    } else { //Stings/Chars/Numbers etc.
+        dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
+    }
+    return dumped_text;
+}
+
+function fechaHoy(separador, formato, hora){
+    var s = (!separador)?'-':separador;
+    var hoy = new Date();
+    // Fecha
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth()+1; 
+    var yyyy = hoy.getFullYear();
+    if(dd<10) dd='0'+dd; 
+    if(mm<10)  mm='0'+mm;     
+    // Hora
+    var hh = hoy.getHours();
+    var min = hoy.getMinutes(); 
+    var seg = hoy.getSeconds(); 
+    var str_segundo = new String (seg); 
+    if (str_segundo.length == 1) seg = "0" + seg;
+    var str_minuto = new String (min); 
+    if (str_minuto.length == 1) min = "0" + min; 
+    var str_hora = new String (hh);
+    if (str_hora.length == 1) hh = "0" + hh;    
+    // Resultado
+    hora = (!hora) ? '' : ' ' + hh + ":" + min + ":" + seg;
+    hoy = (!formato) ? yyyy+s+mm+s+dd : mm+s+dd+s+yyyy;
+    return hoy+hora;
+}
 //O3M//

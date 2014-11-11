@@ -6,6 +6,7 @@
 require_once($Path[src].'captura/dao.captura.php');
 require_once($Path[src].'autorizacion/dao.autorizacion.php');
 require_once($Path[src].'consulta/dao.consulta.php');
+require_once($Path[src].'reportes/dao.reportes.php');
 
 // AUTORIZACION
 function build_grid_autorizaciones(){
@@ -119,6 +120,74 @@ function build_grid_autorizadas(){
 		if($soloUno) break; 		
 	}
 	return $tbl_resultados;
+}
+
+function build_reporte01($id_empresa=false, $anio=false){
+// Construye reporte general
+	global $Path;
+	$sqlData = array( auth => true, id_empresa => $id_empresa, anio => $anio );
+	$tabla = reporte01_select($sqlData);
+	$campos = array(
+				 // 'id_empresa',
+				'empresa'
+				,'siglas'
+				,'anio_fecha'
+				,'horas_capturadas'				
+				,'horas_pendientes'
+				,'horas_autorizadas'				
+				,'horas_rechazadas'
+				,'horas_dobles'
+				,'horas_triples'
+				,'tot_semanas'
+			);
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr >';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+		}	
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+
+function build_select_empresas(){
+	global $usuario;
+	$sqlData = array( auth => true );
+	$tabla = empresas($sqlData);	
+	// $readonly = ($usuario[grupo]>1)?'readonly="readonly" onmouseover="this.disabled=true;" onmouseout="this.disabled=false;"':'';
+	$objeto = "<select id='sel_empresa' name='sel_empresa' $readonly >";
+	// $objeto .= ($usuario[grupo]<=1)?'<option value="" selected="selected">Todas</option>' : '' ;
+	foreach ($tabla as $registro) {
+		$data = (!is_array($registro))?$tabla:$registro; 
+		$regs = (!is_array($registro))?count($tabla)/2:1; 
+		for($i=0; $i<$regs; $i++){
+			$objeto .='<option value="'.$data[id_empresa].'">'.$data[empresa].'</option>'; 
+		if(!is_array($registro)) break;
+		}
+		if(!is_array($registro)) break;
+	}
+	$objeto .= "</select>";
+	return $objeto;
+}
+
+function build_select_anios($id_empresa=false){
+	$sqlData = array( auth => true, id_empresa => $id_empresa );
+	$tabla = anios($sqlData);		
+	$objeto = "<select id='sel_anio' name='sel_anio'>";	
+	foreach ($tabla as $registro) {
+		$soloUno = (!is_array($registro))?true:false; 
+		$data = (!$soloUno)?$registro:$tabla;		
+		for($i=0; $i<count($data)/2; $i++){				
+			$objeto .='<option value="'.$data[anio].'">'.$data[anio].'</option>'; 
+		}		
+		if($soloUno) break;
+	}
+	$objeto .= (!$soloUno)?'<option value="" selected="selected">Todos</option>':'';		
+	$objeto .= "</select>";
+	return $objeto;
 }
 /*O3M*/
 ?>

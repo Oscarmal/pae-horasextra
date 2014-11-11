@@ -109,9 +109,13 @@ function obtenerCampos(){
 	var dobles = parseInt($('#dobles').val());
 	var triples = parseInt($('#triples').val());
 	var rechazadas = parseInt($('#rechazadas').val());
+	var fecha = $("#fecha").val(); 
+	var f = fecha.split('/');
+	var anio = f[2];
 	// Creación de array con todos los datos capturados
 	var array = [
 		'id_horas_extra=' + id_horas_extra,
+		'anio=' + anio,
 		'semana=' + semana,
 		'dobles=' + dobles,
 		'triples=' + triples,

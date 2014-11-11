@@ -12,7 +12,7 @@ function xsl_autorizaciones($ids){
       $tituloTabla = 'HE - Horas Extra';
       $titulos = array(
                          'ID'
-                        ,'Nombre Completo'
+                        ,utf8_decode('Nombre Completo')
                         ,'No. Empleado'
                         ,'Fecha'
                         ,'Horas'
@@ -20,7 +20,9 @@ function xsl_autorizaciones($ids){
                         ,'Capturado el'
                         ,'Dobles'
                         ,'Triples'
-                        ,'Rechazadas'                        
+                        ,'Rechazadas'
+                        ,utf8_decode('Año')
+                        ,'Semana'
                         ,'Autorizado por'
                         ,'Autorizado el'
                         

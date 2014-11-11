@@ -16,8 +16,7 @@ general|entrar=Entrar
 general|mensaje=Mensaje
 general|enlace=Enlace
 general|correo=Correo
-general|salir=Salir
-general|msj_inicio=Bienvenido al sistema
+general|salir=Salirgeneral|msj_inicio=Bienvenido al sistema
 # Error
 error|mensaje=No existe acción
 # Login
@@ -45,3 +44,7 @@ consulta|autorizacion_menu=Listado de Autorizaciones
 consulta|autorizacion_titulo=Listado de Autorizaciones aplicadas
 # Reportes
 reportes|titulo=Reportes
+reportes|reporte01_menu=Reporte General
+reportes|reporte01_titulo=Reporte General de Horas Extra
+reportes|reporte02_menu=Reportes Mensual
+reportes|reporte02_titulo=Reportes Mensual

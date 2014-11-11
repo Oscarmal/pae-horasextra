@@ -17,6 +17,11 @@ function buildMenu($elementos=0){
 			        	<li><a href="{LINK_OPC42}">{txt_opc42}</a></li>
 			         </ul>';
 					break;
+				case 5 : $submenu = '
+					<ul>
+			        	<li><a href="{LINK_OPC51}">{txt_opc51}</a></li>
+			         </ul>';
+					break;
 				default: $submenu = ''; break;
 			}
 			$opc   .= '<li><a href="{'.$link.'}" target="_self"><img src="'.$Path[img].'{'.$img.'}" alt="" class="icono_dos"/>{'.$txt.'}</a>'.$submenu.'</li>';
