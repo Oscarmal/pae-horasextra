@@ -13,18 +13,18 @@ function buildMenu($elementos=0){
 			switch($i){
 				case 4 : $submenu = '
 					<ul>
-			        	<li><a href="{LINK_OPC41}">{txt_opc41}</a></li>
-			        	<li><a href="{LINK_OPC42}">{txt_opc42}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC41}\';" target="_self">{txt_opc41}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC42}\';" target="_self">{txt_opc42}</a></li>
 			         </ul>';
 					break;
 				case 5 : $submenu = '
 					<ul>
-			        	<li><a href="{LINK_OPC51}">{txt_opc51}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC51}\';" target="_self">{txt_opc51}</a></li>
 			         </ul>';
 					break;
 				default: $submenu = ''; break;
 			}
-			$opc   .= '<li><a href="{'.$link.'}" target="_self"><img src="'.$Path[img].'{'.$img.'}" alt="" class="icono_dos"/>{'.$txt.'}</a>'.$submenu.'</li>';
+			$opc   .= '<li><a href="#" onclick="location.href=\'{'.$link.'}\';" target="_self"><img src="'.$Path[img].'{'.$img.'}" alt="" class="icono_dos"/>{'.$txt.'}</a>'.$submenu.'</li>';
 		}
 	}
 	return $opc;
