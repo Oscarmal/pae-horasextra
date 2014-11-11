@@ -2,22 +2,9 @@
 $(document).ready(function(){
 	scriptJs_Enter(); //Carga detección de ENTER
 	$("#txtHoras").focus();
-	jquery_fecha('txtFecha');
+	jquery_fecha('txtFecha',1,true);
 	jgrid('jGrid');
 	slider_horas();
-
-	// Campo de Horas
-	// $(function(){
-	//     $('#hora').clockface({
-	//         format: 'HH:mm',
-	//         trigger: 'manual'
-	//     });   
-	 
-	//     $('#toggle-btn').click(function(e){   
-	//         e.stopPropagation();
-	//         $('#hora').clockface('toggle');
-	//     });
-	// });
 });
 
 function btnSubmit(){
@@ -26,7 +13,7 @@ function btnSubmit(){
 	var fecha = $('#txtFecha').val();
 	var msj = '';
 	var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
-	if(horas == ''){
+	if(horas == '0'){
 		msj = "<div class='popup-txt'>Ingrese la cantidad de horas extra trabajadas, por favor...</div>";
 		popup('Horas extra',popup_ico+msj,0,0,1,'txtHoras');
 		$("#txtHoras").focus();

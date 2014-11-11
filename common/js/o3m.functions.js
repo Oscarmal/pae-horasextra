@@ -5,14 +5,6 @@ $(document).ready(function(){
           inputFocus(this.id);
     });
     reloj('txtReloj');
-
-    // JQueri UI
-    jQuery.datepicker.setDefaults($.datepicker.regional["es"]);
-    // $( ".selector" ).datepicker({ monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ] });
-    // $( ".selector" ).datepicker({ monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "Maj", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] });
-    // $( ".selector" ).datepicker({ dayNames: [ "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" ] });
-    // $( ".selector" ).datepicker({ dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ] });
-    // --
 });
 
 function changeCss(archivo) {
@@ -126,12 +118,6 @@ function raizPath(Folder){
         raiz += '../';
     }
     return raiz;
-}
-
-function jquery_fecha(id_objeto){
-    $(function() {
-        $("#"+id_objeto).datepicker();
-    });
 }
 
 function reloj(objName){ 
