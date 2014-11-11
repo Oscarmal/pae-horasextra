@@ -1,8 +1,10 @@
 //O3M//
 $(document).ready(function(){
 	scriptJs_Enter(); //Carga detección de ENTER
+	$("#txtHoras").focus();
 	jquery_fecha('txtFecha');
 	jgrid('jGrid');
+	slider_horas();
 
 	// Campo de Horas
 	// $(function(){
@@ -84,4 +86,34 @@ function guardar(horas, fecha){
 		}
     });
 }
+
+// Slider---
+function slider_horas(){	
+// Contruye sliders con valores iniciales
+	build_slider("slider-horas", 0, 24, 0, "txtHoras");
+}
+
+function build_slider(id_Objeto, valor, max, min, idMuestra) {
+// Funcion para contruir un slider
+	valor = parseInt(valor);
+	$("#"+id_Objeto).slider({
+	  range: "min",
+	  value: valor,
+	  min: min,
+	  max: max,
+	  step: 1,
+      animate: 100,
+	  slide: function(event, ui) {
+	    $("#"+idMuestra).val(ui.value);
+	  },
+	  stop: function(event,ui){
+		// rebuild_slider(ui.value);
+	  }
+	});
+	var valActual = $("#"+id_Objeto).slider("value");
+	$("#"+idMuestra).val(valActual);
+}
+// ---
+
+
 //O3M//
