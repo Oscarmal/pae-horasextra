@@ -55,11 +55,15 @@ function sanitizerUrl($param) {
 	return $clean;
 }
 
-function limpiarTmp($dir, $extension, $segundos){
-    $t=time();
+function limpiarTmp($dir='',$extension=array(), $segundos=120){
+// Borra archivos con las extension indeicada
+	$t=time();
     $h=opendir($dir);
     while($file=readdir($h)){
-        if(substr($file,-4)=='.'.$extension){
+    	$f = explode('.',$file);
+		$ext = $f[count($f)-1];	
+    	if(in_array($ext, $extension)){
+        // if(substr($file,-4)=='.'.$extension){
             $path=$dir.$file;
             if($t-filemtime($path)>$segundos)
                 @unlink($path);

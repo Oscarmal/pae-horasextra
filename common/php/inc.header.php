@@ -92,5 +92,8 @@ if($cfg[online_onoff] && $in[s]!=$var[LOGIN]){
 		online_insert($usuario[id_usuario], $ultimo_clic);
 	}
 }
+#Limpiar carpeta \tmp
+$ext = array('xlsx','xls','csv', 'doc', 'docx', 'rft', 'pdf', 'rar', 'zip', 'txt', 'json', 'xml');
+limpiarTmp($Path[tmp], $ext, 1);
 /*O3M*/
 ?>
