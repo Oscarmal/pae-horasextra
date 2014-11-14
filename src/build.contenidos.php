@@ -190,5 +190,35 @@ function build_select_anios($id_empresa=false){
 	$objeto .= "</select>";
 	return $objeto;
 }
+
+function build_grid_usuarios(){
+// Construye grid de autorizaciones
+	$sqlData = array(
+			 auth 			=> 1
+			,id_empresa	=> $usuario[id_empresa]
+			,id_number		=> $usuario[id_number]
+		);
+	$tabla = select_view_nomina($sqlData);	
+	$campos = array(
+				 'id_nomina'
+				,'id_number'
+				,'nombre'
+				,'rfc'
+				,'imss'
+				,'empresa_razon_social'
+			);
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
+		}	
+		$tbl_resultados .= '<td>'.'Activo'.'</td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
 /*O3M*/
 ?>
