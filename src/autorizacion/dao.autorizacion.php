@@ -161,7 +161,7 @@ function xls_select($data=array()){
 					 ''
 					,"and a.id_empresa='$usuario[id_empresa]'"
 					,"and d.id_usuario='$usuario[id_usuario]'"
-					,"and d.id_usuario='$usuario[id_usuario]'"
+					,"and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
@@ -228,7 +228,7 @@ function capturados_sin_xls($data=array()){
 					 ''
 					,"and a.id_empresa='$usuario[id_empresa]'"
 					,"and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
-					,"and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
+					,"and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= " and d.estatus IS NOT NULL";
 		$filtro.= ($xls) ? $xls : '';
@@ -303,6 +303,50 @@ function sin_autorizar_select($data=array()){
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
 				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
 				LEFT JOIN $db[tbl_usuarios] f ON d.id_usuario=f.id_usuario 
+				WHERE 1 
+				$filtro $grupo $orden
+				;";
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
+
+function build_xls($data=array()){
+// Obtiene ID's que no tengan valor en campo [xls]
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;		
+		// $xls			= 
+		if(is_array($data[xls])){
+			$xls = implode(',',$data[xls]);
+			$xls = " and d.xls IN ($xls)";
+		}elseif(!$data[xls]){
+			$xls = ' and IFNULL(d.xls,"")=""';
+		}else{
+			$xls = " and d.xls='$data[xls]'";
+		}
+		$activo			= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
+		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.=filtro_grupo(array(
+					 ''
+					,"and a.id_empresa='$usuario[id_empresa]'"
+					,"and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
+					,"and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+				));
+		$filtro.= " and d.estatus IS NOT NULL";
+		$filtro.= ($xls) ? $xls : '';
+		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
+		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
+		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY a.id_horas_extra ASC';
+		$sql = "SELECT a.id_horas_extra
+					,d.xls
+					,a.id_usuario
+				FROM $db[tbl_horas_extra] a
+				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
 				WHERE 1 
 				$filtro $grupo $orden
 				;";

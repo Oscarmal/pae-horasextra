@@ -27,7 +27,8 @@ function xsl_autorizaciones($ids){
                         ,'Autorizado el'
                         
                   );
-      $directorio = $cfg[path_docs].'autorizacion/';
+      // $directorio = $cfg[path_docs].'autorizacion/';
+      $directorio = $cfg[path_tmp];
       $xlsData = array(
                          descarga         => false
                         ,datos            => $tabla

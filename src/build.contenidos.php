@@ -111,7 +111,8 @@ function build_grid_autorizadas(){
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
 			if($campos[$i]=='xls' ){
-				$tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
+				// $tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
+				$tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="#" onclick="xls(\''.$data[$campos[$i]].'\')" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
 			}else{
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
 			}

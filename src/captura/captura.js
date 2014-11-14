@@ -15,13 +15,15 @@ function btnSubmit(){
 	var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
 	if(horas == '0'){
 		msj = "<div class='popup-txt'>Ingrese la cantidad de horas extra trabajadas, por favor...</div>";
-		popup('Horas extra',popup_ico+msj,0,0,1,'txtHoras');
+		ventana=popup('Horas extra',popup_ico+msj,0,0,1,'txtHoras');
+		setTimeout(function(){$("#"+ventana).dialog("close");}, 2000);
 		$("#txtHoras").focus();
 		return false;
 	}
 	if(fecha == ''){
 		msj = "<div class='popup-txt'>Seleccione la fecha en la que se trabajó, por favor...</div>";
-		popup('Fecha',popup_ico+msj,0,0,1,'txtFecha');
+		ventana=popup('Fecha',popup_ico+msj,0,0,1,'txtFecha');
+		setTimeout(function(){$("#"+ventana).dialog("close");}, 2000);
 		$("#txtFecha").focus();
 		return false;
 	}	

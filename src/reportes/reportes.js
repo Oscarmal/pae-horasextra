@@ -115,7 +115,7 @@ function datos_grafico01(idObjeto, id_empresa, anio){
 					series[i] = {
 			        		type: 'column',
 				            name: series_nombre[i],
-				            data: valores[i]
+				            data: valores[i] 
 					};	
 				});
 
