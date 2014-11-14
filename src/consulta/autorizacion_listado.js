@@ -21,7 +21,7 @@ function xls(xls){
 		}		
 		,success: function(respuesta){ 
 			if(respuesta.success){
-				
+				$(location).attr('href', respuesta.xls);
 			}else if(respuesta.success){
 				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
 				txt = respuesta.error;

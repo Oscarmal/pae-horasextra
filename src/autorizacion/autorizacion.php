@@ -117,7 +117,7 @@ if($in[auth]){
 				if(!is_array($registro)) break;
 			}
 			// Generacion de XLS
-			$success = ($xls = xsl_autorizaciones($ids))?true:false;
+			$success = ($xls = xsl_rebuild($ids))?true:false;
 			$msj = "Archivo regenerado";
 			$nodata = false;
 		}else{
