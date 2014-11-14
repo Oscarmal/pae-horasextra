@@ -94,6 +94,6 @@ if($cfg[online_onoff] && $in[s]!=$var[LOGIN]){
 }
 #Limpiar carpeta \tmp
 $ext = array('xlsx','xls','csv', 'doc', 'docx', 'rft', 'pdf', 'rar', 'zip', 'txt', 'json', 'xml');
-limpiarTmp($Path[tmp], $ext, 1);
+limpiarTmp($Path[tmp], $ext, 60);
 /*O3M*/
 ?>
