@@ -52,7 +52,8 @@ $frm_vistas = array(
 			 	)
 			,ADMIN => 
 			 	array(
-			 		 ADMIN 			=> 'admin.html'
+			 		 INDEX 			=> 'index.html'
+			 		,USUARIOS		=> 'usuarios.html'
 			 	)
 			,ERROR => 'error.html'
 		);
@@ -110,7 +111,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		// --
 		// FRM_MENU
 		require_once($Path[src].'build.menu.php');
-		$menu = buildMenu(4);
+		$menu = buildMenu(5);
 		$menu_opc = array(	
 					 MENU 			=> $menu
 					// Inicio
@@ -141,6 +142,12 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC51		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE01]
 					,txt_opc52		=> $dic[reportes][reporte02_menu]
 					,LINK_OPC52		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE02]
+					// Administración
+					,txt_opc6 		=> $dic[general][admin]
+					,img_opc6		=> $var[menu_opc6]
+					,LINK_OPC6		=> '#'
+					,txt_opc61		=> $dic[admin][usuarios_menu]
+					,LINK_OPC61		=> '../site/?m='.$var[ADMIN].'&s='.$var[USUARIOS]
 					
 				);
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);

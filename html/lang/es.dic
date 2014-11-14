@@ -7,7 +7,7 @@ general|autorizacion=Autorizaciones
 general|busqueda=Búsqueda
 general|consulta=Consulta
 general|reportes=Reportes
-general|administracion=Administración
+general|admin=Administración
 general|ayuda=Ayuda
 general|login=Iniciar sesión
 general|usuario=Usuario
@@ -49,3 +49,7 @@ reportes|reporte01_menu=Reporte General
 reportes|reporte01_titulo=Reporte General de Horas Extra
 reportes|reporte02_menu=Reportes Mensual
 reportes|reporte02_titulo=Reportes Mensual
+#Administracion
+admin|titulo=Administración
+admin|usuarios_menu=Usuarios
+admin|usuarios_titulo=Administración de Usuarios
