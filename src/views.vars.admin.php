@@ -13,6 +13,7 @@ require_once($Path[src].'build.contenidos.php');
 $vistas = array(
 		 INDEX 			=> 'index.html'
 		,USUARIOS 		=> 'usuarios.html'
+		,SINCRONIZACION => 'sincronizacion.html'
 	);
 
 # Vistas
@@ -35,6 +36,9 @@ function tpl_vars($cmd, $urlParams=array()){
 		$vars = vars_index($cmd, $urlParams);
 	}elseif($cmd == 'USUARIOS'){
 		$vars = vars_usuarios($cmd, $urlParams);
+	}
+	elseif($cmd == 'SINCRONIZACION'){
+		$vars = vars_sincronizacion($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
@@ -44,10 +48,10 @@ function tpl_vars($cmd, $urlParams=array()){
 #############
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
-function vars_usuarios($seccion, $urlParams){
+function vars_sincronizacion($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[admin][usuarios_titulo];
+	$titulo 	= $dic[admin][sincronizar_titulo];
 
 	$tbl_resultados = build_grid_usuarios();
 	$data_contenido = array(
