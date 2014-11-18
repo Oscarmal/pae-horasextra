@@ -108,7 +108,7 @@ function xsl_nomina($ids, $semana=false){
                   );
       $tabla = nomina_xls($sqlData);
       $nameArchivo = 'HE_Horas-Extra';
-      $tituloTabla = 'HE - Horas Extra';
+      $tituloTabla = false;
       $titulos = array(
                          'ID'
                         ,'Semana'
@@ -150,7 +150,7 @@ function rebuild_xsl_nomina($ids, $xls=''){
                   );
       $tabla = nomina_xls($sqlData);
       $nameArchivo = 'HE_Horas-Extra';
-      $tituloTabla = 'HE - Horas Extra';
+      $tituloTabla = false;
       $titulos = array(
                          'ID'
                         ,'Semana'
