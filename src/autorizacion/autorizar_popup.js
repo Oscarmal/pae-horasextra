@@ -21,7 +21,7 @@ function slider_horas(){
 	horas = parseInt(horas);
 	var fecha = $("#fecha").val(); 
 	var f = fecha.split('/');
-	var semana = semanaNum('"'+f[2]+'-'+f[1]+'-'+f[0]+'"');
+	var semana = semanaNum(f[2],f[1],f[0]);
 	build_slider("slider-semana", semana, 53, 1, "semana");
 	build_slider("slider-dobles", 0, horas, 0, "dobles");
 	build_slider("slider-triples", 0, horas, 0, "triples");

@@ -174,8 +174,9 @@ function solo_num(e) {
     return patron.test(te); 
 } 
 
-function semanaNum(fecha){
-    var d = (!fecha)? new Date() : new Date(fecha);
+// function semanaNum(fecha){
+function semanaNum(y,m,d){
+    var d = (!y)? new Date() : new Date(y,m,d);
     d.setHours(0,0,0);
     d.setDate(d.getDate()+4-(d.getDay()||7));
     var data = Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
