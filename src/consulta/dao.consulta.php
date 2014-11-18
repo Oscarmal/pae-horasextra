@@ -86,7 +86,12 @@ function autorizacion_listado_select($data=array()){
 		}elseif($estatus==0){
 			$filtro.=" and d.estatus IS NULL";
 		}
-		$filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		// $filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		if($xls=='NULL'){
+			$filtro.= ' and d.xls IS NULL';
+		}elseif($xls){
+			$filtro.= " and d.xls IN ($xls)";
+		}else{ $filtro.= "";}
 		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
 		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';

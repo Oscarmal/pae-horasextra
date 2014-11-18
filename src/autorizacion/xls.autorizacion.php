@@ -91,9 +91,16 @@ function xsl_rebuild($ids){
       return $xls;
 }
 
-#TODO
-function xsl_nomina($ids){
+function xsl_nomina($ids, $semana=false){
       global $usuario, $cfg;
+      // Actualiza semana
+      $updateSemana = array(
+                         auth           => 1
+                        ,id_horas_extra => $ids
+                        ,semana         => $semana
+                  );
+      $updateXls = autorizacion_update($updateSemana); 
+      // Extrae datos para crear xls
       $sqlData = array(
                          auth          => 1
                         ,id_horas_extra=> $ids
@@ -120,11 +127,14 @@ function xsl_nomina($ids){
                         ,directorio       => $directorio
                         ,id_empresa       => $usuario[id_empresa]
                   );
+      // Crea xls
       $xls = xls($xlsData);
+      // Actualiza registros con nombre de xls y semana
       $updateXls = array(
                          auth           => 1
                         ,id_horas_extra => $ids
                         ,xls            => $xls[filename]
+                        ,semana         => $semana
                   );
       $updateXls = autorizacion_update($updateXls); 
       return $xls;

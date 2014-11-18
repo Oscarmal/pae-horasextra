@@ -79,13 +79,14 @@ function build_grid_capturadas(){
 	return $tbl_resultados;
 }
 
-function build_grid_autorizadas(){
+function build_grid_autorizadas($data=array()){
 // Construye listado de horas extra autorizadas
 	global $usuario, $Path;
 	$sqlData = array(
 			 auth 		=> true
 			,estatus 	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
+			,xls 		=> $data[xls]
 		);
 	$tabla = autorizacion_listado_select($sqlData);	
 	$campos = array(

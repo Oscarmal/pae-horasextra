@@ -1,14 +1,51 @@
 //O3M//
 $(document).ready(function(){
-	// scriptJs_Enter('autorizacion'); //Carga detección de ENTER
-	jgrid('jGrid');
+	slider_semana();
 });
 
+function slider_semana(){	
+// Contruye sliders con valores iniciales
+	build_slider("slider-semana", 0, 5, 0, "semana");
+}
+
+function build_slider(id_Objeto, valor, max, min, idMuestra) {
+// Funcion para contruir un slider
+	valor = parseInt(valor);
+	$("#"+id_Objeto).slider({
+	  range: "min",
+	  value: valor,
+	  min: min,
+	  max: max,
+	  step: 1,
+      animate: 100,
+	  slide: function(event, ui) {
+	    $("#"+idMuestra).val(ui.value);
+	  },
+	  stop: function(event,ui){
+		rebuild_slider(ui.value);
+	  }
+	});
+	var valActual = $("#"+id_Objeto).slider("value");
+	$("#"+idMuestra).val(valActual);
+}
+
+
 function btnSubmit(){
-	// genera_xls();
+	var raiz = raizPath();
+	var semana = parseInt($('#semana').val());
+	var msj = '';
+	var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
+	if(!semana){
+		msj = "<div class='popup-txt'>La semana no puede esta en <b>cero</b>.</div>";
+		ventana = popup('Validación',popup_ico+msj,0,0,1,'horas');
+		setTimeout(function(){$("#"+ventana).dialog("close");}, 2000);
+		$("#semana").focus();
+		return false;
+	}
+	genera_xls(semana);
 }
 
-function autorizar(id_horas_extra){
+function genera_xls(semana){
 	$("#autorizar-popup").empty();
 	var raiz = raizPath();
 	var modulo = 'autorizacion';
@@ -22,37 +59,7 @@ function autorizar(id_horas_extra){
 		data: {      
 			auth : 1,
 			modulo : modulo,
-			accion : 'autorizacion-popup',
-			id_horas_extra : id_horas_extra
-		}		
-		,success: function(respuesta){ 
-			if(respuesta.success){
-				var vistaHTML = respuesta.html;
-				ventana = popup('Autorizar',contenidoHtml,500,480,3);
-				$("#autorizar-popup").html(vistaHTML);
-			}else if(respuesta.success){
-				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
-				txt = respuesta.error;
-				ventana = popup('Error',popup_ico+txt,0,0,3);
-			}				
-		}
-    });
-}
-
-function genera_xls(){
-	$("#autorizar-popup").empty();
-	var raiz = raizPath();
-	var modulo = 'autorizacion';
-	var contenidoHtml = '<div id="autorizar-popup"></div>';	
-	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
-	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
-	$.ajax({
-		type: 'POST',
-		url: ajax_url,
-		dataType: "json",
-		data: {      
-			auth : 1,
-			modulo : modulo,
+			semana : semana,
 			accion : 'genera-xls'
 		}
 		,beforeSend: function(){ 
@@ -86,35 +93,11 @@ function genera_xls(){
 				}, 2000);
 			}				
 		}
-    });
-}
-
-function layout(){
-	$("#layout-popup").empty();
-	var raiz = raizPath();
-	var modulo = 'autorizacion';
-	var contenidoHtml = '<div id="layout-popup"></div>';	
-	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
-	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
-	$.ajax({
-		type: 'POST',
-		url: ajax_url,
-		dataType: "json",
-		data: {      
-			auth : 1,
-			modulo : modulo,
-			accion : 'layout-popup'
-		}		
-		,success: function(respuesta){ 
-			if(respuesta.success){
-				var vistaHTML = respuesta.html;
-				ventana = popup('Layout',contenidoHtml,0,300,3);
-				$("#layout-popup").html(vistaHTML);
-			}else if(respuesta.success){
-				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
-				txt = respuesta.error;
-				ventana = popup('Error',popup_ico+txt,0,0,3);
-			}				
+		,complete: function(){ 
+			setTimeout(function(){
+				$("#"+ventana).dialog("close");
+				location.reload(true);
+			}, 5000);
 		}
     });
 }

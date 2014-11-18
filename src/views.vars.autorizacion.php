@@ -75,7 +75,7 @@ function vars_layout($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][layout_titulo];
-	$tbl_resultados = build_grid_autorizaciones();
+	$tbl_resultados = build_grid_autorizadas(array(xls => 'NULL'));
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

@@ -46,7 +46,7 @@ if($in[auth]){
 			}
 			$id_horas_extra = $data_arr['id_horas_extra'];
 			$anio     = $data_arr['anio'];
-			$semana   = $data_arr['semana'];
+			// $semana   = $data_arr['semana'];
 			$horas[0] = $data_arr['rechazadas'];
 			$horas[1] = $data_arr['simples'];
 			$horas[2] = $data_arr['dobles'];
@@ -59,7 +59,7 @@ if($in[auth]){
 						 auth 			=> true
 						,id_horas_extra	=> $id_horas_extra
 						,anio			=> $anio
-						,semana			=> $semana
+						// ,semana			=> $semana
 						,horas 			=> $horas[$i]
 						,id_concepto 	=> $id_concepto[$i]
 						,estatus 		=> $estatus
@@ -92,7 +92,7 @@ if($in[auth]){
 			}
 			// Generacion de XLS
 			// $success = ($xls = xsl_autorizaciones($ids))?true:false;
-			$success = ($xls = xsl_nomina($ids))?true:false;
+			$success = ($xls = xsl_nomina($ids, $in[semana]))?true:false;
 			$msj = "Archivo generado";
 			$nodata = false;
 		}else{
@@ -153,6 +153,31 @@ if($in[auth]){
 		}
 		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
 		$data = json_encode($data);
+	}elseif($ins[accion]=='layout-popup'){
+		// Extraccion de datos
+		$sqlData = array(
+			 auth 			=> true
+			,id_horas_extra	=> $ins[id_horas_extra]
+		);
+		$datos = capturados_select($sqlData);
+		// Impresion de vista
+		$vista_new 	= 'autorizacion/layout_popup.html';
+		$tpl_data = array(
+				 MORE 	 => incJs($Path[srcjs].strtolower(MODULO).'/layout_popup.js')
+				,id 	 => $datos[id_horas_extra]
+				,nombre	 => $datos[nombre_completo]
+				,clave	 => $datos[empleado_num]
+				,fecha	 => $datos[fecha]
+				,horas	 => $datos[horas]
+				,guardar => 'Guardar'			
+				,cancelar	 => 'Cancelar'			
+				);		
+		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
+		// Envio de resultado
+		$success = true;
+		$msj = ($success)?'Guardado':'No guardó';
+		$data = array(success => $success, message => $msj, html => $CONTENIDO);
+		$data = json_encode($data);		
 	}elseif(!$ins[accion]){
 		$error = array(error => 'Sin accion');
 		$data = json_encode($error);

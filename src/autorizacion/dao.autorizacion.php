@@ -97,10 +97,11 @@ function autorizacion_update($data=array()){
 		$campos = array();
 		$timestamp = date('Y-m-d H:i:s');
 		$id_autorizacion = (is_array($data[id_autorizacion]))?implode(',',$data[id_autorizacion]):$data[id_autorizacion];
-		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];		
 		$campos [] = ($data[id_concepto])?"a.id_concepto='$data[id_concepto]'":'';
 		$campos [] = ($data[estatus])?"a.estatus='$data[estatus]'":'';
 		$campos [] = ($data[xls])?"a.xls='$data[xls]'":'';
+		$campos [] = ($data[semana])?"a.semana='$data[semana]'":'';
 		#$campos [] = "a.id_usuario='$usuario[id_usuario]'";
 		#$campos [] = "a.timestamp='$timestamp'";				
 		$campos = implode(',',array_filter($campos));
@@ -279,7 +280,7 @@ function sin_autorizar_select($data=array()){
 		}elseif($estatus==0){
 			$filtro.=" and d.estatus IS NULL";
 		}
-		$filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		$filtro.= ($xls)?" and d.xls IN ($xls)":'';		
 		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
 		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';

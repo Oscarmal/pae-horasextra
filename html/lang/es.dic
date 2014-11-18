@@ -17,6 +17,7 @@ general|mensaje=Mensaje
 general|enlace=Enlace
 general|correo=Correo
 general|salir=Salir
+general|cancelar=Cancelar
 general|msj_inicio=Bienvenido al sistema de registro de horas extra. <br/><br/>Por favor, seleccione del menú superior la opción deseada.
 # Error
 error|mensaje=No existe acción
