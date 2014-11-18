@@ -357,7 +357,7 @@ function xls($params=array()){
 	$datos 		= (!isset($params[datos]))?array():$params[datos];
 	$colsTitulos= (!isset($params[colsTitulos]))?array():$params[colsTitulos]; 
 	$archivo 	= (!isset($params[archivo]))?'tmp':$params[archivo];
-	$tituloTabla= (!isset($params[tituloTabla]))?'TABLA':$params[tituloTabla]; 
+	$tituloTabla= (!isset($params[tituloTabla]))?'':$params[tituloTabla]; 
 	$hoja 		= (!isset($params[hoja]))?'':$params[hoja];
 	$directorio = (!isset($params[directorio]))?false:$params[directorio];
 	// Parametros inicales
@@ -477,9 +477,11 @@ function xls($params=array()){
 	// Construccion de contenido 
 	// write($x,$y,$valor,$formato) ==> $x=>Fila; $y=>Columna
 	#Titulos
-	$hoja1->write($x, $y, $tituloTabla, $fTitulos);
-	$hoja1->mergeCells($x, $y, $x, count($colsTitulos)-1); # Combinar celdas      
-	$x++;
+	if(!empty($tituloTabla)){
+		$hoja1->write($x, $y, $tituloTabla, $fTitulos);
+		$hoja1->mergeCells($x, $y, $x, count($colsTitulos)-1); # Combinar celdas      
+		$x++;
+	}
 	foreach($colsTitulos as $tCol){
 		$hoja1->write($x, $y, $tCol, $fTitulos);
 		$y++;
