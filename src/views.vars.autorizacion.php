@@ -12,6 +12,7 @@ require_once($Path[src].'build.contenidos.php');
 # Vistas HTML
 $vistas = array(
 		 INDEX 		=> 'autorizacion.html'
+		,LAYOUT		=> 'layout.html'
 		,ERROR 	 	=> 'error.html'
 	);
 
@@ -33,6 +34,8 @@ function tpl_vars($cmd, $urlParams=array()){
 	$cmd = strtoupper(enArray($cmd,$vistas));
 	if($cmd == 'INDEX'){
 		$vars = vars_index($cmd, $urlParams);
+	}elseif($cmd == 'LAYOUT'){
+		$vars = vars_layout($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
@@ -46,7 +49,32 @@ function tpl_vars($cmd, $urlParams=array()){
 function vars_index($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[autorizacion][titulo];
+	$titulo 	= $dic[autorizacion][autorizacion_titulo];
+	$tbl_resultados = build_grid_autorizaciones();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 		=> $icono
+				,TITULO		=> $titulo
+				,CONTENIDO 	=> $contenido
+				,genera_xls	=> $dic[autorizacion][genera_xls]
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+
+function vars_layout($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[autorizacion][layout_titulo];
 	$tbl_resultados = build_grid_autorizaciones();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados

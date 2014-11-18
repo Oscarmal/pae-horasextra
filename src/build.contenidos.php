@@ -81,7 +81,7 @@ function build_grid_capturadas(){
 
 function build_grid_autorizadas(){
 // Construye listado de horas extra autorizadas
-	global $Path;
+	global $usuario, $Path;
 	$sqlData = array(
 			 auth 		=> true
 			,estatus 	=> 1
@@ -111,8 +111,13 @@ function build_grid_autorizadas(){
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
 			if($campos[$i]=='xls' ){
+				$xls_nomina = ($usuario[grupo]<4)?'<br/><a href="#" onclick="xls_nomina(\''.$data[$campos[$i]].'\')" target="_self" title="Layout Nómina" class="link-xls">[Nómina]</a>':'';
 				// $tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
-				$tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="#" onclick="xls(\''.$data[$campos[$i]].'\')" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
+				$tbl_resultados .= ($data[$campos[$i]])
+					?'<td ><a href="#" onclick="xls(\''.$data[$campos[$i]].'\')" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a>'
+					.$xls_nomina
+					.'</td>'
+					:'<td>XLS Pendiente</td>';
 			}else{
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
 			}
@@ -156,7 +161,7 @@ function build_reporte01($id_empresa=false, $anio=false){
 
 function build_select_empresas(){
 	global $usuario;
-	$sqlData = array( auth => true );
+	$sqlData = array( auth => true, activo => 1 );
 	$tabla = empresas($sqlData);	
 	// $readonly = ($usuario[grupo]>1)?'readonly="readonly" onmouseover="this.disabled=true;" onmouseout="this.disabled=false;"':'';
 	$objeto = "<select id='sel_empresa' name='sel_empresa' $readonly >";
@@ -195,17 +200,19 @@ function build_grid_usuarios(){
 // Construye grid de autorizaciones
 	$sqlData = array(
 			 auth 			=> 1
-			,id_empresa	=> $usuario[id_empresa]
+			,id_empresa		=> $usuario[id_empresa]
 			,id_number		=> $usuario[id_number]
+			,activo 		=> 1
 		);
 	$tabla = select_view_nomina($sqlData);	
 	$campos = array(
-				 'id_nomina'
+				 'id_empleado'
 				,'id_number'
 				,'nombre'
 				,'rfc'
 				,'imss'
 				,'empresa_razon_social'
+				,'activo'
 			);
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
@@ -214,7 +221,7 @@ function build_grid_usuarios(){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
 		}	
-		$tbl_resultados .= '<td>'.'Activo'.'</td>';
+		$tbl_resultados .= '<td>'.date('d/m/Y H:i:s').'</td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

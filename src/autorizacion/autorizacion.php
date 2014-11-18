@@ -91,7 +91,8 @@ if($in[auth]){
 				$ids [] = $data[0];
 			}
 			// Generacion de XLS
-			$success = ($xls = xsl_autorizaciones($ids))?true:false;
+			// $success = ($xls = xsl_autorizaciones($ids))?true:false;
+			$success = ($xls = xsl_nomina($ids))?true:false;
 			$msj = "Archivo generado";
 			$nodata = false;
 		}else{
@@ -118,6 +119,33 @@ if($in[auth]){
 			}
 			// Generacion de XLS
 			$success = ($xls = xsl_rebuild($ids))?true:false;
+			$msj = "Archivo regenerado";
+			$nodata = false;
+		}else{
+			$msj = "Sin datos";
+		}
+		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
+		$data = json_encode($data);
+	}elseif($ins[accion]=='regenera-xls-nomina'){
+		$success = false;
+		$nodata = true;
+		// Extraccion de datos
+		$sqlData = array(
+			 auth 	=> true
+			,activo => 1
+			,xls	=> $in[xls]
+		);
+		$datos = build_xls($sqlData);	
+		if($datos){
+			$ids = array();
+			foreach($datos as $registro){
+				$data = (is_array($registro))?$registro:$datos;
+				$ids [] = $data[0];
+				$xls = $data[xls];
+				if(!is_array($registro)) break;
+			}
+			// Generacion de XLS
+			$success = ($xls = rebuild_xsl_nomina($ids, $xls))?true:false;
 			$msj = "Archivo regenerado";
 			$nodata = false;
 		}else{

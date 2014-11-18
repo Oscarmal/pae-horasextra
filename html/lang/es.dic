@@ -25,22 +25,27 @@ login|msj_entrar=Ingrese sus datos de usuario
 login|msj_noauth=Sin autorización para accesar
 login|msj_salir=Sesión Cerrada
 # Captura
-captura|titulo=Captura de Horas Extra
+captura|titulo=Captura de Horas Extra por día
 captura|index=Listado de Horas Extra
 captura|horas_extra=Captura de Horas Extra
 captura|guardar=Guardar
 # Autorizacion
 autorizacion|titulo=Autorización de horas extra
+autorizacion|autorizacion_titulo=Autorización de horas extra
+autorizacion|autorizacion_menu=Autorizar Horas Capturadas
+autorizacion|layout_titulo=Generación de Layout para NóminaPAE
+autorizacion|layout_menu=Layout para NóminaPAE
 autorizacion|cerrar=Cerrar
 autorizacion|guardar=Aplicar Autorizaciones
 autorizacion|index=Aplicar Autorizaciones
 autorizacion|listado=Listado de Autorizaciones ap.
 autorizacion|titulo2=Listado de Autorizaciones aplicadas
 autorizacion|genera_xls=Generar Layout XLS
+
 # Consulta
 consulta|titulo=Consultas
 consulta|captura_menu=Listado de Horas Extra Cap.
-consulta|captura_titulo=Listado de Horas Extra capturadas
+consulta|captura_titulo=Listado de Horas Extra capturadas sin autorizar
 consulta|autorizacion_menu=Listado de Autorizaciones
 consulta|autorizacion_titulo=Listado de Autorizaciones aplicadas
 # Reportes
