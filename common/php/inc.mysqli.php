@@ -69,7 +69,8 @@ function SQLDo($SQL){
 		    	$qry = $conn->query($SQL)or die(mysqli_connect_errno($conn).' -> '.mysqli_connect_error()); //Ejecuta query	    	 	
 				// Guardar LOGS
 		    	if($cfg[querylog_onoff]){
-			    	$Id = $conn->insert_id;
+			    	// $Id = $conn->insert_id;
+			    	$Id = mysqli_insert_id($conn);
 					$TotRows = $conn->affected_rows;
 					if($TotRows){	
 						$idtable=$Id;
@@ -93,9 +94,11 @@ function SQLDo($SQL){
 						}
 					}
 				}
+				$action=strtoupper($vSql[0]);
+				$result = ($action=='INSERT')?mysqli_insert_id($conn):true;
 		    	// --
 		    	mysqli_close($conn); //Cierra conexión
-		    	return true;
+		    	return $result;
 		    }catch(PDOException $e){
 		    	echo "ERROR: La consulta SQL esta vacía o tiene errores: ".$SQL;
 		    	return false;
