@@ -15,8 +15,8 @@ $Raiz[local] = $_SESSION[RaizLoc];
 $Raiz[url] = $_SESSION[RaizUrl];
 $Raiz[sitefolder] = $_SESSION[SiteFolder];
 // Parsea archivo.cfg y crea $cfg[], $db[], $var[]
-require_once($Raiz['local'].'common\php\inc.parse-cfg.php');
-load_vars($Raiz['local'].'common\cfg\system.cfg');
+require_once($Raiz[local].'common/php/inc.parse-cfg.php');
+load_vars($Raiz[local].'common/cfg/system.cfg');
 // Establece variables
 $Path[php]=$Raiz[local].$cfg[path_php];
 $Path[js]=$Raiz[url].$cfg[path_js];
@@ -36,6 +36,7 @@ if(!isset($_SESSION['header_path'])){$_SESSION['header_path'] = $Raiz[local].$cf
 // Prepara archivos de apoyo
 require_once($Raiz[local].$cfg[php_functions]);
 require_once($Raiz[local].$cfg[php_mysql]);
+// require_once($Raiz[local].$cfg[php_postgres]);
 require_once($Raiz[local].$cfg[php_tpl]);
 require_once($Raiz[local].$cfg[path_php].'inc.constructHtml.php');
 require_once($Path[src].'dao.online.php');
@@ -70,6 +71,7 @@ $usuario[empleado_num]		= $_SESSION[user]['empleado_num'];
 $usuario[email]				= $_SESSION[user]['email'];
 $usuario[empresa]			= $_SESSION[user]['empresa'];
 $usuario[id_empresa]		= $_SESSION[user]['id_empresa'];
+$usuario[id_empresa_nomina] = $_SESSION[user]['id_empresa_nomina'];
 $usuario[pais]				= $_SESSION[user]['pais'];
 $usuario[accesos][mod1]		= $_SESSION[user]['accesos']['mod1'];
 $usuario[accesos][mod2]		= $_SESSION[user]['accesos']['mod2'];
@@ -94,6 +96,6 @@ if($cfg[online_onoff] && $in[s]!=$var[LOGIN]){
 }
 #Limpiar carpeta \tmp
 $ext = array('xlsx','xls','csv', 'doc', 'docx', 'rft', 'pdf', 'rar', 'zip', 'txt', 'json', 'xml');
-limpiarTmp($Path[tmp], $ext, 60);
+@limpiarTmp($Path[tmp], $ext, 60);
 /*O3M*/
 ?>

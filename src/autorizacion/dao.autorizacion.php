@@ -47,7 +47,7 @@ function capturados_select($data=array()){
 					,d.xls
 					,e.clave as concepto_clave
 					,c.usuario as capturado_por
-					,a.timestamp as capturado_el
+					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
@@ -97,10 +97,11 @@ function autorizacion_update($data=array()){
 		$campos = array();
 		$timestamp = date('Y-m-d H:i:s');
 		$id_autorizacion = (is_array($data[id_autorizacion]))?implode(',',$data[id_autorizacion]):$data[id_autorizacion];
-		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];		
 		$campos [] = ($data[id_concepto])?"a.id_concepto='$data[id_concepto]'":'';
 		$campos [] = ($data[estatus])?"a.estatus='$data[estatus]'":'';
 		$campos [] = ($data[xls])?"a.xls='$data[xls]'":'';
+		$campos [] = ($data[semana])?"a.semana='$data[semana]'":'';
 		#$campos [] = "a.id_usuario='$usuario[id_usuario]'";
 		#$campos [] = "a.timestamp='$timestamp'";				
 		$campos = implode(',',array_filter($campos));
@@ -183,7 +184,7 @@ function xls_select($data=array()){
 					,DATE_FORMAT(a.fecha,'%d/%m/%Y') as fecha
 					,DATE_FORMAT(a.horas,'%H:%i') as horas
 					,c.usuario as capturado_por
-					,a.timestamp as capturado_el
+					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=0,d.horas,NULL)))),'%H:%i') AS horas_rechazadas
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=2,d.horas,NULL)))),'%H:%i') AS horas_dobles
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=3,d.horas,NULL)))),'%H:%i') AS horas_triples
@@ -191,7 +192,7 @@ function xls_select($data=array()){
 					,d.anio	
 					,d.semana			
 					,f.usuario as autorizado_por
-					,d.timestamp as autorizado_el
+					,DATE_FORMAT(d.timestamp, '%d/%m/%Y %H:%i:%s') as autorizado_el
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
@@ -279,7 +280,7 @@ function sin_autorizar_select($data=array()){
 		}elseif($estatus==0){
 			$filtro.=" and d.estatus IS NULL";
 		}
-		$filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		$filtro.= ($xls)?" and d.xls IN ($xls)":'';		
 		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
 		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
@@ -295,9 +296,9 @@ function sin_autorizar_select($data=array()){
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=3,d.horas,NULL)))),'%H:%i') AS horas_triples
 					,d.xls
 					,c.usuario as capturado_por
-					,a.timestamp as capturado_el
+					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 					,f.usuario as autorizado_por
-					,d.timestamp as autorizado_el
+					,DATE_FORMAT(d.timestamp, '%d/%m/%Y %H:%i:%s') as autorizado_el
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
@@ -355,5 +356,52 @@ function build_xls($data=array()){
 	}
 	return $resultado;
 }
+
+function nomina_xls($data=array()){
+// Obtiene ID's que no tengan valor en campo [xls]
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;	
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];	
+		// $xls	
+		if(is_array($data[xls])){
+			$xls = implode(',',$data[xls]);
+			$xls = " and a.xls IN ($xls)";
+		}elseif(!$data[xls]){
+			$xls = ' and IFNULL(a.xls,"")=""';
+		}else{
+			$xls = " and a.xls='$data[xls]'";
+		}
+		$activo			= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.=filtro_grupo(array(
+					 ''
+					,"and c.id_empresa='$usuario[id_empresa]'"
+					,"and c.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+					,"and c.id_empresa='$usuario[id_empresa]' and c.id_usuario='$usuario[id_usuario]'"
+				));
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.= " and a.estatus IS NOT NULL";
+		$filtro.= ($xls) ? $xls : '';
+		$filtro.= ($activo)?" and c.activo IN ($activo)":'';
+		// $grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY c.id_horas_extra';
+		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY c.id_horas_extra ASC';
+		$sql = "SELECT c.id_personal,					
+					a.semana, 
+					b.clave,
+					a.horas/10000 as horas
+				FROM $db[tbl_autorizaciones] a
+				LEFT JOIN $db[tbl_conceptos] b on a.id_concepto=b.id_concepto
+				LEFT JOIN $db[tbl_horas_extra] c ON a.id_horas_extra=c.id_horas_extra
+				WHERE 1 and a.id_concepto!=0 
+				$filtro $grupo $orden
+				;";
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
+
 /*O3M*/
 ?>

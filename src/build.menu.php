@@ -11,6 +11,12 @@ function buildMenu($elementos=0){
 		$txt 	= 'txt_opc'.$i;
 		if($usuario[accesos][mod.$i]){
 			switch($i){
+				case 3 : $submenu = '
+					<ul>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC31}\';" target="_self">{txt_opc31}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC32}\';" target="_self">{txt_opc32}</a></li>
+			         </ul>';
+					break;
 				case 4 : $submenu = '
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC41}\';" target="_self">{txt_opc41}</a></li>

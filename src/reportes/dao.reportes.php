@@ -104,7 +104,9 @@ function empresas($data=array()){
 	if($data[auth]){
 		global $db, $usuario;
 		$id_empresa = (is_array($data[id_empresa]))?implode(',',$data[id_empresa]):$data[id_empresa];
+		$activo = (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
 		$filtro .= ($id_empresa)?" AND a.id_empresa IN ($id_empresa)":'';
+		$filtro .= ($activo)?" AND b.activo IN ($activo)":'';
 		$filtro.=filtro_grupo(array(
 					 ''
 					,"AND a.id_empresa='$usuario[id_empresa]'"
@@ -118,7 +120,8 @@ function empresas($data=array()){
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_empresa
 				WHERE 1 $filtro
-				GROUP BY b.nombre ASC
+				GROUP BY b.nombre
+				ORDER BY b.id_empresa
 				;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;

@@ -37,6 +37,7 @@ $frm_vistas = array(
 			,AUTORIZACION => 
 			 	array(
 			 		 INDEX 			=> 'autorizacion.html'
+			 		,LAYOUT 		=> 'layout.html'
 			 	)
 			,CONSULTA => 
 			 	array(
@@ -54,6 +55,7 @@ $frm_vistas = array(
 			 	array(
 			 		 INDEX 			=> 'index.html'
 			 		,USUARIOS		=> 'usuarios.html'
+			 		,SINCRONIZACION	=> 'sincronizacion.html'
 			 	)
 			,ERROR => 'error.html'
 		);
@@ -125,7 +127,11 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					// Autorizaciones
 					,txt_opc3		=> $dic[general][autorizacion]
 					,img_opc3		=> $var[menu_opc3]
-					,LINK_OPC3		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]				
+					,LINK_OPC3		=> '#'				
+					,txt_opc31		=> $dic[autorizacion][autorizacion_menu]
+					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]
+					,txt_opc32		=> $dic[autorizacion][layout_menu]
+					,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LAYOUT]
 					// Consulta
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
@@ -146,9 +152,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,txt_opc6 		=> $dic[general][admin]
 					,img_opc6		=> $var[menu_opc6]
 					,LINK_OPC6		=> '#'
-					,txt_opc61		=> $dic[admin][usuarios_menu]
-					,LINK_OPC61		=> '../site/?m='.$var[ADMIN].'&s='.$var[USUARIOS]
-					
+					,txt_opc61		=> $dic[admin][sincronizar_menu]
+					,LINK_OPC61		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION]					
 				);
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);
 		// --	

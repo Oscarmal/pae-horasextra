@@ -40,7 +40,7 @@ function captura_listado_select($data=array()){
 					,DATE_FORMAT(a.fecha,'%d/%m/%Y') as fecha
 					,DATE_FORMAT(a.horas,'%H:%i') as horas
 					,c.usuario as capturado_por
-					,a.timestamp as capturado_el
+					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
@@ -86,7 +86,12 @@ function autorizacion_listado_select($data=array()){
 		}elseif($estatus==0){
 			$filtro.=" and d.estatus IS NULL";
 		}
-		$filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		// $filtro.= ($xls)?" and d.xls IN ($xls)":'';
+		if($xls=='NULL'){
+			$filtro.= ' and d.xls IS NULL';
+		}elseif($xls){
+			$filtro.= " and d.xls IN ($xls)";
+		}else{ $filtro.= "";}
 		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
 		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
@@ -102,9 +107,9 @@ function autorizacion_listado_select($data=array()){
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=3,d.horas,NULL)))),'%H:%i') AS horas_triples
 					,d.xls
 					,c.usuario as capturado_por
-					,a.timestamp as capturado_el
+					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 					,f.usuario as autorizado_por
-					,d.timestamp as autorizado_el
+					,DATE_FORMAT(d.timestamp, '%d/%m/%Y %H:%i:%s') as autorizado_el
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario

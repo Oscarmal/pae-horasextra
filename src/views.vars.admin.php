@@ -13,6 +13,7 @@ require_once($Path[src].'build.contenidos.php');
 $vistas = array(
 		 INDEX 			=> 'index.html'
 		,USUARIOS 		=> 'usuarios.html'
+		,SINCRONIZACION => 'sincronizacion.html'
 	);
 
 # Vistas
@@ -35,6 +36,9 @@ function tpl_vars($cmd, $urlParams=array()){
 		$vars = vars_index($cmd, $urlParams);
 	}elseif($cmd == 'USUARIOS'){
 		$vars = vars_usuarios($cmd, $urlParams);
+	}
+	elseif($cmd == 'SINCRONIZACION'){
+		$vars = vars_sincronizacion($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
@@ -44,15 +48,14 @@ function tpl_vars($cmd, $urlParams=array()){
 #############
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
-function vars_usuarios($seccion, $urlParams){
+function vars_sincronizacion($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[admin][usuarios_titulo];
-	
+	$titulo 	= $dic[admin][sincronizar_titulo];
+
+	$tbl_resultados = build_grid_usuarios();
 	$data_contenido = array(
-				TBL_RESULTS 	=> $tbl_resultados
-				,select_empresa => $sel_empresa
-				,select_anio 	=> $sel_anio
+				TBL_RESULTS=> $tbl_resultados
 		);
 	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
 	## Envio de valores ##
@@ -65,6 +68,7 @@ function vars_usuarios($seccion, $urlParams){
 				 ICONO 			=> $icono
 				,TITULO			=> $titulo
 				,CONTENIDO 		=> $contenido
+				,sincronizar_usuarios =>$dic[admin][sincronizar_usuarios]
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;
