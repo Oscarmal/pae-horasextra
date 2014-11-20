@@ -387,13 +387,14 @@ function nomina_xls($data=array()){
 		$filtro.= ($activo)?" and c.activo IN ($activo)":'';
 		// $grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY c.id_horas_extra';
 		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY c.id_horas_extra ASC';
-		$sql = "SELECT c.id_personal,					
+		$sql = "SELECT d.empleado_num,					
 					a.semana, 
 					b.clave,
 					a.horas/10000 as horas
 				FROM $db[tbl_autorizaciones] a
 				LEFT JOIN $db[tbl_conceptos] b on a.id_concepto=b.id_concepto
 				LEFT JOIN $db[tbl_horas_extra] c ON a.id_horas_extra=c.id_horas_extra
+				LEFT JOIN $db[tbl_personal] d ON c.id_personal=d.id_personal
 				WHERE 1 and a.id_concepto!=0 
 				$filtro $grupo $orden
 				;";

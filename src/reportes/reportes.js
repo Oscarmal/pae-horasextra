@@ -2,6 +2,7 @@
 $(document).ready(function(){
 	var empresa_inicial = ($("#id_empresa").val())?$("#id_empresa").val():false;
 	datos_grafico01('grafico01', empresa_inicial);
+	anios_empresa(empresa_inicial);
 
 	$("#div_empresa").change(function () { 
         var id_empresa = $("#div_empresa option:selected").val();
@@ -48,7 +49,7 @@ function datos_tabla(id_empresa, anio){
 function datos_grafico01(idObjeto, id_empresa, anio){	
 /*
 * Grafica Conceptos por Año
-*/
+*/	
 	var id_empresa 	= (!id_empresa)? '' : id_empresa ;
 	var anio 		= (!anio)? '' : anio ;
 	var modulo 		= $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
@@ -81,7 +82,7 @@ function datos_grafico01(idObjeto, id_empresa, anio){
 				var totales = new Array();
 
 				// Valores Barras
-			    if(respuesta.regs>1){
+			    if(respuesta.regs>1){			    	
 					$.each(respuesta.datos, function(i, val) {	
 						anios[i] = val.anio_fecha;				        
 			        	t1.push(parseInt(val.horas_autorizadas));

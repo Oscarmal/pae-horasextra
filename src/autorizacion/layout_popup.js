@@ -22,7 +22,7 @@ function build_slider(id_Objeto, valor, max, min, idMuestra) {
 	    $("#"+idMuestra).val(ui.value);
 	  },
 	  stop: function(event,ui){
-		rebuild_slider(ui.value);
+		// rebuild_slider(ui.value);
 	  }
 	});
 	var valActual = $("#"+id_Objeto).slider("value");
