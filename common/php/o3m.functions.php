@@ -229,6 +229,32 @@ function diccionario($filename='es.dic') {
 	}	   
 }
 
+function pais_params($filename='pais_params.cfg') {
+#Load config information from config.ini file.		
+	try {
+		global $cfg, $dic;
+		if (file_exists($filename)) {
+	        if ($handle = fopen($filename, 'r')) {
+	            while (!feof($handle)) {
+	                list($type, $name, $value) = preg_split("/\||=/", fgets($handle), 3);
+					if (trim($type)!='#') { 
+					#PARAMS $pais[mexico][variable]
+						$pais_params[trim($type)][trim($name)] = trim($value);
+						$val.=$type.' | '.$name.' = '.$value."<br/>\n\r";
+					}	
+	            }	            
+	        }	        
+			return $val;
+		}else{
+			$msj = "¡ERROR CRÍTICO!<br/> No se ha logrado cargar el archivo diccionario, por favor, contacte al administrador del sistema.<br/>";
+	    	throw new Exception($msj, 1);    	
+	    }	
+	} catch (Exception $e) {		
+		print($e->getMessage());
+		return false;
+	}	   
+}
+
 function filtro_grupo($grupos=array()){
 // Validación de grupos de acceso
 	global $usuario;

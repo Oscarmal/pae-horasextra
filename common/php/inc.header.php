@@ -43,24 +43,10 @@ require_once($Path[src].'dao.online.php');
 // Parsea parámetros obtenidos por URL y los pone en arrays: $in[] y $ins[]
 parseFormSanitizer($_GET, $_POST); # $ins[]
 parseForm($_GET, $_POST); # $in[]
-// Diccionario de idioma
-$idioma = (!isset($_SESSION[idioma]))?strtoupper($cfg[idioma]):strtoupper($_SESSION[idioma]);
-if($idioma=='EN'){
-	$dicFile = $cfg[path_dic_en];
-}else{
-	$dicFile = $cfg[path_dic_es];
-}
-diccionario($Raiz[local].$dicFile);
-// Valida autentificación de Usuario
-if(!$_SESSION[user][id_usuario] && $in[s]!=$var[LOGIN]) { 
-	header('location: '.$Raiz[url].'?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2');
-	exit();
-}
 // Cierra de Sesión de usuario
 if($_SESSION[user][id_usuario] && $in[s]==$var[LOGIN] && $in[e]==2) { 
 	unset($_SESSION[user][id_usuario]);
 }
-
 // Variables de usuario
 $usuario[id_usuario]		= $_SESSION[user]['id_usuario'];
 $usuario[usuario]			= $_SESSION[user]['usuario'];
@@ -79,6 +65,30 @@ $usuario[accesos][mod3]		= $_SESSION[user]['accesos']['mod3'];
 $usuario[accesos][mod4]		= $_SESSION[user]['accesos']['mod4'];
 $usuario[accesos][mod5]		= $_SESSION[user]['accesos']['mod5'];
 $usuario[accesos][mod6]		= $_SESSION[user]['accesos']['mod6'];
+
+# Regionalización
+$pais_params = (!isset($_SESSION[pais_params]))?strtolower($cfg[path_pais_params]):strtolower($_SESSION[pais_params]);
+pais_params($Raiz[local].$pais_params);
+// switch(strtoupper($usuario[pais])){
+// 	case 'MX' : $pais_params=$pais_params[mexico]; break;
+// 	case 'PR' : $pais_params=$pais_params[peru]; break;
+// 	default : $pais_params=$pais_params[mexico]; break;
+// }
+
+
+# Diccionario de idioma
+$idioma = (!isset($_SESSION[idioma]))?strtoupper($cfg[idioma]):strtoupper($_SESSION[idioma]);
+if($idioma=='EN'){
+	$dicFile = $cfg[path_dic_en];
+}else{
+	$dicFile = $cfg[path_dic_es];
+}
+diccionario($Raiz[local].$dicFile);
+// Valida autentificación de Usuario
+if(!$_SESSION[user][id_usuario] && $in[s]!=$var[LOGIN]) { 
+	header('location: '.$Raiz[url].'?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2');
+	exit();
+}
 
 #Log Txt | (nombre_archivo, usuario ID, usuario_nombre, usuario, nivel, ruta, URLparams)
 if($cfg[log_onoff] && $in[s]!=$var[LOGIN]){
