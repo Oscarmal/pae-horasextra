@@ -1,12 +1,12 @@
 //O3M//
 $(document).ready(function(){
-	$('#btnGuardar').hide();
-	slider_horas();
-	$('#restan').val(parseInt($("#horas").val()));
+	// $('#btnGuardar').hide();
+	// slider_horas();
+	// $('#restan').val(parseInt($("#horas").val()));
 
-	$('#reload').click(function(){
-		reset_slider();	
-	});
+	// $('#reload').click(function(){
+	// 	reset_slider();	
+	// });
 });
 
 function reset_slider(){
