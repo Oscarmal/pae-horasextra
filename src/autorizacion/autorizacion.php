@@ -7,7 +7,34 @@ require_once($Path[src].MODULO.'/xls.'.strtolower(MODULO).'.php');
 require_once($Path[src].'views.vars.'.MODULO.'.php');
 // Lógica de negocio
 if($in[auth]){
-	if($ins[accion]=='autorizacion-popup'){
+	if($ins[accion]=='insert'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				// $id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				$estatus = ($vtmp[1]=='no')?'RECHAZADO':'ACEPTADO';
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+					// ,id_concepto 	=> $id_concepto
+					,estatus 		=> $estatus
+				);
+				$success = autorizacion_insert($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+			$data = json_encode($data);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+	}elseif($ins[accion]=='autorizacion-popup'){
 		// Extraccion de datos
 		$sqlData = array(
 			 auth 			=> true

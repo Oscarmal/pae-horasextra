@@ -73,7 +73,7 @@ function autorizacion_listado_select($data=array()){
 		$filtro.=filtro_grupo(array(
 					 ''
 					,"and a.id_empresa='$usuario[id_empresa]'"
-					,"and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
+					,"and a.id_empresa='$usuario[id_empresa]'"
 					,"and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
@@ -105,6 +105,7 @@ function autorizacion_listado_select($data=array()){
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=1,d.horas,NULL)))),'%H:%i') AS horas_simples
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=2,d.horas,NULL)))),'%H:%i') AS horas_dobles
 					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(d.id_concepto=3,d.horas,NULL)))),'%H:%i') AS horas_triples
+					,d.estatus
 					,d.xls
 					,c.usuario as capturado_por
 					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el

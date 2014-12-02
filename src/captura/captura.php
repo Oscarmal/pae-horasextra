@@ -5,7 +5,7 @@ define(MODULO, $in[modulo]);
 require_once($Path[src].MODULO.'/dao.captura.php');
 // Lógica de negocio
 if($ins[accion]=='insert'){
-	if(!empty($ins[horas]) && !empty($ins[fecha])){
+	if(!empty($ins[horas]) && !empty($ins[fecha])){		
 		$sqlData = array(
 			 auth 			=> 1
 			,id_personal	=> $usuario[id_personal]

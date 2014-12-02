@@ -11,10 +11,12 @@ function buildMenu($elementos=0){
 		$txt 	= 'txt_opc'.$i;
 		if($usuario[accesos][mod.$i]){
 			switch($i){
-				case 3 : $submenu = '
+				case 3 : 
+						$opt = ($usuario[grupo]<3)?'<li><a href="#" onclick="location.href=\'{LINK_OPC32}\';" target="_self">{txt_opc32}</a></li>':'';
+						$submenu = '
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC31}\';" target="_self">{txt_opc31}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC32}\';" target="_self">{txt_opc32}</a></li>
+			        	'.$opt.'
 			         </ul>';
 					break;
 				case 4 : $submenu = '

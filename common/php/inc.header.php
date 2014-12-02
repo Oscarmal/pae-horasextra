@@ -17,6 +17,7 @@ $Raiz[sitefolder] = $_SESSION[SiteFolder];
 // Parsea archivo.cfg y crea $cfg[], $db[], $var[]
 require_once($Raiz[local].'common/php/inc.parse-cfg.php');
 load_vars($Raiz[local].'common/cfg/system.cfg');
+if($db[db_prod]){error_reporting(E_ERROR);}
 // Establece variables
 $Path[php]=$Raiz[local].$cfg[path_php];
 $Path[js]=$Raiz[url].$cfg[path_js];
@@ -93,6 +94,7 @@ if(!$_SESSION[user][id_usuario] && $in[s]!=$var[LOGIN]) {
 #Log Txt | (nombre_archivo, usuario ID, usuario_nombre, usuario, nivel, ruta, URLparams)
 if($cfg[log_onoff] && $in[s]!=$var[LOGIN]){
 	$params = ($in) ? implode('&', array_map(function ($v, $k) { return sprintf("%s='%s'", $k, $v); }, $in, array_keys($in))) : '';
+	$params='';
 	LogTxt('he_'.$usuario[empresa],$usuario[id_usuario],$usuario[nombre],$usuario[usuario],$usuario[grupo],$Raiz[local],$params);
 }	
 #Online

@@ -5,7 +5,12 @@ $(document).ready(function(){
 
 function slider_semana(){	
 // Contruye sliders con valores iniciales
-	build_slider("slider-semana", 0, 5, 0, "semana");
+	var f = new Date();
+	var d = f.getDate();
+	var m = f.getMonth() + 1;
+	var y = f.getFullYear();
+	semanaActual = semanaNum(y,m,d);
+	build_slider("slider-semana", semanaActual, 53, 0, "semana");
 }
 
 function build_slider(id_Objeto, valor, max, min, idMuestra) {

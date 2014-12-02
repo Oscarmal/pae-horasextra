@@ -353,7 +353,7 @@ function incImg($filename,$w='100%',$h='100%'){
 }
 
 function fecha_form($fecha){
-	$fecha = date_create($fecha);
+	$fecha = date_create_from_format('d/m/Y', $fecha);
 	$fecha = date_format($fecha, 'Y-m-d H:i:s');
 	return $fecha;
 }
