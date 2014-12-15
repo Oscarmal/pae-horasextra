@@ -2,7 +2,7 @@
 /**
 * Descripcion:	Establece ambiente de trabajo para cada página
 * Creación:		2014-06-11
-* Modificación:	2014-09-01
+* Modificación:	2014-09-01, 2014-12-02
 * @author 		Oscar Maldonado - O3M
 *
 */
@@ -17,21 +17,21 @@ $Raiz[sitefolder] = $_SESSION[SiteFolder];
 // Parsea archivo.cfg y crea $cfg[], $db[], $var[]
 require_once($Raiz[local].'common/php/inc.parse-cfg.php');
 load_vars($Raiz[local].'common/cfg/system.cfg');
-if($db[db_prod]){error_reporting(E_ERROR);}
+if($cfg[server_prod]){error_reporting(E_ERROR);}
 // Establece variables
-$Path[php]=$Raiz[local].$cfg[path_php];
-$Path[js]=$Raiz[url].$cfg[path_js];
-$Path[css]=$Raiz[url].$cfg[path_css];
-$Path[img]=$Raiz[url].$cfg[path_img];
-$Path[log]=$Raiz[local].$cfg[path_log];
-$Path[docs]=$Raiz[local].$cfg[path_docs];
-$Path[docsurl]=$Raiz[url].$cfg[path_docs];
-$Path[tmp]=$Raiz[local].$cfg[path_tmp];
-$Path[tmpurl]=$Raiz[url].$cfg[path_tmp];
-$Path[html]=$Raiz[local].$cfg[path_html];
-$Path[src]=$Raiz[local].$cfg[path_src];
-$Path[srcjs]=$Raiz[url].$cfg[path_src];
-$Path[site]=$Raiz[local].$cfg[path_site];
+$Path[php] 		= $Raiz[local].$cfg[path_php];
+$Path[js]		= $Raiz[url].$cfg[path_js];
+$Path[css]		= $Raiz[url].$cfg[path_css];
+$Path[img]		= $Raiz[url].$cfg[path_img];
+$Path[log]		= $Raiz[local].$cfg[path_log];
+$Path[docs]		= $Raiz[local].$cfg[path_docs];
+$Path[docsurl]	= $Raiz[url].$cfg[path_docs];
+$Path[tmp]		= $Raiz[local].$cfg[path_tmp];
+$Path[tmpurl]	= $Raiz[url].$cfg[path_tmp];
+$Path[html]		= $Raiz[local].$cfg[path_html];
+$Path[src]		= $Raiz[local].$cfg[path_src];
+$Path[srcjs]	= $Raiz[url].$cfg[path_src];
+$Path[site]		= $Raiz[local].$cfg[path_site];
 // Crea variable de sesion con ruta de header
 if(!isset($_SESSION['header_path'])){$_SESSION['header_path'] = $Raiz[local].$cfg[php_header];}
 // Prepara archivos de apoyo
@@ -85,7 +85,7 @@ if($idioma=='EN'){
 	$dicFile = $cfg[path_dic_es];
 }
 diccionario($Raiz[local].$dicFile);
-// Valida autentificación de Usuario
+// Valida autenticación de Usuario
 if(!$_SESSION[user][id_usuario] && $in[s]!=$var[LOGIN]) { 
 	header('location: '.$Raiz[url].'?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2');
 	exit();
@@ -94,7 +94,7 @@ if(!$_SESSION[user][id_usuario] && $in[s]!=$var[LOGIN]) {
 #Log Txt | (nombre_archivo, usuario ID, usuario_nombre, usuario, nivel, ruta, URLparams)
 if($cfg[log_onoff] && $in[s]!=$var[LOGIN]){
 	$params = ($in) ? implode('&', array_map(function ($v, $k) { return sprintf("%s='%s'", $k, $v); }, $in, array_keys($in))) : '';
-	$params='';
+	#$params='';
 	LogTxt('he_'.$usuario[empresa],$usuario[id_usuario],$usuario[nombre],$usuario[usuario],$usuario[grupo],$Raiz[local],$params);
 }	
 #Online
