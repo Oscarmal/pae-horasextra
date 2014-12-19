@@ -183,49 +183,36 @@ function build_grid_capturadas(){
 
 function build_grid_autorizadas($data=array()){
 // Construye listado de horas extra autorizadas
+
 	global $usuario, $Path;
 	$sqlData = array(
 			 auth 		=> true
-			,estatus 	=> 1
+			,estatus	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
-			,xls 		=> $data[xls]
 		);
-	$tabla = autorizacion_listado_select($sqlData);	
+	$tabla = capturados_select($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'				
-				,'capturado_por'
-				,'capturado_el'				
-				// ,'horas_dobles'
-				// ,'horas_triples'
-				// ,'horas_rechazadas'
-				,'estatus'
-				,'xls'
+				,'horas'	
+				,'estatus'			
+				,'validado_por'
+				,'validado_el'				
 			);
-	$conceptos = conceptos_select(array(auth=>1));
-	foreach($conceptos as $concepto){
-		$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
-	}
+	// $conceptos = conceptos_select(array(auth=>1));
+	// foreach($conceptos as $concepto){
+	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
+	// }
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
-			if($campos[$i]=='xls' ){
-				$xls_nomina = ($usuario[grupo]<4)?'<br/><a href="#" onclick="xls_nomina(\''.$data[$campos[$i]].'\')" target="_self" title="Layout Nómina" class="link-xls">[Nómina]</a>':'';
-				// $tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
-				$tbl_resultados .= ($data[$campos[$i]])
-					?'<td ><a href="#" onclick="xls(\''.$data[$campos[$i]].'\')" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a>'
-					.$xls_nomina
-					.'</td>'
-					:'<td>XLS Pendiente</td>';
-			}else{
-				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
-			}
+			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';			
 		}
+		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');">Asignar</span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}
@@ -331,5 +318,6 @@ function build_grid_usuarios(){
 	}
 	return $tbl_resultados;
 }
+
 /*O3M*/
 ?>

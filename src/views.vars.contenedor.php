@@ -38,7 +38,11 @@ $frm_vistas = array(
 			 	array(
 			 		 INDEX 			=> 'autorizacion.html'
 			 		,AUTORIZACION_2 => 'autorizacion_2.html'
-			 		,LAYOUT 		=> 'layout.html'
+					,AUTORIZACION_3	=> 'autorizacion_3.html'
+					,AUTORIZACION_4	=> 'autorizacion_4.html'
+					,AUTORIZACION_5	=> 'autorizacion_5.html'
+					,AUTORIZACION_6	=> 'autorizacion_6.html'
+			 		// ,LAYOUT 		=> 'layout.html'
 			 	)
 			,CONSULTA => 
 			 	array(
@@ -131,8 +135,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC3		=> '#'				
 					,txt_opc31		=> $dic[autorizacion][titulo_autorizacion_coordinador]
 					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_2]
-					,txt_opc32		=> $dic[autorizacion][layout_menu]
-					,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LAYOUT]
+					// ,txt_opc32		=> $dic[autorizacion][layout_menu]
+					// ,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LAYOUT]
 					,txt_opc33		=> $dic[autorizacion][titulo_autorizacion_supervisor]
 					,LINK_OPC33		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_3]
 					,txt_opc34		=> $dic[autorizacion][titulo_autorizacion_gerente]

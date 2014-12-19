@@ -13,10 +13,10 @@ require_once($Path[src].'build.contenidos.php');
 $vistas = array(
 		 INDEX 				=> 'autorizacion.html'		
 		,AUTORIZACION_2 	=> 'autorizacion_2.html'
-		,AUTORIZACION_3		=> 'layout.html'
-		,AUTORIZACION_4		=> 'layout.html'
-		,AUTORIZACION_5		=> 'layout.html'
-		,AUTORIZACION_6		=> 'layout.html'
+		,AUTORIZACION_3		=> 'autorizacion_3.html'
+		,AUTORIZACION_4		=> 'autorizacion_4.html'
+		,AUTORIZACION_5		=> 'autorizacion_5.html'
+		,AUTORIZACION_6		=> 'autorizacion_6.html'
 		,ERROR 	 			=> 'error.html'
 	);
 
@@ -35,7 +35,7 @@ function vistas($cmd){
 # Variables
 function tpl_vars($cmd, $urlParams=array()){
 	global $vistas;
-	$cmd = strtoupper(enArray($cmd,$vistas));
+	$cmd = strtoupper(enArray($cmd,$vistas));	
 	if($cmd == 'INDEX'){
 		$vars = vars_index($cmd, $urlParams);
 	}
@@ -43,7 +43,7 @@ function tpl_vars($cmd, $urlParams=array()){
 		$vars = vars_autorizacion_2($cmd, $urlParams);
 	}
 	elseif($cmd == 'AUTORIZACION_3'){
-		$vars = vars_autorizacion_3($cmd, $urlParams);
+		$vars = vars_autorizacion_3($cmd, $urlParams);		
 	}
 	elseif($cmd == 'AUTORIZACION_4'){
 		$vars = vars_autorizacion_4($cmd, $urlParams);
@@ -90,7 +90,7 @@ function vars_index($seccion, $urlParams){
 function vars_autorizacion_2($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[autorizacion][autorizacion_titulo];
+	$titulo 	= $dic[autorizacion][autorizacion_2_titulo];
 	$tbl_resultados = autorizacion_supervisor();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
@@ -111,11 +111,11 @@ function vars_autorizacion_2($seccion, $urlParams){
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
-function vars_autorizacion_6($seccion, $urlParams){
+function vars_autorizacion_3($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[autorizacion][layout_titulo];
-	$tbl_resultados = build_grid_autorizadas(array(xls => 'NULL'));
+	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
+	$tbl_resultados = build_grid_autorizadas();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
