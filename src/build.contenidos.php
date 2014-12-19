@@ -113,18 +113,11 @@ function autorizacion_supervisor(){
 				,'capturado_por'
 				,'capturado_el'
 			);
-	/*echo '<pre>';
-	print_r($tabla);
-	echo '</pre>';
-	die();*/
+	
 	// $conceptos = conceptos_select(array(auth=>1));
 	// foreach($conceptos as $concepto){
 	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
 	// }
-	/*echo '<pre>';
-	print_r($tabla);
-	echo '</pre>';
-	die();*/
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
@@ -151,14 +144,15 @@ function autorizacion_supervisor(){
 }
 // CONSULTA
 function build_grid_capturadas(){
-// Construye listado de horas extra capturadas
+	// Construye listado de horas extra capturadas
 	$sqlData = array(
 			 auth 		=> true
 			,estatus	=> 1
 			,activo		=> 1
 			,desc		=> 1
 		);
-	$tabla = captura_listado_select($sqlData);	
+	//$tabla = captura_listado_select($sqlData);	
+	$tabla = captura_listado_select_corrdinador($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'

@@ -5,6 +5,7 @@
 * Creación:		2014-08-27
 * @author 		Oscar Maldonado
 */
+/*
 function captura_listado_select($data=array()){
 	if($data[auth]){
 		global $db, $usuario;
@@ -48,6 +49,71 @@ function captura_listado_select($data=array()){
 				WHERE 1 
 				$filtro $grupo $orden
 				;";
+				echo $sql;
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+
+	}else{
+		$resultado = false;
+	}
+	return $resultado;
+}
+*/
+
+function captura_listado_select_corrdinador($data=array()){
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = $data[id_horas_extra];
+		$id_personal 	= $data[id_personal];
+		$empleado_num 	= $data[empleado_num];
+		//$estatus		= $data[estatus];
+		$activo			= $data[activo];
+		$grupo 			= $data[grupo];
+		$orden 			= $data[orden];
+		$desc 			= $data[desc];
+		$filtro.=filtro_grupo(array(
+					 ''
+					,"and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,"and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,"and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario='$usuario[id_usuario]'"
+				));
+
+		$filtro.= ($id_horas_extra)?" and $db[tbl_horas_extra].id_horas_extra='$id_horas_extra'":'';
+		$filtro.= ($id_personal)?" and $db[tbl_horas_extra].id_personal='$id_personal'":'';
+		$filtro.= ($empleado_num)?" and $db[tbl_personal].empleado_num='$empleado_num'":'';
+		
+
+		$filtro.= ($activo)?" and $db[tbl_horas_extra].activo IN ($activo)":'';
+		$desc 	= ($desc)?" DESC":' ASC';
+		$grupo 	= ($grupo)?"
+							GROUP BY $grupo":"GROUP BY $db[tbl_horas_extra].id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden".$desc:"ORDER BY $db[tbl_horas_extra].id_horas_extra".$desc;
+
+		$sql = "SELECT 
+					$db[tbl_horas_extra].id_horas_extra
+					,CONCAT($db[tbl_personal].nombre,' ',IFNULL($db[tbl_personal].paterno,''),' ',IFNULL($db[tbl_personal].materno,'')) as nombre_completo
+					,$db[tbl_personal].empleado_num
+					,DATE_FORMAT($db[tbl_horas_extra].fecha,'%d/%m/%Y') as fecha
+					,DATE_FORMAT($db[tbl_horas_extra].horas,'%H:%i') as horas
+					,$db[tbl_usuarios].usuario as capturado_por
+					,DATE_FORMAT($db[tbl_horas_extra].timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
+				FROM 
+					$db[tbl_horas_extra]
+				LEFT JOIN 
+					$db[tbl_personal] 
+					ON 
+						$db[tbl_horas_extra].id_personal=$db[tbl_personal].id_personal
+				LEFT JOIN 
+					$db[tbl_usuarios]
+					ON 
+						$db[tbl_horas_extra].id_usuario=$db[tbl_usuarios].id_usuario
+				WHERE 
+					1 
+				AND 
+					$db[tbl_horas_extra].id_usuario_aut  is NULL
+					$filtro 
+					$grupo 
+					$orden;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 
