@@ -5,7 +5,7 @@
 session_name('o3m_he');
 session_start();
 $PublicFolder="www";
-$SiteFolder="horas-extra";
+$SiteFolder="adminhorasextra";
 $DirLocal=getcwd();
 $path=explode($SiteFolder,$DirLocal);
 $RaizLoc=$path[0].$SiteFolder.'/';

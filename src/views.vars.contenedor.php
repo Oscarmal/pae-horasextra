@@ -37,6 +37,7 @@ $frm_vistas = array(
 			,AUTORIZACION => 
 			 	array(
 			 		 INDEX 			=> 'autorizacion.html'
+			 		,AUTORIZACION_2 => 'autorizacion_2.html'
 			 		,LAYOUT 		=> 'layout.html'
 			 	)
 			,CONSULTA => 
@@ -132,6 +133,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[INDEX]
 					,txt_opc32		=> $dic[autorizacion][layout_menu]
 					,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LAYOUT]
+					,txt_opc33		=> $dic[autorizacion][titulo_autorizacion_supervi]
+					,LINK_OPC33		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_2]
 					// Consulta
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
