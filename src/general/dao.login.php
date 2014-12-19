@@ -10,7 +10,7 @@ function login($usuario, $clave){
 	$sql = "SELECT 
 				 a.id_usuario
 				,a.usuario
-				,a.grupo
+				,a.id_grupo
 				,a.activo
 				,b.id_personal
 				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombreCompleto
@@ -33,7 +33,7 @@ function login($usuario, $clave){
 				FROM $db[tbl_usuarios] a
 				LEFT JOIN $db[tbl_personal] b USING(id_personal)
 				LEFT JOIN $db[tbl_empresas] c USING(id_empresa)
-				LEFT JOIN $db[tbl_accesos] d ON a.id_usuario=d.id_usuario
+				LEFT JOIN $db[tbl_grupos] d ON a.id_grupo=d.id_grupo
 				WHERE a.usuario='$usuario' and a.clave='$clave' and a.activo=1
 				LIMIT 1;";
 	$resultado = SQLQuery($sql);
