@@ -87,22 +87,22 @@ function genera_xls(semana){
 				var txt = "No hay datos pendientes.";		    
 			    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
 				setTimeout(function(){
-					location.reload(true);
+					//location.reload(true);
 				}, 2000);
 			}else{
 				popup_ico = "<img src='"+raiz+"common/img/popup/error.png' valign='middle' align='texttop'>&nbsp";
 				var txt = "Se ha generado un error.";		    
 			    ventana = popup('Error!',popup_ico+txt,0,0,3);
 				setTimeout(function(){	
-					location.reload(true);
+					//location.reload(true);
 				}, 2000);
 			}				
 		}
 		,complete: function(){ 
-			setTimeout(function(){
+			/*setTimeout(function(){
 				$("#"+ventana).dialog("close");
 				location.reload(true);
-			}, 5000);
+			}, 5000);*/
 		}
     });
 }

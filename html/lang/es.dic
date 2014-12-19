@@ -43,6 +43,8 @@ autorizacion|listado=Listado de Autorizaciones ap.
 autorizacion|titulo2=Listado de Autorizaciones aplicadas
 autorizacion|genera_xls=Generar Layout XLS
 
+autorizacion|titulo_autorizacion_supervi=Autorizar Horas Capturadas 2
+
 # Consulta
 consulta|titulo=Consultas
 consulta|captura_menu=Listado de Horas Extra Cap.
