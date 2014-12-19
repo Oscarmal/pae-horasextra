@@ -5,10 +5,12 @@ $(document).ready(function(){
 });
 
 function btnSubmit(){
-	obtenerCampos();
+	obtenerCampos(1);
 	// genera_xls();
 }
-
+function btnSubmit_auto_2(){	
+	obtenerCampos(2);
+}
 function ok(Objeto){
 	var Id = Objeto.id.split("_");
 	$('#ico-'+Id[1]).removeClass();
@@ -30,7 +32,7 @@ function ok(Objeto){
 	$('#ico-'+Id[1]).attr('title', Texto);
 }
 
-function obtenerCampos(){
+function obtenerCampos(valor){
 	// Mostrar todos los registros del Grid
     $('#jGridViewsList option:contains("Todos")').prop('selected', true);
 	$("#jGridViewsList").change();
@@ -50,10 +52,68 @@ function obtenerCampos(){
     $('#jGridViewsList option[value="10"]').prop('selected', true);
 	$("#jGridViewsList").change();
 
-	guardar(data);
+	if(valor==1){
+		guardar(data);
+	}
+	else{
+		guardar_autorizacion_2(data)
+	}	
+}
+function guardar_autorizacion_2(array){
+	
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();
+	var raiz = raizPath();
+	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
+	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+	if(array){
+		$.ajax({
+			type: 'POST',
+			url: ajax_url,
+			dataType: "json",
+			data: {      
+				auth : 1,
+				modulo : modulo,
+				seccion : seccion,
+				accion : 'autorizacion_update_horas_extra',
+				datos : array
+			}
+			,beforeSend: function(){ 
+				popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
+				var txt = "Guardando información, por favor espere...";
+		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
+			}
+			,success: function(respuesta){ 
+				$("#"+ventana).dialog("close");
+				if(respuesta.success){
+					popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
+					txt = "<div class='popup-txt'><p>La información ha sido guardada correctamente. </p></div>";
+					ventana = popup('Éxito',popup_ico+txt,0,0,3);				
+					 setTimeout(function(){location.reload(true);}, 2000);
+				}else if(respuesta.success){
+					txt = respuesta.error;
+					ventana = popup('Error',popup_ico+txt,0,0,3);
+				}				
+			}
+			,complete: function(){ 
+				setTimeout(function(){
+					$("#"+ventana).dialog("close");
+					location.reload(true);
+				}, 2000);
+			}
+	    });
+	}else{
+		popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
+		var txt = "No hay datos para guardar.";		    
+	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
+		setTimeout(function(){			
+			location.reload(true);
+		}, 2000);
+	}
 }
 
-function guardar(array){	
+function guardar(array){
+
 	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
@@ -89,10 +149,10 @@ function guardar(array){
 				}				
 			}
 			,complete: function(){ 
-				setTimeout(function(){
+				/*setTimeout(function(){
 					$("#"+ventana).dialog("close");
 					location.reload(true);
-				}, 2000);
+				}, 2000);*/
 			}
 	    });
 	}else{

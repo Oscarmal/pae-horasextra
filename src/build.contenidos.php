@@ -47,7 +47,7 @@ require_once($Path[src].'reportes/dao.reportes.php');
 // 	return $tbl_resultados;
 // }
 function build_grid_autorizaciones(){
-// Construye grid de autorizaciones
+	// Construye grid de autorizaciones
 	$sqlData = array(
 			 auth 		=> true
 			,estatus 	=> 0
@@ -67,10 +67,15 @@ function build_grid_autorizaciones(){
 	// foreach($conceptos as $concepto){
 	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
 	// }
+	/*echo '<pre>';
+	print_r($tabla);
+	echo '</pre>';
+	die();*/
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 		}
@@ -91,6 +96,59 @@ function build_grid_autorizaciones(){
 	return $tbl_resultados;
 }
 
+function autorizacion_supervisor(){
+	// Construye grid de autorizaciones
+	$sqlData = array(
+			 auth 		=> true
+			,estatus 	=> 0
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = autorizaciones_listado_select_supervisor($sqlData);	
+	$campos = array(
+				 'id_horas_extra'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'
+				,'capturado_por'
+				,'capturado_el'
+			);
+	/*echo '<pre>';
+	print_r($tabla);
+	echo '</pre>';
+	die();*/
+	// $conceptos = conceptos_select(array(auth=>1));
+	// foreach($conceptos as $concepto){
+	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
+	// }
+	/*echo '<pre>';
+	print_r($tabla);
+	echo '</pre>';
+	die();*/
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+		}
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="si">Autorizar</option>
+									<option value="no">Rechazar</option>
+								</select>
+							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
 // CONSULTA
 function build_grid_capturadas(){
 // Construye listado de horas extra capturadas
