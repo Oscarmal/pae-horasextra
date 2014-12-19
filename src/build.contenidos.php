@@ -152,7 +152,7 @@ function build_grid_capturadas(){
 			,desc		=> 1
 		);
 	//$tabla = captura_listado_select($sqlData);	
-	$tabla = captura_listado_select_corrdinador($sqlData);	
+	$tabla = captura_listado_select_coordinador($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'
@@ -181,10 +181,11 @@ function build_grid_autorizadas($data=array()){
 	$sqlData = array(
 			 auth 		=> true
 			,estatus 	=> 1
-			,orden		=> 'a.id_horas_extra DESC'
+			,orden		=> 'he_horas_extra.id_horas_extra DESC'
 			,xls 		=> $data[xls]
 		);
-	$tabla = autorizacion_listado_select($sqlData);	
+	//$tabla = autorizacion_listado_select($sqlData);	
+	$tabla = autorizacion_listado_select_coordinador($sqlData);
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'
@@ -193,11 +194,11 @@ function build_grid_autorizadas($data=array()){
 				,'horas'				
 				,'capturado_por'
 				,'capturado_el'				
-				// ,'horas_dobles'
-				// ,'horas_triples'
+				,'autorizado_por'
+				,'autorizado_el'
 				// ,'horas_rechazadas'
-				,'estatus'
-				,'xls'
+				//,'estatus'
+				//,'xls'
 			);
 	$conceptos = conceptos_select(array(auth=>1));
 	foreach($conceptos as $concepto){
@@ -210,11 +211,10 @@ function build_grid_autorizadas($data=array()){
 		for($i=0; $i<count($campos); $i++){
 			if($campos[$i]=='xls' ){
 				$xls_nomina = ($usuario[grupo]<4)?'<br/><a href="#" onclick="xls_nomina(\''.$data[$campos[$i]].'\')" target="_self" title="Layout Nómina" class="link-xls">[Nómina]</a>':'';
-				// $tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
+				$tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
 				$tbl_resultados .= ($data[$campos[$i]])
 					?'<td ><a href="#" onclick="xls(\''.$data[$campos[$i]].'\')" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a>'
-					.$xls_nomina
-					.'</td>'
+					.$xls_nomina.'</td>'
 					:'<td>XLS Pendiente</td>';
 			}else{
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
