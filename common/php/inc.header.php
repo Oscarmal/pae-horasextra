@@ -51,7 +51,7 @@ if($_SESSION[user][id_usuario] && $in[s]==$var[LOGIN] && $in[e]==2) {
 // Variables de usuario
 $usuario[id_usuario]		= $_SESSION[user]['id_usuario'];
 $usuario[usuario]			= $_SESSION[user]['usuario'];
-$usuario[grupo]				= $_SESSION[user]['grupo'];
+$usuario[id_grupo]			= $_SESSION[user]['id_grupo'];
 $usuario[id_personal]		= $_SESSION[user]['id_personal'];
 $usuario[nombre]			= $_SESSION[user]['nombre'];
 $usuario[empleado_num]		= $_SESSION[user]['empleado_num'];

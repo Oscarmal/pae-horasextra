@@ -258,15 +258,23 @@ function pais_params($filename='pais_params.cfg') {
 function filtro_grupo($grupos=array()){
 // Validación de grupos de acceso
 	global $usuario;
-	switch ($usuario[grupo]){	
-		#Desarrollo:
-		case 1 : $filtro = $grupos[0]; break;
-		#Usuario Global:	
-		case 2 : $filtro = $grupos[1]; break;
-		#Supervisor:
-		case 3 : $filtro = $grupos[2]; break;
-		#Usuario:
-		default : $filtro = $grupos[3]; break;
+	switch ($usuario[id_grupo]){	
+		#Roor - Desarrollo:
+		case 0 : $filtro = $grupos[0]; break;
+		#Administradores:
+		case 10 : $filtro = $grupos[1]; break;
+		#Super Usuarios:
+		case 20 : $filtro = $grupos[2]; break;
+		#Grupo 1 - Gerentes:
+		case 40 : $filtro = $grupos[3]; break;
+		#Grupo 2 - Supervisores:	
+		case 50 : $filtro = $grupos[4]; break;
+		#Grupo 3 - Coordinadores:
+		case 60 : $filtro = $grupos[5]; break;
+		#Grupo 4 - Empleados:
+		case 70 : $filtro = $grupos[6]; break;
+		#Grupo 5 - Extra:
+		default : $filtro = $grupos[7]; break;
 	}
 	$filtro = (!$filtro)?'':$filtro;
 	return $filtro;
