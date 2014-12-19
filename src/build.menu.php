@@ -12,12 +12,15 @@ function buildMenu($elementos=0){
 		if($usuario[accesos][mod.$i]){
 			switch($i){
 				case 3 : 
-						$opt = ($usuario[grupo]<3)?'<li><a href="#" onclick="location.href=\'{LINK_OPC32}\';" target="_self">{txt_opc32}</a></li>':'';
+						$opt20 = ($usuario[id_grupo]<30)?'<li><a href="#" onclick="location.href=\'{LINK_OPC36}\';" target="_self">{txt_opc36}</a></li>':'';
+						$opt30 = ($usuario[id_grupo]<40)?'<li><a href="#" onclick="location.href=\'{LINK_OPC35}\';" target="_self">{txt_opc35}</a></li>':'';
+						$opt40 = ($usuario[id_grupo]<50)?'<li><a href="#" onclick="location.href=\'{LINK_OPC34}\';" target="_self">{txt_opc34}</a></li>':'';
 						$submenu = '
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC31}\';" target="_self">{txt_opc31}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC33}\';" target="_self">{txt_opc33}</a></li>
-			        	'.$opt.'
+			        	'.$opt40.'
+			        	'.$opt30.'
+			        	'.$opt20.'
 			         </ul>';
 					break;
 				case 4 : $submenu = '

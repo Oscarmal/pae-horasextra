@@ -22,7 +22,9 @@ function capturados_select($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]'"
 					,40 => "and a.id_empresa='$usuario[id_empresa]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]'"
 					,60 => "and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
@@ -134,7 +136,9 @@ function autorizacion_update($data=array()){
 		$filtro .= filtro_grupo(array(
 						 10 => ''
 						,20 => "and b.id_empresa='$usuario[id_empresa]'"
+						,30 => "and b.id_empresa='$usuario[id_empresa]'"
 						,40 => "and b.id_empresa='$usuario[id_empresa]'"
+						,50 => "and b.id_empresa='$usuario[id_empresa]'"
 						,60 => "and a.id_usuario='$usuario[id_usuario]'"
 				));		
 		$filtro .= ($id_autorizacion)?" and a.id_autorizacion IN ($id_autorizacion)":'';
@@ -187,6 +191,7 @@ function xls_select($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and d.id_usuario='$usuario[id_usuario]'"
 					,40 => "and d.id_usuario='$usuario[id_usuario]'"
 					,60 => "and a.id_usuario='$usuario[id_usuario]'"
 				));
@@ -254,6 +259,7 @@ function capturados_sin_xls($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
 					,40 => "and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 				));
@@ -293,7 +299,9 @@ function sin_autorizar_select($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]'"
 					,40 => "and a.id_empresa='$usuario[id_empresa]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
@@ -360,7 +368,9 @@ function build_xls($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
 					,40 => "and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and d.id_usuario='$usuario[id_usuario]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= " and d.estatus IS NOT NULL";
@@ -404,7 +414,9 @@ function nomina_xls($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and c.id_empresa='$usuario[id_empresa]'"
+					,30 => "and c.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 					,40 => "and c.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+					,50 => "and c.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 					,60 => "and c.id_empresa='$usuario[id_empresa]' and c.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
@@ -446,7 +458,9 @@ function autorizaciones_listado_select($data=array()){
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
 					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
 				));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
@@ -514,7 +528,9 @@ function autorizaciones_listado_select_supervisor($data=array()){
 	$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,30 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
 					,40 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
+					,50 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
 					,60 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario='$usuario[id_usuario]'"
 				));	
 

@@ -11,10 +11,13 @@ require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 require_once($Path[src].'build.contenidos.php');
 # Vistas HTML
 $vistas = array(
-		 INDEX 		=> 'autorizacion.html'
-		,LAYOUT		=> 'layout.html'
-		,AUTORIZACION_2 => 'autorizacion_2.html'
-		,ERROR 	 	=> 'error.html'
+		 INDEX 				=> 'autorizacion.html'		
+		,AUTORIZACION_2 	=> 'autorizacion_2.html'
+		,AUTORIZACION_3		=> 'layout.html'
+		,AUTORIZACION_4		=> 'layout.html'
+		,AUTORIZACION_5		=> 'layout.html'
+		,AUTORIZACION_6		=> 'layout.html'
+		,ERROR 	 			=> 'error.html'
 	);
 
 # Vistas
@@ -39,8 +42,17 @@ function tpl_vars($cmd, $urlParams=array()){
 	elseif($cmd == 'AUTORIZACION_2'){
 		$vars = vars_autorizacion_2($cmd, $urlParams);
 	}
-	elseif($cmd == 'LAYOUT'){
-		$vars = vars_layout($cmd, $urlParams);
+	elseif($cmd == 'AUTORIZACION_3'){
+		$vars = vars_autorizacion_3($cmd, $urlParams);
+	}
+	elseif($cmd == 'AUTORIZACION_4'){
+		$vars = vars_autorizacion_4($cmd, $urlParams);
+	}
+	elseif($cmd == 'AUTORIZACION_5'){
+		$vars = vars_autorizacion_5($cmd, $urlParams);
+	}
+	elseif($cmd == 'AUTORIZACION_6'){
+		$vars = vars_autorizacion_6($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
@@ -99,7 +111,7 @@ function vars_autorizacion_2($seccion, $urlParams){
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
-function vars_layout($seccion, $urlParams){
+function vars_autorizacion_6($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][layout_titulo];
