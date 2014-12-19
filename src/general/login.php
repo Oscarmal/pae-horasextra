@@ -25,7 +25,11 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 		$_SESSION[user]['accesos']['mod3']	= $usuario[mod3];
 		$_SESSION[user]['accesos']['mod4']	= $usuario[mod4];
 		$_SESSION[user]['accesos']['mod5']	= $usuario[mod5];
-		$_SESSION[user]['accesos']['mod6']	= $usuario[mod6];	
+		$_SESSION[user]['accesos']['mod6']	= $usuario[mod6];
+		$_SESSION[user]['accesos']['mod7']	= $usuario[mod7];
+		$_SESSION[user]['accesos']['mod8']	= $usuario[mod8];
+		$_SESSION[user]['accesos']['mod9']	= $usuario[mod9];
+		$_SESSION[user]['accesos']['mod10']	= $usuario[mod10];	
 		$url = "?m=$modulo&s=$seccion";
 		$success = true;
 	}else{
