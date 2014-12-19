@@ -262,19 +262,20 @@ function filtro_grupo($grupos=array()){
 		#Roor - Desarrollo:
 		case 0 : $filtro = $grupos[0]; break;
 		#Administradores:
-		case 10 : $filtro = $grupos[1]; break;
+		case 10 : $filtro = $grupos[10]; break;
 		#Super Usuarios:
-		case 20 : $filtro = $grupos[2]; break;
+		case 20 : $filtro = $grupos[20]; break;
 		#Grupo 1 - Gerentes:
-		case 40 : $filtro = $grupos[3]; break;
+		case 30 : $filtro = $grupos[30]; break;
 		#Grupo 2 - Supervisores:	
-		case 50 : $filtro = $grupos[4]; break;
+		case 40 : $filtro = $grupos[40]; break;
 		#Grupo 3 - Coordinadores:
-		case 60 : $filtro = $grupos[5]; break;
+		case 50 : $filtro = $grupos[50]; break;
 		#Grupo 4 - Empleados:
-		case 70 : $filtro = $grupos[6]; break;
+		case 60 : $filtro = $grupos[60]; break;
 		#Grupo 5 - Extra:
-		default : $filtro = $grupos[7]; break;
+		case 70 : $filtro = $grupos[70]; break;
+		default : $filtro = $grupos[70]; break;
 	}
 	$filtro = (!$filtro)?'':$filtro;
 	return $filtro;

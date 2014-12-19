@@ -66,6 +66,10 @@ $usuario[accesos][mod3]		= $_SESSION[user]['accesos']['mod3'];
 $usuario[accesos][mod4]		= $_SESSION[user]['accesos']['mod4'];
 $usuario[accesos][mod5]		= $_SESSION[user]['accesos']['mod5'];
 $usuario[accesos][mod6]		= $_SESSION[user]['accesos']['mod6'];
+$usuario[accesos][mod7]		= $_SESSION[user]['accesos']['mod7'];
+$usuario[accesos][mod8]		= $_SESSION[user]['accesos']['mod8'];
+$usuario[accesos][mod9]		= $_SESSION[user]['accesos']['mod9'];
+$usuario[accesos][mod10]	= $_SESSION[user]['accesos']['mod10'];
 
 # Regionalización
 $pais_params = (!isset($_SESSION[pais_params]))?strtolower($cfg[path_pais_params]):strtolower($_SESSION[pais_params]);
