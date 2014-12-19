@@ -136,8 +136,8 @@ function autorizacion_supervisor(){
 		$tbl_resultados .= '<td align="center">
 								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
 									<option value="" selected></option>
-									<option value="si">Autorizar</option>
-									<option value="no">Rechazar</option>
+									<option value="si">Autorizado</option>
+									<option value="no">Declinado</option>
 								</select>
 							</td>';
 		$tbl_resultados .= '<td align="center">

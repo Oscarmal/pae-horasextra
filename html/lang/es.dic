@@ -43,7 +43,11 @@ autorizacion|listado=Listado de Autorizaciones ap.
 autorizacion|titulo2=Listado de Autorizaciones aplicadas
 autorizacion|genera_xls=Generar Layout XLS
 
-autorizacion|titulo_autorizacion_supervi=Autorizar Horas Capturadas 2
+autorizacion|titulo_autorizacion_coordinador=Validación Horas Capturadas
+autorizacion|titulo_autorizacion_supervisor=Asiganción de Horas
+autorizacion|titulo_autorizacion_gerente=Autorización Horas
+autorizacion|titulo_autorizacion_cliente=Revisión Horas 
+autorizacion|titulo_autorizacion_inplant=Aplicación Horas 
 
 # Consulta
 consulta|titulo=Consultas
