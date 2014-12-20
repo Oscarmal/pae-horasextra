@@ -75,7 +75,7 @@ function vars_autorizacion_listado($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][titulo2];
-	$tbl_resultados = build_grid_autorizadas();
+	$tbl_resultados = build_grid_validacion();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
