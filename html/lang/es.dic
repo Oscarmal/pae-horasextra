@@ -43,11 +43,17 @@ autorizacion|listado=Listado de Autorizaciones ap.
 autorizacion|titulo2=Listado de Autorizaciones aplicadas
 autorizacion|genera_xls=Generar Layout XLS
 
-autorizacion|titulo_autorizacion_coordinador=Validación Horas Capturadas
-autorizacion|titulo_autorizacion_supervisor=Asiganción de Horas
-autorizacion|titulo_autorizacion_gerente=Autorización Horas
-autorizacion|titulo_autorizacion_cliente=Revisión Horas 
-autorizacion|titulo_autorizacion_inplant=Aplicación Horas 
+autorizacion|titulo_autorizacion_coordinador=Validación de Capturadas
+autorizacion|titulo_autorizacion_supervisor=Asiganción de Validadas
+autorizacion|titulo_autorizacion_gerente=Autorización de Asignadas
+autorizacion|titulo_autorizacion_cliente=Aprobación de Autorizadas
+autorizacion|titulo_autorizacion_inplant=Aplicación de Aprobadas
+
+autorizacion|autorizacion_2_titulo=Validación de Horas Extra Capturadas
+autorizacion|autorizacion_3_titulo=Asignación de Horas Extra Validadas
+autorizacion|autorizacion_4_titulo=Autorización de Horas Extra Asignadas
+autorizacion|autorizacion_5_titulo=Aprobación de Horas Extra Autorizadas
+autorizacion|autorizacion_6_titulo=Aplicación de Horas Extra Aprobadas
 
 # Consulta
 consulta|titulo=Consultas

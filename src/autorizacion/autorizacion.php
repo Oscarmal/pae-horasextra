@@ -72,7 +72,7 @@ if($in[auth]){
 		);
 		$datos = capturados_select($sqlData);
 		// Impresion de vista
-		$vista_new 	= 'autorizacion/autorizar_popup1.html';
+		$vista_new 	= 'autorizacion/autorizar_popup.html';
 		$tpl_data = array(
 				 MORE 	 => incJs($Path[srcjs].strtolower(MODULO).'/autorizar_popup.js')
 				,id 	 => $datos[id_horas_extra]
