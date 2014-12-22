@@ -143,12 +143,23 @@ function autorizacion_listado_select($data=array()){
 		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
-		$filtro.=filtro_grupo(array(
+		/*$filtro.=filtro_grupo(array(
 					 ''
 					,"and a.id_empresa='$usuario[id_empresa]'"
 					,"and a.id_empresa='$usuario[id_empresa]'"
 					,"and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+				));*/
+
+		$filtro.=filtro_grupo(array(
+					 10 => ''
+					,20 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,30 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,40 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
+					,50 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
+					,60 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario='$usuario[id_usuario]'"
 				));
+
+
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';
@@ -262,7 +273,9 @@ function autorizacion_listado_select_coordinador($data=array()){
 				WHERE 
 					1 
 				and 
-					$db[tbl_horas_extra].id_usuario_aut IS NOT NULL 
+					$db[tbl_horas_extra].estatus ='ACEPTADO'
+				AND 
+					$db[tbl_horas_extra].id_usuario_aut IS NOT NULL
 					$filtro 
 					$grupo 
 					$orden;";
