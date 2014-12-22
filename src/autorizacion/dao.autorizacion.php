@@ -88,6 +88,27 @@ function autorizacion_insert($data=array()){
 					id_usuario = '$usuario[id_usuario]',
 					timestamp = '$timestamp'
 					;";
+		//echo $sql;
+		$resultado = (SQLDo($sql))?true:false;
+	}
+	return $resultado;
+}
+function autorizacion_insert_supervsior($data=array()){
+	// Inserta registros autorizados
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = $data[id_horas_extra];
+		$horas 			= horas_int($data[horas]);
+		$id_concepto 	= $data[id_concepto];
+		$timestamp = date('Y-m-d H:i:s');
+
+		$sql="INSERT INTO 
+				he_autorizaciones
+			 	(id_horas_extra,horas,id_concepto,id_usuario,timestamp,activo)
+			 values
+			 	($id_horas_extra,'$horas','$id_concepto',$usuario[id_usuario],'$timestamp',1);";
+		//echo $sql;
 		$resultado = (SQLDo($sql))?true:false;
 	}
 	return $resultado;
@@ -515,7 +536,7 @@ function autorizaciones_listado_select($data=array()){
 	return $resultado;
 }
 
-function autorizaciones_listado_select_supervisor($data=array()){
+function autorizaciones_listado_select_coordinador($data=array()){
 	global $db, $usuario;
 	$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
 	$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
@@ -640,6 +661,79 @@ function autorizacion_autorizadas_select($data=array()){
 				WHERE 1 
 				$filtro $grupo $orden
 				;";
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
+function autorizaciones_listado_select_supervisor($data=array()){
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		//$estatus		= (is_array($data[estatus]))?implode(',',$data[estatus]):$data[estatus];
+		//$xls			= (is_array($data[xls]))?implode(',',$data[xls]):$data[xls];
+		//$activo		= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
+		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		/*$filtro.=filtro_grupo(array(
+					 ''
+					,"and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,"and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,"and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario='$usuario[id_usuario]'"
+				));*/
+		$filtro.=filtro_grupo(array(
+					 10 => ''
+					,20 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,30 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]'"
+					,40 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
+					,50 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario!='$usuario[id_usuario]'"
+					,60 => "and $db[tbl_horas_extra].id_empresa='$usuario[id_empresa]' and $db[tbl_horas_extra].id_usuario='$usuario[id_usuario]'"
+				));
+
+		$filtro.= ($id_horas_extra)?" and $db[tbl_horas_extra].id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.= ($id_personal)?" and $db[tbl_horas_extra].id_personal IN ($id_personal)":'';
+		$filtro.= ($empleado_num)?" and $db[tbl_personal].empleado_num IN ($empleado_num)":'';		
+		$filtro.= ($activo)?" and $db[tbl_horas_extra].activo IN ($activo)":'';
+		$filtro.= ($id_usuario)?" and $db[tbl_horas_extra].id_usuario IN ($id_usuario)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY $db[tbl_horas_extra].id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY .id_horas_extra ASC";
+		
+		$sql = "SELECT 
+					$db[tbl_horas_extra].id_horas_extra
+					,CONCAT($db[tbl_personal].nombre,' ',IFNULL($db[tbl_personal].paterno,''),' ',IFNULL($db[tbl_personal].materno,'')) as nombre_completo
+					,$db[tbl_personal].empleado_num
+					,DATE_FORMAT($db[tbl_horas_extra].fecha,'%d/%m/%Y') as fecha
+					,DATE_FORMAT($db[tbl_horas_extra].horas,'%H:%i') as horas
+					,$db[tbl_usuarios].usuario as capturado_por
+					,DATE_FORMAT($db[tbl_horas_extra].timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
+					,f.usuario as autorizado_por
+					,DATE_FORMAT($db[tbl_horas_extra].estatus_fecha, '%d/%m/%Y %H:%i:%s') as autorizado_el
+				FROM 
+					$db[tbl_horas_extra]
+				LEFT JOIN 
+					$db[tbl_personal]
+					ON 
+						$db[tbl_horas_extra].id_personal=$db[tbl_personal].id_personal
+				LEFT JOIN 
+					$db[tbl_usuarios] 
+					ON 
+						$db[tbl_horas_extra].id_usuario=$db[tbl_usuarios].id_usuario
+				LEFT JOIN 
+					$db[tbl_usuarios] f 
+					ON 
+						$db[tbl_horas_extra].id_usuario_aut=f.id_usuario 
+				WHERE 
+					1 
+				AND 
+					$db[tbl_horas_extra].id_usuario_aut IS NOT NULL
+					$filtro 
+					$grupo 
+					$orden;";
+		//echo $sql;
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}

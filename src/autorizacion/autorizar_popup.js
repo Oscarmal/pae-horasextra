@@ -143,28 +143,28 @@ function guardar(array){
 					popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
 					txt = "<div class='popup-txt'>La información ha sido guardada correctamente.</div>";
 					ventana = popup('Éxito',popup_ico+txt,0,0,3);				
-					//setTimeout(function(){location.reload(true);}, 2000);
+					setTimeout(function(){location.reload(true);}, 2000);
 				}else if(respuesta.success){
 					txt = respuesta.error;
 					ventana = popup('Error',popup_ico+txt,0,0,3);
 				}				
 			}
 			,complete: function(){ 
-				/*setTimeout(function(){
+				setTimeout(function(){
 					$("#"+ventana).dialog("close");
 					location.reload(true);
-					// $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
-				}, 2000);*/
+					$(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+				}, 2000);
 			}
 	    });
 	}else{
 		popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
 		var txt = "No hay datos para guardar.";		    
 	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
-		/*setTimeout(function(){			
+		setTimeout(function(){			
 			location.reload(true);
-			// $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
-		}, 2000);*/
+			 $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+		}, 2000);
 	}
 }
 //O3M//

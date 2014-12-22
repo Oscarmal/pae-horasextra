@@ -110,22 +110,24 @@ if($in[auth]){
 			$horas[3] = $data_arr['triples'];				
 			for($i=0; $i<=count($data_arr)-1; $i++){	
 				if($horas[$i]){
-					$estatus = (!$id_concepto[$i])?'RECHAZADO':'ACEPTADO';				
+					//$estatus = (!$id_concepto[$i])?'RECHAZADO':'ACEPTADO';				
 					// Save data in SQL
 					$sqlData = array(
 						 auth 			=> true
 						,id_horas_extra	=> $id_horas_extra
-						,anio			=> $anio
+						//,anio			=> $anio
 						// ,semana			=> $semana
 						,horas 			=> $horas[$i]
 						,id_concepto 	=> $id_concepto[$i]
-						,estatus 		=> $estatus
+						//,estatus 		=> $estatus
 					);
-					$success = autorizacion_insert($sqlData);
+					//$success = autorizacion_insert($sqlData);
+					$success  =  autorizacion_insert_supervsior($sqlData);
 				}
 			}
 			$msj = ($success)?'Guardado':'No guardó';
-			$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename]);
+			//$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename]);
+			$data = array(success => $success, message => $msj);
 			$data = json_encode($data);
 		}else{
 			$success = false;
