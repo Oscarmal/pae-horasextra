@@ -171,11 +171,9 @@ function build_grid_autorizadas($data=array()){
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
-
-			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';			
-
+			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 		}
-		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');">Asignar</span></td>';
+		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}
@@ -259,6 +257,7 @@ function build_grid_validacion($data=array()){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
 			}
 		}
+		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

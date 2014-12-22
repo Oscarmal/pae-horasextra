@@ -43,7 +43,7 @@ function capturados_select($data=array()){
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
 		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY a.id_horas_extra ASC';
 		$sql = "SELECT a.id_horas_extra
-					,CONCAT(b.nombre,' ', b.paterno,' ',b.materno) as nombre_completo
+					,CONCAT(IFNULL(b.nombre,''),' ', IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,b.empleado_num
 					,a.estatus
 					,d.usuario as validado_por
