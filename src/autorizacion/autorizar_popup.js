@@ -153,7 +153,7 @@ function guardar(array){
 				setTimeout(function(){
 					$("#"+ventana).dialog("close");
 					location.reload(true);
-					$(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+					// $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
 				}, 2000);
 			}
 	    });
@@ -163,7 +163,7 @@ function guardar(array){
 	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
 		setTimeout(function(){			
 			location.reload(true);
-			 $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+			 // $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
 		}, 2000);
 	}
 }
