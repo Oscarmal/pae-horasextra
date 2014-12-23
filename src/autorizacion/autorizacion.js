@@ -113,7 +113,6 @@ function guardar_autorizacion_2(array){
 }
 
 function guardar(array){
-
 	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
@@ -137,6 +136,7 @@ function guardar(array){
 		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
 			}
 			,success: function(respuesta){ 
+
 				$("#"+ventana).dialog("close");
 				if(respuesta.success){
 					popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";

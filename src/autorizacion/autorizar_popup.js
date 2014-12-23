@@ -114,7 +114,8 @@ function obtenerCampos(){
 	guardar(data);
 }
 
-function guardar(array){	
+function guardar(array){
+
 	var modulo = $("#mod").val().toLowerCase();
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
@@ -135,7 +136,7 @@ function guardar(array){
 			,beforeSend: function(){ 
 				popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
 				var txt = "Guardando información, por favor espere...";
-		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
+		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);		    	
 			}
 			,success: function(respuesta){ 
 				$("#"+ventana).dialog("close");
