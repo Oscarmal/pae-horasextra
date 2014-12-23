@@ -43,7 +43,7 @@ function capturados_select($data=array()){
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
 		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY a.id_horas_extra ASC';
 		$sql = "SELECT a.id_horas_extra
-					,CONCAT(IFNULL(b.nombre,''),' ', IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+					,CONCAT(b.nombre,' ', b.paterno,' ',b.materno) as nombre_completo
 					,b.empleado_num
 					,a.estatus
 					,d.usuario as validado_por
@@ -88,27 +88,6 @@ function autorizacion_insert($data=array()){
 					id_usuario = '$usuario[id_usuario]',
 					timestamp = '$timestamp'
 					;";
-		//echo $sql;
-		$resultado = (SQLDo($sql))?true:false;
-	}
-	return $resultado;
-}
-function autorizacion_insert_supervsior($data=array()){
-	// Inserta registros autorizados
-	$resultado = false;
-	if($data[auth]){
-		global $db, $usuario;
-		$id_horas_extra = $data[id_horas_extra];
-		$horas 			= horas_int($data[horas]);
-		$id_concepto 	= $data[id_concepto];
-		$timestamp = date('Y-m-d H:i:s');
-
-		$sql="INSERT INTO 
-				he_autorizaciones
-			 	(id_horas_extra,horas,id_concepto,id_usuario,timestamp,activo)
-			 values
-			 	($id_horas_extra,'$horas','$id_concepto',$usuario[id_usuario],'$timestamp',1);";
-		//echo $sql;
 		$resultado = (SQLDo($sql))?true:false;
 	}
 	return $resultado;
@@ -535,7 +514,7 @@ function autorizaciones_listado_select($data=array()){
 	return $resultado;
 }
 
-function autorizaciones_listado_select_coordinador($data=array()){
+function autorizaciones_listado_select_supervisor($data=array()){
 	global $db, $usuario;
 	$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
 	$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
@@ -665,6 +644,7 @@ function autorizacion_autorizadas_select($data=array()){
 	}
 	return $resultado;
 }
+
 function validacion_listado_select_supervisor($data=array()){
 	$resultado = false;
 	if($data[auth]){
