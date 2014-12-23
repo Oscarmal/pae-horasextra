@@ -144,9 +144,10 @@ function build_grid_autorizadas($data=array()){
 	$sqlData = array(
 			 auth 		=> true
 			,estatus	=> 1
-			,orden		=> 'a.id_horas_extra DESC'
+			,orden		=> 'he_horas_extra.id_horas_extra DESC'
 		);
-	$tabla = capturados_select($sqlData);	
+	//$tabla = capturados_select($sqlData);	
+	$tabla = validacion_listado_select_supervisor($sqlData);
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'

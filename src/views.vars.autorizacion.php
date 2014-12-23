@@ -161,6 +161,32 @@ function vars_autorizacion_4($seccion, $urlParams){
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
+function vars_autorizacion_5($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+
+	//SOLO ES UN DEMO AUN NO QUEDA ...................
+	## Logica de negocio ##		
+	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
+	//$tbl_resultados = build_grid_autorizaciones_supervisor();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 		=> $icono
+				,TITULO		=> $titulo
+				,CONTENIDO 	=> $contenido
+				,genera_xls	=> $dic[autorizacion][genera_xls]
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
 function vars_error($cmd){
 	global $dic;
 	## Envio de valores ##
