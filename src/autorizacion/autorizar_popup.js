@@ -114,7 +114,8 @@ function obtenerCampos(){
 	guardar(data);
 }
 
-function guardar(array){	
+function guardar(array){
+
 	var modulo = $("#mod").val().toLowerCase();
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
@@ -135,7 +136,7 @@ function guardar(array){
 			,beforeSend: function(){ 
 				popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
 				var txt = "Guardando información, por favor espere...";
-		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
+		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);		    	
 			}
 			,success: function(respuesta){ 
 				$("#"+ventana).dialog("close");
@@ -153,7 +154,7 @@ function guardar(array){
 				setTimeout(function(){
 					$("#"+ventana).dialog("close");
 					location.reload(true);
-					$(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+					// $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
 				}, 2000);
 			}
 	    });
@@ -163,7 +164,7 @@ function guardar(array){
 	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
 		setTimeout(function(){			
 			location.reload(true);
-			 $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+			 // $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
 		}, 2000);
 	}
 }

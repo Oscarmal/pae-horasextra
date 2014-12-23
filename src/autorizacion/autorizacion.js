@@ -11,6 +11,9 @@ function btnSubmit(){
 function btnSubmit_auto_2(){	
 	obtenerCampos(2);
 }
+function btnSubmit_auto_gere(){	
+	obtenerCampos(3);
+}
 function ok(Objeto){
 	var Id = Objeto.id.split("_");
 	$('#ico-'+Id[1]).removeClass();
@@ -55,12 +58,14 @@ function obtenerCampos(valor){
 	if(valor==1){
 		guardar(data);
 	}
-	else{
+	else if(valor==2){
 		guardar_autorizacion_2(data)
+	}
+	else if(valor==3){
+		guardar_autorizacion_gere(data)
 	}	
 }
 function guardar_autorizacion_2(array){
-	
 	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
@@ -111,9 +116,59 @@ function guardar_autorizacion_2(array){
 		}, 2000);
 	}
 }
+function guardar_autorizacion_gere(array){
 
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();
+	var raiz = raizPath();
+	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
+	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+	if(array){
+		$.ajax({
+			type: 'POST',
+			url: ajax_url,
+			dataType: "json",
+			data: {      
+				auth : 1,
+				modulo : modulo,
+				seccion : seccion,
+				accion : 'autorizacion_update_horas_gerente',
+				datos : array
+			}
+			,beforeSend: function(){ 
+				popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
+				var txt = "Guardando información, por favor espere...";
+		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
+			}
+			,success: function(respuesta){ 
+				$("#"+ventana).dialog("close");
+				if(respuesta.success){
+					popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
+					txt = "<div class='popup-txt'><p>La información ha sido guardada correctamente. </p></div>";
+					ventana = popup('Éxito',popup_ico+txt,0,0,3);				
+					 setTimeout(function(){location.reload(true);}, 2000);
+				}else if(respuesta.success){
+					txt = respuesta.error;
+					ventana = popup('Error',popup_ico+txt,0,0,3);
+				}				
+			}
+			,complete: function(){ 
+				setTimeout(function(){
+					$("#"+ventana).dialog("close");
+					location.reload(true);
+				}, 2000);
+			}
+	    });
+	}else{
+		popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
+		var txt = "No hay datos para guardar.";		    
+	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
+		setTimeout(function(){			
+			location.reload(true);
+		}, 2000);
+	}
+}
 function guardar(array){
-
 	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
 	var seccion = $("#sec").val();
 	var raiz = raizPath();
@@ -137,6 +192,7 @@ function guardar(array){
 		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
 			}
 			,success: function(respuesta){ 
+
 				$("#"+ventana).dialog("close");
 				if(respuesta.success){
 					popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";

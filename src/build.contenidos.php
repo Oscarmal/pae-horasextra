@@ -124,8 +124,8 @@ function autorizacion_coordinador(){
 		$tbl_resultados .= '<td align="center">
 								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
 									<option value="" selected></option>
-									<option value="si">Autorizado</option>
-									<option value="no">Declinado</option>
+									<option value="si">Aceptar</option>
+									<option value="no">Rechazar</option>
 								</select>
 							</td>';
 		$tbl_resultados .= '<td align="center">
@@ -183,7 +183,7 @@ function build_grid_autorizaciones_gerente($data=array()){
 	$sqlData = array(
 			 auth 		=> true
 			,estatus	=> 1
-			,orden		=> 'he_horas_extra.id_horas_extra DESC'
+			,orden		=> 'a.id_horas_extra DESC'
 		);
 	$tabla = autorizaciones_listado_select_gerente($sqlData);	
 	$campos = array(
@@ -193,14 +193,14 @@ function build_grid_autorizaciones_gerente($data=array()){
 				,'fecha'
 				,'horas'
 				,'horas_rechazadas'
+				//,'horas_simples'
 				,'horas_dobles'
-				,'horas_simples'
 				,'horas_triples'
 				,'capturado_por'
-				,'capturado_el'				
+				,'capturado_el'
+				,'asignado_por'
+				,'asignado_el'					
 			);
-
-
 	// $conceptos = conceptos_select(array(auth=>1));
 	// foreach($conceptos as $concepto){
 	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
@@ -212,6 +212,17 @@ function build_grid_autorizaciones_gerente($data=array()){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 		}
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="si">Autorizar</option>
+									<option value="no">Rechazar</option>
+								</select>
+							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
 	//	$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		

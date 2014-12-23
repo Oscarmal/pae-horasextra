@@ -133,7 +133,35 @@ if($in[auth]){
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";
 		}		
-	}elseif($ins[accion]=='genera-xls'){
+	}
+	elseif($in[accion]=='autorizacion_update_horas_gerente'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				
+				$estatus = ($vtmp[1]=='no')?'RECHAZADO':'ACEPTADO';
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,estatus 		=> $estatus
+					,id_horas_extra	=> $id_horas_extra
+				);
+				$success = autorizacion_update_horas_gerente($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+			$data = json_encode($data);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+	}
+	elseif($ins[accion]=='genera-xls'){
 		$success = false;
 		$nodata = true;
 		// Extraccion de datos
