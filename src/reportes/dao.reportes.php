@@ -31,7 +31,7 @@ function reporte01_select($data=array()){
 					/*,SUM((IF(d.id_concepto=1,d.horas/10000,0))) AS horas_simples*/
 					,SUM((IF(d.id_concepto=2,d.horas/10000,0))) AS horas_dobles
 					,SUM((IF(d.id_concepto=3,d.horas/10000,0))) AS horas_triples
-					,COUNT(DISTINCT d.semana) AS tot_semanas
+					/*,COUNT(DISTINCT d.semana) AS tot_semanas*/
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
@@ -41,7 +41,7 @@ function reporte01_select($data=array()){
 				WHERE 1 $filtro
 				GROUP BY a.id_empresa, anio_fecha
 				ORDER BY a.id_empresa, anio_fecha ASC
-				";				 
+				;";				 
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}else{
@@ -82,7 +82,7 @@ function grafico01_select($data=array()){
 					/*,SUM((IF(d.id_concepto=1,d.horas/10000,0))) AS horas_simples*/
 					,SUM((IF(d.id_concepto=2,d.horas/10000,0))) AS horas_dobles
 					,SUM((IF(d.id_concepto=3,d.horas/10000,0))) AS horas_triples
-					,COUNT(DISTINCT d.semana) AS tot_semanas
+					/*,COUNT(DISTINCT d.semana) AS tot_semanas*/
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
