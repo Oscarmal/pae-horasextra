@@ -413,5 +413,60 @@ function build_grid_usuarios(){
 	}
 	return $tbl_resultados;
 }
+
+function build_grid_autorizaciones_aprobadas(){
+	// Construye listado de horas extra autorizadas
+
+	global $usuario, $Path;
+	$sqlData = array(
+			 auth 		=> true
+			,estatus	=> 1
+			,orden		=> 'g.id_horas_extra DESC'
+		);
+	$tabla = autorizaciones_aprobadas($sqlData);	
+	$campos = array(
+			  	'id_horas_extra'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'
+				,'horas_rechazadas'
+				,'horas_dobles'
+				,'horas_triples'
+				,'validado_por'
+				,'validado_el'
+				,'asignado_por'
+				,'asignado_el'
+				,'autorizado_por'
+				,'autorizado_el'
+			);
+
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+		}
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</td>';
+		/*$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';*/
+	//	$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
 /*O3M*/
 ?>

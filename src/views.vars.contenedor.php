@@ -141,8 +141,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC33		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_3]
 					,txt_opc34		=> $dic[autorizacion][titulo_autorizacion_gerente]
 					,LINK_OPC34		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_4]
-					,txt_opc35		=> $dic[autorizacion][titulo_autorizacion_cliente]
-					,LINK_OPC35		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_5]
+					//,txt_opc35		=> $dic[autorizacion][titulo_autorizacion_cliente]
+					//,LINK_OPC35		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_5]
 					,txt_opc36		=> $dic[autorizacion][titulo_autorizacion_inplant]
 					,LINK_OPC36		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_6]
 					// Consulta

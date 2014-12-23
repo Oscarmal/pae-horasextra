@@ -658,84 +658,6 @@ function autorizacion_autorizadas_select($data=array()){
 }
 //*******************************************************************************************************************
 //ALEx
-function autorizaciones_listado_select_gerente($data=array()){
-	$resultado = false;
-	if($data[auth]){
-		global $db, $usuario;
-		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
-		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
-		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
-		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
-		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
-		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
-		$filtro.=filtro_grupo(array(
-					 10 => ''
-					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));
-
-		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
-		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
-		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
-		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
-		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
-		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY a.id_horas_extra";
-		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY a.id_horas_extra ASC";
-		$sql="SELECT 
-				a.id_horas_extra
-				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
-				,b.empleado_num
-				,DATE_FORMAT(a.fecha,'%d/%m/%Y') as fecha
-				,DATE_FORMAT(a.horas,'%H:%i') as horas
-				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=0,g.horas,NULL)))),'%H:%i') AS horas_rechazadas
-				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=1,g.horas,NULL)))),'%H:%i') AS horas_simples
-				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=2,g.horas,NULL)))),'%H:%i') AS horas_dobles
-				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=3,g.horas,NULL)))),'%H:%i') AS horas_triples
-				,g.id_concepto
-				,c.usuario as capturado_por
-				,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
-				,f.usuario as asignado_por
-				,DATE_FORMAT(g.timestamp, '%d/%m/%Y %H:%i:%s') as asignado_el
-			FROM 
-					$db[tbl_autorizaciones] g
-			LEFT JOIN 
-					$db[tbl_horas_extra] a
-					ON 
-						g.id_horas_extra =a.id_horas_extra
-			LEFT JOIN 
-					$db[tbl_personal] b
-					ON 
-						a.id_personal=b.id_personal
-			LEFT JOIN 
-					$db[tbl_usuarios] c
-					ON 
-						a.id_usuario=c .id_usuario
-			LEFT JOIN 
-					$db[tbl_usuarios] f 
-					ON 
-						a.id_usuario_aut=f.id_usuario 
-			WHERE 
-					1 
-				and 
-					a.id_horas_extra =g.id_horas_extra
-				and 
-					a.estatus ='ACEPTADO'
-				AND 
-					a.id_usuario_aut IS NOT NULL
-				AND 
-				 	g.aut_estatus IS NULL	 
-					$filtro 
-					$grupo 
-					$orden;";
-					//echo $sql;
-		$resultado = SQLQuery($sql);
-		$resultado = (count($resultado)) ? $resultado : false ;
-	}
-	return $resultado;
-}
 function validacion_listado_select_supervisor($data=array()){
 	$resultado = false;
 	if($data[auth]){
@@ -819,5 +741,161 @@ function validacion_listado_select_supervisor($data=array()){
 	}
 	return $resultado;
 }
+function autorizaciones_listado_select_gerente($data=array()){
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.=filtro_grupo(array(
+					 10 => ''
+					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]'"
+					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+				));
+
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
+		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
+		$filtro.= ($activo)?" and a.activo IN ($activo)":'';
+		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY a.id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY a.id_horas_extra ASC";
+		$sql="SELECT 
+				a.id_horas_extra
+				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+				,b.empleado_num
+				,DATE_FORMAT(a.fecha,'%d/%m/%Y') as fecha
+				,DATE_FORMAT(a.horas,'%H:%i') as horas
+				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=0,g.horas,NULL)))),'%H:%i') AS horas_rechazadas
+				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=1,g.horas,NULL)))),'%H:%i') AS horas_simples
+				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=2,g.horas,NULL)))),'%H:%i') AS horas_dobles
+				,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=3,g.horas,NULL)))),'%H:%i') AS horas_triples
+				,g.id_concepto
+				,c.usuario as capturado_por
+				,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
+				,f.usuario as asignado_por
+				,DATE_FORMAT(g.timestamp, '%d/%m/%Y %H:%i:%s') as asignado_el
+			FROM 
+					$db[tbl_autorizaciones] g
+			LEFT JOIN 
+					$db[tbl_horas_extra] a
+					ON 
+						g.id_horas_extra =a.id_horas_extra
+			LEFT JOIN 
+					$db[tbl_personal] b
+					ON 
+						a.id_personal=b.id_personal
+			LEFT JOIN 
+					$db[tbl_usuarios] c
+					ON 
+						a.id_usuario=c .id_usuario
+			LEFT JOIN 
+					$db[tbl_usuarios] f 
+					ON 
+						a.id_usuario_aut=f.id_usuario 
+			WHERE 
+					1 
+				and 
+					a.id_horas_extra =g.id_horas_extra
+				and 
+					a.estatus ='ACEPTADO'
+				AND 
+					a.id_usuario_aut IS NOT NULL
+				AND 
+				 	g.aut_estatus IS NULL	 
+					$filtro 
+					$grupo 
+					$orden;";
+			
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
+
+function autorizaciones_aprobadas($data=array()){
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.=filtro_grupo(array(
+					 10 => ''
+					,20 => "and g.id_empresa='$usuario[id_empresa]'"
+					,30 => "and g.id_empresa='$usuario[id_empresa]'"
+					,40 => "and g.id_empresa='$usuario[id_empresa]' and g.id_usuario!='$usuario[id_usuario]'"
+					,50 => "and g.id_empresa='$usuario[id_empresa]' and g.id_usuario!='$usuario[id_usuario]'"
+					,60 => "and g.id_empresa='$usuario[id_empresa]' and g.id_usuario='$usuario[id_usuario]'"
+				));
+
+		$filtro.= ($id_horas_extra)?" and g.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.= ($id_personal)?" and g.id_personal IN ($id_personal)":'';
+		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
+		$filtro.= ($activo)?" and g.activo IN ($activo)":'';
+		$filtro.= ($id_usuario)?" and g.id_usuario IN ($id_usuario)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY g.id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY g.id_horas_extra ASC";
+
+				$sql="SELECT 
+						g.id_horas_extra
+						,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+						,b.empleado_num
+						,a.fecha as fecha
+						,a.horas	
+						,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=0,g.horas,NULL)))),'%H:%i') AS horas_rechazadas
+						,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=2,g.horas,NULL)))),'%H:%i') AS horas_dobles
+						,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=3,g.horas,NULL)))),'%H:%i') AS horas_triples
+						,e.usuario  as validado_por
+						,a.estatus_fecha as validado_el
+						,c.usuario as asignado_por
+						,g.timestamp as asignado_el
+						,d.usuario autorizado_por
+						,g.aut_timestamp as autorizado_el
+					FROM 
+						he_autorizaciones g
+						LEFT JOIN 
+							he_horas_extra a
+							ON 
+								g.id_horas_extra =a.id_horas_extra
+						LEFT JOIN 
+							he_personal b
+							ON 
+								a.id_personal=b.id_personal
+						LEFT JOIN 
+							sis_usuarios c
+							ON 
+								g.id_usuario=c.id_usuario
+						LEFT JOIN 
+							sis_usuarios d 
+							ON 
+								g.aut_id_usuario=d.id_usuario 
+						LEFT JOIN 
+							sis_usuarios e
+							ON 
+								a.id_usuario_aut=e.id_usuario
+					WHERE 
+							g.aut_id_usuario IS NOT NULL
+					AND 
+							g.aut_estatus='ACEPTADO'
+							$filtro 
+							$grupo 
+							$orden";
+					//echo $sql;
+			$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
 /*O3M*/
+
 ?>
