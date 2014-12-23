@@ -187,16 +187,20 @@ function build_grid_autorizaciones_gerente($data=array()){
 		);
 	$tabla = autorizaciones_listado_select_gerente($sqlData);	
 	$campos = array(
-				 'id_horas_extra'
+			  	'id_horas_extra'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'	
-				,'estatus'			
-				,'validado_por'
-				,'validado_el'				
-
+				,'horas'
+				,'horas_rechazadas'
+				,'horas_dobles'
+				,'horas_simples'
+				,'horas_triples'
+				,'capturado_por'
+				,'capturado_el'				
 			);
+
+
 	// $conceptos = conceptos_select(array(auth=>1));
 	// foreach($conceptos as $concepto){
 	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
@@ -208,7 +212,7 @@ function build_grid_autorizaciones_gerente($data=array()){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 		}
-		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+	//	$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

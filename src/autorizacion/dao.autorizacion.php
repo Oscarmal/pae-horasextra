@@ -645,7 +645,8 @@ function autorizacion_autorizadas_select($data=array()){
 	return $resultado;
 }
 
-function validacion_listado_select_supervisor($data=array()){
+//*******************************************************************************************************************
+function autorizaciones_listado_select_gerente($data=array()){
 	$resultado = false;
 	if($data[auth]){
 		global $db, $usuario;
@@ -687,11 +688,15 @@ function validacion_listado_select_supervisor($data=array()){
 					,$db[tbl_personal].empleado_num
 					,DATE_FORMAT($db[tbl_horas_extra].fecha,'%d/%m/%Y') as fecha
 					,DATE_FORMAT($db[tbl_horas_extra].horas,'%H:%i') as horas
-					,$db[tbl_horas_extra].estatus as estatus
+					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=0,g.horas,NULL)))),'%H:%i') AS horas_rechazadas
+					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=1,g.horas,NULL)))),'%H:%i') AS horas_simples
+					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=2,g.horas,NULL)))),'%H:%i') AS horas_dobles
+					,TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(g.id_concepto=3,g.horas,NULL)))),'%H:%i') AS horas_triples
+					,g.id_concepto
 					,$db[tbl_usuarios].usuario as capturado_por
 					,DATE_FORMAT($db[tbl_horas_extra].timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
-					,f.usuario as validado_por
-					,DATE_FORMAT($db[tbl_horas_extra].estatus_fecha, '%d/%m/%Y %H:%i:%s') as validado_el
+					,f.usuario as asignado_por
+					,DATE_FORMAT(g.timestamp, '%d/%m/%Y %H:%i:%s') as asignado_el
 				FROM 
 					$db[tbl_horas_extra]
 				LEFT JOIN 
@@ -699,9 +704,9 @@ function validacion_listado_select_supervisor($data=array()){
 					ON 
 						$db[tbl_horas_extra].id_personal=$db[tbl_personal].id_personal
 				LEFT JOIN 
-					$db[tbl_usuarios] 
+					$db[tbl_usuarios]  
 					ON 
-						$db[tbl_horas_extra].id_usuario=$db[tbl_usuarios].id_usuario
+						$db[tbl_horas_extra].id_usuario=$db[tbl_usuarios] .id_usuario
 				LEFT JOIN 
 					$db[tbl_usuarios] f 
 					ON 
@@ -718,7 +723,8 @@ function validacion_listado_select_supervisor($data=array()){
 					$db[tbl_horas_extra].id_usuario_aut IS NOT NULL
 				AND 
 					g.id_horas_extra IS NULL
-	 
+				AND 
+				 	g.aut_estatus IS NULL	 
 					$filtro 
 					$grupo 
 					$orden;";
@@ -728,10 +734,7 @@ function validacion_listado_select_supervisor($data=array()){
 	}
 	return $resultado;
 }
-
-
-//*******************************************************************************************************************
-function autorizaciones_listado_select_gerente($data=array()){
+function validacion_listado_select_supervisor($data=array()){
 	$resultado = false;
 	if($data[auth]){
 		global $db, $usuario;

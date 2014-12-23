@@ -141,7 +141,7 @@ function vars_autorizacion_4($seccion, $urlParams){
 	//SOLO ES UN DEMO AUN NO QUEDA ...................
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
-	//$tbl_resultados = build_grid_autorizaciones_gerente();
+	$tbl_resultados = build_grid_autorizaciones_gerente();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
