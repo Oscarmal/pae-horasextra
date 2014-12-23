@@ -170,13 +170,13 @@ function build_grid_autorizadas($data=array()){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 		}
-		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="30" /></span></td>';
+		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}
 	return $tbl_resultados;
 }
-function build_grid_autorizaciones_supervisor($data=array()){
+function build_grid_autorizaciones_gerente($data=array()){
 // Construye listado de horas extra autorizadas
 
 	global $usuario, $Path;
@@ -185,7 +185,7 @@ function build_grid_autorizaciones_supervisor($data=array()){
 			,estatus	=> 1
 			,orden		=> 'he_horas_extra.id_horas_extra DESC'
 		);
-	$tabla = autorizaciones_listado_select_supervisor($sqlData);	
+	$tabla = autorizaciones_listado_select_gerente($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'

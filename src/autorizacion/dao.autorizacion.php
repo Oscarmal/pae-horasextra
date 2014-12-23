@@ -514,7 +514,7 @@ function autorizaciones_listado_select($data=array()){
 	return $resultado;
 }
 
-function autorizaciones_listado_select_supervisor($data=array()){
+function autorizaciones_listado_select_coordinador($data=array()){
 	global $db, $usuario;
 	$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
 	$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
@@ -728,7 +728,10 @@ function validacion_listado_select_supervisor($data=array()){
 	}
 	return $resultado;
 }
-function autorizaciones_listado_select_supervisor($data=array()){
+
+
+//*******************************************************************************************************************
+function autorizaciones_listado_select_gerente($data=array()){
 	$resultado = false;
 	if($data[auth]){
 		global $db, $usuario;
