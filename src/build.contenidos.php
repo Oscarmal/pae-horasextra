@@ -433,10 +433,10 @@ function build_grid_autorizaciones_aprobadas(){
 				,'horas_rechazadas'
 				,'horas_dobles'
 				,'horas_triples'
-				,'validado_por'
-				,'validado_el'
-				,'asignado_por'
-				,'asignado_el'
+				// ,'validado_por'
+				// ,'validado_el'
+				// ,'asignado_por'
+				// ,'asignado_el'
 				,'autorizado_por'
 				,'autorizado_el'
 			);
@@ -446,7 +446,7 @@ function build_grid_autorizaciones_aprobadas(){
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'<input type="hidden" value="'.$registro[id_personal].'"></td>':'<td>-</td>';		
 		}
 		$tbl_resultados .= '<td align="center">
 								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">

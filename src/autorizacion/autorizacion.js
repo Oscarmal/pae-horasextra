@@ -333,4 +333,8 @@ function layout(){
 		}
     });
 }
+
+function guardar_semana(){
+	alert();
+}
 //O3M//

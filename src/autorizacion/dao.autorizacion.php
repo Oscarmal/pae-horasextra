@@ -849,6 +849,8 @@ function autorizaciones_aprobadas($data=array()){
 				$sql="SELECT 
 						g.id_horas_extra
 						,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+						,b.id_personal
+						,b.id_empresa
 						,b.empleado_num
 						,a.fecha as fecha
 						,a.horas	
@@ -890,7 +892,7 @@ function autorizaciones_aprobadas($data=array()){
 							$filtro 
 							$grupo 
 							$orden";
-					//echo $sql;
+					echo $sql;
 			$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
