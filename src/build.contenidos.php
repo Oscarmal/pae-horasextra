@@ -297,17 +297,25 @@ function build_grid_validacion($data=array()){
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 		for($i=0; $i<count($campos); $i++){
-			if($campos[$i]=='xls' ){
+			/*if($campos[$i]=='xls' ){
 				//$xls_nomina = ($usuario[grupo]<4)?'<br/><a href="#" onclick="xls_nomina(\''.$data[$campos[$i]].'\')" target="_self" title="Layout Nómina" class="link-xls">[Nómina]</a>':'';
 				//$tbl_resultados .= ($data[$campos[$i]])?'<td ><a href="'.$Path[docsurl].'autorizacion/'.$data[$campos[$i]].'" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a></td>':'<td>XLS Pendiente</td>';
 				$tbl_resultados .= ($data[$campos[$i]])
 					?'<td ><a href="#" onclick="xls(\''.$data[$campos[$i]].'\')" target="_self" title="Descargar Archivo" class="link-xls">'.$data[$campos[$i]].'</a>'
 					.$xls_nomina.'</td>'
 					:'<td>XLS Pendiente</td>';
-			}else{
+			//}else{*/
+			/**/
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
-			}
+			//}
 		}
+		if($registro[estatus]=='RECHAZADO'){
+				$valor='Rechazado';
+			}
+			else if($registro[estatus]=='ACEPTADO'){
+				$valor='Aceptado';
+			}			
+				$tbl_resultados .='<td>'.$valor.'</td>';
 		//$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
@@ -322,7 +330,7 @@ function build_grid_asignacion(){
 			,estatus	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
 		);
-	$tabla = asignacion_listado_select_gerente($sqlData);	
+	$tabla = asignacion_listado_select($sqlData);	
 	$campos = array(
 			  	'id_horas_extra'
 				,'nombre_completo'
@@ -348,8 +356,12 @@ function build_grid_asignacion(){
 		}
 		if($registro[aut_estatus]=='RECHAZADO'){
 			$valor='Rechazado';
-		}else{
+		}
+		else if($registro[aut_estatus]=='ACEPTADO'){
 			$valor='Aceptado';
+		}
+		else{
+			$valor='Pendiente';	
 		}
 		$tbl_resultados .='<td>'.$valor.'</td>';
 		$tbl_resultados .= '</tr>';

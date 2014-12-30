@@ -254,6 +254,7 @@ function autorizacion_listado_select_coordinador($data=array()){
 					,DATE_FORMAT($db[tbl_horas_extra].timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 					,f.usuario as autorizado_por
 					,DATE_FORMAT($db[tbl_horas_extra].estatus_fecha, '%d/%m/%Y %H:%i:%s') as autorizado_el
+					,$db[tbl_horas_extra].estatus
 				FROM 
 					$db[tbl_horas_extra]
 				LEFT JOIN 
@@ -282,7 +283,7 @@ function autorizacion_listado_select_coordinador($data=array()){
 	}
 	return $resultado;
 }
-function asignacion_listado_select_gerente($data=array()){
+function asignacion_listado_select($data=array()){
 	$resultado = false;
 	if($data[auth]){
 		global $db, $usuario;
@@ -398,6 +399,7 @@ function aprobadas_listado_select($data=array()){
 						,g.timestamp as asignado_el
 						,d.usuario autorizado_por
 						,g.aut_timestamp as autorizado_el
+						,f.id_horas_extra
 					FROM 
 						$db[tbl_autorizaciones] g
 						LEFT JOIN 
@@ -420,10 +422,17 @@ function aprobadas_listado_select($data=array()){
 							$db[tbl_usuarios] e
 							ON 
 								a.id_usuario_aut=e.id_usuario
+						LEFT JOIN 
+							$db[tbl_autorizaciones_nomina] f
+							
+							ON 
+								g.id_horas_extra=f.id_horas_extra
 					WHERE 
 							g.aut_id_usuario IS NOT NULL
 					AND 
 							g.aut_estatus='ACEPTADO'
+					AND 
+							f.id_horas_extra IS NOT NULL
 							$filtro 
 							$grupo 
 							$orden";
