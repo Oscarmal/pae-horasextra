@@ -49,6 +49,8 @@ $frm_vistas = array(
 			 		 INDEX 			=> 'index.html'
 			 		,CAPTURA 		=> 'captura_listado.html'
 			 		,AUTORIZACION 	=> 'autorizacion_listado.html'
+			 		,ASIGNACION 	=> 'asignacion_listado.html'
+			 		,APROBADAS 		=> 'aprobadas_listado.html'
 			 	)  
 			,REPORTES => 
 			 	array(
@@ -153,6 +155,10 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC41		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CAPTURA]
 					,txt_opc42		=> $dic[consulta][autorizacion_menu]
 					,LINK_OPC42		=> '../site/?m='.$var[CONSULTA].'&s='.$var[AUTORIZACION]
+					,txt_opc43		=> $dic[consulta][asignacion_menu]
+					,LINK_OPC43		=> '../site/?m='.$var[CONSULTA].'&s='.$var[ASIGNACION]
+					,txt_opc44		=> $dic[consulta][aprobadas_menu]
+					,LINK_OPC44		=> '../site/?m='.$var[CONSULTA].'&s='.$var[APROBADAS]
 					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]

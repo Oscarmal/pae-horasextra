@@ -31,7 +31,6 @@ function vistas($cmd){
 	}
 	return $html;
 }
-
 # Variables
 function tpl_vars($cmd, $urlParams=array()){
 	global $vistas;
@@ -58,11 +57,9 @@ function tpl_vars($cmd, $urlParams=array()){
 	}
 	return $vars;
 }
-
 #############
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
-
 function vars_index($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
@@ -138,7 +135,6 @@ function vars_autorizacion_3($seccion, $urlParams){
 function vars_autorizacion_4($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 
-	//SOLO ES UN DEMO AUN NO QUEDA ...................
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
 	$tbl_resultados = build_grid_autorizaciones_gerente();
@@ -164,7 +160,6 @@ function vars_autorizacion_4($seccion, $urlParams){
 function vars_autorizacion_5($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 
-	//SOLO ES UN DEMO AUN NO QUEDA ...................
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
 	//$tbl_resultados = build_grid_autorizaciones_supervisor();
@@ -187,11 +182,9 @@ function vars_autorizacion_5($seccion, $urlParams){
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
-
 function vars_autorizacion_6($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 
-	//SOLO ES UN DEMO AUN NO QUEDA ...................
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
 	$tbl_resultados = build_grid_autorizaciones_aprobadas();

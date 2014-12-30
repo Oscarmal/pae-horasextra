@@ -14,6 +14,8 @@ $vistas = array(
 		 INDEX 			=> 'index.html'
 		,CAPTURA 		=> 'captura_listado.html'
 		,AUTORIZACION 	=> 'autorizacion_listado.html'
+		,ASIGNACION 	=> 'asignacion_listado.html'
+		,APROBADAS 		=> 'aprobadas_listado.html'
 	);
 
 # Vistas
@@ -37,13 +39,18 @@ function tpl_vars($cmd, $urlParams=array()){
 	}elseif($cmd == 'CAPTURA'){
 		$vars = vars_captura_listado($cmd, $urlParams);
 	}elseif($cmd == 'AUTORIZACION'){
-		$vars = vars_autorizacion_listado($cmd, $urlParams);
+		$vars = vars_validacion_listado($cmd, $urlParams);
+	}
+	elseif($cmd == 'ASIGNACION'){
+		$vars = vars_asignacion_listado($cmd, $urlParams);
+	}
+	elseif($cmd == 'APROBADAS'){
+		$vars = vars_aprobadas_listado($cmd, $urlParams);
 	}else{
 		$vars = vars_error($cmd);
 	}
 	return $vars;
 }
-
 #############
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
@@ -70,8 +77,7 @@ function vars_captura_listado($seccion, $urlParams){
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
-
-function vars_autorizacion_listado($seccion, $urlParams){
+function vars_validacion_listado($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][titulo2];
@@ -94,7 +100,52 @@ function vars_autorizacion_listado($seccion, $urlParams){
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
-
+function vars_asignacion_listado($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[consulta][asignacion_titulo];
+	$tbl_resultados = build_grid_asignacion();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion_listado.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_aprobadas_listado($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[consulta][aprobada_titulo];
+	$tbl_resultados = build_grid_aprobadas();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion_listado.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
 function vars_error($cmd){
 	global $dic;
 	## Envio de valores ##

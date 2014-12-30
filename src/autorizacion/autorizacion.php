@@ -89,7 +89,8 @@ if($in[auth]){
 		$msj = ($success)?'Guardado':'No guardó';
 		$data = array(success => $success, message => $msj, html => $CONTENIDO);
 		$data = json_encode($data);		
-	}elseif($ins[accion]=='autorizacion-guardar'){
+	}
+	elseif($ins[accion]=='autorizacion-guardar'){
 		if(!empty($ins[datos])){			
 			$datos = explode('|',$in[datos]);
 			foreach($datos as $dato){
@@ -187,7 +188,8 @@ if($in[auth]){
 		}
 		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
 		$data = json_encode($data);
-	}elseif($ins[accion]=='regenera-xls'){
+	}
+	elseif($ins[accion]=='regenera-xls'){
 		$success = false;
 		$nodata = true;
 		// Extraccion de datos
@@ -213,7 +215,8 @@ if($in[auth]){
 		}
 		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
 		$data = json_encode($data);
-	}elseif($ins[accion]=='regenera-xls-nomina'){
+	}
+	elseif($ins[accion]=='regenera-xls-nomina'){
 		$success = false;
 		$nodata = true;
 		// Extraccion de datos
@@ -240,7 +243,8 @@ if($in[auth]){
 		}
 		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
 		$data = json_encode($data);
-	}elseif($ins[accion]=='layout-popup'){
+	}
+	elseif($ins[accion]=='layout-popup'){
 		// Extraccion de datos
 		$sqlData = array(
 			 auth 			=> true
@@ -265,7 +269,87 @@ if($in[auth]){
 		$msj = ($success)?'Guardado':'No guardó';
 		$data = array(success => $success, message => $msj, html => $CONTENIDO);
 		$data = json_encode($data);		
-	}elseif(!$ins[accion]){
+	}
+	elseif($in[accion]=='insert_nomina'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			
+			foreach($datos as $dato){
+				
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra 	= $idCampo[1];				
+				$semana 			= $vtmp[1];
+				$id_empresa			= $vtmp[2];
+				$id_personal 		= $vtmp[3];
+				$horas_rechazadas 	= $vtmp[4];
+				$horas_dobles 		= $vtmp[5];
+				$horas_triples 		= $vtmp[6];
+				$empleado_num 		= $vtmp[7];
+				$año 				= date('Y');
+				$timestamp 			= date('Y-m-d H:i:s');
+				// Save data in SQL
+				if($horas_rechazadas==''){
+				}else{
+					$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+				 	,id_personal 	=> $id_personal
+				 	,id_empresa 	=> $id_empresa
+				 	,empleado_num 	=> $empleado_num
+				 	,anio 			=> $año
+				 	,semana 		=> $semana
+				 	,horas 			=> $horas_rechazadas
+				 	,id_concepto 	=> 1
+				 	,timestamp 		=> $timestamp
+				 	);
+					$success = insert_nomina($sqlData);			
+				}
+				if($horas_dobles==''){
+				}else{
+						$sqlData = array(
+						 auth 			=> true
+						,id_horas_extra	=> $id_horas_extra
+					 	,id_personal 	=> $id_personal
+					 	,id_empresa 	=> $id_empresa
+					 	,empleado_num 	=> $empleado_num
+					 	,anio 			=> $año
+					 	,semana 		=> $semana
+					 	,horas 			=> $horas_dobles
+						,id_concepto 	=> 2
+						,timestamp 		=> $timestamp
+					);
+						$success = insert_nomina($sqlData);
+				}
+				if($horas_triples==''){
+				}else{
+					$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+				 	,id_personal 	=> $id_personal
+				 	,id_empresa 	=> $id_empresa
+				 	,empleado_num 	=> $empleado_num
+				 	,anio 			=> $año
+				 	,semana 		=> $semana
+				 	,horas 			=> $horas_triples
+					,id_concepto 	=> 3
+					,timestamp 		=> $timestamp
+					);
+					$success = insert_nomina($sqlData);
+				}
+
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+			$data = json_encode($data);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+	}
+	elseif(!$ins[accion]){
 		$error = array(error => 'Sin accion');
 		$data = json_encode($error);
 	}

@@ -60,7 +60,11 @@ consulta|titulo=Consultas
 consulta|captura_menu=Listado de Horas Extra Cap.
 consulta|captura_titulo=Listado de Horas Extra capturadas sin autorizar
 consulta|autorizacion_menu=Listado de Autorizaciones
+consulta|asignacion_menu=Listado de Asingaciones
+consulta|aprobadas_menu=Listado de Aprobadas
 consulta|autorizacion_titulo=Listado de Autorizaciones aplicadas
+consulta|asignacion_titulo=Listado de Asignaciones aplicadas
+consulta|aprobada_titulo=Listado de Asignaciones aprobadas
 # Reportes
 reportes|titulo=Reportes
 reportes|reporte01_menu=Reporte General

@@ -30,6 +30,8 @@ function buildMenu($elementos=0){
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC41}\';" target="_self">{txt_opc41}</a></li>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC42}\';" target="_self">{txt_opc42}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC43}\';" target="_self">{txt_opc43}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC44}\';" target="_self">{txt_opc44}</a></li>
 			         </ul>';
 					break;
 				case 5 : $submenu = '

@@ -705,11 +705,12 @@ function validacion_listado_select_supervisor($data=array()){
 					,DATE_FORMAT($db[tbl_horas_extra].timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
 					,f.usuario as validado_por
 					,DATE_FORMAT($db[tbl_horas_extra].estatus_fecha, '%d/%m/%Y %H:%i:%s') as validado_el
+					,g.aut_estatus
 				FROM 
 					$db[tbl_horas_extra]
 				LEFT JOIN 
 					$db[tbl_personal]
-					ON 
+					ON  
 						$db[tbl_horas_extra].id_personal=$db[tbl_personal].id_personal
 				LEFT JOIN 
 					$db[tbl_usuarios] 
@@ -731,6 +732,8 @@ function validacion_listado_select_supervisor($data=array()){
 					$db[tbl_horas_extra].id_usuario_aut IS NOT NULL
 				AND 
 					g.id_horas_extra IS NULL
+				OR 
+					g.aut_estatus ='RECHAZADO'
 	 
 					$filtro 
 					$grupo 
@@ -813,13 +816,12 @@ function autorizaciones_listado_select_gerente($data=array()){
 					$filtro 
 					$grupo 
 					$orden;";
-			
+			//echo $sql;
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
 	return $resultado;
 }
-
 function autorizaciones_aprobadas($data=array()){
 	if($data[auth]){
 		global $db, $usuario;
@@ -864,40 +866,79 @@ function autorizaciones_aprobadas($data=array()){
 						,d.usuario autorizado_por
 						,g.aut_timestamp as autorizado_el
 					FROM 
-						he_autorizaciones g
+						$db[tbl_autorizaciones] g
 						LEFT JOIN 
-							he_horas_extra a
+							$db[tbl_horas_extra] a
 							ON 
 								g.id_horas_extra =a.id_horas_extra
 						LEFT JOIN 
-							he_personal b
+							$db[tbl_personal] b
 							ON 
 								a.id_personal=b.id_personal
 						LEFT JOIN 
-							sis_usuarios c
+							$db[tbl_usuarios] c
 							ON 
 								g.id_usuario=c.id_usuario
 						LEFT JOIN 
-							sis_usuarios d 
+							$db[tbl_usuarios] d 
 							ON 
 								g.aut_id_usuario=d.id_usuario 
 						LEFT JOIN 
-							sis_usuarios e
+							$db[tbl_usuarios] e
 							ON 
 								a.id_usuario_aut=e.id_usuario
+						LEFT JOIN 
+							$db[tbl_autorizaciones_nomina]  f
+							ON 
+								g.id_horas_extra =f.id_horas_extra
 					WHERE 
 							g.aut_id_usuario IS NOT NULL
 					AND 
 							g.aut_estatus='ACEPTADO'
+					AND 
+							f.id_horas_extra IS NULL
 							$filtro 
 							$grupo 
 							$orden";
-					echo $sql;
+					//echo $sql;
 			$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
 	return $resultado;
 }
+function insert_nomina($data=array()){
+	// Inserta tabla de nominas
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		
+		$sql = "INSERT INTO $db[tbl_autorizaciones_nomina] 
+					(	id_horas_extra,
+						id_personal,
+						id_empresa,
+						empleado_num,
+						anio,
+						semana,
+						horas,
+						id_concepto,
+						id_usuario,
+						timestamp
+					)
+					values
+					(	$data[id_horas_extra],
+						$data[id_personal],
+						$data[id_empresa],
+						'$data[empleado_num]',
+						$data[anio],
+						$data[semana],
+						'$data[horas]',
+						$data[id_concepto],
+						$usuario[id_usuario],
+						'$data[timestamp]'
+					);";
+		$resultado = (SQLDo($sql))?true:false;
+	}
+	return $resultado;
+}
 /*O3M*/
-
 ?>
