@@ -120,6 +120,7 @@ function captura_listado_select_coordinador($data=array()){
 					$filtro 
 					$grupo 
 					$orden;";
+
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 
@@ -270,13 +271,12 @@ function autorizacion_listado_select_coordinador($data=array()){
 				WHERE 
 					1 
 				and 
-					$db[tbl_horas_extra].estatus ='ACEPTADO'
-				AND 
-					$db[tbl_horas_extra].id_usuario_aut IS NOT NULL
+					$db[tbl_horas_extra].estatus IS NOT NULL
 					$filtro 
 					$grupo 
 					$orden;";
 		//echo $sql;
+
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
@@ -345,16 +345,11 @@ function asignacion_listado_select_gerente($data=array()){
 			WHERE 
 					1 
 				and 
-					a.id_horas_extra =g.id_horas_extra
-				and 
-					a.estatus ='ACEPTADO'
-				AND 
-					a.id_usuario_aut IS NOT NULL
-				
+					g.aut_estatus IS NOT NULL				
 					$filtro 
 					$grupo 
 					$orden;";
-			//echo $sql;
+			//echo $sql; dump_var($sql);
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
