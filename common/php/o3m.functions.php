@@ -287,6 +287,11 @@ function horas_int($horas){
 	return $horas;
 }
 
+function semana_iso8601($fecha=''){
+	$fecha = (empty($fecha))?date('Y-m-d'):$fecha;
+	$semana_iso8601 = date('o-W', strtotime($fecha));
+	return $semana_iso8601;
+}
 #-FIN Críticas-#
 
 ##################
