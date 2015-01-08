@@ -71,6 +71,17 @@ if($in[auth]){
 			,id_horas_extra	=> $ins[id_horas_extra]
 		);
 		$datos = capturados_select($sqlData);
+		
+		// Deteccion de semana del año ISO8601
+		$datos_semama = select_acumulado_semanal(array(
+			 auth 			=> 1
+			,id_empresa 	=> $datos[id_empresa]
+			,id_personal	=> $datos[id_personal]
+			// ,empleado_num 	=> $datos[empleado_num]
+			,fecha 			=> $datos[fecha]
+		));
+		$semana_iso8601 = ($datos_semama[semana_iso8601])?$datos_semama[semana_iso8601]:$datos[semana_iso8601];
+		$semana_horas	= ($datos_semama[tot_horas])?$datos_semama[tot_horas]:0;
 		// Impresion de vista
 		$vista_new 	= 'autorizacion/autorizar_popup.html';
 		$tpl_data = array(
@@ -80,6 +91,8 @@ if($in[auth]){
 				,clave	 => $datos[empleado_num]
 				,fecha	 => $datos[fecha]
 				,horas	 => $datos[horas]
+				,semana_iso => $semana_iso8601
+				,tot_horas	=> $semana_horas.' hrs.'
 				,guardar => 'Guardar'			
 				,cerrar	 => 'Cerrar'			
 				);		

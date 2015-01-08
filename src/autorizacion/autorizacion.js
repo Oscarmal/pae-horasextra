@@ -258,7 +258,7 @@ function autorizar(id_horas_extra){
 		,success: function(respuesta){ 
 			if(respuesta.success){
 				var vistaHTML = respuesta.html;
-				ventana = popup('Autorizar',contenidoHtml,500,500,3);
+				ventana = popup('Autorizar',contenidoHtml,550,600,3);
 				$("#autorizar-popup").html(vistaHTML);
 			}else if(respuesta.success){
 				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";

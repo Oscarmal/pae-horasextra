@@ -52,6 +52,8 @@ function capturados_select($data=array()){
 					,DATE_FORMAT(a.horas,'%H:%i') as horas					
 					,c.usuario as capturado_por
 					,DATE_FORMAT(a.timestamp, '%d/%m/%Y %H:%i:%s') as capturado_el
+					,a.id_personal
+					,a.semana_iso8601
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
@@ -937,6 +939,38 @@ function insert_nomina($data=array()){
 						'$data[timestamp]'
 					);";
 		$resultado = (SQLDo($sql))?true:false;
+	}
+	return $resultado;
+}
+
+function select_acumulado_semanal($data=array()){
+	if($data[auth]){
+		global $db;
+		$id_empresa 	= (is_array($data[id_empresa]))?implode(',',$data[id_empresa]):$data[id_empresa];
+		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		$fecha 			= (is_array($data[fecha]))?implode(',',date("Y-m-d", strtotime(str_replace('/', '-', $data[fecha])))):date("Y-m-d", strtotime(str_replace('/', '-', $data[fecha])));
+		$semana_iso8601 = semana_iso8601($fecha);
+		$filtro.= ($id_empresa)?" and a.id_empresa IN ($id_empresa)":'';
+		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
+		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';
+		$filtro.= ($semana_iso8601)?" and a.semana_iso8601 IN ('$semana_iso8601')":'';
+		$sql="SELECT 
+				 a.id_empresa
+				,a.id_personal
+				,b.empleado_num
+				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+				,a.semana_iso8601
+				,COUNT(*) AS tot_regs
+				,SUM(DATE_FORMAT(a.horas,'%H')) AS tot_horas
+			FROM $db[tbl_horas_extra] a
+			LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
+			LEFT JOIN $db[tbl_autorizaciones] c ON a.id_horas_extra=c.id_horas_extra
+			WHERE 1 and c.activo=1 $filtro
+			GROUP BY  id_empresa ,id_personal, semana_iso8601 ASC;";
+		// dump_var($sql);
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
 	}
 	return $resultado;
 }
