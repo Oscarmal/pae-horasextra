@@ -17,12 +17,33 @@ function reset_slider(){
 
 function slider_horas(){	
 // Contruye sliders con valores iniciales
-	var horas = $("#horas").val();	
+	var horas 			 = $("#horas").val();
+	var horas_acumuladas = $("#tot_horas").val();
+	// Cálculo
+	var max_dobles = 9;
+	var horas_totales	= horas_acumuladas + horas;
+	if(horas_totales>max_dobles){
+		// Triples
+	}else{
+		// Dobles
+		var dobles = horas;
+	}
+	// 	
 	horas = parseInt(horas);
 	build_slider("slider-dobles", 0, horas, 0, "dobles");
 	build_slider("slider-triples", 0, horas, 0, "triples");
 	build_slider("slider-rechazadas", 0, horas, 0, "rechazadas");
 }
+
+// function slider_horas(){	
+// RESPALDO ORIGINAL
+// // Contruye sliders con valores iniciales
+// 	var horas 			= $("#horas").val();
+// 	horas = parseInt(horas);
+// 	build_slider("slider-dobles", 0, horas, 0, "dobles");
+// 	build_slider("slider-triples", 0, horas, 0, "triples");
+// 	build_slider("slider-rechazadas", 0, horas, 0, "rechazadas");
+// }
 
 function build_slider(id_Objeto, valor, max, min, idMuestra) {
 // Funcion para contruir un slider
