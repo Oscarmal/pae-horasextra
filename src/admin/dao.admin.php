@@ -1,10 +1,12 @@
 <?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
+include_once('C:\xampp\htdocs\horas_extra/common/php/inc.postgres.php');
 /**
 * 				Funciones "DAO"
 * Descripcion:	Ejecuta consultas SQL y devuelve el resultado.
 * Creación:		2014-08-27
 * @author 		Oscar Maldonado
 */
+set_time_limit(0);
 function select_view_nomina($data=array()){
 	if($data[auth]){
 		global $db, $usuario;
@@ -50,5 +52,94 @@ function select_view_nomina($data=array()){
 	}
 	return $resultado;
 }
+function select_view_vista_credenciales($user,$id_empresa){
+	
+	if($user=='root'){
+		$sql_alterno='';
+	}else{
+		$sql_alterno="WHERE 
+						id_empresa=$id_empresa";
+	}
+	
+		global $db, $usuario;
+		
+		$sql="SELECT 
+				* 
+			FROM 
+				$db[pos_vista_credenciales]
+			$sql_alterno;";
+		/*echo $sql;
+		die();*/
+		$resultado = pgquery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	
+	return $resultado;
+}
 /*O3M*/
+function select_sincronizacion_update(){
+	global $db, $usuario;
+		
+		$sql="INSERT INTO
+				prueba_he_personal
+					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp)
+						SELECT 	
+						prueba_view_vista_credenciales.nombre,
+						prueba_view_vista_credenciales.rfc,
+						prueba_view_vista_credenciales.imss,
+						prueba_view_vista_credenciales.area,
+						prueba_view_vista_credenciales.position,
+						prueba_view_vista_credenciales.id_empleado,
+						prueba_view_vista_credenciales.id_empresa,
+						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp
+						
+					FROM 
+						 prueba_view_vista_credenciales
+						LEFT JOIN
+							he_empresas
+							ON 
+								prueba_view_vista_credenciales.id_empresa = he_empresas.id_nomina
+						LEFT JOIN
+							prueba_he_personal
+							ON
+								prueba_view_vista_credenciales.id_empleado = prueba_he_personal.empleado_num	
+							AND 
+								prueba_view_vista_credenciales.id_empresa = prueba_he_personal.id_empresa
+							AND 
+								prueba_view_vista_credenciales.id_empleado = prueba_he_personal.empleado_num	
+						WHERE 	
+							prueba_he_personal.id_personal is NULL;";
+		//echo $sql;
+		/*die();*/
+		$id_personal = SQLDo($sql);
+
+		$sql2="INSERT INTO 
+					 prueba_sis_usuarios
+				(usuario,clave,id_personal,timestamp)
+						SELECT 	
+						prueba_view_vista_credenciales.rfc,
+						prueba_view_vista_credenciales.imss,
+						$id_personal,
+						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp
+					FROM 
+						 prueba_view_vista_credenciales
+						LEFT JOIN
+							prueba_sis_usuarios
+							ON 
+								prueba_view_vista_credenciales.imss = prueba_sis_usuarios.clave
+						WHERE 	
+							prueba_sis_usuarios.usuario is NULL;";
+							//echo $sql2;
+		$resultado = SQLDo($sql2);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	
+	return $resultado;
+}
+function truncate_vista_nomina(){
+	global $db, $usuario;
+	$sql="TRUNCATE TABLE prueba_view_vista_credenciales";
+	$resultado = SQLDo($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	
+	return $resultado;
+}
 ?>

@@ -21,6 +21,30 @@ function pgConn() {
 	// }		
  //    $Result = 'ERROR: No puede conectarse con la base de datos';
  //    return $Result;
-}
 
+	return $pgLink;
+}
+function pgquery($sql){
+	$conn = pgConn();
+	$query=pg_query($conn, $sql);
+	if(pg_num_rows($query)){
+		if(pg_num_rows($query)==1){
+			//pg_result_seek ($qry,0);
+			$Result = pg_fetch_array($query, NULL, PGSQL_ASSOC);
+		}
+		else{
+    		//pg_result_seek($qry,0);
+    		$i=0;
+    		while($row = pg_fetch_array($query, NULL, PGSQL_ASSOC)) {
+    			$Result[$i] = $row;
+    			$i++;
+			}
+		}  
+	}
+	else{
+		$Result=null;
+	}
+	pg_close ($conn);
+	return $Result;
+}
 ?>
