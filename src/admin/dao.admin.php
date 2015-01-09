@@ -68,15 +68,13 @@ function select_view_vista_credenciales($user,$id_empresa){
 			FROM 
 				$db[pos_vista_credenciales]
 			$sql_alterno;";
-		/*echo $sql;
-		die();*/
 		$resultado = pgquery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	
 	return $resultado;
 }
 /*O3M*/
-function select_sincronizacion_update(){
+function insetr_sincronizacion_update(){
 	global $db, $usuario;
 		
 		$sql="INSERT INTO
