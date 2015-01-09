@@ -424,7 +424,7 @@ function aprobadas_listado_select($data=array()){
 								a.id_usuario_aut=e.id_usuario
 						LEFT JOIN 
 							$db[tbl_autorizaciones_nomina] f
-							
+
 							ON 
 								g.id_horas_extra=f.id_horas_extra
 					WHERE 
