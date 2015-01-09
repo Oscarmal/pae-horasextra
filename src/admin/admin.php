@@ -46,7 +46,7 @@ if($in[auth]){
 						prueba_view_vista_credenciales
 						SET
 						id_empresa 				=	'$id_empresa',
-						id_number 				=	'id_number',
+						id_number 				=	'$id_number',
 						nombre 					=	'$nombre',
 						position 				=	'$position',
 						area 					=	'$area',
@@ -74,7 +74,7 @@ if($in[auth]){
 				}
 				else{
 					unlink('../../tmp/insert.sql');
-					select_sincronizacion_update();
+					insetr_sincronizacion_update();
 				}
 			}
 			else{
