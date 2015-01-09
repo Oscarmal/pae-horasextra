@@ -1,5 +1,5 @@
 <?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
-include_once('C:\xampp\htdocs\horas_extra/common/php/inc.postgres.php');
+// require_once($Raiz[local].$cfg[php_postgres]);
 /**
 * 				Funciones "DAO"
 * Descripcion:	Ejecuta consultas SQL y devuelve el resultado.
