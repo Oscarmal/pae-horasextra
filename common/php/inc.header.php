@@ -35,7 +35,6 @@ $Path[site]		= $Raiz[local].$cfg[path_site];
 // Crea variable de sesion con ruta de header
 if(!isset($_SESSION['header_path'])){$_SESSION['header_path'] = $Raiz[local].$cfg[php_header];}
 // Prepara archivos de apoyo
-echo $Raiz[local].$cfg[php_postgres];
 require_once($Raiz[local].$cfg[php_functions]);
 require_once($Raiz[local].$cfg[php_mysql]);
 require_once($Raiz[local].$cfg[php_postgres]);
