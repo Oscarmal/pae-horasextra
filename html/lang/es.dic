@@ -76,5 +76,6 @@ admin|titulo=Administración
 admin|usuarios_menu=Usuarios
 admin|usuarios_titulo=Administración de Usuarios
 admin|sincronizar_menu=Sincronizar
+admin|alta_usuario=Alta usuario
 admin|sincronizar_titulo=Sincronizar con NóminaPAE
 admin|sincronizar_usuarios=Sincronizar con datos de NóminaPAE

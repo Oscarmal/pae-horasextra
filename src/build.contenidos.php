@@ -488,37 +488,6 @@ function build_select_anios($id_empresa=false){
 	$objeto .= "</select>";
 	return $objeto;
 }
-function build_grid_usuarios(){
-// Construye grid de autorizaciones
-	$sqlData = array(
-			 auth 			=> 1
-			,id_empresa		=> $usuario[id_empresa]
-			,id_number		=> $usuario[id_number]
-			,activo 		=> 1
-		);
-	$tabla = select_view_nomina($sqlData);	
-	$campos = array(
-				 'id_empleado'
-				,'id_number'
-				,'nombre'
-				,'rfc'
-				,'imss'
-				,'empresa_razon_social'
-				,'activo'
-			);
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr class="gradeA">';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
-		}	
-		$tbl_resultados .= '<td>'.date('d/m/Y H:i:s').'</td>';
-		$tbl_resultados .= '</tr>';
-		if($soloUno) break; 		
-	}
-	return $tbl_resultados;
-}
 function build_grid_autorizaciones_aprobadas(){
 	// Construye listado de horas extra autorizadas
 
@@ -582,6 +551,51 @@ function build_grid_autorizaciones_aprobadas(){
 		if($soloUno) break; 		
 	}
 	return $tbl_resultados;
+}
+//*****************************************************************************************************************************************
+// SINCRONIZACION
+function build_grid_usuarios(){
+// Construye grid de autorizaciones
+	$sqlData = array(
+			 auth 			=> 1
+			,id_empresa		=> $usuario[id_empresa]
+			,id_number		=> $usuario[id_number]
+			,activo 		=> 1
+		);
+	$tabla = select_view_nomina($sqlData);	
+	$campos = array(
+				 'id_empleado'
+				,'id_number'
+				,'nombre'
+				,'rfc'
+				,'imss'
+				,'empresa_razon_social'
+				,'activo'
+			);
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
+		}	
+		$tbl_resultados .= '<td>'.date('d/m/Y H:i:s').'</td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+function build_catalgo_empresa(){
+	$catalgo_empresa=$query_cat=select_catalgos_empresa();
+	
+	$select.='<select name="empresa" id="empresa">
+				<option value="0">Seleccione una Empresa</option>';
+	foreach($catalgo_empresa as $empresa){
+		
+		$select.='<option value='.$empresa[id_empresa].'>'.$empresa[nombre].'</option>';
+	}
+	$select.='</select>';
+	return $select;
 }
 /*O3M*/
 ?>

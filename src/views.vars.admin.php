@@ -14,6 +14,7 @@ $vistas = array(
 		 INDEX 			=> 'index.html'
 		,USUARIOS 		=> 'usuarios.html'
 		,SINCRONIZACION => 'sincronizacion.html'
+		,ALTA_USUARIO	=> 'alta_usuario.html'
 	);
 
 # Vistas
@@ -39,7 +40,11 @@ function tpl_vars($cmd, $urlParams=array()){
 	}
 	elseif($cmd == 'SINCRONIZACION'){
 		$vars = vars_sincronizacion($cmd, $urlParams);
-	}else{
+	}
+	elseif($cmd == 'ALTA_USUARIO'){
+		$vars = vars_alta_usuario($cmd, $urlParams);
+	}
+	else{
 		$vars = vars_error($cmd);
 	}
 	return $vars;
@@ -69,6 +74,31 @@ function vars_sincronizacion($seccion, $urlParams){
 				,TITULO			=> $titulo
 				,CONTENIDO 		=> $contenido
 				,sincronizar_usuarios =>$dic[admin][sincronizar_usuarios]
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_alta_usuario($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##
+	$titulo 	= $dic[admin][sincronizar_titulo];
+	$data_contenido = array();
+	$catalago_empresa=build_catalgo_empresa();
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	/*var_dump(MODULO);
+	die();*/
+	$negocio = array(
+				 MORE 		=>  incJs($Path[srcjs].strtolower(MODULO).'/admin.js')
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)								 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+				,sincronizar_usuarios =>$dic[admin][sincronizar_usuarios]
+				,catalgo_empresa => $catalago_empresa
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;

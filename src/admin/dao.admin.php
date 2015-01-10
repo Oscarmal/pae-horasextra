@@ -52,17 +52,13 @@ function select_view_nomina($data=array()){
 	}
 	return $resultado;
 }
-function select_view_vista_credenciales($user,$id_empresa){
-	
-	if($user=='root'){
+function select_view_vista_credenciales($filtrado,$id_empresa){
+	global $db, $usuario;
+	if(!$filtrado){
 		$sql_alterno='';
 	}else{
-		$sql_alterno="WHERE 
-						id_empresa=$id_empresa";
-	}
-	
-		global $db, $usuario;
-		
+		$sql_alterno="WHERE id_empresa=$id_empresa";
+	}		
 		$sql="SELECT 
 				* 
 			FROM 
@@ -76,56 +72,55 @@ function select_view_vista_credenciales($user,$id_empresa){
 /*O3M*/
 function insetr_sincronizacion_update(){
 	global $db, $usuario;
-		
+	
 		$sql="INSERT INTO
-				prueba_he_personal
-					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp)
+				$db[tbl_personal] 
+					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario)
 						SELECT 	
-						prueba_view_vista_credenciales.nombre,
-						prueba_view_vista_credenciales.rfc,
-						prueba_view_vista_credenciales.imss,
-						prueba_view_vista_credenciales.area,
-						prueba_view_vista_credenciales.position,
-						prueba_view_vista_credenciales.id_empleado,
-						prueba_view_vista_credenciales.id_empresa,
-						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp
-						
+						$db[view_nomina].nombre,
+						$db[view_nomina].rfc,
+						$db[view_nomina].imss,
+						$db[view_nomina].area,
+						$db[view_nomina].position,
+						$db[view_nomina].id_empleado,
+						$db[view_nomina].id_empresa,
+						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp,
+						$usuario[id_usuario]
 					FROM 
-						 prueba_view_vista_credenciales
+						 $db[view_nomina] 
 						LEFT JOIN
-							he_empresas
+							$db[tbl_empresas]
 							ON 
-								prueba_view_vista_credenciales.id_empresa = he_empresas.id_nomina
+								$db[view_nomina].id_empresa = $db[tbl_empresas].id_nomina
 						LEFT JOIN
-							prueba_he_personal
+							$db[tbl_personal]
 							ON
-								prueba_view_vista_credenciales.id_empleado = prueba_he_personal.empleado_num	
+								$db[view_nomina].id_empleado = $db[tbl_personal].empleado_num	
 							AND 
-								prueba_view_vista_credenciales.id_empresa = prueba_he_personal.id_empresa
+								$db[view_nomina].id_empresa = $db[tbl_personal].id_empresa
 							AND 
-								prueba_view_vista_credenciales.id_empleado = prueba_he_personal.empleado_num	
+								$db[view_nomina].id_empleado = $db[tbl_personal].empleado_num	
 						WHERE 	
-							prueba_he_personal.id_personal is NULL;";
-		//echo $sql;
-		/*die();*/
+							$db[tbl_personal].id_personal is NULL;";
+		
 		$id_personal = SQLDo($sql);
 
 		$sql2="INSERT INTO 
-					 prueba_sis_usuarios
+					 $db[tbl_usuarios]
 				(usuario,clave,id_personal,timestamp)
 						SELECT 	
-						prueba_view_vista_credenciales.rfc,
-						prueba_view_vista_credenciales.imss,
+						$db[view_nomina].rfc,
+						$db[view_nomina].imss,
 						$id_personal,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp
 					FROM 
-						 prueba_view_vista_credenciales
+						 $db[view_nomina]
 						LEFT JOIN
-							prueba_sis_usuarios
+							$db[tbl_usuarios]
 							ON 
-								prueba_view_vista_credenciales.imss = prueba_sis_usuarios.clave
+								$db[view_nomina].imss = $db[tbl_usuarios].clave
 						WHERE 	
-							prueba_sis_usuarios.usuario is NULL;";
+							$db[tbl_usuarios].usuario is NULL;";
 							//echo $sql2;
 		$resultado = SQLDo($sql2);
 		$resultado = (count($resultado)) ? $resultado : false ;
@@ -134,10 +129,66 @@ function insetr_sincronizacion_update(){
 }
 function truncate_vista_nomina(){
 	global $db, $usuario;
-	$sql="TRUNCATE TABLE prueba_view_vista_credenciales";
+	$sql="TRUNCATE TABLE $db[view_nomina]";
 	$resultado = SQLDo($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	
+	return $resultado;
+}
+function select_catalgos_empresa(){
+	global $db,$usuario;
+	
+	if($usuario[id_grupo]<=10){
+		$sql_alterno='';
+	}
+	else{
+		$sql_alterno="WHERE id_empresa=$usuario[id_empresa]";
+	}
+	
+	$sql="SELECT 
+				id_empresa,
+				nombre
+			FROM 
+				$db[tbl_empresas] 
+				$sql_alterno;";
+		//echo $sql;
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	return $resultado;
+}
+function insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$correo,$rfc,$nss,$sucursal,$puesto,$no_empleado,$id_empresa,$timestamp){
+	global $db, $usuario;
+
+	$sql="INSERT INTO
+				prueba_he_personal
+				(nombre,
+				paterno,
+				materno,
+				rfc,
+				imss,
+				email,
+				sucursal,
+				puesto,
+				empleado_num,
+				id_empresa,
+				timestamp,
+				id_usuario)
+				values
+				('$nombre',
+				'$apellido_paterno',
+				'$apellido_materno',
+				'$correo',
+				'$rfc',
+				'$nss',
+				'$sucursal',
+				'$puesto',
+				'$no_empleado',
+				$id_empresa,
+				'$timestamp',
+				$usuario[id_usuario]);";
+						//echo $sql;
+		$resultado = SQLDo($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;
 }
 ?>
