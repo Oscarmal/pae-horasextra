@@ -86,15 +86,15 @@ if($in[auth]){
 			}
 	}
 	elseif($in[accion]=='nuevo_usuario'){
-		$nombre				=	$in[nombre];
-		$apellido_paterno	=	$in[apellido_paterno];
-		$apellido_materno	=	$in[apellido_materno];
+		$nombre				=	mb_strtoupper($in[nombre], 'UTF-8');
+		$apellido_paterno	=	mb_strtoupper($in[apellido_paterno], 'UTF-8');
+		$apellido_materno	=	mb_strtoupper($in[apellido_materno], 'UTF-8');
 		$correo				=	$in[correo];
-		$rfc				=	$in[rfc];
-		$nss				=	$in[nss];
-		$sucursal			=	$in[sucursal];
-		$puesto				=	$in[puesto];
-		$no_empleado		=	$in[no_empleado];
+		$rfc				=	mb_strtoupper($in[rfc], 'UTF-8');
+		$nss				=	mb_strtoupper($in[nss], 'UTF-8');
+		$sucursal			=	mb_strtoupper($in[sucursal], 'UTF-8');
+		$puesto				=	mb_strtoupper($in[puesto], 'UTF-8');
+		$no_empleado		=	mb_strtoupper($in[no_empleado], 'UTF-8');
 		$id_empresa 		=	$in[id_empresa];
 		$timestamp 			= date('Y-m-d H:i:s');
 		

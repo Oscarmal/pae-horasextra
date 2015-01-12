@@ -587,12 +587,15 @@ function build_grid_usuarios(){
 }
 function build_catalgo_empresa(){
 	$catalgo_empresa=$query_cat=select_catalgos_empresa();
-	
+	/*echo '<pre>';
+	print_r($catalgo_empresa);
+	echo '</pre>';
+	die();*/
 	$select.='<select name="empresa" id="empresa">
 				<option value="0">Seleccione una Empresa</option>';
 	foreach($catalgo_empresa as $empresa){
 		
-		$select.='<option value='.$empresa[id_empresa].'>'.$empresa[nombre].'</option>';
+		$select.='<option value='.$empresa[id_nomina].'>'.$empresa[nombre].'</option>';
 	}
 	$select.='</select>';
 	return $select;
