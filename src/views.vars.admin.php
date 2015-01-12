@@ -81,7 +81,7 @@ function vars_sincronizacion($seccion, $urlParams){
 function vars_alta_usuario($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##
-	$titulo 	= $dic[admin][sincronizar_titulo];
+	$titulo 	= $dic[admin][alta_usuario];
 	$data_contenido = array();
 	$catalago_empresa=build_catalgo_empresa();
 	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
@@ -97,7 +97,6 @@ function vars_alta_usuario($seccion, $urlParams){
 				 ICONO 			=> $icono
 				,TITULO			=> $titulo
 				,CONTENIDO 		=> $contenido
-				,sincronizar_usuarios =>$dic[admin][sincronizar_usuarios]
 				,catalgo_empresa => $catalago_empresa
 			);
 	$data = array_merge($negocio, $texto);

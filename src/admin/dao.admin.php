@@ -146,7 +146,7 @@ function select_catalgos_empresa(){
 	}
 	
 	$sql="SELECT 
-				id_empresa,
+				id_nomina,
 				nombre
 			FROM 
 				$db[tbl_empresas] 
@@ -160,7 +160,7 @@ function insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$corr
 	global $db, $usuario;
 
 	$sql="INSERT INTO
-				prueba_he_personal
+				$db[tbl_personal]
 				(nombre,
 				paterno,
 				materno,
@@ -177,9 +177,9 @@ function insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$corr
 				('$nombre',
 				'$apellido_paterno',
 				'$apellido_materno',
-				'$correo',
 				'$rfc',
 				'$nss',
+				'$correo',
 				'$sucursal',
 				'$puesto',
 				'$no_empleado',
