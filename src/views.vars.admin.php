@@ -15,6 +15,7 @@ $vistas = array(
 		,USUARIOS 		=> 'usuarios.html'
 		,SINCRONIZACION => 'sincronizacion.html'
 		,ALTA_USUARIO	=> 'alta_usuario.html'
+		,SINCRONIZACION_EMPRESAS => 'sincronizacion_empresas.html'
 	);
 
 # Vistas
@@ -43,6 +44,9 @@ function tpl_vars($cmd, $urlParams=array()){
 	}
 	elseif($cmd == 'ALTA_USUARIO'){
 		$vars = vars_alta_usuario($cmd, $urlParams);
+	}
+	elseif($cmd == 'SINCRONIZACION_EMPRESAS'){
+		$vars = vars_sincronizacion_empresas($cmd, $urlParams);
 	}
 	else{
 		$vars = vars_error($cmd);
@@ -84,6 +88,7 @@ function vars_alta_usuario($seccion, $urlParams){
 	$titulo 	= $dic[admin][alta_usuario];
 	$data_contenido = array();
 	$catalago_empresa=build_catalgo_empresa();
+	$catalogo_usuario_grupo=build_catalgo_usuarios_grupo();
 	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
 	## Envio de valores ##
 	/*var_dump(MODULO);
@@ -98,15 +103,41 @@ function vars_alta_usuario($seccion, $urlParams){
 				,TITULO			=> $titulo
 				,CONTENIDO 		=> $contenido
 				,catalgo_empresa => $catalago_empresa
+				,catalogo_usuario_grupo =>$catalogo_usuario_grupo
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;
 }
+function vars_sincronizacion_empresas($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[admin][sincronizar_titulo];
 
+	$tbl_resultados = build_select_empresas_tabla();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=>  incJs($Path[srcjs].strtolower(MODULO).'/admin.js')
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)								 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+				,sincronizar_empresa_boton	=>$dic[admin][sincronizar_empresa_boton]
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
 function vars_error($cmd){
 	global $dic;
 	## Envio de valores ##
 	$data = array(MENSAJE => $dic[error][mensaje].': '.$cmd);
 	return $data;
 }
+
 ?>

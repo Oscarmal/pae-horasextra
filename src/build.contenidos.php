@@ -563,13 +563,16 @@ function build_grid_usuarios(){
 		);
 	$tabla = select_view_nomina($sqlData);	
 	$campos = array(
-				 'id_empleado'
+		   		 'id_empresa'
+				,'empresa_razon_social'
+				,'id_empleado'
 				,'id_number'
 				,'nombre'
 				,'rfc'
 				,'imss'
 				,'empresa_razon_social'
 			//	,'activo'
+
 			);
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
@@ -600,7 +603,7 @@ function build_catalgo_empresa(){
 	return $select;
 }
 function build_catalgo_usuarios_grupo(){
-	$catalgo_usuarios=$select_catalgo_usuarios_grupo();
+	$catalgo_usuarios=select_catalgo_usuarios_grupo();
 	
 	$select.='<select name="usuario" id="usuario">';
 	foreach($catalgo_usuarios as $usuario){
