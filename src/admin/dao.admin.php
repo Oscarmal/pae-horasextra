@@ -40,6 +40,7 @@ function select_view_nomina($data=array()){
 				,a.empresa
 				,a.empresa_razon_social
 				,a.id_empleado
+				,b.id_nomina
 				/*,IF(a.activo=1,'Activo','Inactivo') AS activo*/
 				FROM $db[view_nomina] a
 				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_empresa
@@ -76,7 +77,7 @@ function insetr_sincronizacion_update(){
 	
 		$sql="INSERT INTO
 				$db[tbl_personal] 
-					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario)
+					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario, id_nomina)
 						SELECT 	
 						$db[view_nomina].nombre,
 						$db[view_nomina].rfc,
@@ -87,6 +88,7 @@ function insetr_sincronizacion_update(){
 						$db[view_nomina].id_empresa,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp,
 						$usuario[id_usuario]
+						,$db[view_nomina].id_view_nomina
 					FROM 
 						 $db[view_nomina] 
 						LEFT JOIN
@@ -112,7 +114,7 @@ function insetr_sincronizacion_update(){
 						SELECT 	
 						$db[view_nomina].rfc,
 						$db[view_nomina].imss,
-						$id_personal,
+						$db[tbl_personal].id_personal,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp
 					FROM 
 						 $db[view_nomina]
@@ -120,6 +122,7 @@ function insetr_sincronizacion_update(){
 							$db[tbl_usuarios]
 							ON 
 								$db[view_nomina].imss = $db[tbl_usuarios].clave
+						LEFT JOIN $db[tbl_personal] ON $db[tbl_personal].id_nomina=$db[view_nomina].id_view_nomina
 						WHERE 	
 							$db[tbl_usuarios].usuario is NULL;";
 							//echo $sql2;
