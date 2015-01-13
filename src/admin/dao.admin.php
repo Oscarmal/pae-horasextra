@@ -156,7 +156,21 @@ function select_catalgos_empresa(){
 		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;
 }
-function insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$correo,$rfc,$nss,$sucursal,$puesto,$no_empleado,$id_empresa,$timestamp){
+function select_catalgo_usuarios_grupo(){
+	global $db,$usuario;
+	$sql="SELECT 
+				id_grupo,
+				grupo
+			FROM 
+				$db[tbl_grupos]
+			WHERE 
+				id_grupo >20";
+		//echo $sql;
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	return $resultado;
+}
+function insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$correo,$rfc,$nss,$sucursal,$puesto,$no_empleado,$id_empresa,$id_usuario_grupo,$timestamp){
 	global $db, $usuario;
 
 	$sql="INSERT INTO
@@ -187,8 +201,93 @@ function insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$corr
 				'$timestamp',
 				$usuario[id_usuario]);";
 						//echo $sql;
-		$resultado = SQLDo($sql);
+			global $db, $usuario;
+		
+		$id_personal = SQLDo($sql);
+
+		$sql2="INSERT INTO 
+					$db[tbl_usuarios]
+						(usuario,clave,id_grupo,id_personal,timestamp,activo)
+					values
+						('$no_empleado','$no_empleado',$id_usuario_grupo,$id_personal,'$timestamp',1);";
+							//echo $sql2;
+		$resultado = SQLDo($sql2);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;
 }
+function select_empresas_tabla(){
+	global $db,$usuario;
+	
+	$sql="SELECT 
+				id_empresa,
+				nombre,
+				siglas,
+				razon,
+				timestamp
+			FROM 
+				$db[tbl_empresas]";
+		//echo $sql;
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	return $resultado;
+}
+function select_empresas_nomina(){
+	global $db, $usuario;
+		
+		$sql="SELECT DISTINCT 
+				$db[pos_vista_credenciales].id_empresa,
+				$db[pos_vista_credenciales].empresa,
+				$db[pos_vista_credenciales].empresa_razon_social
+			FROM 
+				$db[pos_vista_credenciales]
+			ORDER BY 
+				$db[pos_vista_credenciales].id_empresa;";
+				//echo $sql;
+		$resultado = pgquery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+
+	return $resultado;
+}
+function insert_empresa_nomina_tmp(){
+	global $db;
+
+	$sql="INSERT INTO 
+			$db[tbl_empresas]
+			(nombre,siglas,rfc,razon,direccion,pais,email,timestamp,id_usuario,activo,id_nomina)
+		SELECT 
+			t.nombre,
+			t.siglas,
+			t.rfc,
+			t.razon,
+			t.direccion,
+			t.pais,
+			t.email,
+			t.timestamp,
+			t.id_usuario,
+			t.activo,
+			t.id_nomina
+		FROM 
+			$db[tbl_tmp_empresas] t
+			LEFT JOIN 
+				$db[tbl_empresas] e
+				ON 
+					t.id_nomina=e.id_nomina
+			WHERE 
+				e.id_nomina is NULL";
+		
+	$resultado = SQLDo($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	
+	return $resultado;
+}
+function eliminar_tmp_empresa_nomina(){
+	global $db;
+
+	$sql="DROP TABLE IF EXISTS $db[tbl_tmp_empresas];";
+	$resultado = SQLDo($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	
+	return $resultado;
+}
+
 ?>
