@@ -63,6 +63,7 @@ function SQLDo($SQL){
 
 		$SQL = utf8_decode($SQL);
 		$Cmd=array('INSERT', 'UPDATE', 'DELETE','TRUNCATE','DROP');
+
 		$vSql=explode(' ',$SQL);
 		if(in_array(strtoupper($vSql[0]),$Cmd)){			
 		    try{
@@ -90,6 +91,7 @@ function SQLDo($SQL){
 							$t2=explode(' ',$t[1]);
 							$table=strtolower($t2[0]);
 						}
+
 						if($action=='TRUNCATE'){
 							$t=explode('FROM ',strtoupper($SQL));
 							$t2=explode(' ',$t[1]);
@@ -100,6 +102,7 @@ function SQLDo($SQL){
 							$t2=explode(' ',$t[1]);
 							$table=strtolower($t2[0]);
 						}
+
 						if($table!=$db[tbl_online]){
 							$logs=SQLLogs($table,$idtable,$action,$SQL,'',$usuario[id_usuario]);	
 						}

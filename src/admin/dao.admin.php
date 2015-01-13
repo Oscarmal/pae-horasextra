@@ -40,12 +40,13 @@ function select_view_nomina($data=array()){
 				,a.empresa
 				,a.empresa_razon_social
 				,a.id_empleado
-				,IF(a.activo=1,'Activo','Inactivo') AS activo
+				/*,IF(a.activo=1,'Activo','Inactivo') AS activo*/
 				FROM $db[view_nomina] a
 				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_nomina
 				WHERE 1
 				$filtro $grupo $orden ;";
-		$resultado = SQLQuery($sql);
+		// dump_var($sql);
+		$resultado = SQLQuery($sql);		
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}else{
 		$resultado = false;
