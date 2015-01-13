@@ -555,7 +555,6 @@ function build_grid_autorizaciones_aprobadas(){
 //*****************************************************************************************************************************************
 // SINCRONIZACION
 function build_grid_usuarios(){
-// Construye grid de autorizaciones
 	$sqlData = array(
 			 auth 			=> 1
 			,id_empresa		=> $usuario[id_empresa]
@@ -571,6 +570,9 @@ function build_grid_usuarios(){
 				,'nombre'
 				,'rfc'
 				,'imss'
+				,'empresa_razon_social'
+			//	,'activo'
+
 			);
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
@@ -586,7 +588,7 @@ function build_grid_usuarios(){
 	return $tbl_resultados;
 }
 function build_catalgo_empresa(){
-	$catalgo_empresa=$query_cat=select_catalgos_empresa();
+	$catalgo_empresa=select_catalgos_empresa();
 	/*echo '<pre>';
 	print_r($catalgo_empresa);
 	echo '</pre>';
@@ -599,6 +601,43 @@ function build_catalgo_empresa(){
 	}
 	$select.='</select>';
 	return $select;
+}
+function build_catalgo_usuarios_grupo(){
+	$catalgo_usuarios=select_catalgo_usuarios_grupo();
+	
+	$select.='<select name="usuario" id="usuario">';
+	foreach($catalgo_usuarios as $usuario){
+		if($usuario[id_grupo]==60){
+			$select.='<option value='.$usuario[id_grupo].' selected>'.$usuario[grupo].'</option>';
+		}
+		else{
+			$select.='<option value='.$usuario[id_grupo].'>'.$usuario[grupo].'</option>';
+		}
+	}
+	$select.='</select>';
+	return $select;
+}
+function build_select_empresas_tabla(){
+	$empresa_tabla=select_empresas_tabla();
+
+	$campos = array(
+				 'id_empresa'
+				,'nombre'
+				,'siglas'
+				,'razon'
+				,'timestamp'
+			);
+	foreach ($empresa_tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$empresa_tabla; #Seleccion de arreglo	
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
+		}	
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
 }
 /*O3M*/
 ?>

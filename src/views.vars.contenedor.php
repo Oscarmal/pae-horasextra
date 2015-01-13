@@ -64,6 +64,7 @@ $frm_vistas = array(
 			 		,USUARIOS		=> 'usuarios.html'
 			 		,SINCRONIZACION	=> 'sincronizacion.html'
 			 		,ALTA_USUARIO	=> 'alta_usuario.html'
+			 		,SINCRONIZACION_EMPRESAS => 'sincronizacion_empresas.html'
 			 	)
 			,ERROR => 'error.html'
 		);
@@ -175,7 +176,9 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,txt_opc61		=> $dic[admin][sincronizar_menu]
 					,LINK_OPC61		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION]
 					,txt_opc62		=> $dic[admin][alta_usuario]
-					,LINK_OPC62		=> '../site/?m='.$var[ADMIN].'&s='.$var[ALTA_USUARIO]						
+					,LINK_OPC62		=> '../site/?m='.$var[ADMIN].'&s='.$var[ALTA_USUARIO]
+					,txt_opc63		=> $dic[admin][sincronizar_empresa]
+					,LINK_OPC63		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION_EMPRESAS]							
 				);
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);
 		// --	
