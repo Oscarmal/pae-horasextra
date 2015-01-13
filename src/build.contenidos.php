@@ -564,13 +564,13 @@ function build_grid_usuarios(){
 		);
 	$tabla = select_view_nomina($sqlData);	
 	$campos = array(
-				 'id_empleado'
+		   		 'id_empresa'
+				,'empresa_razon_social'
+				,'id_empleado'
 				,'id_number'
 				,'nombre'
 				,'rfc'
 				,'imss'
-				,'empresa_razon_social'
-				,'activo'
 			);
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
