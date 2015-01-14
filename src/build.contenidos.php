@@ -562,6 +562,7 @@ function build_grid_usuarios(){
 			,activo 		=> 1
 		);
 	$tabla = select_view_nomina($sqlData);	
+
 	$campos = array(
 				 'empresa_razon_social'
 				,'id_empleado'
