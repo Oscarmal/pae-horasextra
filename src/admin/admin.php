@@ -36,6 +36,9 @@ if($in[auth]){
 					$id_empresa 			=	$success[$i][id_empresa];
 					$id_number				=	$success[$i][id_number];
 					$nombre					=	$success[$i][nombre];
+					$paterno				=	$success[$i][paterno];
+					$materno				=	$success[$i][materno];
+					$email					=	$success[$i][email];
 					$position				=	$success[$i][position];
 					$area					=	$success[$i][area];
 					$rfc					=	$success[$i][rfc];
@@ -48,17 +51,20 @@ if($in[auth]){
 					$query.="INSERT INTO
 							$db[view_nomina]
 						SET
-							id_empresa 				=	(SELECT id_empresa FROM he_empresas WHERE id_nomina=$id_empresa),
-							id_number 				=	'$id_number',
-							nombre 					=	'$nombre',
-							position 				=	'$position',
-							area 					=	'$area',
-							rfc 					=	'$rfc',
-							imss 					=	'$imss',
-							ingreso 				=	'$ingreso',
-							empresa 				=	'$empresa',
-							empresa_razon_social 	=	'$empresa_razon_social',
-							id_empleado 			=	'$id_empleado';\r\n";
+							id_empresa 					=	(SELECT id_empresa FROM he_empresas WHERE id_nomina=$id_empresa),
+							id_number 					=	'$id_number',
+							nombre_empleado				=	'$nombre',
+							apellido_paterno_empleado 	=	'$paterno',
+							apellido_materno_empleado 	=	'$materno',
+							correo_electronico			= 	'$email',
+							position 					=	'$position',
+							area 						=	'$area',
+							rfc 						=	'$rfc',
+							imss 						=	'$imss',
+							ingreso 					=	'$ingreso',
+							empresa 					=	'$empresa',
+							empresa_razon_social 		=	'$empresa_razon_social',
+							id_empleado 				=	'$id_empleado';\r\n";
 				}
 				$archivo=$Path[tmp].'insert_'.date('Ymd-His').'.sql';
 				$file=fopen($archivo, 'w');
@@ -79,7 +85,7 @@ if($in[auth]){
 				}
 				else{
 					//unlink($archivo);
-					insetr_sincronizacion_update();
+					insert_sincronizacion_update();
 					$msj='Guardado';
 				}
 			}

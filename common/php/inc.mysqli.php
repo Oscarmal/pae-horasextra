@@ -23,7 +23,7 @@ function SQLQuery($SQL){
 	global $db;
 	if($db[db_onoff]){
 		$Cmd=array('SELECT');	
-		$vSql=explode(' ',$SQL);
+		$vSql=explode(' ',$SQL);		
 		if(in_array(strtoupper($vSql[0]),$Cmd)){
 		    try{
 		    	$conn = SQLConn(); //Llama conexión

@@ -17,10 +17,12 @@ function select_view_nomina($data=array()){
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
 		$filtro.=filtro_grupo(array(
-					 ''
-					,"and a.id_empresa='$usuario[id_empresa_nomina]'"
-					,"and a.id_empresa='$usuario[id_empresa_nomina]'"
-					,"and a.id_usuario='$usuario[id_usuario]'"
+					 10 => ''
+					,20 => "and c.id_empresa='$usuario[id_empresa]'"
+					,30 => "and c.id_empresa='$usuario[id_empresa]'"
+					,40 => "and c.id_empresa='$usuario[id_empresa]'"
+					,50 => "and c.id_empresa='$usuario[id_empresa]'"
+					,60 => "and c.id_personal='$usuario[id_personal]'"
 				));
 		$filtro.= ($id_nomina)?" and a.id_nomina IN ($id_nomina)":'';
 		$filtro.= ($id_empresa)?" and a.id_empresa IN ($id_empresa)":'';
@@ -29,8 +31,7 @@ function select_view_nomina($data=array()){
 		$desc 	= ($desc)?" DESC":' ASC';
 		$orden 	= ($orden)?"ORDER BY $orden".$desc:'ORDER BY a.id_empresa, a.id_empleado'.$desc;		
 
-		$sql="SELECT 
-				IF(a.id_empresa is null, c.id_nomina,a.id_empresa) as id_empresa
+		$sql="SELECT IF(a.id_empresa is null, c.id_nomina,a.id_empresa) as id_empresa
 				,IF(a.id_number is null, c.empleado_num,a.id_number) as id_number
 				,CONCAT(IFNULL(c.nombre,''),' ', IFNULL(c.paterno,''),' ',IFNULL(c.materno,'')) as nombre
 				,a.position
@@ -51,10 +52,10 @@ function select_view_nomina($data=array()){
 					$db[tbl_empresas] b 
 						ON a.id_empresa=b.id_empresa
 				WHERE 1
-				$filtro $grupo $orden;";
-	
-		 //dump_var($sql);
-		$resultado = SQLQuery($sql);
+				$filtro $grupo $orden ;";
+		//dump_var($sql);
+		$resultado = SQLQuery($sql);				
+
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}else{
 		$resultado = false;
@@ -71,7 +72,7 @@ function select_view_vista_credenciales($filtrado,$id_empresa){
 		$sql="SELECT 
 				* 
 			FROM 
-				$db[pos_vista_credenciales]
+				$db[pgsql_vista_credenciales]
 			$sql_alterno;";
 		$resultado = pgquery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
@@ -79,14 +80,17 @@ function select_view_vista_credenciales($filtrado,$id_empresa){
 	return $resultado;
 }
 /*O3M*/
-function insetr_sincronizacion_update(){
+function insert_sincronizacion_update(){
 	global $db, $usuario;
 	
 		$sql="INSERT INTO
 				$db[tbl_personal] 
-					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario, id_nomina)
+					(nombre, paterno, materno, email, rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario, id_nomina)
 						SELECT 	
-						$db[view_nomina].nombre,
+						$db[view_nomina].nombre_empleado,
+						$db[view_nomina].apellido_paterno_empleado,
+						$db[view_nomina].apellido_materno_empleado,
+						$db[view_nomina].correo_electronico,
 						$db[view_nomina].rfc,
 						$db[view_nomina].imss,
 						$db[view_nomina].area,
@@ -246,13 +250,13 @@ function select_empresas_nomina(){
 	global $db, $usuario;
 		
 		$sql="SELECT DISTINCT 
-				$db[pos_vista_credenciales].id_empresa,
-				$db[pos_vista_credenciales].empresa,
-				$db[pos_vista_credenciales].empresa_razon_social
+				$db[pgsql_vista_credenciales].id_empresa,
+				$db[pgsql_vista_credenciales].empresa,
+				$db[pgsql_vista_credenciales].empresa_razon_social
 			FROM 
-				$db[pos_vista_credenciales]
+				$db[pgsql_vista_credenciales]
 			ORDER BY 
-				$db[pos_vista_credenciales].id_empresa;";
+				$db[pgsql_vista_credenciales].id_empresa;";
 				//echo $sql;
 		$resultado = pgquery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
