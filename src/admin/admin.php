@@ -38,7 +38,7 @@ if($in[auth]){
 					$nombre					=	$success[$i][nombre_empleado];
 					$paterno				=	$success[$i][apellido_paterno_empleado];
 					$materno				=	$success[$i][apellido_materno_empleado];
-					$email					=	$success[$i][correo_electronico];
+					$email					=	(strlen($success[$i][correo_electronico])>3) ? $success[$i][correo_electronico] : '';
 					$position				=	$success[$i][position];
 					$area					=	$success[$i][area];
 					$rfc					=	$success[$i][rfc];
