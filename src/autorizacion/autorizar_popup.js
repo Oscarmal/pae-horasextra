@@ -1,8 +1,8 @@
 //O3M//
 $(document).ready(function(){
-	$('#btnGuardar').hide();
+	// $('#btnGuardar').hide();
 	slider_horas();
-	$('#restan').val(parseInt($("#horas").val()));
+	// $('#restan').val(parseInt($("#horas").val()));
 
 	$('#reload').click(function(){
 		reset_slider();	
@@ -11,32 +11,43 @@ $(document).ready(function(){
 
 function reset_slider(){
 	$('#btnGuardar').hide();
-	slider_horas();	
-	$('#restan').val(parseInt($("#horas").val()));	
+	slider_horas();			
 }
 
 function slider_horas(){	
-// Contruye sliders con valores iniciales
-	var horas 			 = $("#horas").val();
-	var horas_acumuladas = $("#tot_horas").val();
-	// Cálculo
-	var max_dobles = 9;
-	var horas_totales	= horas_acumuladas + horas;
-	if(horas_totales>max_dobles){
-		// Triples
-	}else{
-		// Dobles
-		var dobles = horas;
+// Contruye sliders con valores iniciales	
+	var horas 			 = parseInt($("#horas").val());	
+	$('#restan').val(horas);
+	var restan = parseInt($('#restan').val());
+	
+	// **Cálculo auto** //
+	var horas_acumuladas = parseInt($("#tot_horas").val());
+	/*I Diario*/
+	var dobles = (horas>3) ? 3 : horas;
+	var triples = (horas-dobles>=1) ?  horas-dobles : 0 ;
+	/*II Acumulado*/
+	if(horas_acumuladas>9){
+		dobles = 0;
+		triples = horas;
 	}
-	// 	
+	else if(horas_acumuladas+dobles>9){
+		dobles = 9 - horas_acumuladas;
+		triples = horas - dobles;
+	}
+	// ****Fin***** //
+
+	// 	Aplica
+	restan = horas - (dobles + triples);
 	horas = parseInt(horas);
-	build_slider("slider-dobles", 0, horas, 0, "dobles");
-	build_slider("slider-triples", 0, horas, 0, "triples");
-	build_slider("slider-rechazadas", 0, horas, 0, "rechazadas");
+	$('#restan').val(restan);
+	build_slider("slider-dobles", dobles, dobles, 0, "dobles");
+	build_slider("slider-triples", triples, triples, 0, "triples");
+	build_slider("slider-rechazadas", 0, 0, 0, "rechazadas");
+	if(restan){$('#btnGuardar').hide();}else{$('#btnGuardar').show();}
 }
 
 // function slider_horas(){	
-// RESPALDO ORIGINAL
+// // RESPALDO ORIGINAL
 // // Contruye sliders con valores iniciales
 // 	var horas 			= $("#horas").val();
 // 	horas = parseInt(horas);
@@ -73,16 +84,22 @@ function rebuild_slider(horas){
 	var triples = parseInt($('#triples').val());
 	var rechazadas = parseInt($('#rechazadas').val());
 	var restan = maximo-(dobles+triples+rechazadas);
+	var val = 0;
 	if(restan){
 		// dobles
 		if(dobles < restan)
-		$('#slider-dobles').slider( "option", "max", restan );
+			$('#slider-dobles').slider( "option", "max", restan );
 		// triples
 		if(triples < restan)
-		$('#slider-triples').slider( "option", "max", restan );
+			// val = restan+triple;
+			$('#slider-triples').slider( "option", "max", restan );
 		// rechazadas
 		if(rechazadas < restan)
-		$('#slider-rechazadas').slider( "option", "max", restan );			
+			$('#slider-rechazadas').slider( "option", "max", restan );			
+	}else{
+		$('#slider-dobles').slider( "option", "max", dobles );
+		$('#slider-triples').slider( "option", "max", triples );
+		$('#slider-rechazadas').slider( "option", "max", rechazadas );
 	}
 	// restan
 	$('#restan').val(restan);

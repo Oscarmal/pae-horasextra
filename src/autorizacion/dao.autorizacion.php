@@ -43,7 +43,7 @@ function capturados_select($data=array()){
 		$grupo 	= ($grupo)?"GROUP BY $grupo":'GROUP BY a.id_horas_extra';
 		$orden 	= ($orden)?"ORDER BY $orden":'ORDER BY a.id_horas_extra ASC';
 		$sql = "SELECT a.id_horas_extra
-					,CONCAT(b.nombre,' ', b.paterno,' ',b.materno) as nombre_completo
+					,CONCAT(IFNULL(b.nombre,''),' ', IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,b.empleado_num
 					,a.estatus
 					,d.usuario as validado_por
@@ -962,7 +962,7 @@ function select_acumulado_semanal($data=array()){
 				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 				,a.semana_iso8601
 				,COUNT(*) AS tot_regs
-				,SUM(DATE_FORMAT(a.horas,'%H')) AS tot_horas
+				,SUM(DATE_FORMAT(c.horas,'%H')) AS tot_horas
 			FROM $db[tbl_horas_extra] a
 			LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 			LEFT JOIN $db[tbl_autorizaciones] c ON a.id_horas_extra=c.id_horas_extra
