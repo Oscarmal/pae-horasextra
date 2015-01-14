@@ -28,21 +28,21 @@ function select_view_nomina($data=array()){
 		//$filtro.= ($activo)?" and b.activo IN ($activo)":'';
 		$desc 	= ($desc)?" DESC":' ASC';
 		$orden 	= ($orden)?"ORDER BY $orden".$desc:'ORDER BY a.id_empresa, a.id_empleado'.$desc;		
-		$sql="SELECT 
-				 a.id_empresa
-				,a.id_number
-				,a.nombre
+		$sql="SELECT
+				 IF(a.id_empresa is null, c.id_nomina,a.id_empresa) as id_empresa
+				,IF(a.id_number is null, c.empleado_num,a.id_number) as id_number
+				,CONCAT(IFNULL(c.nombre,''),' ', IFNULL(c.paterno,''),' ',IFNULL(c.materno,'')) as nombre
 				,a.position
 				,a.area
 				,a.rfc
 				,a.imss
 				,a.ingreso
-				,a.empresa
-				,a.empresa_razon_social
+				,IF(a.empresa is null, b.nombre,a.empresa) as empresa
+				,IF(a.empresa_razon_social is null, b.nombre,a.empresa_razon_social) as empresa_razon_social
 				,a.id_empleado
 				,b.id_nomina
-				/*,IF(a.activo=1,'Activo','Inactivo') AS activo*/
-				FROM $db[view_nomina] a
+				FROM $db[tbl_personal] c
+				LEFT JOIN $db[view_nomina] a ON c.id_nomina=a.id_view_nomina
 				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_empresa
 				WHERE 1
 				$filtro $grupo $orden ;";
