@@ -4,7 +4,6 @@ function cambio_contraseña(){
 	var seccion 	  = $("#sec").val();
 	var raiz 		  = raizPath();
 	var ajax_url 	  = raiz+"src/"+modulo+"/login.php";
-	var user 		= $("#user").val();
 	var pass  		= $("#pass").val();
 	if(user==''||pass==''){
 		alert('No puede estar ningún campo vacío');
@@ -20,7 +19,6 @@ function cambio_contraseña(){
 			modulo  : modulo,
 			accion 	: 'actualizacion_pass',
 			s 	    : seccion,
-			user 	: user,
 			pass   	: pass
 		},
 		beforeSend: function(){

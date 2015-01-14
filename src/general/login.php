@@ -58,7 +58,7 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 }
 if($in[accion]=='actualizacion_pass'){
 	
-	$success=update_pass_user($in[user],$in[pass]);
+	$success=update_pass_user($in[pass]);
 	if($success){
 		$modulo = encrypt('GENERAL',1);
 		$seccion = encrypt('INICIO',1);

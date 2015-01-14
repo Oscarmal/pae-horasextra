@@ -42,13 +42,12 @@ function login($usuario, $clave){
 	return $resultado;
 }
 /*O3M*/
-function update_pass_user($user,$pass){
+function update_pass_user($pass){
 	global $db,$usuario;
 
 	$sql="UPDATE 
 			$db[tbl_usuarios]
 		SET 
-			usuario ='$user',
 			clave 	='$pass',
 			login 	= 1
 		WHERE 
