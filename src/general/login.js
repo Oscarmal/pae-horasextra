@@ -79,7 +79,7 @@ function login2(usuario, clave){
 		    ventana=popup('Autentificando',popup_ico+txt,0,0,3);  		    
 		},
 		success: function(respuesta){ 
-			if(respuesta.success==='logueo'){
+			if(respuesta.success=='logueo'){
 				$("#"+ventana).dialog("close");
 				var vistaHTML = respuesta.url;
 				ventana = popup('Logueo',contenidoHtml,400,250,3);
@@ -87,6 +87,9 @@ function login2(usuario, clave){
 			}
 			else if(respuesta.success){
 				setTimeout(function(){	$(location).attr('href', respuesta.url)	}, 2000);
+			}
+			else if(!respuesta.success){
+				setTimeout(function(){	$(location).attr('href', respuesta.url)	}, 2000);	
 			}
 		},
 		complete: function(){    			
