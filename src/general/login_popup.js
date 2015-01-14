@@ -5,7 +5,7 @@ function cambio_contraseña(){
 	var raiz 		  = raizPath();
 	var ajax_url 	  = raiz+"src/"+modulo+"/login.php";
 	var pass  		= $("#pass").val();
-	if(user==''||pass==''){
+	if(pass==''){
 		alert('No puede estar ningún campo vacío');
 		return false;
 	}
