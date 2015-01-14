@@ -3,6 +3,7 @@
 define(MODULO, $in[modulo]);
 // Archivo DAO
 require_once($Path[src].MODULO.'/dao.login.php');
+require_once($Path[src].'views.vars.'.MODULO.'.php');
 // Lógica de negocio
 if(!empty($ins[usuario]) && !empty($ins[clave])){
 	if($usuario = login($ins[usuario], $ins[clave])){
@@ -14,8 +15,7 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 		$_SESSION[user]['id_grupo']			= $usuario[id_grupo];
 		$_SESSION[user]['id_personal']		= $usuario[id_personal];
 		$_SESSION[user]['nombre']			= $usuario[nombreCompleto];
-		$_SESSION[user]['empleado_num']  	= $usuario[empleado_num];
-		$_SESSION[user]['email'] 			= $usuario[email];		
+		$_SESSION[user]['empleado_num']  	= $usuario[empleado_num]; $_SESSION[user]['email'] 			= $usuario[email];
 		$_SESSION[user]['id_empresa'] 		= $usuario[id_empresa];		
 		$_SESSION[user]['id_empresa_nomina']= $usuario[id_empresa_nomina];	
 		$_SESSION[user]['empresa'] 			= $usuario[empresa];
@@ -30,16 +30,49 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 		$_SESSION[user]['accesos']['mod8']	= $usuario[mod8];
 		$_SESSION[user]['accesos']['mod9']	= $usuario[mod9];
 		$_SESSION[user]['accesos']['mod10']	= $usuario[mod10];	
-		$url = "?m=$modulo&s=$seccion";
-		$success = true;
+		
+		if($usuario[login]==1){
+			$CONTENIDO = "?m=$modulo&s=$seccion";
+			$success = true;
+		}else{
+			$success = 'logueo';
+				$vista_new 	= 'general/login_popup.html';
+				$tpl_data = array(
+						 MORE 	 => incJs($Path[srcjs].strtolower(MODULO).'/login_popup.js')
+						,id 	 	 	=> 1
+						,nombre	 	=> 'USUARIO'
+						,clave	 	=> 'CLAVE'
+						,guardar 	=> 'Guardar'			
+						,cerrar	 	=> 'Cerrar'			
+						);		
+				$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
+		}
 	}else{
 		$modulo = encrypt('GENERAL',1);
 		$seccion = encrypt('LOGIN',1);
-		$url = "?m=$modulo&s=$seccion&e=1";
+		$CONTENIDO = "?m=$modulo&s=$seccion&e=1";
 		$success = false;		
 	}
-	$data = array(success => $success, url => $url);
+	$data = array(success => $success, url => $CONTENIDO);
 	$data = json_encode($data);
+}
+if($in[accion]=='actualizacion_pass'){
+	
+	$success=update_pass_user($in[user],$in[pass]);
+	if($success){
+		$modulo = encrypt('GENERAL',1);
+		$seccion = encrypt('INICIO',1);
+		$CONTENIDO = "?m=$modulo&s=$seccion";
+	}
+	else{
+		$modulo = encrypt('GENERAL',1);
+		$seccion = encrypt('LOGIN',1);
+		$CONTENIDO = "?m=$modulo&s=$seccion&e=1";
+		$success = true;
+	}
+	$data = array(success => $success, url => $CONTENIDO);
+	$data = json_encode($data);
+	//die();
 }
 // Resultado
 echo $data;

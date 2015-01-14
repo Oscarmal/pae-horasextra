@@ -1,9 +1,13 @@
 $(document).ready(function(){
     // Detectar ENTER
     $(document).keypress(function(e) {
-        if(e.which == 13) {
-            btnSubmit();
-        }
+       
+        var user =$('#validation').val();
+        	if(user==undefined || user==''){	
+        		 if(e.which == 13) {
+        			btnSubmit();
+        		}
+        	}
     });
 });
 

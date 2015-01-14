@@ -12,6 +12,7 @@ function login($usuario, $clave){
 				,a.usuario
 				,a.id_grupo
 				,a.activo
+				,a.login
 				,b.id_personal
 				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombreCompleto
 				,b.empleado_num
@@ -41,4 +42,20 @@ function login($usuario, $clave){
 	return $resultado;
 }
 /*O3M*/
+function update_pass_user($user,$pass){
+	global $db,$usuario;
+
+	$sql="UPDATE 
+			$db[tbl_usuarios]
+		SET 
+			usuario ='$user',
+			clave 	='$pass',
+			login 	= 1
+		WHERE 
+			id_usuario=$usuario[id_usuario];";
+	//echo $sql;
+	$resultado = SQLDo($sql);
+	$resultado = (count($resultado)) ? $resultado : false ;
+	return $resultado;
+}
 ?>
