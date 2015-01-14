@@ -28,26 +28,33 @@ function select_view_nomina($data=array()){
 		//$filtro.= ($activo)?" and b.activo IN ($activo)":'';
 		$desc 	= ($desc)?" DESC":' ASC';
 		$orden 	= ($orden)?"ORDER BY $orden".$desc:'ORDER BY a.id_empresa, a.id_empleado'.$desc;		
-		/*$sql="SELECT 
-				 a.id_empresa
-				,a.id_number
-				,a.nombre
+
+		$sql="SELECT 
+				IF(a.id_empresa is null, c.id_nomina,a.id_empresa) as id_empresa
+				,IF(a.id_number is null, c.empleado_num,a.id_number) as id_number
+				,CONCAT(IFNULL(c.nombre,''),' ', IFNULL(c.paterno,''),' ',IFNULL(c.materno,'')) as nombre
 				,a.position
 				,a.area
 				,a.rfc
 				,a.imss
 				,a.ingreso
-				,a.empresa
-				,a.empresa_razon_social
+				,IF(a.empresa is null, b.nombre,a.empresa) as empresa
+				,IF(a.empresa_razon_social is null, b.nombre,a.empresa_razon_social) as empresa_razon_social
 				,a.id_empleado
-				/*,IF(a.activo=1,'Activo','Inactivo') AS activo
-				FROM $db[view_nomina] a
-				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_empresa
+				,b.id_nomina
+				FROM 
+					$db[tbl_personal] c
+				LEFT JOIN 
+					$db[view_nomina] a 
+						ON c.id_nomina=a.id_view_nomina
+				LEFT JOIN 
+					$db[tbl_empresas] b 
+						ON a.id_empresa=b.id_empresa
 				WHERE 1
-				$filtro $grupo $orden ;";*/
+				$filtro $grupo $orden;";
 	
 		 //dump_var($sql);
-		$resultado = SQLQuery($sql);		
+		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}else{
 		$resultado = false;
@@ -77,7 +84,7 @@ function insetr_sincronizacion_update(){
 	
 		$sql="INSERT INTO
 				$db[tbl_personal] 
-					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario)
+					(nombre,rfc,imss,sucursal,puesto,empleado_num,id_empresa,timestamp,id_usuario, id_nomina)
 						SELECT 	
 						$db[view_nomina].nombre,
 						$db[view_nomina].rfc,
@@ -88,6 +95,7 @@ function insetr_sincronizacion_update(){
 						$db[view_nomina].id_empresa,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp,
 						$usuario[id_usuario]
+						,$db[view_nomina].id_view_nomina
 					FROM 
 						 $db[view_nomina] 
 						LEFT JOIN
@@ -113,7 +121,7 @@ function insetr_sincronizacion_update(){
 						SELECT 	
 						$db[view_nomina].rfc,
 						$db[view_nomina].imss,
-						$id_personal,
+						$db[tbl_personal].id_personal,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp
 					FROM 
 						 $db[view_nomina]
@@ -121,6 +129,7 @@ function insetr_sincronizacion_update(){
 							$db[tbl_usuarios]
 							ON 
 								$db[view_nomina].imss = $db[tbl_usuarios].clave
+						LEFT JOIN $db[tbl_personal] ON $db[tbl_personal].id_nomina=$db[view_nomina].id_view_nomina
 						WHERE 	
 							$db[tbl_usuarios].usuario is NULL;";
 							//echo $sql2;
