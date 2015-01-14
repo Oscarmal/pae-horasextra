@@ -35,10 +35,10 @@ if($in[auth]){
 				
 					$id_empresa 			=	$success[$i][id_empresa];
 					$id_number				=	$success[$i][id_number];
-					$nombre					=	$success[$i][nombre];
-					$paterno				=	$success[$i][paterno];
-					$materno				=	$success[$i][materno];
-					$email					=	$success[$i][email];
+					$nombre					=	$success[$i][nombre_empleado];
+					$paterno				=	$success[$i][apellido_paterno_empleado];
+					$materno				=	$success[$i][apellido_materno_empleado];
+					$email					=	$success[$i][correo_electronico];
 					$position				=	$success[$i][position];
 					$area					=	$success[$i][area];
 					$rfc					=	$success[$i][rfc];
