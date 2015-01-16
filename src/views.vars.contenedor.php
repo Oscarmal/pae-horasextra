@@ -193,7 +193,19 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$vista_new 	= $contenedor[FRM_CONTENT];
 		$tpl_data 	= tpl_vars($seccion,$urlParams); 
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data); 
+		// --
 
+		// -- LOGIN_POPUP
+		$vista_new 	= 'general/login_popup.html';
+		$tpl_data = array(
+				 MORE 	 => incJs($Path[srcjs].'general/login_popup.js')
+				,id 	 	 	=> 1
+				,nombre	 	=> 'USUARIO'
+				,clave	 	=> 'CLAVE'
+				,guardar 	=> 'Guardar'			
+				,cerrar	 	=> 'Cerrar'			
+				);		
+		$LOGIN_POPUP = contenidoHtml($vista_new, $tpl_data);
 		// --
 
 		## Envio de valores ##
@@ -208,6 +220,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					 salir 			=> $dic[general][salir]
 					,usuario 		=> $dic[general][usuario]
 					,user 			=> $usuario[nombre].' - '.$usuario[usuario]
+					,contrasenia 	=> $dic[general][contrasenia]
 				);
 		$data = array_merge($negocio, $texto);
 		return $data;
