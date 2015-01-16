@@ -157,7 +157,7 @@ function select_catalgos_empresa(){
 		$sql_alterno='';
 	}
 	else{
-		$sql_alterno="WHERE id_empresa=$usuario[id_empresa]";
+		$sql_alterno="and id_empresa=$usuario[id_empresa]";
 	}
 	
 	$sql="SELECT 
@@ -165,8 +165,9 @@ function select_catalgos_empresa(){
 				nombre
 			FROM 
 				$db[tbl_empresas] 
-				$sql_alterno;";
-		//echo $sql;
+			WHERE 1 and id_empresa>1
+				$sql_alterno
+				group by id_empresa;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;

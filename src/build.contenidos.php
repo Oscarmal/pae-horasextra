@@ -589,15 +589,15 @@ function build_grid_usuarios(){
 }
 function build_catalgo_empresa(){
 	$catalgo_empresa=select_catalgos_empresa();
-	/*echo '<pre>';
-	print_r($catalgo_empresa);
-	echo '</pre>';
-	die();*/
 	$select.='<select name="empresa" id="empresa">
 				<option value="0">Seleccione una Empresa</option>';
 	foreach($catalgo_empresa as $empresa){
-		
-		$select.='<option value='.$empresa[id_nomina].'>'.$empresa[nombre].'</option>';
+		$soloUno = (!is_array($empresa))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$empresa:$catalgo_empresa; #Seleccion de arreglo
+		for($i=1; $i<count($data)/2; $i++){
+			$select.='<option value='.$data[id_nomina].'>'.$data[nombre].'</option>';
+		}
+		if($soloUno) break;
 	}
 	$select.='</select>';
 	return $select;
