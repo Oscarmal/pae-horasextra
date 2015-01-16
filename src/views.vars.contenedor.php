@@ -112,11 +112,13 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		require_once($Path[src].$inc);	
 		// FRM_HEADER
 		$header_opc = array(
-					 img_logo		=> $var[img_logo]
+					 MORE 	 => incJs($Path[srcjs].'general/login_popup.js')
+					,img_logo		=> $var[img_logo]
 					,ico_user		=> $var[ico_user]
 					,ico_exit		=> $var[ico_exit]
 					,fecha_hoy		=> fechaHoy()
 					,LINK_SALIR		=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'
+
 				);
 		$HEADER 	= contenidoHtml($contenedor[FRM_HEADER], $header_opc);
 		// --
@@ -193,19 +195,6 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$vista_new 	= $contenedor[FRM_CONTENT];
 		$tpl_data 	= tpl_vars($seccion,$urlParams); 
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data); 
-		// --
-
-		// -- LOGIN_POPUP
-		$vista_new 	= 'general/login_popup.html';
-		$tpl_data = array(
-				 MORE 	 => incJs($Path[srcjs].'general/login_popup.js')
-				,id 	 	 	=> 1
-				,nombre	 	=> 'USUARIO'
-				,clave	 	=> 'CLAVE'
-				,guardar 	=> 'Guardar'			
-				,cerrar	 	=> 'Cerrar'			
-				);		
-		$LOGIN_POPUP = contenidoHtml($vista_new, $tpl_data);
 		// --
 
 		## Envio de valores ##
