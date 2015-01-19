@@ -974,5 +974,27 @@ function select_acumulado_semanal($data=array()){
 	}
 	return $resultado;
 }
+
+function autorizacion_update_horas_supervisor($data=array()){
+	// Inserta registros autorizados
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = $data[id_horas_extra];
+		$horas 			= horas_int($data[horas]);
+		$id_concepto 	= $data[id_concepto];
+		$timestamp = date('Y-m-d H:i:s');
+
+		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
+					id_horas_extra='$id_horas_extra',
+					horas = '$horas',
+					id_concepto = '$id_concepto',
+					id_usuario = '$usuario[id_usuario]',
+					timestamp = '$timestamp'
+					;";
+		$resultado = (SQLDo($sql))?true:false;
+	}
+	return $resultado;
+}
 /*O3M*/
 ?>
