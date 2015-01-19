@@ -92,7 +92,7 @@ function vars_autorizacion_1($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_1_titulo];
-	$tbl_resultados = autorizacion_coordinador();
+	$tbl_resultados = buil_autorizacion_1();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
@@ -115,8 +115,8 @@ function vars_autorizacion_1($seccion, $urlParams){
 function vars_autorizacion_2($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[autorizacion][autorizacion_2_titulo];
-	$tbl_resultados = autorizacion_coordinador();
+	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
+	$tbl_resultados = build_grid_autorizacion_2();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

@@ -37,11 +37,12 @@ $frm_vistas = array(
 			,AUTORIZACION => 
 			 	array(
 			 		 INDEX 			=> 'autorizacion.html'
-			 		,AUTORIZACION_2 => 'autorizacion_2.html'
-					,AUTORIZACION_3	=> 'autorizacion_3.html'
-					,AUTORIZACION_4	=> 'autorizacion_4.html'
-					,AUTORIZACION_5	=> 'autorizacion_5.html'
-					,AUTORIZACION_6	=> 'autorizacion_6.html'
+			 		,AUTORIZACION_1 	=> 'autorizacion_1.html'	
+					,AUTORIZACION_2 	=> 'autorizacion_2.html'
+					,AUTORIZACION_3		=> 'autorizacion_3.html'
+					,AUTORIZACION_4		=> 'autorizacion_4.html'
+					,AUTORIZACION_5		=> 'autorizacion_5.html'
+					,AUTORIZACION_6		=> 'autorizacion_6.html'
 			 		// ,LAYOUT 		=> 'layout.html'
 			 	)
 			,CONSULTA => 

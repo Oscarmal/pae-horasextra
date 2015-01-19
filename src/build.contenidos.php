@@ -8,186 +8,6 @@ require_once($Path[src].'autorizacion/dao.autorizacion.php');
 require_once($Path[src].'consulta/dao.consulta.php');
 require_once($Path[src].'reportes/dao.reportes.php');
 //*****************************************************************************************************************************************
-	// AUTORIZACION
-// function build_grid_autorizaciones(){
-	// // Construye grid de autorizaciones
-	// 	$sqlData = array(
-	// 			 auth 		=> true
-	// 			,estatus 	=> 0
-	// 			,activo		=> 1
-	// 			,orden		=> 'a.id_horas_extra DESC'
-	// 		);
-	// 	$tabla = sin_autorizar_select($sqlData);	
-	// 	$campos = array(
-	// 				 'id_horas_extra'
-	// 				,'nombre_completo'
-	// 				,'empleado_num'
-	// 				,'fecha'
-	// 				,'horas'
-	// 				,'capturado_por'
-	// 				,'capturado_el'
-	// 			);
-	// 	$conceptos = conceptos_select(array(auth=>1));
-	// 	foreach($conceptos as $concepto){
-	// 		$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
-	// 	}
-	// 	foreach ($tabla as $registro) {		
-	// 		$tbl_resultados .= '<tr class="gradeA">';
-	// 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-	// 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
-	// 		for($i=0; $i<count($campos); $i++){
-	// 			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
-	// 		}
-	// 		$tbl_resultados .= '<td align="center">
-	// 								<script>document.write(buildBtn(\'btnAutorizar_'.$data[id_horas_extra].'\',\'Autorizar\',\'autorizar('.$data[id_horas_extra].');\'));</script>
-	// 							</td>';
-	// 		$tbl_resultados .= '</tr>';
-	// 		if($soloUno) break; 		
-	// 	}
-	// 	return $tbl_resultados;
-	// }
-function build_grid_autorizaciones(){
-	// Construye grid de autorizaciones
-	$sqlData = array(
-			 auth 		=> true
-			,estatus 	=> 0
-			,orden		=> 'a.id_horas_extra DESC'
-		);
-	$tabla = autorizaciones_listado_select($sqlData);	
-	$campos = array(
-				 'id_horas_extra'
-				,'nombre_completo'
-				,'empleado_num'
-				,'fecha'
-				,'horas'
-				,'capturado_por'
-				,'capturado_el'
-			);
-	// $conceptos = conceptos_select(array(auth=>1));
-	// foreach($conceptos as $concepto){
-	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
-	// }
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr class="gradeA">';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
-		
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
-		}
-		$tbl_resultados .= '<td align="center">
-								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
-									<option value="" selected></option>
-									<option value="si">Autorizar</option>
-									<option value="no">Rechazar</option>
-								</select>
-							</td>';
-		$tbl_resultados .= '<td align="center">
-								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
-								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
-							</td>';
-		$tbl_resultados .= '</tr>';
-		if($soloUno) break; 		
-	}
-	return $tbl_resultados;
-}
-function autorizacion_coordinador(){
-	// Construye grid de autorizaciones
-	$sqlData = array(
-			 auth 		=> true
-			,estatus 	=> 0
-			,orden		=> 'a.id_horas_extra DESC'
-		);
-	$tabla = autorizaciones_listado_select_coordinador($sqlData);	
-	$campos = array(
-				 'id_horas_extra'
-				,'nombre_completo'
-				,'empleado_num'
-				,'fecha'
-				,'horas'
-				,'capturado_por'
-				,'capturado_el'
-			);
-	
-	// $conceptos = conceptos_select(array(auth=>1));
-	// foreach($conceptos as $concepto){
-	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
-	// }
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr class="gradeA">';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
-		
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
-		}
-		$tbl_resultados .= '<td align="center">
-								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
-									<option value="" selected></option>
-									<option value="si">Aceptar</option>
-									<option value="no">Rechazar</option>
-								</select>
-							</td>';
-		$tbl_resultados .= '<td align="center">
-								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
-								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
-							</td>';
-		$tbl_resultados .= '</tr>';
-		if($soloUno) break; 		
-	}
-	return $tbl_resultados;
-}
-function build_grid_autorizadas($data=array()){
-// Construye listado de horas extra autorizadas
-
-	global $usuario, $Path;
-	$sqlData = array(
-			 auth 		=> true
-			,estatus	=> 1
-			,orden		=> 'he_horas_extra.id_horas_extra DESC'
-		);
-	$tabla = validacion_listado_select_supervisor($sqlData);
-	$campos = array(
-				 'id_horas_extra'
-				,'nombre_completo'
-				,'empleado_num'
-				,'fecha'
-				,'horas'	
-				,'estatus'			
-				,'validado_por'
-				,'validado_el'				
-
-			);
-	foreach ($tabla as $registro) {	
-		$tbl_resultados .= '<tr class="gradeA">';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
-		}
-		$tbl_resultados .= '<td align="center">
-								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
-									<option value="" selected></option>
-									<option value="si">Aceptar</option>
-									<option value="no">Rechazar</option>
-								</select>
-							</td>';
-		$tbl_resultados .= '<td align="center">
-								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
-								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
-							</td>';
-		// $tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
-		// if($registro[aut_estatus]=='RECHAZADO'){
-		// 	$valor='Rechazado';
-		// }else{
-		// 	$valor='Pendiente';
-		// }
-		// $tbl_resultados .='<td>'.$valor.'</td>';
-		$tbl_resultados .= '</tr>';
-		if($soloUno) break; 		
-	}
-	return $tbl_resultados;
-}
 function build_grid_autorizaciones_gerente($data=array()){
 // Construye listado de horas extra autorizadas
 
@@ -598,6 +418,7 @@ function build_select_empresas_tabla(){
 	}
 	return $tbl_resultados;
 }
+
 //*****************************************************************************************************************************************
 // REPORTES
 function build_reporte01($id_empresa=false, $anio=false){
@@ -624,11 +445,8 @@ function build_reporte01($id_empresa=false, $anio=false){
 		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
-		}	
-		$tbl_resultados .= '</tr>';
-		if($soloUno) break; 		
-	}
-	return $tbl_resultados;
+		}
+	}		
 }
 function build_hitorial_usuario(){
 	
@@ -668,5 +486,148 @@ function build_hitorial_usuario(){
 	}
 	return $tbl_resultados;
 }
+
+//*****************************************************************************************************************************************
+// AUTORIZACION
+function buil_autorizacion_1(){
+	// Construye grid de autorizaciones
+	$sqlData = array(
+			 auth 		=> true
+			,estatus 	=> 0
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = select_autorizacion_1($sqlData);	
+	$campos = array(
+				 'id_horas_extra'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'
+				,'capturado_por'
+				,'capturado_el'
+			);
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+		}
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="si">Aceptar</option>
+									<option value="no">Rechazar</option>
+								</select>
+							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+function build_grid_autorizaciones(){
+	// Construye grid de autorizaciones
+	$sqlData = array(
+			 auth 		=> true
+			,estatus 	=> 0
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = autorizaciones_listado_select($sqlData);	
+	$campos = array(
+				 'id_horas_extra'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'
+				,'capturado_por'
+				,'capturado_el'
+			);
+	// $conceptos = conceptos_select(array(auth=>1));
+	// foreach($conceptos as $concepto){
+	// 	$opts .= '<option value="'.$concepto[id_concepto].'">'.$concepto[concepto].' - '.$concepto[clave].'</option>';
+	// }
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+		}
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="si">Autorizar</option>
+									<option value="no">Rechazar</option>
+								</select>
+							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+/*
+function build_grid_autorizadas($data=array()){
+// Construye listado de horas extra autorizadas
+
+	global $usuario, $Path;
+	$sqlData = array(
+			 auth 		=> true
+			,estatus	=> 1
+			,orden		=> 'he_horas_extra.id_horas_extra DESC'
+		);
+	$tabla = validacion_listado_select_supervisor($sqlData);
+	$campos = array(
+				 'id_horas_extra'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'	
+				,'estatus'			
+				,'validado_por'
+				,'validado_el'				
+
+			);
+	foreach ($tabla as $registro) {	
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+		}
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="si">Aceptar</option>
+									<option value="no">Rechazar</option>
+								</select>
+							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
+		// $tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+		// if($registro[aut_estatus]=='RECHAZADO'){
+		// 	$valor='Rechazado';
+		// }else{
+		// 	$valor='Pendiente';
+		// }
+		// $tbl_resultados .='<td>'.$valor.'</td>';
+
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}*/
+
 /*O3M*/
 ?>
