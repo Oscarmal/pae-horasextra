@@ -11,8 +11,36 @@ if($in[auth]){
 	/**
 	* Autorización nivel 1
 	*/
-	if($ins[accion]=='guardar_autorizacion_1'){
 
+	if($in[accion]=='guardar_autorizacion_1'){
+
+		
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				$estatus = ($vtmp[1]=='no')?0:1;
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+					,estatus 		=> $estatus
+				);
+				$success = insert_autorizacion_1($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				//$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+			$data = json_encode($data);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+		//die();
 	}
 	/*Fin1*/
 

@@ -73,7 +73,64 @@ function obtenerCampos(valor){
 /**
 * Autorización nivel 1
 */
-
+function btnSubmit_autorizacion_1(){
+	obtenerCampos(1);
+	
+}
+function guardar_autorizacion_1(array){
+/**
+* AJAX: Envia datoa para guardar en tabla
+*/
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();
+	var raiz = raizPath();
+	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
+	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+	if(array){
+		$.ajax({
+			type: 'POST',
+			url: ajax_url,
+			dataType: "json",
+			data: {      
+				auth : 1,
+				modulo : modulo,
+				seccion : seccion,
+				accion : 'guardar_autorizacion_1',
+				datos : array
+			}
+			,beforeSend: function(){ 
+				popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
+				var txt = "Guardando información, por favor espere...";
+		    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
+			}
+			,success: function(respuesta){ 
+				$("#"+ventana).dialog("close");
+				if(respuesta.success){
+					popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
+					txt = "<div class='popup-txt'><p>La información ha sido guardada correctamente. </p></div>";
+					ventana = popup('Éxito',popup_ico+txt,0,0,3);				
+					setTimeout(function(){location.reload(true);}, 2000);
+				}else if(respuesta.success){
+					txt = respuesta.error;
+					ventana = popup('Error',popup_ico+txt,0,0,3);
+				}				
+			}
+			,complete: function(){ 
+			 	setTimeout(function(){
+			 		$("#"+ventana).dialog("close");
+					location.reload(true);
+			 	}, 2000);
+			}
+	    });
+	}else{
+		popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
+		var txt = "No hay datos para guardar.";		    
+	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
+		setTimeout(function(){			
+			location.reload(true);
+		}, 2000);
+	}
+}
 /*1*/
 
 
