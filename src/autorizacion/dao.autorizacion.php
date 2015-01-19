@@ -140,7 +140,7 @@ function select_autorizacion_2($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				/*LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 */
-				WHERE 1 $filtro AND n1.estatus IS NOT NULL AND n2.estatus IS NULL
+				WHERE 1 $filtro AND n1.estatus=1 AND n2.estatus IS NULL 
 				$grupo 
 				$orden;";
 		$resultado = SQLQuery($sql);
@@ -234,7 +234,7 @@ function select_autorizacion_3($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				/*LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 */
-				WHERE 1 $filtro AND n2.estatus IS NOT NULL AND n3.estatus IS NULL
+				WHERE 1 $filtro AND n2.estatus=1 AND n3.estatus IS NULL
 				$grupo 
 				$orden;";
 		$resultado = SQLQuery($sql);
@@ -328,7 +328,7 @@ function select_autorizacion_4($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
-				WHERE 1 $filtro AND n3.estatus IS NOT NULL AND n4.estatus IS NULL
+				WHERE 1 $filtro AND n3.estatus=1 AND n4.estatus IS NULL
 				$grupo 
 				$orden;";
 		$resultado = SQLQuery($sql);
@@ -422,7 +422,7 @@ function select_autorizacion_5($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
-				WHERE 1 $filtro AND n4.estatus IS NOT NULL
+				WHERE 1 $filtro AND n4.estatus=1
 				$grupo 
 				$orden;";
 		$resultado = SQLQuery($sql);

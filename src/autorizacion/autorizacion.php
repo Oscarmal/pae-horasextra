@@ -46,7 +46,6 @@ if($in[auth]){
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";
 		}
-		$data = json_encode($error);
 	}
 	/*Fin2*/
 
@@ -79,7 +78,6 @@ if($in[auth]){
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";
 		}
-		$data = json_encode($error);
 	}
 	/*Fin3*/
 
@@ -112,7 +110,6 @@ if($in[auth]){
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";
 		}
-		$data = json_encode($error);
 	}
 	/*Fin4*/
 
@@ -144,11 +141,10 @@ if($in[auth]){
 		}else{
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";
-		}
-		$data = json_encode($error);
+		}		
 	}
 	/*Fin5*/
-
+	$data = json_encode($data);
 }else{
 	$error = array(error => 'Sin autorización');
 	$data = json_encode($error);

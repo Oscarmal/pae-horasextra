@@ -589,7 +589,7 @@ function build_grid_autorizacion_3($data=array()){
 			,activo 	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
 		);
-	$tabla = select_autorizacion_2($sqlData);
+	$tabla = select_autorizacion_3($sqlData);
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
@@ -635,7 +635,7 @@ function build_grid_autorizacion_4($data=array()){
 			,activo 	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
 		);
-	$tabla = select_autorizacion_2($sqlData);
+	$tabla = select_autorizacion_4($sqlData);
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
@@ -681,7 +681,7 @@ function build_grid_autorizacion_5($data=array()){
 			,activo 	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
 		);
-	$tabla = select_autorizacion_2($sqlData);
+	$tabla = select_autorizacion_5($sqlData);
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
