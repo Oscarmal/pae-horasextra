@@ -165,13 +165,24 @@ function build_grid_autorizadas($data=array()){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 		}
-		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
-		if($registro[aut_estatus]=='RECHAZADO'){
-			$valor='Rechazado';
-		}else{
-			$valor='Pendiente';
-		}
-		$tbl_resultados .='<td>'.$valor.'</td>';
+		$tbl_resultados .= '<td align="center">
+								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+									<option value="" selected></option>
+									<option value="si">Aceptar</option>
+									<option value="no">Rechazar</option>
+								</select>
+							</td>';
+		$tbl_resultados .= '<td align="center">
+								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+							</td>';
+		// $tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+		// if($registro[aut_estatus]=='RECHAZADO'){
+		// 	$valor='Rechazado';
+		// }else{
+		// 	$valor='Pendiente';
+		// }
+		// $tbl_resultados .='<td>'.$valor.'</td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}
@@ -193,10 +204,6 @@ function build_grid_autorizaciones_gerente($data=array()){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'horas_rechazadas'
-				//,'horas_simples'
-				,'horas_dobles'
-				,'horas_triples'
 				,'capturado_por'
 				,'capturado_el'
 				,'asignado_por'
@@ -337,10 +344,6 @@ function build_grid_asignacion(){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'horas_rechazadas'
-				//,'horas_simples'
-				,'horas_dobles'
-				,'horas_triples'
 				,'capturado_por'
 				,'capturado_el'
 				,'asignado_por'
@@ -385,13 +388,6 @@ function build_grid_aprobadas(){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'horas_rechazadas'
-				,'horas_dobles'
-				,'horas_triples'
-				// ,'validado_por'
-				// ,'validado_el'
-				// ,'asignado_por'
-				// ,'asignado_el'
 				,'autorizado_por'
 				,'autorizado_el'
 			);
@@ -474,13 +470,6 @@ function build_grid_autorizaciones_aprobadas(){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'horas_rechazadas'
-				,'horas_dobles'
-				,'horas_triples'
-				// ,'validado_por'
-				// ,'validado_el'
-				// ,'asignado_por'
-				// ,'asignado_el'
 				,'autorizado_por'
 				,'autorizado_el'
 			);
@@ -506,17 +495,17 @@ function build_grid_autorizaciones_aprobadas(){
 
 			$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 		}
-		
-		$tbl_resultados .= '<td align="center">
-								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
-									<option value="" selected></option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-								</select>
-							</td>';
+		$tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+		// $tbl_resultados .= '<td align="center">
+		// 						<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+		// 							<option value="" selected></option>
+		// 							<option value="1">1</option>
+		// 							<option value="2">2</option>
+		// 							<option value="3">3</option>
+		// 							<option value="4">4</option>
+		// 							<option value="5">5</option>
+		// 						</select>
+		// 					</td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}
@@ -559,15 +548,15 @@ function build_grid_usuarios(){
 }
 function build_catalgo_empresa(){
 	$catalgo_empresa=select_catalgos_empresa();
-	/*echo '<pre>';
-	print_r($catalgo_empresa);
-	echo '</pre>';
-	die();*/
 	$select.='<select name="empresa" id="empresa">
 				<option value="0">Seleccione una Empresa</option>';
 	foreach($catalgo_empresa as $empresa){
-		
-		$select.='<option value='.$empresa[id_nomina].'>'.$empresa[nombre].'</option>';
+		$soloUno = (!is_array($empresa))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$empresa:$catalgo_empresa; #Seleccion de arreglo
+		for($i=1; $i<count($data)/2; $i++){
+			$select.='<option value='.$data[id_nomina].'>'.$data[nombre].'</option>';
+		}
+		if($soloUno) break;
 	}
 	$select.='</select>';
 	return $select;

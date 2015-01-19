@@ -113,11 +113,13 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		require_once($Path[src].$inc);	
 		// FRM_HEADER
 		$header_opc = array(
-					 img_logo		=> $var[img_logo]
+					 MORE 	 => incJs($Path[srcjs].'general/login_popup.js')
+					,img_logo		=> $var[img_logo]
 					,ico_user		=> $var[ico_user]
 					,ico_exit		=> $var[ico_exit]
 					,fecha_hoy		=> fechaHoy()
 					,LINK_SALIR		=> '../site/?m='.$var[GENERAL].'&s='.$var[LOGIN].'&e=2'
+
 				);
 		$HEADER 	= contenidoHtml($contenedor[FRM_HEADER], $header_opc);
 		// --
@@ -138,18 +140,18 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,txt_opc3		=> $dic[general][autorizacion]
 					,img_opc3		=> $var[menu_opc3]
 					,LINK_OPC3		=> '#'				
-					,txt_opc31		=> $dic[autorizacion][titulo_autorizacion_coordinador]
-					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_2]
-					// ,txt_opc32		=> $dic[autorizacion][layout_menu]
-					// ,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[LAYOUT]
-					,txt_opc33		=> $dic[autorizacion][titulo_autorizacion_supervisor]
+					,txt_opc31		=> $dic[autorizacion][titulo_autorizacion_1]
+					,LINK_OPC31		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_1]
+					,txt_opc32		=> $dic[autorizacion][titulo_autorizacion_2]
+					,LINK_OPC32		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_2]
+					,txt_opc33		=> $dic[autorizacion][titulo_autorizacion_3]
 					,LINK_OPC33		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_3]
-					,txt_opc34		=> $dic[autorizacion][titulo_autorizacion_gerente]
+					,txt_opc34		=> $dic[autorizacion][titulo_autorizacion_4]
 					,LINK_OPC34		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_4]
-					//,txt_opc35		=> $dic[autorizacion][titulo_autorizacion_cliente]
-					//,LINK_OPC35		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_5]
-					,txt_opc36		=> $dic[autorizacion][titulo_autorizacion_inplant]
-					,LINK_OPC36		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_6]
+					,txt_opc35		=> $dic[autorizacion][titulo_autorizacion_5]
+					,LINK_OPC35		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_5]
+					// ,txt_opc36		=> $dic[autorizacion][titulo_autorizacion_6]
+					// ,LINK_OPC36		=> '../site/?m='.$var[AUTORIZACION].'&s='.$var[AUTORIZACION_6]
 					// Consulta
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
@@ -196,7 +198,6 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 		$vista_new 	= $contenedor[FRM_CONTENT];
 		$tpl_data 	= tpl_vars($seccion,$urlParams); 
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data); 
-
 		// --
 
 		## Envio de valores ##
@@ -211,6 +212,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					 salir 			=> $dic[general][salir]
 					,usuario 		=> $dic[general][usuario]
 					,user 			=> $usuario[nombre].' - '.$usuario[usuario]
+					,contrasenia 	=> $dic[general][contrasenia]
 				);
 		$data = array_merge($negocio, $texto);
 		return $data;

@@ -15,7 +15,8 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 		$_SESSION[user]['id_grupo']			= $usuario[id_grupo];
 		$_SESSION[user]['id_personal']		= $usuario[id_personal];
 		$_SESSION[user]['nombre']			= $usuario[nombreCompleto];
-		$_SESSION[user]['empleado_num']  	= $usuario[empleado_num]; $_SESSION[user]['email'] 			= $usuario[email];
+		$_SESSION[user]['empleado_num']  	= $usuario[empleado_num]; 
+		$_SESSION[user]['email'] 			= $usuario[email];
 		$_SESSION[user]['id_empresa'] 		= $usuario[id_empresa];		
 		$_SESSION[user]['id_empresa_nomina']= $usuario[id_empresa_nomina];	
 		$_SESSION[user]['empresa'] 			= $usuario[empresa];
@@ -36,16 +37,7 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 			$success = true;
 		}else{
 			$success = 'logueo';
-				$vista_new 	= 'general/login_popup.html';
-				$tpl_data = array(
-						 MORE 	 => incJs($Path[srcjs].strtolower(MODULO).'/login_popup.js')
-						,id 	 	 	=> 1
-						,nombre	 	=> 'USUARIO'
-						,clave	 	=> 'CLAVE'
-						,guardar 	=> 'Guardar'			
-						,cerrar	 	=> 'Cerrar'			
-						);		
-				$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
+			$CONTENIDO = build_contrasenia_popup('primer_logueo');
 		}
 	}else{
 		$modulo = encrypt('GENERAL',1);
@@ -54,10 +46,8 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 		$success = false;		
 	}
 	$data = array(success => $success, url => $CONTENIDO);
-	$data = json_encode($data);
 }
-if($in[accion]=='actualizacion_pass'){
-	
+if($in[accion]=='primer_logueo'){	
 	$success=update_pass_user($in[pass]);
 	if($success){
 		$modulo = encrypt('GENERAL',1);
@@ -70,11 +60,42 @@ if($in[accion]=='actualizacion_pass'){
 		$CONTENIDO = "?m=$modulo&s=$seccion&e=1";
 		$success = true;
 	}
-	$data = array(success => $success, url => $CONTENIDO);
-	$data = json_encode($data);
-	//die();
+	$data = array(success => $success, url => $CONTENIDO);	
 }
+
+elseif($in[accion]=='contrasenia_popup'){	
+	$CONTENIDO = build_contrasenia_popup('contrasenia_cambio');
+	if($CONTENIDO){$success = true;}
+	$data = array(success => $success, html => $CONTENIDO);
+}
+
+elseif($in[accion]=='contrasenia_cambio'){	
+	$success=update_pass_user($in[pass]);
+	if($success){
+		$modulo = encrypt('GENERAL',1);
+		$seccion = encrypt('INICIO',1);
+		$CONTENIDO = "?m=$modulo&s=$seccion";
+	}
+	$data = array(success => $success, url => $CONTENIDO);
+}
+
+function build_contrasenia_popup($accion){
+	global $Path;
+	$vista_new 	= 'general/login_popup.html';
+	$tpl_data = array(
+			 MORE 	 => incJs($Path[srcjs].'general/login_popup.js')
+			,id 	 	 	=> 1
+			,nombre	 	=> 'USUARIO'
+			,clave	 	=> 'CLAVE'
+			,guardar 	=> 'Guardar'			
+			,cerrar	 	=> 'Cerrar'
+			,accion		=> $accion	
+			);		
+	return contenidoHtml($vista_new, $tpl_data);
+}
+
 // Resultado
+$data = json_encode($data);
 echo $data;
 /*O3M*/
 ?>

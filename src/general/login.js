@@ -82,7 +82,7 @@ function login2(usuario, clave){
 			if(respuesta.success=='logueo'){
 				$("#"+ventana).dialog("close");
 				var vistaHTML = respuesta.url;
-				ventana = popup('Logueo',contenidoHtml,400,250,3);
+				ventana = popup('Primer Ingreso - Asigne su contraseña',contenidoHtml,400,250,3);
 				$("#logueo-popup").html(vistaHTML);
 			}
 			else if(respuesta.success){
