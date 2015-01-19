@@ -546,25 +546,24 @@ function build_select_empresas_tabla(){
 * AUTORIZACION
 */
 
-function build_grid_autorizadas($data=array()){
-// Construye listado de horas extra autorizadas
-
+function build_grid_autorizacion_2($data=array()){
+/**
+* Construye listado de horas extra autorizadas
+*/
 	global $usuario, $Path;
 	$sqlData = array(
 			 auth 		=> true
 			,estatus	=> 1
-			,orden		=> 'he_horas_extra.id_horas_extra DESC'
+			,orden		=> 'a.id_horas_extra DESC'
 		);
-	$tabla = validacion_listado_select_supervisor($sqlData);
+	$tabla = select_autorizacion_2($sqlData);
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
 				,'horas'	
-				,'estatus'			
-				,'validado_por'
-				,'validado_el'				
+				// ,'n1_id_usuario'				
 
 			);
 	foreach ($tabla as $registro) {	
@@ -577,21 +576,14 @@ function build_grid_autorizadas($data=array()){
 		$tbl_resultados .= '<td align="center">
 								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
 									<option value="" selected></option>
-									<option value="si">Aceptar</option>
-									<option value="no">Rechazar</option>
+									<option value="si">Autorizar</option>
+									<option value="no">Declinar</option>
 								</select>
 							</td>';
 		$tbl_resultados .= '<td align="center">
 								<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 								<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
 							</td>';
-		// $tbl_resultados .= '<td><span class="btn" onclick="autorizar('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
-		// if($registro[aut_estatus]=='RECHAZADO'){
-		// 	$valor='Rechazado';
-		// }else{
-		// 	$valor='Pendiente';
-		// }
-		// $tbl_resultados .='<td>'.$valor.'</td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

@@ -11,38 +11,46 @@ if($in[auth]){
 	/**
 	* Autorización nivel 1
 	*/
-	if($ins[accion]=='autorizacion_1'){
+	if($ins[accion]=='guardar_autorizacion_1'){
 
 	}
-	/*1*/
+	/*Fin1*/
 
 
 	/**
 	* Autorización nivel 2
 	*/
+	elseif($ins[accion]=='guardar_autorizacion_2'){
 
-	/*2*/
+	}
+	/*Fin2*/
 
 
 	/**
 	* Autorización nivel 3
 	*/
-
-	/*3*/
+	elseif($ins[accion]=='guardar_autorizacion_3'){
+		
+	}
+	/*Fin3*/
 
 
 	/**
 	* Autorización nivel 4
 	*/
-
-	/*4*/
+	elseif($ins[accion]=='guardar_autorizacion_4'){
+		
+	}
+	/*Fin4*/
 
 
 	/**
 	* Autorización nivel 5
 	*/
-
-	/*5*/
+	elseif($ins[accion]=='guardar_autorizacion_5'){
+		
+	}
+	/*Fin5*/
 
 }else{
 	$error = array(error => 'Sin autorización');
