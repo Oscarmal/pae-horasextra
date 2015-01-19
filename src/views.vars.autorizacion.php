@@ -11,7 +11,8 @@ require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 require_once($Path[src].'build.contenidos.php');
 # Vistas HTML
 $vistas = array(
-		 INDEX 				=> 'autorizacion.html'		
+		 INDEX 				=> 'index.html'	
+		,AUTORIZACION_1 	=> 'autorizacion_1.html'	
 		,AUTORIZACION_2 	=> 'autorizacion_2.html'
 		,AUTORIZACION_3		=> 'autorizacion_3.html'
 		,AUTORIZACION_4		=> 'autorizacion_4.html'
@@ -37,6 +38,9 @@ function tpl_vars($cmd, $urlParams=array()){
 	$cmd = strtoupper(enArray($cmd,$vistas));	
 	if($cmd == 'INDEX'){
 		$vars = vars_index($cmd, $urlParams);
+	}
+	elseif($cmd == 'AUTORIZACION_1'){
+		$vars = vars_autorizacion_1($cmd, $urlParams);
 	}
 	elseif($cmd == 'AUTORIZACION_2'){
 		$vars = vars_autorizacion_2($cmd, $urlParams);
@@ -65,6 +69,30 @@ function vars_index($seccion, $urlParams){
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_titulo];
 	$tbl_resultados = build_grid_autorizaciones();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 		=> $icono
+				,TITULO		=> $titulo
+				,CONTENIDO 	=> $contenido
+				,genera_xls	=> $dic[autorizacion][genera_xls]
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_autorizacion_1($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[autorizacion][autorizacion_1_titulo];
+	$tbl_resultados = autorizacion_coordinador();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
