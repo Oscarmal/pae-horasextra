@@ -37,11 +37,12 @@ $frm_vistas = array(
 			,AUTORIZACION => 
 			 	array(
 			 		 INDEX 			=> 'autorizacion.html'
-			 		,AUTORIZACION_2 => 'autorizacion_2.html'
-					,AUTORIZACION_3	=> 'autorizacion_3.html'
-					,AUTORIZACION_4	=> 'autorizacion_4.html'
-					,AUTORIZACION_5	=> 'autorizacion_5.html'
-					,AUTORIZACION_6	=> 'autorizacion_6.html'
+			 		,AUTORIZACION_1 	=> 'autorizacion_1.html'	
+					,AUTORIZACION_2 	=> 'autorizacion_2.html'
+					,AUTORIZACION_3		=> 'autorizacion_3.html'
+					,AUTORIZACION_4		=> 'autorizacion_4.html'
+					,AUTORIZACION_5		=> 'autorizacion_5.html'
+					,AUTORIZACION_6		=> 'autorizacion_6.html'
 			 		// ,LAYOUT 		=> 'layout.html'
 			 	)
 			,CONSULTA => 
@@ -57,6 +58,7 @@ $frm_vistas = array(
 			 		 INDEX 			=> 'index.html'
 			 		,REPORTE01 		=> 'rep_general.html'
 			 		,REPORTE02	 	=> 'rep_mensual.html'
+			 		,HISTORIAL	 	=> 'historia_usuario.html'
 			 	)
 			,ADMIN => 
 			 	array(
@@ -171,6 +173,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC51		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE01]
 					,txt_opc52		=> $dic[reportes][reporte02_menu]
 					,LINK_OPC52		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE02]
+					,txt_opc53		=> $dic[reportes][reporte02_menu]
+					,LINK_OPC53		=> '../site/?m='.$var[REPORTES].'&s='.$var[HISTORIAL]
 					// Administración
 					,txt_opc6 		=> $dic[general][admin]
 					,img_opc6		=> $var[menu_opc6]

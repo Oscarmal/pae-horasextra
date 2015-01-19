@@ -92,7 +92,7 @@ function vars_autorizacion_1($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_1_titulo];
-	$tbl_resultados = autorizacion_coordinador();
+	$tbl_resultados = buil_autorizacion_1();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

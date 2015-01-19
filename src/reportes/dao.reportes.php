@@ -151,4 +151,47 @@ function anios($data=array()){
 	return $resultado;
 }
 /*O3M*/
+
+function historial_usuario(){
+	global $db,$usuario;
+	$sql="SELECT 
+			he_horas_extra.id_horas_extra,
+			he_horas_extra.id_personal,
+			he_horas_extra.fecha,
+			he_horas_extra.horas as hora_extra,
+			he_horas_extra.id_usuario,
+			he_horas_extra.timestamp,
+			he_horas_extra.id_empresa,
+			he_horas_extra.estatus_fecha, 
+			he_horas_extra.estatus,
+			he_autorizaciones.id_horas_extra as id_hora_autoizacion,
+			he_autorizaciones.id_autorizacion,
+			he_autorizaciones.aut_estatus,
+			he_autorizaciones.timestamp,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=0,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_rechazadas,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=1,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_simples,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=2,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_dobles,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=3,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_triples,
+			he_personal.nombre,
+			he_personal.paterno,
+			he_personal.id_personal
+		FROM 
+			he_horas_extra
+			LEFT JOIN 
+				he_autorizaciones
+				ON 
+					he_horas_extra.id_horas_extra=he_autorizaciones.id_horas_extra
+			LEFT JOIN 
+				he_personal
+				ON
+					he_horas_extra.id_personal=he_personal.id_personal
+		WHERE 
+			he_horas_extra.id_personal=$usuario[id_usuario]
+		GROUP BY 
+			he_horas_extra.id_horas_extra";
+					//echo $sql;
+	$resultado = SQLQuery($sql);
+	$resultado = (count($resultado)) ? $resultado : false ;
+	return $resultado;
+}
 ?>

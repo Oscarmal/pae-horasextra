@@ -14,6 +14,7 @@ $vistas = array(
 		 INDEX 			=> 'index.html'
 		,REPORTE01 		=> 'rep_general.html'
 		,REPORTE02	 	=> 'rep_mensual.html'
+		,HISTORIAL	 	=> 'historia_usuario.html'
 	);
 
 # Vistas
@@ -38,7 +39,10 @@ function tpl_vars($cmd, $urlParams=array()){
 		$vars = vars_reporte_general($cmd, $urlParams);
 	}elseif($cmd == 'REPORTE02'){
 		$vars = vars_reporte_mensual($cmd, $urlParams);
-	}else{
+	}elseif($cmd == 'HISTORIAL'){
+		$vars = vars_historial_usuario($cmd, $urlParams);
+	}
+	else{
 		$vars = vars_error($cmd);
 	}
 	return $vars;
@@ -92,6 +96,29 @@ function vars_reporte_mensual($seccion, $urlParams){
 	$negocio = array(
 				 MORE 		=>  incJs($Path[srcjs].strtolower(MODULO).'/reportes.js')
 				 			   .incJs($Path[js].'highcharts.js')
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_historial_usuario($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[reportes][reporte02_titulo];
+	$tbl_resultados = build_hitorial_usuario();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=>  incJs($Path[srcjs].strtolower(MODULO).'/historial.js')
 				,MODULE 	=> strtolower(MODULO)
 				,SECTION 	=> ($seccion)				 
 			);

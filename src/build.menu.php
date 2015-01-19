@@ -37,6 +37,7 @@ function buildMenu($elementos=0){
 				case 5 : $submenu = '
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC51}\';" target="_self">{txt_opc51}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC53}\';" target="_self">{txt_opc53}</a></li>
 			         </ul>';
 					break;
 				case 6 : $submenu = '
