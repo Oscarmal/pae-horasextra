@@ -68,7 +68,7 @@ function build_grid_capturadas(){
 			,desc		=> 1
 		);
 	//$tabla = captura_listado_select($sqlData);	
-	$tabla = captura_listado_select_coordinador($sqlData);	
+	$tabla = select_listado_horas_capturadas($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'

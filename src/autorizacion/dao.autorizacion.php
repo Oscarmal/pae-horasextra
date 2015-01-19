@@ -77,6 +77,29 @@ function select_autorizacion_1($data=array()){
 	}
 	return $resultado;
 }
+function insert_autorizacion_1($data=array()){
+	global $db,$usuario;
+	$resultado = false;
+	if($data[auth]==1){
+		$id_hora_extra=$data[id_horas_extra];
+		$estatus=$data[estatus];
+		$timestamp = date('Y-m-d H:i:s');
+
+		$sql="INSERT INTO
+			$db[tbl_autorizaciones]
+			SET 
+			id_horas_extra 		= $id_hora_extra,
+			id_cat_autorizacion = 1,
+			estatus 	   		= $estatus,
+			id_usuario 			= $usuario[id_usuario],
+			timestamp 			= '$timestamp',
+			activo 				= 1";
+	//echo $sql;
+	$resultado = (SQLDo($sql))?true:false;
+	}
+	return $resultado;
+
+}
 /*Fin1*/
 
 /**
