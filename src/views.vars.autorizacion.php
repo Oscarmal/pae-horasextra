@@ -140,7 +140,7 @@ function vars_autorizacion_3($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
-	$tbl_resultados = build_grid_autorizadas();
+	$tbl_resultados = build_grid_autorizacion_3();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
@@ -165,7 +165,7 @@ function vars_autorizacion_4($seccion, $urlParams){
 
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
-	$tbl_resultados = build_grid_autorizaciones_gerente();
+	$tbl_resultados = build_grid_autorizacion_4();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
@@ -190,7 +190,7 @@ function vars_autorizacion_5($seccion, $urlParams){
 
 	## Logica de negocio ##		
 	$titulo 	= $dic[autorizacion][autorizacion_3_titulo];
-	//$tbl_resultados = build_grid_autorizaciones_supervisor();
+	//$tbl_resultados = build_grid_autorizacion_5();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

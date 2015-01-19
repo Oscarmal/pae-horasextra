@@ -6,12 +6,13 @@ require_once($Path[src].MODULO.'/dao.'.strtolower(MODULO).'.php');
 require_once($Path[src].MODULO.'/xls.'.strtolower(MODULO).'.php');
 require_once($Path[src].'views.vars.'.MODULO.'.php');
 // Lógica de negocio
+
 if($in[auth]){	
 
 	/**
 	* Autorización nivel 1
 	*/
-	if($ins[accion]=='guardar_autorizacion_1'){
+	if($in[accion]=='guardar_autorizacion_1'){
 
 	}
 	/*Fin1*/
@@ -20,8 +21,32 @@ if($in[auth]){
 	/**
 	* Autorización nivel 2
 	*/
-	elseif($ins[accion]=='guardar_autorizacion_2'){
-
+	elseif($in[accion]=='guardar_autorizacion_2'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				$estatus = ($vtmp[1]=='no')?0:1;
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+					,estatus 		=> $estatus
+				);
+				$success = insert_autorizacion_2($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+		$data = json_encode($error);
 	}
 	/*Fin2*/
 
@@ -29,8 +54,32 @@ if($in[auth]){
 	/**
 	* Autorización nivel 3
 	*/
-	elseif($ins[accion]=='guardar_autorizacion_3'){
-		
+	elseif($in[accion]=='guardar_autorizacion_3'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				$estatus = ($vtmp[1]=='no')?0:1;
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+					,estatus 		=> $estatus
+				);
+				$success = insert_autorizacion_3($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+		$data = json_encode($error);
 	}
 	/*Fin3*/
 
@@ -38,8 +87,32 @@ if($in[auth]){
 	/**
 	* Autorización nivel 4
 	*/
-	elseif($ins[accion]=='guardar_autorizacion_4'){
-		
+	elseif($in[accion]=='guardar_autorizacion_4'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				$estatus = ($vtmp[1]=='no')?0:1;
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+					,estatus 		=> $estatus
+				);
+				$success = insert_autorizacion_4($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+		$data = json_encode($error);
 	}
 	/*Fin4*/
 
@@ -47,8 +120,32 @@ if($in[auth]){
 	/**
 	* Autorización nivel 5
 	*/
-	elseif($ins[accion]=='guardar_autorizacion_5'){
-		
+	elseif($in[accion]=='guardar_autorizacion_5'){
+		if(!empty($ins[datos])){
+			$datos = explode('|',$in[datos]);
+			$ids = array();
+			foreach($datos as $dato){
+				$vtmp = explode('=',$dato);
+				$idCampo = explode('_',$vtmp[0]);				
+				$id_horas_extra = $idCampo[1];				
+				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				$estatus = ($vtmp[1]=='no')?0:1;
+				// Save data in SQL
+				$sqlData = array(
+					 auth 			=> true
+					,id_horas_extra	=> $id_horas_extra
+					,estatus 		=> $estatus
+				);
+				$success = insert_autorizacion_5($sqlData);
+				$msj = ($success)?'Guardado':'No guardó';	
+				$ids[] = $id_horas_extra;
+			}
+			$data = array(success => $success, message => $msj);
+		}else{
+			$success = false;
+			$msj = "Sin guardar por falta de datos.";
+		}
+		$data = json_encode($error);
 	}
 	/*Fin5*/
 
