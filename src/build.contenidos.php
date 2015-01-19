@@ -423,36 +423,6 @@ function build_grid_aprobadas(){
 	return $tbl_resultados;
 }
 //*****************************************************************************************************************************************
-function build_reporte01($id_empresa=false, $anio=false){
-// Construye reporte general
-	global $Path;
-	$sqlData = array( auth => true, id_empresa => $id_empresa, anio => $anio );
-	$tabla = reporte01_select($sqlData);
-	$campos = array(
-				 // 'id_empresa',
-				'empresa'
-				,'siglas'
-				,'anio_fecha'
-				,'horas_capturadas'				
-				,'horas_pendientes'
-				,'horas_autorizadas'				
-				,'horas_rechazadas'
-				,'horas_dobles'
-				,'horas_triples'
-				,'tot_semanas'
-			);
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr >';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
-		}	
-		$tbl_resultados .= '</tr>';
-		if($soloUno) break; 		
-	}
-	return $tbl_resultados;
-}
 function build_select_empresas(){
 	global $usuario;
 	$sqlData = array( auth => true, activo => 1 );
@@ -634,6 +604,76 @@ function build_select_empresas_tabla(){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
 		}	
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+//*****************************************************************************************************************************************
+// REPORTES
+function build_reporte01($id_empresa=false, $anio=false){
+// Construye reporte general
+	global $Path;
+	$sqlData = array( auth => true, id_empresa => $id_empresa, anio => $anio );
+	$tabla = reporte01_select($sqlData);
+	$campos = array(
+				 // 'id_empresa',
+				'empresa'
+				,'siglas'
+				,'anio_fecha'
+				,'horas_capturadas'				
+				,'horas_pendientes'
+				,'horas_autorizadas'				
+				,'horas_rechazadas'
+				,'horas_dobles'
+				,'horas_triples'
+				,'tot_semanas'
+			);
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr >';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+		for($i=0; $i<count($campos); $i++){
+			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+		}	
+		$tbl_resultados .= '</tr>';
+		if($soloUno) break; 		
+	}
+	return $tbl_resultados;
+}
+function build_hitorial_usuario(){
+	
+	$tabla = historial_usuario($sqlData);	
+
+	foreach ($tabla as $registro) {		
+		$tbl_resultados .= '<tr class="gradeA">';
+		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+
+
+		$tbl_resultados .= '<td>'.$data[id_horas_extra].'</td>';
+		$tbl_resultados .= '<td>'.$data[nombre].'</td>';
+		$tbl_resultados .= '<td>'.$data[paterno].'</td>';
+		$tbl_resultados .= '<td>'.$data[fecha].'</td>';
+		$tbl_resultados .= '<td>'.$data[hora_extra].'</td>';
+		$tbl_resultados .= '<td>'.$data[estatus_fecha].'</td>';
+
+		if($data[estatus]=='' || $data[estatus]==NULL){
+			$tbl_resultados .= '<td>PENDIENTE</td>';
+		}
+		else{
+			$tbl_resultados .= '<td>'.$data[estatus].'</td>';
+		}
+
+		//$tbl_resultados .= '<td>'.$data[id_autorizacion].'</td>';
+		//$tbl_resultados .= '<td>'.$data[time_auto].'</td>';
+		$tbl_resultados .= '<td>'.$data[horas_rechazadas].'</td>';
+		$tbl_resultados .= '<td>'.$data[horas_simples].'</td>';
+		$tbl_resultados .= '<td>'.$data[horas_dobles].'</td>';
+		$tbl_resultados .= '<td>'.$data[horas_triples].'</td>';
+		$tbl_resultados .= '<td>'.$data[id_concepto].'</td>';
+		
+
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

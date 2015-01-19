@@ -57,6 +57,7 @@ $frm_vistas = array(
 			 		 INDEX 			=> 'index.html'
 			 		,REPORTE01 		=> 'rep_general.html'
 			 		,REPORTE02	 	=> 'rep_mensual.html'
+			 		,HISTORIAL	 	=> 'historia_usuario.html'
 			 	)
 			,ADMIN => 
 			 	array(
@@ -169,6 +170,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC51		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE01]
 					,txt_opc52		=> $dic[reportes][reporte02_menu]
 					,LINK_OPC52		=> '../site/?m='.$var[REPORTES].'&s='.$var[REPORTE02]
+					,txt_opc53		=> $dic[reportes][reporte02_menu]
+					,LINK_OPC53		=> '../site/?m='.$var[REPORTES].'&s='.$var[HISTORIAL]
 					// Administración
 					,txt_opc6 		=> $dic[general][admin]
 					,img_opc6		=> $var[menu_opc6]
