@@ -538,7 +538,7 @@ function build_grid_autorizaciones(){
 		);
 	$tabla = autorizaciones_listado_select($sqlData);	
 	$campos = array(
-				 'id_horas_extra'
+				 'id_horas_extra'				
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
@@ -588,6 +588,7 @@ function build_grid_autorizacion_2($data=array()){
 	$tabla = select_autorizacion_2($sqlData);
 	$campos = array(
 				 'id_horas_extra'
+				,'empresa'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'

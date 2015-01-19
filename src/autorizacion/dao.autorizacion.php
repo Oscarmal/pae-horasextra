@@ -113,6 +113,7 @@ function select_autorizacion_2($data=array()){
 		$sql = "SELECT 
 					 a.id_horas_extra
 					,a.id_empresa
+					,c.nombre as empresa
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
@@ -133,6 +134,7 @@ function select_autorizacion_2($data=array()){
 					,n4.timestamp AS n4_fecha*/
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
+				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
 				LEFT JOIN $db[tbl_autorizaciones] AS n1 ON a.id_horas_extra=n1.id_horas_extra AND n1.id_cat_autorizacion=1
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				/*LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
