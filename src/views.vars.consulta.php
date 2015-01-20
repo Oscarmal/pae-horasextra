@@ -11,11 +11,12 @@ require_once($Path[src].strtolower(MODULO).'/dao.'.strtolower(MODULO).'.php');
 require_once($Path[src].'build.contenidos.php');
 # Vistas HTML
 $vistas = array(
-		 INDEX 			=> 'index.html'
-		,CAPTURA 		=> 'captura_listado.html'
-		,AUTORIZACION 	=> 'autorizacion_listado.html'
-		,ASIGNACION 	=> 'asignacion_listado.html'
-		,APROBADAS 		=> 'aprobadas_listado.html'
+		 INDEX 						=> 'index.html'
+		,CONSULTA_AUTORIZACION_1 	=> 'consulta_autorizacion_1.html'
+		,CONSULTA_AUTORIZACION_2 	=> 'consulta_autorizacion_2.html'
+		,CONSULTA_AUTORIZACION_3 	=> 'consulta_autorizacion_3.html'
+		,CONSULTA_AUTORIZACION_4 	=> 'consulta_autorizacion_4.html'
+		,CONSULTA_AUTORIZACION_5 	=> 'consulta_autorizacion_5.html'
 	);
 
 # Vistas
@@ -36,17 +37,21 @@ function tpl_vars($cmd, $urlParams=array()){
 	$cmd = strtoupper(enArray($cmd,$vistas));
 	if($cmd == 'INDEX'){
 		$vars = vars_index($cmd, $urlParams);
-	}elseif($cmd == 'CAPTURA'){
-		$vars = vars_captura_listado($cmd, $urlParams);
-	}elseif($cmd == 'AUTORIZACION'){
+	}elseif($cmd == 'CONSULTA_AUTORIZACION_1'){
+		$vars = vars_autorizacion_1($cmd, $urlParams);
+	}elseif($cmd == 'CONSULTA_AUTORIZACION_2'){
 		$vars = vars_autorizacion_2($cmd, $urlParams);
 	}
-	elseif($cmd == 'ASIGNACION'){
+	elseif($cmd == 'CONSULTA_AUTORIZACION_3'){
 		$vars = vars_autorizacion_3($cmd, $urlParams);
 	}
-	elseif($cmd == 'APROBADAS'){
+	elseif($cmd == 'CONSULTA_AUTORIZACION_4'){
 		$vars = vars_autorizacion_4($cmd, $urlParams);
-	}else{
+	}
+	elseif($cmd == 'CONSULTA_AUTORIZACION_5'){
+		$vars = vars_autorizacion_5($cmd, $urlParams);
+	}
+	else{
 		$vars = vars_error($cmd);
 	}
 	return $vars;
@@ -54,11 +59,11 @@ function tpl_vars($cmd, $urlParams=array()){
 #############
 // Funciones para asignar variables a cada vista
 // $negocio => Logica de negocio; $texto => Mensajes de interfaz
-function vars_captura_listado($seccion, $urlParams){
+function vars_autorizacion_1($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
 	$titulo 	= $dic[consulta][captura_titulo];
-	$tbl_resultados = build_grid_capturadas();
+	$tbl_resultados = build_grid_consulta_autorizacion_1();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);
@@ -128,6 +133,29 @@ function vars_autorizacion_4($seccion, $urlParams){
 	## Logica de negocio ##		
 	$titulo 	= $dic[consulta][aprobada_titulo];
 	$tbl_resultados = build_grid_consulta_autorizacion_4();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion_listado.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_autorizacion_5($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[consulta][aprobada_titulo];
+	$tbl_resultados = build_grid_consulta_autorizacion_5();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

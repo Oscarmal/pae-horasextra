@@ -48,10 +48,11 @@ $frm_vistas = array(
 			,CONSULTA => 
 			 	array(
 			 		 INDEX 			=> 'index.html'
-			 		,CAPTURA 		=> 'captura_listado.html'
-			 		,AUTORIZACION 	=> 'autorizacion_listado.html'
-			 		,ASIGNACION 	=> 'asignacion_listado.html'
-			 		,APROBADAS 		=> 'aprobadas_listado.html'
+			 		,CONSULTA_AUTORIZACION_1 	=> 'consulta_autorizacion_1.html'
+			 		,CONSULTA_AUTORIZACION_2 	=> 'consulta_autorizacion_2.html'
+			 		,CONSULTA_AUTORIZACION_3 	=> 'consulta_autorizacion_3.html'
+			 		,CONSULTA_AUTORIZACION_4 	=> 'consulta_autorizacion_4.html'
+			 		,CONSULTA_AUTORIZACION_5 	=> 'consulta_autorizacion_5.html'
 			 	)  
 			,REPORTES => 
 			 	array(
@@ -160,13 +161,15 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,img_opc4		=> $var[menu_opc4]
 					,LINK_OPC4		=> '#'
 					,txt_opc41		=> $dic[consulta][consulta_autorizacion_1]
-					,LINK_OPC41		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CAPTURA]
+					,LINK_OPC41		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_1]
 					,txt_opc42		=> $dic[consulta][consulta_autorizacion_2]
-					,LINK_OPC42		=> '../site/?m='.$var[CONSULTA].'&s='.$var[AUTORIZACION]
+					,LINK_OPC42		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_2]
 					,txt_opc43		=> $dic[consulta][consulta_autorizacion_3]
-					,LINK_OPC43		=> '../site/?m='.$var[CONSULTA].'&s='.$var[ASIGNACION]
+					,LINK_OPC43		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_3]
 					,txt_opc44		=> $dic[consulta][consulta_autorizacion_4]
-					,LINK_OPC44		=> '../site/?m='.$var[CONSULTA].'&s='.$var[APROBADAS]
+					,LINK_OPC44		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_4]
+					,txt_opc45		=> $dic[consulta][consulta_autorizacion_5]
+					,LINK_OPC45		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_5]
 					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]

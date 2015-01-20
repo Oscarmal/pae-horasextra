@@ -75,7 +75,7 @@ function obtenerCampos(valor){
 		guardar_autorizacion_4(data);
 	}
 	else if(valor==5){
-		guardar_autorizacion_4(data);
+		guardar_autorizacion_5(data);
 	}
 }
 

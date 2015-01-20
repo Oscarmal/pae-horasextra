@@ -59,7 +59,7 @@ function build_grid_autorizaciones_gerente($data=array()){
 }
 //*****************************************************************************************************************************************
 // CONSULTA
-function build_grid_capturadas(){
+function build_grid_consulta_autorizacion_1(){
 	// Construye listado de horas extra capturadas
 	$sqlData = array(
 			 auth 		=> true
@@ -75,8 +75,8 @@ function build_grid_capturadas(){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'capturado_por'
-				,'capturado_el'
+				//,'capturado_por'
+				//,'capturado_el'
 			);		
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
@@ -110,8 +110,8 @@ function build_grid_consulta_autorizacion_2($data=array()){
 				,'empleado_num'
 				,'fecha'
 				,'horas'				
-				,'capturado_por'
-				,'n1_fecha'				
+				//,'capturado_por'
+				//,'n1_fecha'				
 				//,'autorizado_por'
 				//,'autorizado_el'
 				// ,'horas_rechazadas'
@@ -136,7 +136,7 @@ function build_grid_consulta_autorizacion_2($data=array()){
 				else if($registro[estatus]=='ACEPTADO'){
 					$valor='Aceptado';
 				}	*/		
-					$tbl_resultados .='<td>pendiente</td>';
+					$tbl_resultados .='<td>Pendiente</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
 		}
@@ -159,10 +159,10 @@ function build_grid_consulta_autorizacion_3(){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'capturado_por'
-				,'capturado_el'
-				,'asignado_por'
-				,'asignado_el'					
+				//,'capturado_por'
+				//,'capturado_el'
+				//,'asignado_por'
+				//,'asignado_el'					
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {		
@@ -181,7 +181,7 @@ function build_grid_consulta_autorizacion_3(){
 			else{
 				$valor='Pendiente';	
 			}*/
-			$tbl_resultados .='<td>PEndiente</td>';
+			$tbl_resultados .='<td>Pendiente</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
 		}	
@@ -200,37 +200,67 @@ function build_grid_consulta_autorizacion_4(){
 		);
 	$tabla = listado_select_autorizacion_4($sqlData);	
 	$campos = array(
-			  //	'id_horas_extra'
-				'nombre_completo'
+			  	'id_horas_extra'
+				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'autorizado_por'
-				,'n1_fecha'
+				//,'autorizado_por'
+				//,'n1_fecha'
 			);
-	$count=count($tabla);
 	if($tabla){
 		foreach ($tabla as $registro) {		
 			$tbl_resultados .= '<tr class="gradeA">';
 			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
-			
-			if($registro[id_horas_extra]){
-				$tbl_resultados .= '<td>
-										'.$registro[id_horas_extra].'
-										<input type="hidden" id ="id_personal_'.$count.'" name="id_personal_'.$count.'" value="'.$registro[id_personal].'"/>
-										<input type="hidden" id ="id_empresa_'.$count.'"  name="id_empresa_'.$count.'" value="'.$registro[id_empresa].'"/>
-										<input type="hidden" id ="horas_rechazadas_'.$count.'"  name="horas_rechazadas_'.$count.'" value="'.$registro[horas_rechazadas].'"/>
-										<input type="hidden" id ="horas_dobles_'.$count.'"  name="horas_dobles_'.$count.'" value="'.$registro[horas_dobles].'"/>
-										<input type="hidden" id ="horas_triples_'.$count.'"  name="horas_triples_'.$count.'" value="'.$registro[horas_triples].'"/>
-										<input type="hidden" id ="empleado_num_'.$count.'"  name="empleado_num_'.$count.'" value="'.$registro[empleado_num].'"/>
-									</td>';	
-			$count--;	
-			}
 			for($i=0; $i<count($campos); $i++){
-
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
+			/*if($registro[aut_estatus]=='RECHAZADO'){
+				$valor='Rechazado';
+			}
+			else if($registro[aut_estatus]=='ACEPTADO'){
+				$valor='Aceptado';
+			}
+			else{
+				$valor='Pendiente';	
+			}*/
+			$tbl_resultados .='<td>Pendiente</td>';
+			$tbl_resultados .= '</tr>';
+			if($soloUno) break; 		
+		}	
+	}
+	return $tbl_resultados;
+}
+function build_grid_consulta_autorizacion_5($data=array()){
+/**
+* Construye listado de horas extra autorizadas 
+*/
+	global $usuario, $Path;
+	$sqlData = array(
+			 auth 		=> true
+			,estatus	=> 1
+			,activo 	=> 1
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = listado_select_autorizacion_5($sqlData);
+	$campos = array(
+				 'id_horas_extra'
+				,'empresa'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'	
+			);
+	if($tabla){
+		foreach ($tabla as $registro) {	
+			$tbl_resultados .= '<tr class="gradeA">';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+			}
+			//$tbl_resultados .= '<td><span class="btn" onclick="layout('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
 		}
@@ -713,7 +743,8 @@ function build_grid_autorizacion_5($data=array()){
 	}
 	return $tbl_resultados;
 }
-
+//*****************************************************************************************************************************************
+// ADMINISTRACION
 function build_grid_layout($data=array()){
 /**
 * Construye listado de horas extra autorizadas 
