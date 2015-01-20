@@ -407,6 +407,9 @@ function listado_select_autorizacion_5($data=array()){
 					,n4.estatus AS n4_estatus
 					,n4.id_usuario AS n4_id_usuario
 					,n4.timestamp AS n4_fecha
+					,n5.estatus AS n5_estatus
+					,n5.id_usuario AS n5_id_usuario
+					,n5.timestamp AS n5_fecha
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
@@ -415,7 +418,8 @@ function listado_select_autorizacion_5($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
-				WHERE 1 $filtro AND n4.estatus=1 AND d.id_autorizacion_nomina IS NULL
+				LEFT JOIN $db[tbl_autorizaciones] AS n5 ON a.id_horas_extra=n5.id_horas_extra AND n5.id_cat_autorizacion=5
+				WHERE 1 $filtro AND n5.estatus IS NOT NULL AND d.id_autorizacion_nomina IS NULL
 				$grupo 
 				$orden;";
 		$resultado = SQLQuery($sql);

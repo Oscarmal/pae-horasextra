@@ -13,6 +13,7 @@ require_once($Path[src].'build.contenidos.php');
 $vistas = array(
 		 INDEX 			=> 'index.html'
 		,XLS 	 		=> 'xls.html'
+		,XLS_LISTA		=> 'xls_rebuild.html'
 		,LAYOUT 		=> 'layout.html'
 		,USUARIOS 		=> 'usuarios.html'
 		,SINCRONIZACION => 'sincronizacion.html'
@@ -55,6 +56,9 @@ function tpl_vars($cmd, $urlParams=array()){
 	}
 	elseif($cmd == 'XLS'){
 		$vars = vars_xls($cmd, $urlParams);
+	}
+	elseif($cmd == 'XLS_LISTA'){
+		$vars = vars_xls_lista($cmd, $urlParams);
 	}
 	else{
 		$vars = vars_error($cmd);
@@ -170,6 +174,29 @@ function vars_xls($seccion, $urlParams){
 	## Logica de negocio ##		
 	$titulo 	= $dic[admin][xls];
 	$tbl_resultados = build_grid_xls();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=>  incJs($Path[srcjs].strtolower(MODULO).'/admin.js')
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)								 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_xls_lista($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= $dic[admin][xls_lista];
+	$tbl_resultados = build_grid_xls_lista();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

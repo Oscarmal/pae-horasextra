@@ -198,4 +198,6 @@ function guardar(array){
 		}, 2000);
 	}
 }
+
+
 //O3M//

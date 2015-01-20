@@ -66,6 +66,7 @@ $frm_vistas = array(
 			 		 INDEX 			=> 'index.html'
 			 		,LAYOUT			=> 'layout.html'
 			 		,XLS			=> 'xls.html'
+			 		,XLS_LISTA		=> 'xls_rebuild.html'
 			 		,USUARIOS		=> 'usuarios.html'
 			 		,SINCRONIZACION	=> 'sincronizacion.html'
 			 		,ALTA_USUARIO	=> 'alta_usuario.html'
@@ -185,15 +186,17 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,img_opc6		=> $var[menu_opc6]
 					,LINK_OPC6		=> '#'
 					,txt_opc60		=> $dic[admin][layout_menu]
-					,LINK_OPC60		=> '../site/?m='.$var[ADMIN].'&s='.$var[LAYOUT]
-					,txt_opc64		=> $dic[admin][xls_menu]
-					,LINK_OPC64		=> '../site/?m='.$var[ADMIN].'&s='.$var[XLS]
+					,LINK_OPC60		=> '../site/?m='.$var[ADMIN].'&s='.$var[LAYOUT]					
 					,txt_opc61		=> $dic[admin][sincronizar_menu]
 					,LINK_OPC61		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION]
 					,txt_opc62		=> $dic[admin][alta_usuario]
 					,LINK_OPC62		=> '../site/?m='.$var[ADMIN].'&s='.$var[ALTA_USUARIO]
 					,txt_opc63		=> $dic[admin][sincronizar_empresa]
-					,LINK_OPC63		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION_EMPRESAS]							
+					,LINK_OPC63		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION_EMPRESAS]
+					,txt_opc64		=> $dic[admin][xls_menu]
+					,LINK_OPC64		=> '../site/?m='.$var[ADMIN].'&s='.$var[XLS]
+					,txt_opc65		=> $dic[admin][xls_lista_menu]
+					,LINK_OPC65		=> '../site/?m='.$var[ADMIN].'&s='.$var[XLS_LISTA]							
 				);
 		$MENU 		= contenidoHtml($contenedor[FRM_MENU], $menu_opc);
 		// --	

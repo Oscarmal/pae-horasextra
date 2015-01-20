@@ -102,3 +102,5 @@ admin|layout=Preparación de Layout NóminaPAE
 admin|layout_menu=Preparar Layout NóminaPAE
 admin|xls=Generación de Layout NóminaPAE
 admin|xls_menu=Generar Layout NóminaPAE
+admin|xls_lista=Descarga de Layout NóminaPAE Generados
+admin|xls_lista_menu=Descargar Layout NóminaPAE

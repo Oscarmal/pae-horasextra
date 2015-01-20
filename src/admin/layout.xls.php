@@ -1,31 +1,29 @@
 <?php session_name('o3m_he'); session_start(); if(isset($_SESSION['header_path'])){include_once($_SESSION['header_path']);}else{header('location: '.dirname(__FILE__));}
 require_once($Path[src].'admin/dao.admin.php');
-function xsl_resumen($ids){
+function xsl_resumen($ids=array()){
       global $usuario, $cfg;
       $sqlData = array(
       			 auth 	   => 1
                         ,id_horas_extra=> $ids
-      			,orden         => 'a.id_horas_extra DESC'
       		);
-      $tabla = select_xls($sqlData);
-      $nameArchivo = 'HE_Horas-Extra';
+      $tabla = select_xls_resumen($sqlData);
+      $nameArchivo = 'HE_Horas-Extra_Resumen_'.$tabla[0][id_empresa];
       $tituloTabla = 'HE - Horas Extra';
       $titulos = array(
-                         'ID'
+                         'ID HE'
+                        ,'ID Empresa'
+                        ,utf8_decode('Empresa')
                         ,utf8_decode('Nombre Completo')
                         ,'No. Empleado'
                         ,'Fecha'
+                        ,'Semana-iso8601'
                         ,'Horas'
-                        ,'Capturado por'
-                        ,'Capturado el'
                         ,'Dobles'
                         ,'Triples'
                         ,'Rechazadas'
                         ,utf8_decode('Año')
+                        ,'Periodo'         
                         ,'Semana'
-                        ,'Autorizado por'
-                        ,'Autorizado el'
-                        
                   );
       // $directorio = $cfg[path_docs].'autorizacion/';
       $directorio = $cfg[path_tmp];
@@ -39,82 +37,27 @@ function xsl_resumen($ids){
                         ,directorio       => $directorio
                         ,id_empresa       => $usuario[id_empresa]
                   );
-      $xls = xls($xlsData);
-      $updateXls = array(
-                         auth           => 1
-                        ,id_horas_extra => $ids
-                        ,xls            => $xls[filename]
-                  );
-      $updateXls = autorizacion_update($updateXls); 
+      $xls = xls($xlsData);      
       return $xls;
 }
 
-function xsl_resumen_rebuild($ids){
-      global $usuario, $cfg;
-      $sqlData = array(
-                         auth          => 1
-                        ,id_horas_extra=> $ids
-                        ,orden         => 'a.id_horas_extra DESC'
-                  );
-      $tabla = xls_select($sqlData);
-      $nameArchivo = 'HE_Horas-Extra';
-      $tituloTabla = 'HE - Horas Extra';
-      $titulos = array(
-                         'ID'
-                        ,utf8_decode('Nombre Completo')
-                        ,'No. Empleado'
-                        ,'Fecha'
-                        ,'Horas'
-                        ,'Capturado por'
-                        ,'Capturado el'
-                        ,'Dobles'
-                        ,'Triples'
-                        ,'Rechazadas'
-                        ,utf8_decode('Año')
-                        ,'Semana'
-                        ,'Autorizado por'
-                        ,'Autorizado el'
-                        
-                  );
-      $directorio = $cfg[path_tmp];
-      $xlsData = array(
-                         descarga         => false
-                        ,datos            => $tabla
-                        ,colsTitulos      => $titulos
-                        ,archivo          => $nameArchivo
-                        ,tituloTabla      => $tituloTabla
-                        ,hoja             => ''
-                        ,directorio       => $directorio
-                        ,id_empresa       => $usuario[id_empresa]
-                  );
-      $xls = xls($xlsData);
-      return $xls;
-}
 
-function xsl_nomina($ids, $semana=false){
+function xsl_nomina($ids=array()){
       global $usuario, $cfg;
-      // Actualiza semana
-      $updateSemana = array(
-                         auth           => 1
-                        ,id_horas_extra => $ids
-                        ,semana         => $semana
-                  );
-      $updateXls = autorizacion_update($updateSemana); 
       // Extrae datos para crear xls
       $sqlData = array(
                          auth          => 1
                         ,id_horas_extra=> $ids
                         ,orden         => 'a.id_horas_extra DESC'
                   );
-      $tabla = nomina_xls($sqlData);
-      $nameArchivo = 'HE_Horas-Extra';
+      $tabla = select_xls_nomina($sqlData);
+      $nameArchivo = 'HE_Horas-Extra_Nomina';
       $tituloTabla = false;
       $titulos = array(
-                         'ID'
+                         'ID Empleado'
                         ,'Semana'
                         ,'Concepto'
-                        ,'Cantidad'
-                        
+                        ,'Cantidad'                        
                   );
       $directorio = $cfg[path_tmp];
       $xlsData = array(
@@ -134,29 +77,26 @@ function xsl_nomina($ids, $semana=false){
                          auth           => 1
                         ,id_horas_extra => $ids
                         ,xls            => $xls[filename]
-                        ,semana         => $semana
                   );
-      $updateXls = autorizacion_update($updateXls); 
+      $updateXls = update_xls($updateXls); 
       return $xls;
 }
 
-function xls_nomina_rebuild($ids, $xls=''){
+function xls_nomina_rebuild($xls=array()){
       global $usuario, $cfg;
+      // Extrae datos para crear xls
       $sqlData = array(
                          auth          => 1
-                        ,id_horas_extra=> $ids
-                        ,xls           => $xls
                         ,orden         => 'a.id_horas_extra DESC'
                   );
-      $tabla = nomina_xls($sqlData);
-      $nameArchivo = 'HE_Horas-Extra';
+      $tabla = select_xls_nomina_rebuild($sqlData);
+      $nameArchivo = 'HE_Horas-Extra_Nomina';
       $tituloTabla = false;
       $titulos = array(
-                         'ID'
+                         'ID Empleado'
                         ,'Semana'
                         ,'Concepto'
-                        ,'Cantidad'
-                        
+                        ,'Cantidad'                        
                   );
       $directorio = $cfg[path_tmp];
       $xlsData = array(
@@ -169,7 +109,8 @@ function xls_nomina_rebuild($ids, $xls=''){
                         ,directorio       => $directorio
                         ,id_empresa       => $usuario[id_empresa]
                   );
-      $xls = xls($xlsData); 
+      // Crea xls
+      $xls = xls($xlsData);
       return $xls;
 }
 /*O3M*/
