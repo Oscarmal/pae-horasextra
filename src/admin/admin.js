@@ -169,3 +169,94 @@ function sincronizar_empresa(){
 		}
     });
 }
+
+/**
+* Layout
+*/
+function layout(){
+/**
+* AJAX: Genera popup para validación de hotras extra
+*/
+	$("#layout-popup").empty();
+	var raiz = raizPath();
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();	
+	var ajax_url = raiz+"src/"+modulo+"/admin.php";	
+	var contenidoHtml = '<div id="layout-popup"></div>';
+	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+	$.ajax({
+		type: 'POST',
+		url: ajax_url,
+		dataType: "json",
+		data: {      
+			auth : 1,
+			modulo : modulo,
+			accion : 'layout-popup'
+		}		
+		,success: function(respuesta){ 
+			if(respuesta.success){
+				var vistaHTML = respuesta.html;				
+				ventana = popup('Layout',contenidoHtml,550,600,3);
+				$("#layout-popup").html(vistaHTML);
+			}else if(respuesta.success){
+				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
+				txt = respuesta.error;
+				ventana = popup('Error',popup_ico+txt,0,0,3);
+			}				
+		}
+    });
+}
+
+
+/*XLS*/
+function genera_xls(){
+	$("#xls-popup").empty();
+	var raiz = raizPath();
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();	
+	var contenidoHtml = '<div id="xls-popup"></div>';	
+	var ajax_url = raiz+"src/"+modulo+"/admin.php";
+	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+	$.ajax({
+		type: 'POST',
+		url: ajax_url,
+		dataType: "json",
+		data: {      
+			auth : 1,
+			modulo : modulo,
+			accion : 'regenera-xls-nomina'
+		}
+		,beforeSend: function(){ 
+			popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
+			var txt = "Generando archivo, por favor espere...";
+	    	ventana = popup('Generando...',popup_ico+txt,0,0,3);
+		}
+		,success: function(respuesta){ 
+			$("#"+ventana).dialog("close");
+			if(respuesta.success){
+				// Link para descargar archivo de excel
+				popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
+				var linkXls = '<div class="xls"><ul><li><a href="'+respuesta.xls+'" target="_self" title="'+respuesta.archivo+'">'+respuesta.archivo+'</a></li></ul></div>';
+				var boton = buildBtn('btnCerrar','CERRAR','location.reload(true);');
+				var btnCerrar = '<br/><div id="btn-xls">'+boton+'</div>';
+				txt = "<div class='popup-txt'><p>Descargar el archivo: </p></div>";
+				ventana = popup('Éxito',popup_ico+txt+linkXls+btnCerrar,0,220,3);	
+			}else if(respuesta.nodata){
+				popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
+				var txt = "No hay datos pendientes.";		    
+			    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
+				setTimeout(function(){
+					location.reload(true);
+				}, 2000);
+			}else{
+				popup_ico = "<img src='"+raiz+"common/img/popup/error.png' valign='middle' align='texttop'>&nbsp";
+				var txt = "Se ha generado un error.";		    
+			    ventana = popup('Error!',popup_ico+txt,0,0,3);
+				setTimeout(function(){	
+					location.reload(true);
+				}, 2000);
+			}				
+		}
+    });
+}
+/*Layout*/

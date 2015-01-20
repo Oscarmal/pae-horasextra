@@ -1,0 +1,98 @@
+        {MORE}
+        <div id="" style="border: 0px solid #333; margin-left:-80px;">
+            <table width="73%" border="0" cellspacing="0" cellpadding="0">            
+                <tbody>
+                  <tr>
+                    <th width="35%" align="right">ID:&nbsp;</th>
+                    <td>
+                        {id}
+                        <input type="hidden" id="id_horas_extra" name="id_horas_extra" value="{id}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="right">Nombre Completo:&nbsp;</th>
+                    <td>{nombre}</td>
+                  </tr>
+                  <tr>
+                    <th align="right">Clave de Empleado:&nbsp;</th>
+                    <td>{clave}</td>
+                  </tr>
+                  <tr>
+                    <th align="right">Fecha:&nbsp;</th>
+                    <td>
+                        {fecha}
+                        <input type="hidden" id="fecha" name="fecha" value="{fecha}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="right">Horas Extra:&nbsp;</th>
+                    <td>
+                        {horas}
+                        <input type="hidden" id="horas" name="horas" value="{horas}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" height="3px;"><hr/></td>
+                  </tr>
+                  <tr>
+                    <th align="right">Semana de evento:&nbsp;</th>
+                    <td>
+                        {semana_iso}
+                        <input type="hidden" id="semana_iso" name="semana_iso" value="{semana_iso}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="right">Acumulado semanal:&nbsp;</th>
+                    <td>
+                        {tot_horas}
+                        <input type="hidden" id="tot_horas" name="tot_horas" value="{tot_horas}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" height="3px;"><hr/></td>
+                  </tr>
+                    <td colspan="2">
+                        <div id="captura">                        
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td align="right" width="30%">Restan:&nbsp;</td>
+                                    <td colspan="3" class="slider-container">
+                                        <input type="text" id="restan" name="restan" readonly class="slider-label" />
+                                    </td>
+                                    <td align="right" valign="middle"><span style="cursor: pointer;"><img src="{PATH_IMG}reload.png" id="reload" title="Reset"/></span></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Dobles:&nbsp;</td>
+                                    <td colspan="4" class="slider-container">
+                                        <input type="text" id="dobles" name="dobles" readonly class="slider-label" />
+                                        <div id="slider-dobles" class="slider-bar"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Triples:&nbsp;</td>
+                                    <td colspan="4" class="slider-container">
+                                        <input type="text" id="triples" name="triples" readonly class="slider-label" />
+                                        <div id="slider-triples" class="slider-bar"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Rechazadas:&nbsp;</td>
+                                    <td colspan="4" class="slider-container">
+                                        <input type="text" id="rechazadas" name="rechazadas" readonly class="slider-label" />
+                                        <div id="slider-rechazadas" class="slider-bar"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" align="center">
+                                        <input id="btnCerrar" type="button" class="btn btn-gray" value="{cerrar}" onclick="location.reload(true);">
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input id="btnGuardar" type="button" class="btn btn-gray" value="{guardar}" onclick="btnSubmit()">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>

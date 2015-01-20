@@ -63,6 +63,8 @@ $frm_vistas = array(
 			,ADMIN => 
 			 	array(
 			 		 INDEX 			=> 'index.html'
+			 		,LAYOUT			=> 'layout.html'
+			 		,XLS			=> 'xls.html'
 			 		,USUARIOS		=> 'usuarios.html'
 			 		,SINCRONIZACION	=> 'sincronizacion.html'
 			 		,ALTA_USUARIO	=> 'alta_usuario.html'
@@ -179,6 +181,10 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,txt_opc6 		=> $dic[general][admin]
 					,img_opc6		=> $var[menu_opc6]
 					,LINK_OPC6		=> '#'
+					,txt_opc60		=> $dic[admin][layout_menu]
+					,LINK_OPC60		=> '../site/?m='.$var[ADMIN].'&s='.$var[LAYOUT]
+					,txt_opc64		=> $dic[admin][xls_menu]
+					,LINK_OPC64		=> '../site/?m='.$var[ADMIN].'&s='.$var[XLS]
 					,txt_opc61		=> $dic[admin][sincronizar_menu]
 					,LINK_OPC61		=> '../site/?m='.$var[ADMIN].'&s='.$var[SINCRONIZACION]
 					,txt_opc62		=> $dic[admin][alta_usuario]

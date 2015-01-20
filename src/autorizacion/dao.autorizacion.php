@@ -448,6 +448,7 @@ function select_autorizacion_5($data=array()){
 				WHERE 1 $filtro AND n4.estatus=1
 				$grupo 
 				$orden;";
+				// dump_var($sql);
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
@@ -476,7 +477,6 @@ function insert_autorizacion_5($data=array()){
 	return $resultado;
 }
 /*Fin5*/
-
 
 /*O3M*/
 ?>
