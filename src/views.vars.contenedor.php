@@ -159,13 +159,13 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,txt_opc4 		=> $dic[general][consulta]
 					,img_opc4		=> $var[menu_opc4]
 					,LINK_OPC4		=> '#'
-					,txt_opc41		=> $dic[consulta][captura_menu]
+					,txt_opc41		=> $dic[consulta][consulta_autorizacion_1]
 					,LINK_OPC41		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CAPTURA]
-					,txt_opc42		=> $dic[consulta][autorizacion_menu]
+					,txt_opc42		=> $dic[consulta][consulta_autorizacion_2]
 					,LINK_OPC42		=> '../site/?m='.$var[CONSULTA].'&s='.$var[AUTORIZACION]
-					,txt_opc43		=> $dic[consulta][asignacion_menu]
+					,txt_opc43		=> $dic[consulta][consulta_autorizacion_3]
 					,LINK_OPC43		=> '../site/?m='.$var[CONSULTA].'&s='.$var[ASIGNACION]
-					,txt_opc44		=> $dic[consulta][aprobadas_menu]
+					,txt_opc44		=> $dic[consulta][consulta_autorizacion_4]
 					,LINK_OPC44		=> '../site/?m='.$var[CONSULTA].'&s='.$var[APROBADAS]
 					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]

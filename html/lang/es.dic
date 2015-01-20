@@ -75,12 +75,12 @@ consulta|aprobada_titulo=Listado de Asignaciones aprobaciones
 #consulta|asignacion_menu=Listado de Asingaciones
 #consulta|aprobadas_menu=Listado de Aprobaciones
 
-consulta|captura_menu=Capturadas
-consulta|autorizacion_menu=Autorizacion nivel 1
-consulta|asignacion_menu=Autorizacion nivel 2
-consulta|aprobadas_menu=Autorizacion nivel 3
-consulta|aprobadas_menu=Autorizacion nivel 4
-#consulta|aprobadas_menu=Autorizacion nivel 5
+consulta|consulta_autorizacion_1	=	Consulta de Autorizacion nivel 1
+consulta|consulta_autorizacion_2	=	Consulta de Autorizacion nivel 2
+consulta|consulta_autorizacion_3	=	Consulta de Autorizacion nivel 3
+consulta|consulta_autorizacion_4	=	Consulta de Autorizacion nivel 4
+consulta|consulta_autorizacion_5	=	Consulta de Autorizacion nivel 5
+
 
 # Reportes
 reportes|titulo=Reportes
