@@ -716,5 +716,77 @@ function build_grid_autorizacion_5($data=array()){
 	return $tbl_resultados;
 }
 
+function build_grid_layout($data=array()){
+/**
+* Construye listado de horas extra autorizadas 
+*/
+	global $usuario, $Path;
+	$sqlData = array(
+			 auth 		=> true
+			,estatus	=> 1
+			,activo 	=> 1
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = select_layout($sqlData);
+	$campos = array(
+				 'id_horas_extra'
+				,'empresa'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'	
+			);
+	if($tabla){
+		foreach ($tabla as $registro) {	
+			$tbl_resultados .= '<tr class="gradeA">';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+			}
+			$tbl_resultados .= '<td><span class="btn" onclick="layout('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+			$tbl_resultados .= '</tr>';
+			if($soloUno) break; 		
+		}
+	}
+	return $tbl_resultados;
+}
+
+function build_grid_xls($data=array()){
+/**
+* Construye listado de horas extra que se incluiran en el XLS 
+*/
+	global $usuario, $Path;
+	$sqlData = array(
+			 auth 		=> true
+			,estatus	=> 1
+			,activo 	=> 1
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = select_xls($sqlData);
+	$campos = array(
+				 'id_horas_extra'
+				,'empresa'
+				,'nombre_completo'
+				,'empleado_num'
+				,'fecha'
+				,'horas'
+				,'periodo'	
+			);
+	if($tabla){
+		foreach ($tabla as $registro) {	
+			$tbl_resultados .= '<tr class="gradeA">';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+			}
+			$tbl_resultados .= '</tr>';
+			if($soloUno) break; 		
+		}
+	}
+	return $tbl_resultados;
+}
+
 /*O3M*/
 ?>

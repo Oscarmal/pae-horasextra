@@ -8,19 +8,14 @@ require_once($Path[src].'views.vars.'.MODULO.'.php');
 // Lógica de negocio
 
 if($in[auth]){	
-
 	/**
 	* Autorización nivel 1
 	*/
-	if($in[accion]=='guardar_autorizacion_1'){
-
-
-		
+	if($in[accion]=='guardar_autorizacion_1'){	
 		if(!empty($ins[datos])){
 			$datos = explode('|',$in[datos]);
 			$ids = array();
-			foreach($datos as $dato){
-				
+			foreach($datos as $dato){				
 				$vtmp = explode('=',$dato);
 				$idCampo = explode('_',$vtmp[0]);				
 				$id_horas_extra = $idCampo[1];				
@@ -41,7 +36,6 @@ if($in[auth]){
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";
 		}
-		//die();
 	}
 	/*Fin1*/
 
