@@ -56,12 +56,11 @@ autorizacion|titulo_autorizacion_3=Autorización nivel 3
 autorizacion|titulo_autorizacion_4=Autorización nivel 4
 autorizacion|titulo_autorizacion_5=Autorización nivel 5
 
-autorizacion|autorizacion_1_titulo=Validación de Horas Extra Capturadas
-autorizacion|autorizacion_2_titulo=Validación de Horas Extra Capturadas
-autorizacion|autorizacion_3_titulo=Asignación de Horas Extra Validadas
-autorizacion|autorizacion_4_titulo=Autorización de Horas Extra Asignadas
-autorizacion|autorizacion_5_titulo=Aprobación de Horas Extra Autorizadas
-autorizacion|autorizacion_6_titulo=Aplicación de Horas Extra Aprobadas
+autorizacion|autorizacion_1_titulo=Autorización nivel 1
+autorizacion|autorizacion_2_titulo=Autorización nivel 2
+autorizacion|autorizacion_3_titulo=Autorización nivel 3
+autorizacion|autorizacion_4_titulo=Autorización nivel 4
+autorizacion|autorizacion_5_titulo=Autorización nivel 5
 
 # Consulta
 consulta|titulo=Consultas
@@ -74,6 +73,12 @@ consulta|aprobada_titulo=Listado de Asignaciones aprobaciones
 #consulta|autorizacion_menu=Listado de Validaciones
 #consulta|asignacion_menu=Listado de Asingaciones
 #consulta|aprobadas_menu=Listado de Aprobaciones
+
+consulta|titulo_autorizacion_1=Consulta de Autorizacion nivel 1
+consulta|titulo_autorizacion_2=Consulta de Autorizacion nivel 2
+consulta|titulo_autorizacion_3=Consulta de Autorizacion nivel 3
+consulta|titulo_autorizacion_4=Consulta de Autorizacion nivel 4
+consulta|titulo_autorizacion_5=Consulta de Autorizacion nivel 5
 
 consulta|consulta_autorizacion_1	=	Consulta de Autorizacion nivel 1
 consulta|consulta_autorizacion_2	=	Consulta de Autorizacion nivel 2

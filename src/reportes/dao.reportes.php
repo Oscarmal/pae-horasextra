@@ -13,11 +13,13 @@ function reporte01_select($data=array()){
 		$filtro.= ($id_empresa)?" and a.id_empresa IN ($id_empresa)":'';
 		$filtro.= ($anio)?" and DATE_FORMAT(a.fecha,'%Y') IN ($anio)":'';
 		$filtro.=filtro_grupo(array(
-					 ''
-					,"and a.id_empresa='$usuario[id_empresa]'"
-					,"and a.id_empresa='$usuario[id_empresa]' /*and d.id_usuario='$usuario[id_usuario]'*/"
-					,"and a.id_usuario='$usuario[id_usuario]'"
-				));
+                   10 => ''
+                  ,20 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,30 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,40 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,50 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,60 => "and a.id_usuario='$usuario[id_usuario]'"
+                   ));
 		$sql = "SELECT 
 					 a.id_empresa
 					,g.nombre as empresa
@@ -35,13 +37,14 @@ function reporte01_select($data=array()){
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
-				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
+				LEFT JOIN $db[tbl_autorizaciones_nomina] d ON a.id_horas_extra=d.id_horas_extra
 				LEFT JOIN $db[tbl_usuarios] f ON d.id_usuario=f.id_usuario
 				LEFT JOIN $db[tbl_empresas] g ON a.id_empresa=g.id_empresa
 				WHERE 1 $filtro
 				GROUP BY a.id_empresa, anio_fecha
 				ORDER BY a.id_empresa, anio_fecha ASC
-				;";				 
+				;";		
+		// dump_var($sql);
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}else{
@@ -61,11 +64,13 @@ function grafico01_select($data=array()){
 		$filtro.= ($id_empresa)?" and a.id_empresa IN ($id_empresa)":'';
 		$filtro.= ($anio)?" and DATE_FORMAT(a.fecha,'%Y') IN ($anio)":'';
 		$filtro.=filtro_grupo(array(
-					 ''
-					,"and a.id_empresa='$usuario[id_empresa]'"
-					,"and a.id_empresa='$usuario[id_empresa]' /*and d.id_usuario='$usuario[id_usuario]'*/"
-					,"and a.id_usuario='$usuario[id_usuario]'"
-				));
+                   10 => ''
+                  ,20 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,30 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,40 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,50 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,60 => "and a.id_usuario='$usuario[id_usuario]'"
+                   ));
 		#$desc 	= ($desc)?" DESC":' ASC';
 		$grupo 	= ($grupo)?"GROUP BY $grupo ":'GROUP BY a.id_empresa, anio_fecha ';
 		#$orden 	= ($orden)?"ORDER BY $orden".$desc:'ORDER BY a.id_empresa, anio_fecha'.$desc;
@@ -86,7 +91,7 @@ function grafico01_select($data=array()){
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_usuario=c.id_usuario
-				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
+				LEFT JOIN $db[tbl_autorizaciones_nomina] d ON a.id_horas_extra=d.id_horas_extra
 				LEFT JOIN $db[tbl_usuarios] f ON d.id_usuario=f.id_usuario
 				LEFT JOIN $db[tbl_empresas] g ON a.id_empresa=g.id_empresa
 				WHERE 1 
@@ -108,11 +113,13 @@ function empresas($data=array()){
 		$filtro .= ($id_empresa)?" AND a.id_empresa IN ($id_empresa)":'';
 		$filtro .= ($activo)?" AND b.activo IN ($activo)":'';
 		$filtro.=filtro_grupo(array(
-					 ''
-					,"AND a.id_empresa='$usuario[id_empresa]'"
-					,"AND a.id_empresa='$usuario[id_empresa]'"
-					,"AND a.id_usuario='$usuario[id_usuario]'"
-				));
+                   10 => ''
+                  ,20 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,30 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,40 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,50 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,60 => "and a.id_usuario='$usuario[id_usuario]'"
+                   ));
 		$sql = "SELECT 
 					 a.id_empresa
 					,b.nombre AS empresa
@@ -164,23 +171,23 @@ function historial_usuario(){
 			he_horas_extra.id_empresa,
 			he_horas_extra.estatus_fecha, 
 			he_horas_extra.estatus,
-			he_autorizaciones.id_horas_extra as id_hora_autoizacion,
-			he_autorizaciones.id_autorizacion,
-			he_autorizaciones.aut_estatus,
-			he_autorizaciones.timestamp,
-			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=0,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_rechazadas,
-			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=1,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_simples,
-			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=2,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_dobles,
-			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones.id_concepto=3,he_autorizaciones.horas,NULL)))),'%H:%i') AS horas_triples,
+			he_autorizaciones_nomina.id_horas_extra as id_hora_autoizacion,
+			he_autorizaciones_nomina.id_autorizacion,
+			he_autorizaciones_nomina.aut_estatus,
+			he_autorizaciones_nomina.timestamp,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones_nomina.id_concepto=0,he_autorizaciones_nomina.horas,NULL)))),'%H:%i') AS horas_rechazadas,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones_nomina.id_concepto=1,he_autorizaciones_nomina.horas,NULL)))),'%H:%i') AS horas_simples,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones_nomina.id_concepto=2,he_autorizaciones_nomina.horas,NULL)))),'%H:%i') AS horas_dobles,
+			TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(IF(he_autorizaciones_nomina.id_concepto=3,he_autorizaciones_nomina.horas,NULL)))),'%H:%i') AS horas_triples,
 			he_personal.nombre,
 			he_personal.paterno,
 			he_personal.id_personal
 		FROM 
 			he_horas_extra
 			LEFT JOIN 
-				he_autorizaciones
+				he_autorizaciones_nomina
 				ON 
-					he_horas_extra.id_horas_extra=he_autorizaciones.id_horas_extra
+					he_horas_extra.id_horas_extra=he_autorizaciones_nomina.id_horas_extra
 			LEFT JOIN 
 				he_personal
 				ON
