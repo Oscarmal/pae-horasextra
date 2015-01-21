@@ -87,7 +87,33 @@ function build_grid_consulta_autorizacion_1(){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 		}
-		if(is_null($registro[n1_estatus])){
+		if($soloUno){
+			if(is_null($data[n1_estatus])){
+				$valor='Pendiente';
+			}
+			else{
+					if($data[n1_estatus]==0){
+					$valor='Rechazado';
+				}
+				else if($data[n1_estatus]==1){
+					$valor='Aceptado';
+				}
+			}
+		}
+		else{
+			if(is_null($registro[n1_estatus])){
+				$valor='Pendiente';
+			}
+			else{
+					if($registro[n1_estatus]==0){
+					$valor='Rechazado';
+				}
+				else if($registro[n1_estatus]==1){
+					$valor='Aceptado';
+				}
+			}
+		}
+		/*if(is_null($registro[n1_estatus])){
 			$valor='Pendiente';
 		}
 		else{
@@ -97,7 +123,7 @@ function build_grid_consulta_autorizacion_1(){
 			else if($registro[n1_estatus]==1){
 				$valor='Aceptado';
 			}
-		}
+		}*/
 
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 		if($soloUno) break;
@@ -123,7 +149,7 @@ function build_grid_consulta_autorizacion_2($data=array()){
 				,'empleado_num'
 				,'empresa'
 				,'fecha'
-				,'horas'				
+				,'horas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {		
@@ -131,19 +157,35 @@ function build_grid_consulta_autorizacion_2($data=array()){
 			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
 			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
 			for($i=0; $i<count($campos); $i++){
+				
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
 			}
+	if($soloUno){
+			if(is_null($data[n2_estatus])){
+				$valor='Pendiente';
+			}
+			else{
+					if($data[n2_estatus]==0){
+					$valor='Rechazado';
+				}
+				else if($data[n2_estatus]==1){
+					$valor='Aceptado';
+				}
+			}
+		}
+		else{
 			if(is_null($registro[n2_estatus])){
 				$valor='Pendiente';
 			}
 			else{
-				if($registro[n2_estatus]==0){
+					if($registro[n2_estatus]==0){
 					$valor='Rechazado';
 				}
 				else if($registro[n2_estatus]==1){
 					$valor='Aceptado';
 				}
 			}
+		}
 
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -182,17 +224,34 @@ function build_grid_consulta_autorizacion_3(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			if(is_null($registro[n3_estatus])){
-				$valor='Pendiente';
+
+			if($soloUno){
+				if(is_null($data[n3_estatus])){
+					$valor='Pendiente';
+				}
+				else{
+						if($data[n3_estatus]==0){
+						$valor='Rechazado';
+					}
+					else if($data[n3_estatus]==1){
+						$valor='Aceptado';
+					}
+				}
 			}
 			else{
-				if($registro[n3_estatus]==0){
-					$valor='Rechazado';
+				if(is_null($registro[n3_estatus])){
+					$valor='Pendiente';
 				}
-				else if($registro[n3_estatus]==1){
-					$valor='Aceptado';
+				else{
+						if($registro[n3_estatus]==0){
+						$valor='Rechazado';
+					}
+					else if($registro[n3_estatus]==1){
+						$valor='Aceptado';
+					}
 				}
 			}
+			
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -218,29 +277,43 @@ function build_grid_consulta_autorizacion_4(){
 				,'empresa'
 				,'fecha'
 				,'horas'
-				//,'autorizado_por'
-				//,'n1_fecha'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {		
 			$tbl_resultados .= '<tr class="gradeA">';
 			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+
 			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+			
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			if(is_null($registro[n2_estatus])){
-				$valor='Pendiente';
-			}
-			else{
-				if($registro[n2_estatus]==0){
-					$valor='Rechazado';
+			if($soloUno){
+				if(is_null($data[n4_estatus])){
+					$valor='Pendiente';
 				}
-				else if($registro[n2_estatus]==1){
-					$valor='Aceptado';
+				else{
+						if($data[n4_estatus]==0){
+						$valor='Rechazado';
+					}
+					else if($data[n4_estatus]==1){
+						$valor='Aceptado';
+					}
+				}
+			}else{
+				if(is_null($registro[n4_estatus])){
+					$valor='Pendiente';
+				}
+				else{
+						if($registro[n4_estatus]==0){
+						$valor='Rechazado';
+					}
+					else if($registro[n4_estatus]==1){
+						$valor='Aceptado';
+					}
 				}
 			}
-
+			
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -276,18 +349,32 @@ function build_grid_consulta_autorizacion_5($data=array()){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			if(is_null($registro[n4_estatus])){
-				$valor='Pendiente';
+			if($soloUno){
+				if(is_null($data[n5_estatus])){
+					$valor='Pendiente';
+				}
+				else{
+						if($data[n5_estatus]==0){
+						$valor='Rechazado';
+					}
+					else if($data[n5_estatus]==1){
+						$valor='Aceptado';
+					}
+				}
 			}
 			else{
-				if($registro[n4_estatus]==0){
-					$valor='Rechazado';
+				if(is_null($registro[n5_estatus])){
+					$valor='Pendiente';
 				}
-				else if($registro[n4_estatus]==1){
-					$valor='Aceptado';
+				else{
+						if($registro[n5_estatus]==0){
+						$valor='Rechazado';
+					}
+					else if($registro[n5_estatus]==1){
+						$valor='Aceptado';
+					}
 				}
 			}
-
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
