@@ -144,9 +144,15 @@ function select_listado_horas_capturadas($data=array()){
 					ON 
 						a.id_horas_extra=n1.id_horas_extra 
 					AND 
-						n1.id_cat_autorizacion=1          
+						n1.id_cat_autorizacion=1
+				LEFT JOIN 
+					he_autorizaciones AS n2 
+					ON 
+						a.id_horas_extra=n2.id_horas_extra 
+					AND 
+						n2.id_cat_autorizacion=2          
 			   WHERE 
-			  	 	1 
+			  	 	1 AND n2.estatus IS NULL
 			   		$filtro 
 			   		$grupo 
 					$orden;";
