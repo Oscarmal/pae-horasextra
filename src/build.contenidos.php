@@ -91,7 +91,6 @@ function build_grid_consulta_autorizacion_1(){
 				switch ($data[n1_estatus]) {
 					case 0:  $valor='Rechazado'; break;
 					case 1:  $valor='Aceptado';	break;				
-					//default: $valor='Pendiente'; break;
 				}
 			}				
 			$tbl_resultados .= '<td>'.$valor.'</td>';
@@ -177,7 +176,7 @@ function build_grid_consulta_autorizacion_3(){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
 			if(is_null($data[n3_estatus])){
-
+				$valor='Pendiente';
 			}
 			else{
 				switch ($data[n3_estatus]) {
@@ -266,11 +265,14 @@ function build_grid_consulta_autorizacion_5($data=array()){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			switch ($data[n3_estatus]) {
-				case 0:  $valor='Rechazado'; break;
-				case 1:  $valor='Aceptado';	break;				
-				default: $valor='Pendiente'; break;
-			}
+			if(is_null($data[n5_estatus])){
+				$valor='Pendiente';
+			}else{
+				switch ($data[n5_estatus]) {
+					case 0:  $valor='Rechazado'; break;
+					case 1:  $valor='Aceptado';	break;				
+				}
+			}	
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -472,6 +474,7 @@ function build_grid_usuarios(){
 			,activo 		=> 1
 		);
 	$tabla = select_view_nomina($sqlData);	
+	//dump_var($tabla);
 
 	$campos = array(
 				 'empresa_razon_social'
