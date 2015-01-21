@@ -77,17 +77,19 @@ function build_grid_consulta_autorizacion_1(){
 				,'horas'
 				//,'capturado_por'
 				//,'capturado_el'
-			);		
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr class="gradeA">';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+			);	
+	if($tabla){	
+		foreach ($tabla as $registro) {		
+			$tbl_resultados .= '<tr class="gradeA">';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+			}
+			$tbl_resultados .= '<td>PENDIENTE</td>';
+			if($soloUno) break;
+			$tbl_resultados .= '</tr>';
 		}
-		$tbl_resultados .= '<td>PENDIENTE</td>';
-		if($soloUno) break;
-		$tbl_resultados .= '</tr>';
 	}
 	return $tbl_resultados;
 }
