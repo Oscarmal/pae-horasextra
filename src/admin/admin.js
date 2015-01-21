@@ -173,7 +173,7 @@ function sincronizar_empresa(){
 /**
 * Layout
 */
-function layout(){
+function layout(id_horas_extra){
 /**
 * AJAX: Genera popup para validación de hotras extra
 */
@@ -191,7 +191,8 @@ function layout(){
 		data: {      
 			auth : 1,
 			modulo : modulo,
-			accion : 'layout-popup'
+			accion : 'layout-popup',
+			id_horas_extra : id_horas_extra
 		}		
 		,success: function(respuesta){ 
 			if(respuesta.success){
@@ -224,7 +225,7 @@ function genera_xls(){
 		data: {      
 			auth : 1,
 			modulo : modulo,
-			accion : 'regenera-xls-nomina'
+			accion : 'genera-xls-nomina'
 		}
 		,beforeSend: function(){ 
 			popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
@@ -246,14 +247,65 @@ function genera_xls(){
 				var txt = "No hay datos pendientes.";		    
 			    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
 				setTimeout(function(){
-					location.reload(true);
+					// location.reload(true);
 				}, 2000);
 			}else{
 				popup_ico = "<img src='"+raiz+"common/img/popup/error.png' valign='middle' align='texttop'>&nbsp";
 				var txt = "Se ha generado un error.";		    
 			    ventana = popup('Error!',popup_ico+txt,0,0,3);
 				setTimeout(function(){	
-					location.reload(true);
+					// location.reload(true);
+				}, 2000);
+			}				
+		}
+    });
+}
+function genera_xls_rebuild(accion){
+	$("#xls-popup").empty();
+	var raiz = raizPath();
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();	
+	var contenidoHtml = '<div id="xls-popup"></div>';	
+	var ajax_url = raiz+"src/"+modulo+"/admin.php";
+	accion = (!accion)?'regenera-xls-nomina':accion;
+	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+	$.ajax({
+		type: 'POST',
+		url: ajax_url,
+		dataType: "json",
+		data: {      
+			auth : 1,
+			modulo : modulo,
+			accion : accion
+		}
+		,beforeSend: function(){ 
+			popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
+			var txt = "Generando archivo, por favor espere...";
+	    	ventana = popup('Generando...',popup_ico+txt,0,0,3);
+		}
+		,success: function(respuesta){ 
+			$("#"+ventana).dialog("close");
+			if(respuesta.success){
+				// Link para descargar archivo de excel
+				popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
+				var linkXls = '<div class="xls"><ul><li><a href="'+respuesta.xls+'" target="_self" title="'+respuesta.archivo+'">'+respuesta.archivo+'</a></li></ul></div>';
+				var boton = buildBtn('btnCerrar','CERRAR','location.reload(true);');
+				var btnCerrar = '<br/><div id="btn-xls">'+boton+'</div>';
+				txt = "<div class='popup-txt'><p>Descargar el archivo: </p></div>";
+				ventana = popup('Éxito',popup_ico+txt+linkXls+btnCerrar,0,220,3);	
+			}else if(respuesta.nodata){
+				popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
+				var txt = "No hay datos pendientes.";		    
+			    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
+				setTimeout(function(){
+					// location.reload(true);
+				}, 2000);
+			}else{
+				popup_ico = "<img src='"+raiz+"common/img/popup/error.png' valign='middle' align='texttop'>&nbsp";
+				var txt = "Se ha generado un error.";		    
+			    ventana = popup('Error!',popup_ico+txt,0,0,3);
+				setTimeout(function(){	
+					// location.reload(true);
 				}, 2000);
 			}				
 		}

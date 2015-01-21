@@ -31,7 +31,6 @@ if($in[auth]){
 				//$ids[] = $id_horas_extra;
 			}
 			$data = array(success => $success, message => $msj);
-			$data = json_encode($data);
 		}else{
 			$success = false;
 			$msj = "Sin guardar por falta de datos.";

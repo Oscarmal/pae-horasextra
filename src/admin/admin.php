@@ -174,13 +174,13 @@ if($in[auth]){
 			}
 		$data = array(success => $msj, message => $msj);
 	}
-	elseif($ins[accion]=='layout-popup'){
+	elseif($in[accion]=='layout-popup'){
 		// Extraccion de datos
 		$sqlData = array(
 			 auth 			=> true
-			,id_horas_extra	=> $ins[id_horas_extra]
+			,id_horas_extra	=> $in[id_horas_extra]
 		);
-		$datos = select_layout($sqlData);		
+		$datos = select_layout($sqlData);
 		// Deteccion de semana del año ISO8601
 		$datos_semama = select_acumulado_semanal(array(
 			 auth 			=> 1
@@ -210,7 +210,7 @@ if($in[auth]){
 		$msj = ($success)?'Popup OK':'Popup Fail';
 		$data = array(success => $success, message => $msj, html => $CONTENIDO);			
 	}
-	elseif($ins[accion]=='layout-guardar'){
+	elseif($in[accion]=='layout-guardar'){
 		if(!empty($ins[datos])){				
 			$datos = explode('|',$in[datos]);
 			foreach($datos as $dato){
@@ -252,33 +252,38 @@ if($in[auth]){
 			$msj = "Sin guardar por falta de datos.";
 		}		
 	}
-	elseif($ins[accion]=='regenera-xls-nomina'){
+	elseif($in[accion]=='genera-xls-nomina'){
 		$success = false;
 		$nodata = true;
-		// Extraccion de datos
-		$sqlData = array(
-			 auth 	=> true
-			,activo => 1
-			,xls	=> $in[xls]
-		);
-		$datos = xsl_resumen($sqlData);	
-		if($datos){
-			$ids = array();
-			foreach($datos as $registro){
-				$data = (is_array($registro))?$registro:$datos;
-				$ids [] = $data[0];
-				$xls = $data[xls];
-				if(!is_array($registro)) break;
-			}
-			// Generacion de XLS
-			$success = ($xls = xls_nomina_rebuild($ids, $xls))?true:false;
-			$msj = "Archivo regenerado";
+		if($success = ($xls = xsl_nomina())?true:false){
+			$msj = "Archivo generado";
 			$nodata = false;
 		}else{
 			$msj = "Sin datos";
 		}
 		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
-		$data = json_encode($data);
+	}
+	elseif($in[accion]=='regenera-xls-nomina'){
+		$success = false;
+		$nodata = true;
+		if($success = ($xls = xls_nomina_rebuild())?true:false){
+			$msj = "Archivo generado";
+			$nodata = false;
+		}else{
+			$msj = "Sin datos";
+		}
+		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
+	}
+	elseif($in[accion]=='regenera-xls-resumen'){
+		$success = false;
+		$nodata = true;
+		if($success = ($xls = xsl_resumen())?true:false){
+			$msj = "Archivo generado";
+			$nodata = false;
+		}else{
+			$msj = "Sin datos";
+		}
+		$data = array(success => $success, message => $msj, xls => $xls[url], archivo => $xls[filename], nodata => $nodata);
 	}
 	elseif(!$ins[accion]){
 		$error = array(error => 'Sin accion');		

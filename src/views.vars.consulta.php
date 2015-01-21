@@ -62,7 +62,7 @@ function tpl_vars($cmd, $urlParams=array()){
 function vars_autorizacion_1($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[consulta][captura_titulo];
+	$titulo 	= $dic[consulta][titulo_autorizacion_1];
 	$tbl_resultados = build_grid_consulta_autorizacion_1();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
@@ -85,7 +85,7 @@ function vars_autorizacion_1($seccion, $urlParams){
 function vars_autorizacion_2($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[consulta][validacion_titulo];
+	$titulo 	= $dic[consulta][titulo_autorizacion_2];
 	$tbl_resultados = build_grid_consulta_autorizacion_2();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
@@ -108,7 +108,7 @@ function vars_autorizacion_2($seccion, $urlParams){
 function vars_autorizacion_3($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[consulta][asignacion_titulo];
+	$titulo 	= $dic[consulta][titulo_autorizacion_3];
 	$tbl_resultados = build_grid_consulta_autorizacion_3();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
@@ -131,7 +131,7 @@ function vars_autorizacion_3($seccion, $urlParams){
 function vars_autorizacion_4($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[consulta][aprobada_titulo];
+	$titulo 	= $dic[consulta][titulo_autorizacion_4];
 	$tbl_resultados = build_grid_consulta_autorizacion_4();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
@@ -154,7 +154,7 @@ function vars_autorizacion_4($seccion, $urlParams){
 function vars_autorizacion_5($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= $dic[consulta][aprobada_titulo];
+	$titulo 	= $dic[consulta][titulo_autorizacion_5];
 	$tbl_resultados = build_grid_consulta_autorizacion_5();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados

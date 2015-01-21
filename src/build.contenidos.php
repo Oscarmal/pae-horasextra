@@ -79,13 +79,18 @@ function build_grid_consulta_autorizacion_1(){
 				,'horas'
 				//,'capturado_por'
 				//,'capturado_el'
-			);		
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr class="gradeA">';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+			);	
+	if($tabla){	
+		foreach ($tabla as $registro) {		
+			$tbl_resultados .= '<tr class="gradeA">';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+			}
+			$tbl_resultados .= '<td>PENDIENTE</td>';
+			if($soloUno) break;
+			$tbl_resultados .= '</tr>';
 		}
 		if($soloUno){
 			if(is_null($data[n1_estatus])){
@@ -878,7 +883,7 @@ function build_grid_layout($data=array()){
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'	
+				,'horas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {	
@@ -932,5 +937,38 @@ function build_grid_xls($data=array()){
 	return $tbl_resultados;
 }
 
+function build_grid_xls_lista($data=array()){
+/**
+* Construye listado XLS para regenerar 
+*/
+	global $usuario, $Path;
+	$sqlData = array(
+			 auth 		=> true
+			,estatus	=> 1
+			,activo 	=> 1
+			,orden		=> 'a.id_horas_extra DESC'
+		);
+	$tabla = select_xls_lista($sqlData);
+	$campos = array(
+				 'id_empresa'
+				,'empresa'
+				,'xls'	
+			);
+	if($tabla){
+		foreach ($tabla as $registro) {	
+			$tbl_resultados .= '<tr class="gradeA">';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
+			}
+			$tbl_resultados .= '<td><span class="btn" onclick="genera_xls_rebuild(\'regenera-xls-nomina\');"><img src="'.$Path[img].'excel.gif" width="20" /></span></td>';
+			$tbl_resultados .= '<td><span class="btn" onclick="genera_xls_rebuild(\'regenera-xls-resumen\');"><img src="'.$Path[img].'excel.gif" width="20" /></span></td>';
+			$tbl_resultados .= '</tr>';
+			if($soloUno) break; 		
+		}
+	}
+	return $tbl_resultados;
+}
 /*O3M*/
 ?>
