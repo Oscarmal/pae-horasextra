@@ -67,9 +67,7 @@ function build_grid_consulta_autorizacion_1(){
 			,activo		=> 1
 			,desc		=> 1
 		);
-	//$tabla = captura_listado_select($sqlData);	
 	$tabla = select_listado_horas_capturadas($sqlData);	
-
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'
@@ -77,8 +75,6 @@ function build_grid_consulta_autorizacion_1(){
 				,'empresa'
 				,'fecha'
 				,'horas'
-				//,'capturado_por'
-				//,'capturado_el'
 			);	
 	if($tabla){	
 		foreach ($tabla as $registro) {		
@@ -88,23 +84,15 @@ function build_grid_consulta_autorizacion_1(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 			}			
-			if(is_null($data[n1_estatus])){
-				$valor='Pendiente';
-			}else{
-				if($data[n1_estatus]==0){
-						$valor='Rechazado';
-					}
-					else if($data[n1_estatus]==1){
-						$valor='Aceptado';
-					}
+			switch ($data[n1_estatus]) {
+				case 0:  $valor='Rechazado'; break;
+				case 1:  $valor='Aceptado';	break;				
+				default: $valor='Pendiente'; break;
 			}
-
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break;
 		}
-		
-		
 	}
 	return $tbl_resultados;
 }
