@@ -17,6 +17,7 @@ $vistas = array(
 		,CONSULTA_AUTORIZACION_3 	=> 'consulta_autorizacion_3.html'
 		,CONSULTA_AUTORIZACION_4 	=> 'consulta_autorizacion_4.html'
 		,CONSULTA_AUTORIZACION_5 	=> 'consulta_autorizacion_5.html'
+		,CONSULTA_AUTORIZACIONES 	=> 'consulta_autorizaciones.html'
 	);
 
 # Vistas
@@ -50,6 +51,9 @@ function tpl_vars($cmd, $urlParams=array()){
 	}
 	elseif($cmd == 'CONSULTA_AUTORIZACION_5'){
 		$vars = vars_autorizacion_5($cmd, $urlParams);
+	}
+	elseif($cmd == 'CONSULTA_AUTORIZACIONES'){
+		$vars = vars_autorizaciones($cmd, $urlParams);
 	}
 	else{
 		$vars = vars_error($cmd);
@@ -156,6 +160,29 @@ function vars_autorizacion_5($seccion, $urlParams){
 	## Logica de negocio ##		
 	$titulo 	= $dic[consulta][titulo_autorizacion_5];
 	$tbl_resultados = build_grid_consulta_autorizacion_5();
+	$data_contenido = array(
+				TBL_RESULTS=> $tbl_resultados
+		);
+	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
+	## Envio de valores ##
+	$negocio = array(
+				 MORE 		=> incJs($Path[srcjs].strtolower(MODULO).'/autorizacion_listado.js')	
+				,MODULE 	=> strtolower(MODULO)
+				,SECTION 	=> ($seccion)				 
+			);
+	$texto = array(
+				 ICONO 			=> $icono
+				,TITULO			=> $titulo
+				,CONTENIDO 		=> $contenido
+			);
+	$data = array_merge($negocio, $texto);
+	return $data;
+}
+function vars_autorizaciones($seccion, $urlParams){
+	global $var, $Path, $icono, $dic, $vistas, $usuario;
+	## Logica de negocio ##		
+	$titulo 	= 'Autorizaciones';
+	$tbl_resultados = build_grid_consulta_autorizaciones();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
 		);

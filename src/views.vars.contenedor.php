@@ -53,6 +53,7 @@ $frm_vistas = array(
 			 		,CONSULTA_AUTORIZACION_3 	=> 'consulta_autorizacion_3.html'
 			 		,CONSULTA_AUTORIZACION_4 	=> 'consulta_autorizacion_4.html'
 			 		,CONSULTA_AUTORIZACION_5 	=> 'consulta_autorizacion_5.html'
+			 		,CONSULTA_AUTORIZACIONES 	=> 'consulta_autorizaciones.html'
 			 	)  
 			,REPORTES => 
 			 	array(
@@ -171,6 +172,8 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					,LINK_OPC44		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_4]
 					,txt_opc45		=> $dic[consulta][consulta_autorizacion_5]
 					,LINK_OPC45		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACION_5]
+					,txt_opc46		=> $dic[consulta][consulta_autorizaciones]
+					,LINK_OPC46		=> '../site/?m='.$var[CONSULTA].'&s='.$var[CONSULTA_AUTORIZACIONES]
 					// Reportes
 					,txt_opc5 		=> $dic[general][reportes]
 					,img_opc5		=> $var[menu_opc5]
