@@ -657,6 +657,10 @@ function buil_autorizacion_1(){
 			$tbl_resultados .= '<td align="center">
 									<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 									<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+									<span>
+										<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
+										<input type="hidden" id="asig_'.$data[0].'" value="0">
+									</span>
 								</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -703,6 +707,10 @@ function build_grid_autorizacion_2($data=array()){
 			$tbl_resultados .= '<td align="center">
 									<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 									<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+									<span>
+										<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
+										<input type="hidden" id="asig_'.$data[0].'" value="0">
+									</span>
 								</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -749,6 +757,10 @@ function build_grid_autorizacion_3($data=array()){
 			$tbl_resultados .= '<td align="center">
 									<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 									<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+									<span>
+										<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
+										<input type="hidden" id="asig_'.$data[0].'" value="0">
+									</span>
 								</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -795,6 +807,10 @@ function build_grid_autorizacion_4($data=array()){
 			$tbl_resultados .= '<td align="center">
 									<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 									<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+									<span>
+										<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
+										<input type="hidden" id="asig_'.$data[0].'" value="0">
+									</span>
 								</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -841,6 +857,10 @@ function build_grid_autorizacion_5($data=array()){
 			$tbl_resultados .= '<td align="center">
 									<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
 									<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+									<span>
+										<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
+										<input type="hidden" id="asig_'.$data[0].'" value="0">
+									</span>
 								</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		

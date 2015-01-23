@@ -83,6 +83,7 @@ function insert_autorizacion_1($data=array()){
 	if($data[auth]==1){
 		$id_hora_extra=$data[id_horas_extra];
 		$estatus=$data[estatus];
+		$argumento=$data[argumento];
 		$timestamp = date('Y-m-d H:i:s');
 
 		$sql="INSERT INTO
@@ -92,10 +93,10 @@ function insert_autorizacion_1($data=array()){
 			id_cat_autorizacion = 1,
 			estatus 	   		= $estatus,
 			id_usuario 			= $usuario[id_usuario],
+			argumento 			= '$argumento',
 			timestamp 			= '$timestamp',
-			activo 				= 1";
-	//echo $sql;
-	$resultado = (SQLDo($sql))?true:false;
+			activo 				= 1;";
+		$resultado = (SQLDo($sql))?true:false;
 	}
 	return $resultado;
 
@@ -181,12 +182,14 @@ function insert_autorizacion_2($data=array()){
 		$id_horas_extra 	 = $data[id_horas_extra];
 		$id_cat_autorizacion = 2;
 		$estatus 			 = $data[estatus];
+		$argumento			 =	$data[argumento];
 		$timestamp 			 = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
 					id_horas_extra 		= '$id_horas_extra',
 					id_cat_autorizacion = '$id_cat_autorizacion',
 					estatus 			= '$estatus',
 					id_usuario 			= '$usuario[id_usuario]',
+					argumento 			= '$argumento',
 					timestamp 			= '$timestamp'
 					;";
 		$resultado = (SQLDo($sql))?true:false;
@@ -275,12 +278,15 @@ function insert_autorizacion_3($data=array()){
 		$id_horas_extra 	 = $data[id_horas_extra];
 		$id_cat_autorizacion = 3;
 		$estatus 			 = $data[estatus];
+		$argumento			 =	$data[argumento];
 		$timestamp 			 = date('Y-m-d H:i:s');
+
 		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
 					id_horas_extra 		= '$id_horas_extra',
 					id_cat_autorizacion = '$id_cat_autorizacion',
 					estatus 			= '$estatus',
 					id_usuario 			= '$usuario[id_usuario]',
+					argumento 			= '$argumento',
 					timestamp 			= '$timestamp'
 					;";
 		$resultado = (SQLDo($sql))?true:false;
@@ -369,12 +375,15 @@ function insert_autorizacion_4($data=array()){
 		$id_horas_extra 	 = $data[id_horas_extra];
 		$id_cat_autorizacion = 4;
 		$estatus 			 = $data[estatus];
+		$argumento			 =	$data[argumento];
 		$timestamp 			 = date('Y-m-d H:i:s');
+
 		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
 					id_horas_extra 		= '$id_horas_extra',
 					id_cat_autorizacion = '$id_cat_autorizacion',
 					estatus 			= '$estatus',
 					id_usuario 			= '$usuario[id_usuario]',
+					argumento 			= '$argumento',
 					timestamp 			= '$timestamp'
 					;";
 		$resultado = (SQLDo($sql))?true:false;
@@ -468,12 +477,14 @@ function insert_autorizacion_5($data=array()){
 		$id_horas_extra 	 = $data[id_horas_extra];
 		$id_cat_autorizacion = 5;
 		$estatus 			 = $data[estatus];
+		$argumento			 =	$data[argumento];
 		$timestamp 			 = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO $db[tbl_autorizaciones] SET
 					id_horas_extra 		= '$id_horas_extra',
 					id_cat_autorizacion = '$id_cat_autorizacion',
 					estatus 			= '$estatus',
 					id_usuario 			= '$usuario[id_usuario]',
+					argumento 			= '$argumento',
 					timestamp 			= '$timestamp'
 					;";
 		$resultado = (SQLDo($sql))?true:false;

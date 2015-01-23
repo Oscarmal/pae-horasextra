@@ -15,20 +15,23 @@ if($in[auth]){
 		if(!empty($ins[datos])){
 			$datos = explode('|',$in[datos]);
 			$ids = array();
-			foreach($datos as $dato){				
+			foreach($datos as $dato){	
 				$vtmp = explode('=',$dato);
 				$idCampo = explode('_',$vtmp[0]);				
-				$id_horas_extra = $idCampo[1];				
-				$estatus = ($vtmp[1]=='no')?0:1;
+				$id_horas_extra = $idCampo[1];
+				$valor=explode('_',$vtmp[1]);
+				$estatus = ($valor[0]=='no')?0:1;
+				$argumento = mb_strtoupper($valor[1], 'UTF-8');
 				// Save data in SQL
 				$sqlData = array(
 					 auth 			=> true
 					,id_horas_extra	=> $id_horas_extra
 					,estatus 		=> $estatus
+					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_1($sqlData);
 				$msj = ($success)?'Guardado':'No guardó';	
-				//$ids[] = $id_horas_extra;
+				$ids[] = $id_horas_extra;
 			}
 			$data = array(success => $success, message => $msj);
 		}else{
@@ -50,13 +53,17 @@ if($in[auth]){
 				$vtmp = explode('=',$dato);
 				$idCampo = explode('_',$vtmp[0]);				
 				$id_horas_extra = $idCampo[1];				
-				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
-				$estatus = ($vtmp[1]=='no')?0:1;
+				//$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				//$estatus = ($vtmp[1]=='no')?0:1;
+				$valor=explode('_',$vtmp[1]);
+				$estatus = ($valor[0]=='no')?0:1;
+				$argumento = mb_strtoupper($valor[1], 'UTF-8');
 				// Save data in SQL
 				$sqlData = array(
 					 auth 			=> true
 					,id_horas_extra	=> $id_horas_extra
 					,estatus 		=> $estatus
+					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_2($sqlData);
 				$msj = ($success)?'Guardado':'No guardó';	
@@ -69,8 +76,6 @@ if($in[auth]){
 		}
 	}
 	/*Fin2*/
-
-
 	/**
 	* Autorización nivel 3
 	*/
@@ -82,14 +87,19 @@ if($in[auth]){
 				$vtmp = explode('=',$dato);
 				$idCampo = explode('_',$vtmp[0]);				
 				$id_horas_extra = $idCampo[1];				
-				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
-				$estatus = ($vtmp[1]=='no')?0:1;
+				//$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				//$estatus = ($vtmp[1]=='no')?0:1;
+				$valor=explode('_',$vtmp[1]);
+				$estatus = ($valor[0]=='no')?0:1;
+				$argumento = mb_strtoupper($valor[1], 'UTF-8');
 				// Save data in SQL
 				$sqlData = array(
 					 auth 			=> true
 					,id_horas_extra	=> $id_horas_extra
 					,estatus 		=> $estatus
+					,argumento 		=> $argumento
 				);
+
 				$success = insert_autorizacion_3($sqlData);
 				$msj = ($success)?'Guardado':'No guardó';	
 				$ids[] = $id_horas_extra;
@@ -114,13 +124,17 @@ if($in[auth]){
 				$vtmp = explode('=',$dato);
 				$idCampo = explode('_',$vtmp[0]);				
 				$id_horas_extra = $idCampo[1];				
-				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
-				$estatus = ($vtmp[1]=='no')?0:1;
+				//$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				//$estatus = ($vtmp[1]=='no')?0:1;
+				$valor=explode('_',$vtmp[1]);
+				$estatus = ($valor[0]=='no')?0:1;
+				$argumento = mb_strtoupper($valor[1], 'UTF-8');
 				// Save data in SQL
 				$sqlData = array(
 					 auth 			=> true
 					,id_horas_extra	=> $id_horas_extra
 					,estatus 		=> $estatus
+					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_4($sqlData);
 				$msj = ($success)?'Guardado':'No guardó';	
@@ -146,13 +160,17 @@ if($in[auth]){
 				$vtmp = explode('=',$dato);
 				$idCampo = explode('_',$vtmp[0]);				
 				$id_horas_extra = $idCampo[1];				
-				$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
-				$estatus = ($vtmp[1]=='no')?0:1;
+				//$id_concepto = ($vtmp[1]!='no')?$vtmp[1]:'';
+				//$estatus = ($vtmp[1]=='no')?0:1;
+				$valor=explode('_',$vtmp[1]);
+				$estatus = ($valor[0]=='no')?0:1;
+				$argumento = mb_strtoupper($valor[1], 'UTF-8');
 				// Save data in SQL
 				$sqlData = array(
 					 auth 			=> true
 					,id_horas_extra	=> $id_horas_extra
 					,estatus 		=> $estatus
+					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_5($sqlData);
 				$msj = ($success)?'Guardado':'No guardó';	

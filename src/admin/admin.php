@@ -20,7 +20,6 @@ if($in[auth]){
 			$id_empresa=$usuario[id_empresa_nomina];
 			$success=select_view_vista_credenciales($filtrado,$id_empresa);
 		}
-
 		$msj = ($success)?'Guardado':'No guardó';
 			if($msj=='Guardado'){
 				$valor=count($success);
@@ -107,7 +106,6 @@ if($in[auth]){
 	}
 	elseif($in[accion]=='sincronizar_empresa'){
 			$success=select_empresas_nomina($filtrado,$vacio);
-		
 		$msj = ($success)?'Guardado':'No guardó';
 			if($msj=='Guardado'){
 				$valor=count($success);
@@ -123,7 +121,7 @@ if($in[auth]){
 							  `email` varchar(80) COLLATE utf8_spanish_ci DEFAULT NULL,
 							  `timestamp` datetime DEFAULT NULL,
 							  `id_usuario` int(11) DEFAULT NULL,
-							  `activo` tinyint(1) DEFAULT '1',
+							  `activo` tinyint(1) DEFAULT '0',
 							  `id_nomina` int(11) DEFAULT NULL,
 							  PRIMARY KEY (`id_empresa`),
 							  KEY `i_nomina` (`id_nomina`)
