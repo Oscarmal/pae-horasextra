@@ -459,6 +459,7 @@ function build_grid_usuarios(){
 			,activo 		=> 1
 		);
 	$tabla = select_view_nomina($sqlData);	
+	//dump_var($tabla);
 
 	$campos = array(
 				 'empresa_razon_social'
