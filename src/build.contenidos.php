@@ -86,9 +86,9 @@ function build_grid_consulta_autorizacion_1(){
 			}
 			$estatus = (is_null($data[n1_estatus]))?99:$data[n1_estatus];
 			switch ($estatus) {
-				case 0:  $valor='Rechazado'; break;
-				case 1:  $valor='Aceptado';	break;				
-				default: $valor='Pendiente'; break;
+				case 0:  $valor='<div style="color:#FF0000;">Rechazado</div>'; break;
+				case 1:  $valor='<div style="color:#31B404;">Aceptado</div>';	break;				
+				default: $valor='<div style="color:#DF7401;">Pendiente</div>'; break;
 			}				
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -128,9 +128,9 @@ function build_grid_consulta_autorizacion_2($data=array()){
 			}
 		$estatus = (is_null($data[n2_estatus]))?99:$data[n2_estatus];
 			switch ($estatus) {
-				case 0:  $valor='Rechazado'; break;
-				case 1:  $valor='Aceptado';	break;				
-				default: $valor='Pendiente'; break;
+				case 0:  $valor='<div style="color:#FF0000;">Rechazado</div>'; break;
+				case 1:  $valor='<div style="color:#31B404;">Aceptado</div>';	break;				
+				default: $valor='<div style="color:#DF7401;">Pendiente</div>'; break;
 			}
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -171,9 +171,9 @@ function build_grid_consulta_autorizacion_3(){
 			}
 			$estatus = (is_null($data[n3_estatus]))?99:$data[n3_estatus];
 			switch ($estatus) {
-				case 0:  $valor='Rechazado'; break;
-				case 1:  $valor='Aceptado';	break;				
-				default: $valor='Pendiente'; break;
+				case 0:  $valor='<div style="color:#FF0000;">Rechazado</div>'; break;
+				case 1:  $valor='<div style="color:#31B404;">Aceptado</div>';	break;				
+				default: $valor='<div style="color:#DF7401;">Pendiente</div>'; break;
 			}
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -213,9 +213,9 @@ function build_grid_consulta_autorizacion_4(){
 			}			
 			$estatus = (is_null($data[n4_estatus]))?99:$data[n4_estatus];
 			switch ($estatus) {
-				case 0:  $valor='Rechazado'; break;
-				case 1:  $valor='Aceptado';	break;				
-				default: $valor='Pendiente'; break;
+				case 0:  $valor='<div style="color:#FF0000;">Rechazado</div>'; break;
+				case 1:  $valor='<div style="color:#31B404;">Aceptado</div>';	break;				
+				default: $valor='<div style="color:#DF7401;">Pendiente</div>'; break;
 			}			
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -254,9 +254,9 @@ function build_grid_consulta_autorizacion_5($data=array()){
 			}
 			$estatus = (is_null($data[n5_estatus]))?99:$data[n5_estatus];
 			switch ($estatus) {
-				case 0:  $valor='Rechazado'; break;
-				case 1:  $valor='Aceptado';	break;				
-				default: $valor='Pendiente'; break;
+				case 0:  $valor='<div style="color:#FF0000;">Rechazado</div>'; break;
+				case 1:  $valor='<div style="color:#31B404;">Aceptado</div>';	break;				
+				default: $valor='<div style="color:#DF7401;">Pendiente</div>'; break;
 			}
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -299,9 +299,9 @@ function build_grid_consulta_autorizaciones(){
 			}
 			$estatus1 = (is_null($data[n1_estatus]))?99:$data[n1_estatus];			
 			switch ($estatus1) {
-				case 0:  $n1='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_encode($data[n1_argumento]).'</p>'; 	break;
-				case 1:  $n1='Aceptado'; 	break;
-				case 99: $n1='Pendiente';	break;
+				case 0:  $n1='<div style="color:#FF0000;">Rechazado</div><div style="color:#084B8A;"><p>'.utf8_encode($data[n1_argumento]).'</p></div>'; 	break;
+				case 1:  $n1='<div style="color:#31B404;">Aceptado</div>'; 	break;
+				case 99: $n1='<div style="color:#DF7401;">Pendiente</div>';	break;
 				default: $n1='-'; break;
 			}
 			$estatus2 = (is_null($data[n2_estatus]))?99:$data[n2_estatus];
@@ -309,9 +309,9 @@ function build_grid_consulta_autorizaciones(){
 				$estatus2=88;
 			}
 			switch ($estatus2) {
-				case 0:  $n2='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n2_argumento]).'</p>'; 	break;
-				case 1:  $n2='Aceptado';	break;
-				case 99: $n2='Pendiente';	break;
+				case 0:  $n2='<div style="color:#FF0000;">Rechazado</div><div style="color:#084B8A;"><p>'.utf8_decode($data[n2_argumento]).'</p></div>'; 	break;
+				case 1:  $n2='<div style="color:#31B404;">Aceptado</div>';	break;
+				case 99: $n2='<div style="color:#DF7401;">Pendiente</div>';	break;
 				default: $n2='-'; break;
 			}
 			$estatus3 = (is_null($data[n3_estatus]))?99:$data[n3_estatus];
@@ -319,9 +319,9 @@ function build_grid_consulta_autorizaciones(){
 				$estatus3=88;
 			}
 			switch ($estatus3) {
-				case 0:  $n3='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n3_argumento]).'</p>'; 	break;
-				case 1:  $n3='Aceptado';	break;
-				case 99: $n3='Pendiente';	break;
+				case 0:  $n3='<div style="color:#FF0000;">Rechazado</div><div style="color:#084B8A;"><p>'.utf8_decode($data[n3_argumento]).'</p></div>'; 	break;
+				case 1:  $n3='<div style="color:#31B404;">Aceptado</div>';	break;
+				case 99: $n3='<div style="color:#DF7401;">Pendiente</div>';	break;
 				default: $n3='-'; break;
 			}
 			$estatus4 = (is_null($data[n4_estatus]))?99:$data[n4_estatus];
@@ -329,9 +329,9 @@ function build_grid_consulta_autorizaciones(){
 				$estatus4=88;
 			}
 			switch ($estatus4) {
-				case 0:  $n4='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n4_argumento]).'</p>'; 	break;
-				case 1:  $n4='Aceptado';	break;
-				case 99: $n4='Pendiente';	break;
+				case 0:  $n4='<div style="color:#FF0000;">Rechazado</div><div style="color:#084B8A;"><p>'.utf8_decode($data[n4_argumento]).'</p></div>'; 	break;
+				case 1:  $n4='<div style="color:#31B404;">Aceptado</div>';	break;
+				case 99: $n4='<div style="color:#DF7401;">Pendiente</div>';	break;
 				default: $n4='-'; break;
 			}
 			$estatus5 = (is_null($data[n5_estatus]))?99:$data[n5_estatus];
@@ -339,9 +339,9 @@ function build_grid_consulta_autorizaciones(){
 				$estatus5=88;
 			}
 			switch ($estatus5) {
-				case 0:  $n5='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n5_argumento]).'</p>'; 	break;
-				case 1:  $n5='Aceptado';	break;
-				case 99: $n5='Pendiente';	break;
+				case 0:  $n5='<div style="color:#FF0000;">Rechazado</div><div style="color:#084B8A;"><p>'.utf8_decode($data[n5_argumento]).'</p></div>'; 	break;
+				case 1:  $n5='<div style="color:#31B404;">Aceptado</div>';	break;
+				case 99: $n5='<div style="color:#DF7401;">Pendiente</div>';	break;
 				default: $n5='-'; break;
 			}
 			$tbl_resultados .= '<td>'.$n1.'</td>';
