@@ -181,7 +181,7 @@ function vars_autorizacion_5($seccion, $urlParams){
 function vars_autorizaciones($seccion, $urlParams){
 	global $var, $Path, $icono, $dic, $vistas, $usuario;
 	## Logica de negocio ##		
-	$titulo 	= 'Autorizaciones';
+	$titulo 	= $dic[consulta][titulo_autorizacion_seguimiento];
 	$tbl_resultados = build_grid_consulta_autorizaciones();
 	$data_contenido = array(
 				TBL_RESULTS=> $tbl_resultados
