@@ -274,6 +274,7 @@ function build_grid_consulta_autorizaciones(){
 			,orden		=> 'a.id_horas_extra DESC'
 		);
 	$tabla = listado_select_autorizaciones($sqlData);
+	//dump_var($tabla);
 	$campos = array(
 				 'id_horas_extra'
 				,'nombre_completo'
@@ -296,10 +297,9 @@ function build_grid_consulta_autorizaciones(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-
 			$estatus1 = (is_null($data[n1_estatus]))?99:$data[n1_estatus];			
 			switch ($estatus1) {
-				case 0:  $n1='Rechazado'; 	break;
+				case 0:  $n1='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_encode($data[n1_argumento]).'</p>'; 	break;
 				case 1:  $n1='Aceptado'; 	break;
 				case 99: $n1='Pendiente';	break;
 				default: $n1='-'; break;
@@ -309,7 +309,7 @@ function build_grid_consulta_autorizaciones(){
 				$estatus2=88;
 			}
 			switch ($estatus2) {
-				case 0:  $n2='Rechazado'; 	break;
+				case 0:  $n2='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n2_argumento]).'</p>'; 	break;
 				case 1:  $n2='Aceptado';	break;
 				case 99: $n2='Pendiente';	break;
 				default: $n2='-'; break;
@@ -319,7 +319,7 @@ function build_grid_consulta_autorizaciones(){
 				$estatus3=88;
 			}
 			switch ($estatus3) {
-				case 0:  $n3='Rechazado'; 	break;
+				case 0:  $n3='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n3_argumento]).'</p>'; 	break;
 				case 1:  $n3='Aceptado';	break;
 				case 99: $n3='Pendiente';	break;
 				default: $n3='-'; break;
@@ -329,7 +329,7 @@ function build_grid_consulta_autorizaciones(){
 				$estatus4=88;
 			}
 			switch ($estatus4) {
-				case 0:  $n4='Rechazado'; 	break;
+				case 0:  $n4='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n4_argumento]).'</p>'; 	break;
 				case 1:  $n4='Aceptado';	break;
 				case 99: $n4='Pendiente';	break;
 				default: $n4='-'; break;
@@ -339,7 +339,7 @@ function build_grid_consulta_autorizaciones(){
 				$estatus5=88;
 			}
 			switch ($estatus5) {
-				case 0:  $n5='Rechazado'; 	break;
+				case 0:  $n5='<div style="color:#FF0000;">Rechazado</div><p>'.utf8_decode($data[n5_argumento]).'</p>'; 	break;
 				case 1:  $n5='Aceptado';	break;
 				case 99: $n5='Pendiente';	break;
 				default: $n5='-'; break;

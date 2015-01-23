@@ -476,18 +476,23 @@ function listado_select_autorizaciones($data=array()){
 				,a.horas
 				,a.semana_iso8601
 				,n1.estatus AS n1_estatus
+				,n1.argumento AS n1_argumento
 				,n1.id_usuario AS n1_id_usuario
 				,n1.timestamp AS n1_fecha
 				,n2.estatus AS n2_estatus
+				,n2.argumento AS n2_argumento
 				,n2.id_usuario AS n2_id_usuario
 				,n2.timestamp AS n2_fecha
 				,n3.estatus AS n3_estatus
+				,n3.argumento AS n3_argumento
 				,n3.id_usuario AS n3_id_estatus
 				,n3.timestamp AS n3_fecha
 				,n4.estatus AS n4_estatus
+				,n4.argumento AS n4_argumento
 				,n4.id_usuario AS n4_id_usuario
 				,n4.timestamp AS n4_fecha
 				,n5.estatus AS n5_estatus
+				,n5.argumento AS n5_argumento
 				,n5.id_usuario AS n5_id_usuario
 				,n5.timestamp AS n5_fecha
 			FROM he_horas_extra a
