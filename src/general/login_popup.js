@@ -94,13 +94,19 @@ function contrasenia_popup(){
 }
 
 function contrasenia_cambio(){
-	var modulo 	      = 'GENERAL'; // <-- Modulo actual del sistema
-	var seccion 	  = $("#sec").val();
-	var raiz 		  = raizPath();
-	var ajax_url 	  = raiz+"src/"+modulo+"/login.php";
+	var modulo 	   	= 'GENERAL'; // <-- Modulo actual del sistema
+	var seccion 	= $("#sec").val();
+	var raiz 		= raizPath();
+	var ajax_url 	= raiz+"src/"+modulo+"/login.php";
 	var pass  		= $("#pass").val();
+	var confirm  	= $("#confirm").val();
+	
 	if(pass==''){
 		alert('No puede estar ningún campo vacío');
+		return false;
+	}	
+	if(pass!=confirm){
+		alert('La contraseña no coincide. Favor de Verificar.');
 		return false;
 	}	
 	$.ajax({
@@ -123,7 +129,7 @@ function contrasenia_cambio(){
 			if(respuesta.success==='logueo'){
 				$("#"+ventana).dialog("close");
 				var vistaHTML = respuesta.url;
-				ventana = popup('Primer Ingreso',contenidoHtml,400,250,3);
+				ventana = popup('Primer Ingreso',contenidoHtml,410,350,3);
 				$("#logueo-popup").html(vistaHTML);
 			}
 			else if(respuesta.success){
