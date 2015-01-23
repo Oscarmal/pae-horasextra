@@ -59,7 +59,6 @@ function slider_horas(){
 	build_slider("slider-triples", triples, triples, 0, "triples");
 	build_slider("slider-rechazadas", 0, 0, 0, "rechazadas");
 	btn_onoff();
-	// if(restan){$('#btnGuardar').hide();}else{$('#btnGuardar').show();}
 }
 
 function build_slider(id_Objeto, valor, max, min, idMuestra) {
@@ -111,11 +110,6 @@ function rebuild_slider(horas){
 	$('#restan').val(restan);
 	// Boton Guardar
 	btn_onoff();
-	// if(restan==0){
-	// 	$('#btnGuardar').show();
-	// }else{
-	// 	$('#btnGuardar').hide();
-	// }
 }
 
 function btnSubmit(){
@@ -148,20 +142,17 @@ function obtenerCampos(){
 	var triples = parseInt($('#triples').val());
 	var rechazadas = parseInt($('#rechazadas').val());
 	var semana_iso = $("#semana_iso").val();
-	var iso = semana_iso.split('-');
-	var anio = iso[0];
-	// var semana = iso[1];
-	var semana = parseInt($('#semana').val());
+	var anio = $('#periodo_anio').val();	
 	var periodo = parseInt($('#periodo').val());
-	// var fecha = $("#fecha").val(); 
-	// var f = fecha.split('/');
-	// var anio = f[2];
+	var periodo_especial = $('#periodo_especial').val();
+	var semana = parseInt($('#semana').val());
 	// Creación de array con todos los datos capturados
 	var array = [
 		'id_horas_extra=' + id_horas_extra,
-		'anio=' + anio,
-		'semana=' + semana,
+		'anio=' + anio,		
 		'periodo=' + periodo,
+		'periodo_especial=' + periodo_especial,
+		'semana=' + semana,
 		'dobles=' + dobles,
 		'triples=' + triples,
 		'rechazadas=' + rechazadas

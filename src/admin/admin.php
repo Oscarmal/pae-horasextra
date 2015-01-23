@@ -188,23 +188,23 @@ if($in[auth]){
 		));
 		$semana_iso8601 = ($datos_semama[semana_iso8601])?$datos_semama[semana_iso8601]:$datos[semana_iso8601];
 		$semana_horas	= ($datos_semama[tot_horas])?$datos_semama[tot_horas]:0;
-
 		$periodo = pgsql_select_periodo_activo(array(auth => 1));
-		dump_var($periodo);
 		// Impresion de vista
 		$vista_new 	= 'admin/layout_popup.html';
 		$tpl_data = array(
-				 MORE 	 => incJs($Path[srcjs].strtolower(MODULO).'/layout_popup.js')
-				,id 	 => $datos[id_horas_extra]
-				,nombre	 => $datos[nombre_completo]
-				,clave	 => $datos[empleado_num]
-				,fecha	 => $datos[fecha]
-				,horas	 => $datos[horas]
-				,periodo => $periodo[estatus]
-				,semana_iso => $semana_iso8601
-				,tot_horas	=> $semana_horas.' hrs.'
-				,guardar => 'Guardar'			
-				,cerrar	 => 'Cerrar'			
+				 MORE 			=> incJs($Path[srcjs].strtolower(MODULO).'/layout_popup.js')
+				,id 	 		=> $datos[id_horas_extra]
+				,nombre	 		=> $datos[nombre_completo]
+				,clave	 		=> $datos[empleado_num]
+				,fecha	 		=> $datos[fecha]
+				,horas	 		=> $datos[horas]
+				,periodo_anio	=> $periodo[periodo_anio]
+				,periodo 		=> $periodo[periodo]
+				,periodo_especial => $periodo[periodo_especial]
+				,semana_iso 	=> $semana_iso8601
+				,tot_horas		=> $semana_horas.' hrs.'
+				,guardar 		=> 'Guardar'			
+				,cerrar	 		=> 'Cerrar'			
 				);		
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
 		// Envio de resultado
@@ -224,25 +224,27 @@ if($in[auth]){
 				$id_concepto[2]=($data[0]=='dobles')?2:$id_concepto[2];
 				$id_concepto[3]=($data[0]=='triples')?3:$id_concepto[3];
 			}
-			$id_horas_extra = $data_arr['id_horas_extra'];
-			$anio     		= $data_arr['anio'];
-			$semana   		= $data_arr['semana'];
-			$periodo   		= $periodo;
-			$horas[0] 		= $data_arr['rechazadas'];
-			$horas[1] 		= $data_arr['simples'];
-			$horas[2] 		= $data_arr['dobles'];
-			$horas[3] 		= $data_arr['triples'];	
+			$id_horas_extra 	= $data_arr['id_horas_extra'];
+			$anio     			= $data_arr['anio'];			
+			$periodo   			= $data_arr['periodo'];
+			$periodo_especial 	= $data_arr['periodo_especial'];
+			$semana   			= $data_arr['semana'];
+			$horas[0] 			= $data_arr['rechazadas'];
+			$horas[1] 			= $data_arr['simples'];
+			$horas[2] 			= $data_arr['dobles'];
+			$horas[3] 			= $data_arr['triples'];	
 			for($i=0; $i<=count($data_arr)-1; $i++){	
 				if($horas[$i]){				
 					// Save data in SQL
 					$sqlData = array(
-						 auth 			=> true
-						,id_horas_extra	=> $id_horas_extra
-						,anio			=> $anio
-						,semana			=> $semana
-						,periodo		=> $periodo
-						,horas 			=> $horas[$i]
-						,id_concepto 	=> $id_concepto[$i]
+						 auth 				=> true
+						,id_horas_extra		=> $id_horas_extra
+						,anio				=> $anio
+						,periodo			=> $periodo
+						,periodo_especial 	=> $periodo_especial
+						,semana				=> $semana
+						,horas 				=> $horas[$i]
+						,id_concepto 		=> $id_concepto[$i]
 					);
 					$success  =  insert_layout($sqlData);
 				}

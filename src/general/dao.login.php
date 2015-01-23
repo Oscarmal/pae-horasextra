@@ -19,7 +19,7 @@ function login($usuario, $clave){
 				,b.email
 				,c.nombre as empresa
 				,c.id_empresa as id_empresa
-				,c.id_nomina as id_empresa_nomina
+				,b.id_nomina as id_empresa_nomina
 				,c.pais
 				,d.mod1
 				,d.mod2
