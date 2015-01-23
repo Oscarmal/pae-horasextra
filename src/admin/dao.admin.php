@@ -423,6 +423,7 @@ function insert_layout($data=array()){
 		$anio				 = $data[anio];
 		$semana 			 = $data[semana];
 		$periodo			 = $data[periodo];
+		$periodo_especial	 = $data[periodo_especial];
 		$horas 				 = horas_int($data[horas]);
 		$id_concepto 		 = $data[id_concepto];		
 		$timestamp 			 = date('Y-m-d H:i:s');
@@ -432,6 +433,7 @@ function insert_layout($data=array()){
 					anio 					= '$anio',
 					semana 					= '$semana',
 					periodo					= '$periodo',
+					periodo_especial		= '$periodo_especial',
 					horas 					= '$horas',
 					id_concepto 			= '$id_concepto',					
 					id_usuario 				= '$usuario[id_usuario]',
@@ -748,13 +750,12 @@ function pgsql_select_periodo_activo($data=array()){
 				 id_empresa
 				,periodo
 				,periodo_especial
-				,ano_periodo as anio_periodo
+				,ano_periodo as periodo_anio
 				,fecha_inicio
 				,fecha_fin
 				,id_estatus_periodo as estatus
 			FROM $db[pgsql_vista_cat_periodos] 
 			WHERE id_estatus_periodo=1 AND id_empresa='$id_empresa';";
-			//dump_var($sql);
 		$resultado = pgquery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
