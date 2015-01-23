@@ -296,60 +296,47 @@ function build_grid_consulta_autorizaciones(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			if(is_null($data[n1_estatus])){
-				$n1='Pendiente';
+
+			$estatus1 = (is_null($data[n1_estatus]))?99:$data[n1_estatus];
+			switch ($estatus1) {
+				case 0:  $n1='Rechazado'; 	break;
+				case 1:  $n1='Aceptado'; 	break;
+				case 99: $n1='Pendiente';	break;
+				default: $n1='-'; break;
 			}
-			else{
-				switch ($data[n1_estatus]) {
-					case 0:  $n1='Rechazado'; break;
-					case 1:  $n1='Aceptado';	break;				
-				}
+			$estatus2 = (is_null($data[n2_estatus]))?99:$data[n2_estatus];
+			switch ($estatus2) {
+				case 0:  $n2='Rechazado'; 	break;
+				case 1:  $n2='Aceptado';	break;
+				case 99: $n2='Pendiente';	break;
+				default: $n2='-'; break;
 			}
-			if(is_null($data[n2_estatus])){
-				$n2='Pendiente';
+			$estatus3 = (is_null($data[n3_estatus]))?99:$data[n3_estatus];
+			switch ($estatus3) {
+				case 0:  $n3='Rechazado'; 	break;
+				case 1:  $n3='Aceptado';	break;
+				case 99: $n3='Pendiente';	break;
+				default: $n3='-'; break;
 			}
-			else{
-								
-				switch ($data[n2_estatus]) {
-					case 0:  $n2='Rechazado'; break;
-					case 1:  $n2='Aceptado';	break;				
-				}	
+			$estatus4 = (is_null($data[n4_estatus]))?99:$data[n4_estatus];
+			switch ($estatus4) {
+				case 0:  $n4='Rechazado'; 	break;
+				case 1:  $n4='Aceptado';	break;
+				case 99: $n4='Pendiente';	break;
+				default: $n4='-'; break;
 			}
-			if(is_null($data[n3_estatus])){
-				$n3='Pendiente';
+			$estatus5 = (is_null($data[n5_estatus]))?99:$data[n5_estatus];
+			switch ($estatus5) {
+				case 0:  $n5='Rechazado'; 	break;
+				case 1:  $n5='Aceptado';	break;
+				case 99: $n5='Pendiente';	break;
+				default: $n5='-'; break;
 			}
-			else{
-								
-				switch ($data[n3_estatus]) {
-					case 0:  $n3='Rechazado'; break;
-					case 1:  $n3='Aceptado';	break;				
-				}
-			}
-			if(is_null($data[n4_estatus])){
-				$n4='Pendiente';
-			}
-			else{
-								
-				switch ($data[n4_estatus]) {
-					case 0:  $n4='Rechazado'; break;
-					case 1:  $n4='Aceptado';	break;				
-				}
-			}
-			if(is_null($data[n5_estatus])){
-				$n5='Pendiente';
-			}
-			else{
-								
-				switch ($data[n5_estatus]) {
-					case 0:  $n5='Rechazado'; break;
-					case 1:  $n5='Aceptado';	break;				
-				}
-			}
-		$tbl_resultados .= '<td>'.$n1.'</td>';
-		$tbl_resultados .= '<td>'.$n2.'</td>';
-		$tbl_resultados .= '<td>'.$n3.'</td>';
-		$tbl_resultados .= '<td>'.$n4.'</td>';
-		$tbl_resultados .= '<td>'.$n5.'</td>';
+			$tbl_resultados .= '<td>'.$n1.'</td>';
+			$tbl_resultados .= '<td>'.$n2.'</td>';
+			$tbl_resultados .= '<td>'.$n3.'</td>';
+			$tbl_resultados .= '<td>'.$n4.'</td>';
+			$tbl_resultados .= '<td>'.$n5.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
 		}
