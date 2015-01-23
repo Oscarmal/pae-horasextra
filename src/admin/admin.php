@@ -188,7 +188,9 @@ if($in[auth]){
 		));
 		$semana_iso8601 = ($datos_semama[semana_iso8601])?$datos_semama[semana_iso8601]:$datos[semana_iso8601];
 		$semana_horas	= ($datos_semama[tot_horas])?$datos_semama[tot_horas]:0;
-		$periodo = pgsql_select_periodo_activo();
+
+		$periodo = pgsql_select_periodo_activo(array(auth => 1));
+		dump_var($periodo);
 		// Impresion de vista
 		$vista_new 	= 'admin/layout_popup.html';
 		$tpl_data = array(

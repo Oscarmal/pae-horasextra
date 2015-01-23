@@ -748,14 +748,13 @@ function pgsql_select_periodo_activo($data=array()){
 				 id_empresa
 				,periodo
 				,periodo_especial
-				,ano_especial as anio_especial
 				,ano_periodo as anio_periodo
 				,fecha_inicio
 				,fecha_fin
 				,id_estatus_periodo as estatus
 			FROM $db[pgsql_vista_cat_periodos] 
-			WHERE id_estatus_periodo=1 AND id_empresa='$id_empresa'
-			;";
+			WHERE id_estatus_periodo=1 AND id_empresa='$id_empresa';";
+			//dump_var($sql);
 		$resultado = pgquery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
