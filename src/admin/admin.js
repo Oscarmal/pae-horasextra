@@ -197,7 +197,7 @@ function layout(id_horas_extra){
 		,success: function(respuesta){ 
 			if(respuesta.success){
 				var vistaHTML = respuesta.html;				
-				ventana = popup('Layout',contenidoHtml,550,600,3);
+				ventana = popup('Layout',contenidoHtml,550,650,3);
 				$("#layout-popup").html(vistaHTML);
 			}else if(respuesta.success){
 				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";

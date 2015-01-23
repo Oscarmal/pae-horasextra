@@ -1,5 +1,6 @@
 //O3M//
 $(document).ready(function(){
+	slider_semana();
 	slider_horas();
 	$('#reload').click(function(){
 		reset_slider();	
@@ -8,7 +9,24 @@ $(document).ready(function(){
 
 function reset_slider(){
 	$('#btnGuardar').hide();
+	slider_semana();
 	slider_horas();			
+}
+
+function slider_semana(valor){
+	valor = (!valor)?0:valor;
+	build_slider("slider-semana", valor, 5, 0, "semana");
+	btn_onoff();
+}
+
+function btn_onoff(){
+	var semana = $("#semana").val();
+	var restan = $('#restan').val();
+	if (semana==0 || restan!=0) {
+		$('#btnGuardar').hide();
+	}else{
+		$('#btnGuardar').show();
+	}
 }
 
 function slider_horas(){	
@@ -40,7 +58,8 @@ function slider_horas(){
 	build_slider("slider-dobles", dobles, dobles, 0, "dobles");
 	build_slider("slider-triples", triples, triples, 0, "triples");
 	build_slider("slider-rechazadas", 0, 0, 0, "rechazadas");
-	if(restan){$('#btnGuardar').hide();}else{$('#btnGuardar').show();}
+	btn_onoff();
+	// if(restan){$('#btnGuardar').hide();}else{$('#btnGuardar').show();}
 }
 
 function build_slider(id_Objeto, valor, max, min, idMuestra) {
@@ -91,11 +110,12 @@ function rebuild_slider(horas){
 	// restan
 	$('#restan').val(restan);
 	// Boton Guardar
-	if(restan==0){
-		$('#btnGuardar').show();
-	}else{
-		$('#btnGuardar').hide();
-	}
+	btn_onoff();
+	// if(restan==0){
+	// 	$('#btnGuardar').show();
+	// }else{
+	// 	$('#btnGuardar').hide();
+	// }
 }
 
 function btnSubmit(){
@@ -113,6 +133,12 @@ function btnSubmit(){
 		$("#horas").focus();
 		return false;
 	}	
+	if(semana<=0){
+		msj = "<div class='popup-txt'>Seleccione la semana correspondiente al periodo.</div>";
+		popup('Validación',popup_ico+msj,0,0,1,'horas');
+		$("#semana").focus();
+		return false;
+	}	
 	obtenerCampos();
 }
 
@@ -124,7 +150,9 @@ function obtenerCampos(){
 	var semana_iso = $("#semana_iso").val();
 	var iso = semana_iso.split('-');
 	var anio = iso[0];
-	var semana = iso[1];
+	// var semana = iso[1];
+	var semana = parseInt($('#semana').val());
+	var periodo = parseInt($('#periodo').val());
 	// var fecha = $("#fecha").val(); 
 	// var f = fecha.split('/');
 	// var anio = f[2];
@@ -133,6 +161,7 @@ function obtenerCampos(){
 		'id_horas_extra=' + id_horas_extra,
 		'anio=' + anio,
 		'semana=' + semana,
+		'periodo=' + periodo,
 		'dobles=' + dobles,
 		'triples=' + triples,
 		'rechazadas=' + rechazadas

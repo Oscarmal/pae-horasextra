@@ -740,18 +740,27 @@ function select_xls_nomina_rebuild($data=array()){
 	return $resultado;
 }
 
-// function pgsql_select_periodo_activo($data=array()){
-// 	if($data[auth]){
-// 		global $db;
-// 		$sql="SELECT *
-// 			FROM $db[pgsql_cat_periodos] 
-// 			WHERE 1 
-// 			;";
-// 		$resultado = SQLQuery($sql);
-// 		$resultado = (count($resultado)) ? $resultado : false ;
-// 	}
-// 	return $resultado;
-// }
+function pgsql_select_periodo_activo($data=array()){
+	if($data[auth]){
+		global $db, $usuario;
+		$id_empresa = $usuario[id_empresa_nomina];
+		$sql="SELECT
+				 id_empresa
+				,periodo
+				,periodo_especial
+				,ano_especial as anio_especial
+				,ano_periodo as anio_periodo
+				,fecha_inicio
+				,fecha_fin
+				,id_estatus_periodo as estatus
+			FROM $db[pgsql_vista_cat_periodos] 
+			WHERE id_estatus_periodo=1 AND id_empresa='$id_empresa'
+			;";
+		$resultado = pgquery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
 /*FinLayout*/
 
 ?>

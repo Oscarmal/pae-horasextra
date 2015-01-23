@@ -49,6 +49,20 @@
                     </td>
                   </tr>
                   <tr>
+                    <th align="right">Periodo:&nbsp;</th>
+                    <td>
+                        {periodo}
+                        <input type="hidden" id="periodo" name="periodo" value="{periodo}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th align="right">Semana del Periodo:&nbsp;</th>
+                    <td class="slider-container">
+                        <input type="text" id="semana" name="semana" onkeyup="slider_semana(this.value);" class="slider-label" />
+                        <div id="slider-semana" class="slider-bar"></div>
+                    </td>
+                  </tr>
+                  <tr>
                     <td colspan="2" height="3px;"><hr/></td>
                   </tr>
                     <td colspan="2">
