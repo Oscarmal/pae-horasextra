@@ -44,7 +44,7 @@ function build_grid_autorizaciones_gerente($data=array()){
 								<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
 									<option value="" selected></option>
 									<option value="si">Autorizar</option>
-									<option value="no">Rechazar</option>
+									<option value="no">Declinar</option>
 								</select>
 							</td>';
 		$tbl_resultados .= '<td align="center">
@@ -84,15 +84,11 @@ function build_grid_consulta_autorizacion_1(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 			}
-			if(is_null($data[n1_estatus])){	
-				$valor='Pendiente';
-			}
-			else{
-				switch ($data[n1_estatus]) {
-					case 0:  $valor='Rechazado'; break;
-					case 1:  $valor='Aceptado';	break;				
-					//default: $valor='Pendiente'; break;
-				}
+			$estatus = (is_null($data[n1_estatus]))?99:$data[n1_estatus];
+			switch ($estatus) {
+				case 0:  $valor='Rechazado'; break;
+				case 1:  $valor='Aceptado';	break;				
+				default: $valor='Pendiente'; break;
 			}				
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -130,15 +126,12 @@ function build_grid_consulta_autorizacion_2($data=array()){
 				
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';
 			}
-		if(is_null($data[n2_estatus])){
-			$valor='Pendiente';
-		}
-		else{
-			switch ($data[n2_estatus]) {
+		$estatus = (is_null($data[n2_estatus]))?99:$data[n2_estatus];
+			switch ($estatus) {
 				case 0:  $valor='Rechazado'; break;
 				case 1:  $valor='Aceptado';	break;				
+				default: $valor='Pendiente'; break;
 			}
-		}
 		$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
@@ -176,14 +169,11 @@ function build_grid_consulta_autorizacion_3(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			if(is_null($data[n3_estatus])){
-
-			}
-			else{
-				switch ($data[n3_estatus]) {
-					case 0:  $valor='Rechazado'; break;
-					case 1:  $valor='Aceptado';	break;				
-				}
+			$estatus = (is_null($data[n3_estatus]))?99:$data[n3_estatus];
+			switch ($estatus) {
+				case 0:  $valor='Rechazado'; break;
+				case 1:  $valor='Aceptado';	break;				
+				default: $valor='Pendiente'; break;
 			}
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -220,16 +210,12 @@ function build_grid_consulta_autorizacion_4(){
 			
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
-			}
-			
-			if(is_null($data[n4_estatus])){
-				$valor='Pendiente';
-			}else{
-				switch ($data[n4_estatus]) {
-					case 0:  $valor='Rechazado'; break;
-					case 1:  $valor='Aceptado';	break;				
-					//default: $valor='Pendiente'; break;
-				}
+			}			
+			$estatus = (is_null($data[n4_estatus]))?99:$data[n4_estatus];
+			switch ($estatus) {
+				case 0:  $valor='Rechazado'; break;
+				case 1:  $valor='Aceptado';	break;				
+				default: $valor='Pendiente'; break;
 			}			
 			$tbl_resultados .= '<td>'.$valor.'</td>';
 			$tbl_resultados .= '</tr>';
@@ -266,7 +252,8 @@ function build_grid_consulta_autorizacion_5($data=array()){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
-			switch ($data[n3_estatus]) {
+			$estatus = (is_null($data[n5_estatus]))?99:$data[n5_estatus];
+			switch ($estatus) {
 				case 0:  $valor='Rechazado'; break;
 				case 1:  $valor='Aceptado';	break;				
 				default: $valor='Pendiente'; break;
@@ -648,7 +635,7 @@ function buil_autorizacion_1(){
 									<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
 										<option value="" selected></option>
 										<option value="si">Aceptar</option>
-										<option value="no">Rechazar</option>
+										<option value="no">Declinar</option>
 									</select>
 								</td>';
 			$tbl_resultados .= '<td align="center">
