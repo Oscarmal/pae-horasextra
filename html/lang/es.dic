@@ -79,13 +79,14 @@ consulta|titulo_autorizacion_2=Consulta de Autorizacion nivel 2
 consulta|titulo_autorizacion_3=Consulta de Autorizacion nivel 3
 consulta|titulo_autorizacion_4=Consulta de Autorizacion nivel 4
 consulta|titulo_autorizacion_5=Consulta de Autorizacion nivel 5
+consulta|titulo_autorizacion_seguimiento=Seguimiento de Autorizaciones
 
 consulta|consulta_autorizacion_1	=	Consulta de Autorizacion nivel 1
 consulta|consulta_autorizacion_2	=	Consulta de Autorizacion nivel 2
 consulta|consulta_autorizacion_3	=	Consulta de Autorizacion nivel 3
 consulta|consulta_autorizacion_4	=	Consulta de Autorizacion nivel 4
 consulta|consulta_autorizacion_5	=	Consulta de Autorizacion nivel 5
-consulta|consulta_autorizaciones	=	Consulta de Autorizaciones
+consulta|consulta_autorizaciones	=	Seguimiento de Autorizaciones
 
 
 # Reportes

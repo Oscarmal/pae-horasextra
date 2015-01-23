@@ -211,21 +211,17 @@ function listado_select_autorizacion_2($data=array()){
 					,n2.estatus AS n2_estatus
 					,n2.id_usuario AS n2_id_usuario
 					,n2.timestamp AS n2_fecha
-					/*,n3.estatus AS n3_estatus
+					,n3.estatus AS n3_estatus
 					,n3.id_usuario AS n3_id_estatus
 					,n3.timestamp AS n3_fecha
-					,n4.estatus AS n4_estatus
-					,n4.id_usuario AS n4_id_usuario
-					,n4.timestamp AS n4_fecha*/
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
 				LEFT JOIN $db[tbl_autorizaciones] AS n1 ON a.id_horas_extra=n1.id_horas_extra AND n1.id_cat_autorizacion=1
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_personal] d ON n1.id_usuario=d.id_personal	 
-				/*LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
-				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 */
-				WHERE 1 $filtro AND n1.estatus=1
+				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3				
+				WHERE 1 $filtro AND n1.estatus=1 AND n3.estatus IS NULL
 				$grupo 
 				$orden;";
 			//dump_var($sql);
@@ -292,8 +288,8 @@ function listado_select_autorizacion_3($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_personal] d ON n1.id_usuario=d.id_personal
-				/*LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 */
-				WHERE 1 $filtro AND n2.estatus=1
+				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
+				WHERE 1 $filtro AND n2.estatus=1 AND n4.estatus IS NULL
 				$grupo 
 				$orden;";
 				//echo $sql;
@@ -351,6 +347,9 @@ function listado_select_autorizacion_4($data=array()){
 					,n4.estatus AS n4_estatus
 					,n4.id_usuario AS n4_id_usuario
 					,n4.timestamp AS n4_fecha
+					,n5.estatus AS n5_estatus
+					,n5.id_usuario AS n5_id_usuario
+					,n5.timestamp AS n5_fecha
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
@@ -358,8 +357,9 @@ function listado_select_autorizacion_4($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
+				LEFT JOIN $db[tbl_autorizaciones] AS n5 ON a.id_horas_extra=n5.id_horas_extra AND n5.id_cat_autorizacion=5
 				LEFT JOIN $db[tbl_personal] d ON n1.id_usuario=d.id_personal
-				WHERE 1 $filtro AND n3.estatus=1
+				WHERE 1 $filtro AND n3.estatus=1 AND n5.estatus IS NULL
 				$grupo 
 				$orden;";
 				//echo $sql;
