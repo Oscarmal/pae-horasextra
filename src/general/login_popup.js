@@ -9,9 +9,15 @@ function primer_logueo(){
 	var seccion 	  = $("#sec").val();
 	var raiz 		  = raizPath();
 	var ajax_url 	  = raiz+"src/"+modulo+"/login.php";
-	var pass  		= $("#pass").val();
+	var pass  		  = $("#pass").val();
+	var confirm  	  = $("#confirm").val();
+	
 	if(pass==''){
 		alert('No puede estar ningún campo vacío');
+		return false;
+	}
+	if(pass!=confirm){
+		alert('La contraseña no coincide. Favor de Verificar.');
 		return false;
 	}	
 	$.ajax({
@@ -36,6 +42,13 @@ function primer_logueo(){
 				var vistaHTML = respuesta.url;
 				ventana = popup('Primer Ingreso - Asigne su contraseña',contenidoHtml,400,250,3);
 				$("#logueo-popup").html(vistaHTML);
+			}
+			else if(respuesta.success==='igual'){
+				alert('La contraseña no puede ser registrada, intente con una diferente.');
+				$("#pass").val('');
+				$("#confirm").val('');
+				$("#"+ventana).dialog("close");
+				return false;
 			}
 			else if(respuesta.success){
 				setTimeout(function(){	$(location).attr('href', respuesta.url)	}, 2000);

@@ -42,6 +42,18 @@ function login($usuario, $clave){
 	return $resultado;
 }
 /*O3M*/
+function validar_contrasenia(){
+	global $db,$usuario;
+	$sql="SELECT 
+			clave
+		FROM 
+			$db[tbl_usuarios]
+		WHERE 
+			id_usuario=$usuario[id_usuario];";
+	$resultado = SQLQuery($sql);
+	$resultado = ($resultado[0]) ? $resultado : false ;
+	return $resultado;
+}
 function update_pass_user($pass){
 	global $db,$usuario;
 

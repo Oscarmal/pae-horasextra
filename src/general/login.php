@@ -48,17 +48,24 @@ if(!empty($ins[usuario]) && !empty($ins[clave])){
 	$data = array(success => $success, url => $CONTENIDO);
 }
 if($in[accion]=='primer_logueo'){	
-	$success=update_pass_user($in[pass]);
-	if($success){
-		$modulo = encrypt('GENERAL',1);
-		$seccion = encrypt('INICIO',1);
-		$CONTENIDO = "?m=$modulo&s=$seccion";
+	$datos=validar_contrasenia();
+	if($datos[clave]==$in[pass]){
+		$success = 'igual';
+		$CONTENIDO=0;
 	}
 	else{
-		$modulo = encrypt('GENERAL',1);
-		$seccion = encrypt('LOGIN',1);
-		$CONTENIDO = "?m=$modulo&s=$seccion&e=1";
-		$success = true;
+		$success=update_pass_user($in[pass]);
+		if($success){
+			$modulo = encrypt('GENERAL',1);
+			$seccion = encrypt('INICIO',1);
+			$CONTENIDO = "?m=$modulo&s=$seccion";
+		}
+		else{
+			$modulo = encrypt('GENERAL',1);
+			$seccion = encrypt('LOGIN',1);
+			$CONTENIDO = "?m=$modulo&s=$seccion&e=1";
+			$success = true;
+		}
 	}
 	$data = array(success => $success, url => $CONTENIDO);	
 }
