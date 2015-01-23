@@ -297,7 +297,7 @@ function build_grid_consulta_autorizaciones(){
 				$tbl_resultados .= ($data[$campos[$i]])?'<td>'.$data[$campos[$i]].'</td>':'<td>-</td>';		
 			}
 
-			$estatus1 = (is_null($data[n1_estatus]))?99:$data[n1_estatus];
+			$estatus1 = (is_null($data[n1_estatus]))?99:$data[n1_estatus];			
 			switch ($estatus1) {
 				case 0:  $n1='Rechazado'; 	break;
 				case 1:  $n1='Aceptado'; 	break;
@@ -305,6 +305,9 @@ function build_grid_consulta_autorizaciones(){
 				default: $n1='-'; break;
 			}
 			$estatus2 = (is_null($data[n2_estatus]))?99:$data[n2_estatus];
+			if($data[n1_estatus]==0){
+				$estatus2=88;
+			}
 			switch ($estatus2) {
 				case 0:  $n2='Rechazado'; 	break;
 				case 1:  $n2='Aceptado';	break;
@@ -312,6 +315,9 @@ function build_grid_consulta_autorizaciones(){
 				default: $n2='-'; break;
 			}
 			$estatus3 = (is_null($data[n3_estatus]))?99:$data[n3_estatus];
+			if($data[n2_estatus]==0){
+				$estatus3=88;
+			}
 			switch ($estatus3) {
 				case 0:  $n3='Rechazado'; 	break;
 				case 1:  $n3='Aceptado';	break;
@@ -319,6 +325,9 @@ function build_grid_consulta_autorizaciones(){
 				default: $n3='-'; break;
 			}
 			$estatus4 = (is_null($data[n4_estatus]))?99:$data[n4_estatus];
+			if($data[n3_estatus]==0){
+				$estatus4=88;
+			}
 			switch ($estatus4) {
 				case 0:  $n4='Rechazado'; 	break;
 				case 1:  $n4='Aceptado';	break;
@@ -326,6 +335,9 @@ function build_grid_consulta_autorizaciones(){
 				default: $n4='-'; break;
 			}
 			$estatus5 = (is_null($data[n5_estatus]))?99:$data[n5_estatus];
+			if($data[n4_estatus]==0){
+				$estatus5=88;
+			}
 			switch ($estatus5) {
 				case 0:  $n5='Rechazado'; 	break;
 				case 1:  $n5='Aceptado';	break;
