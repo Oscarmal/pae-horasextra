@@ -64,16 +64,20 @@ function select_view_nomina($data=array()){
 }
 function select_view_vista_credenciales($filtrado,$id_empresa){
 	global $db, $usuario;
-	if(!$filtrado){
+	/*if(!$filtrado){
 		$sql_alterno='';
 	}else{
 		$sql_alterno="WHERE id_empresa=$id_empresa";
-	}		
+	}		*/
+	///consulta para que traiga solo a chrysler
 		$sql="SELECT 
 				* 
 			FROM 
 				$db[pgsql_vista_credenciales]
-			$sql_alterno;";
+			WHERE
+				id_empresa=3082";
+				/*$sql_alterno;";*/
+
 		$resultado = pgquery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	
@@ -247,15 +251,46 @@ function select_empresas_tabla(){
 		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;
 }
-function select_empresas_nomina(){
+function select_he_empresas(){
+	global $db,$usuario;
+	
+	$sql="SELECT 
+				id_empresa,
+				id_nomina,
+				nombre
+			FROM 
+				$db[tbl_empresas]
+			WHERE 
+				activo=1;";
+		//echo $sql;
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	return $resultado;
+}
+function select_empresas_nomina($id_empresa){
 	global $db, $usuario;
-		
+		///consulta para que traiga solo a chrysler
+		/*$sql="SELECT DISTINCT 
+				$db[pgsql_vista_credenciales].id_empresa,
+				$db[pgsql_vista_credenciales].empresa,
+				$db[pgsql_vista_credenciales].empresa_razon_social
+			FROM 
+				$db[pgsql_vista_credenciales]
+			WHERE
+				id_empresa=3082
+			ORDER BY 
+				$db[pgsql_vista_credenciales].id_empresa;";
+				//echo $sql;
+		$resultado = pgquery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;*/
 		$sql="SELECT DISTINCT 
 				$db[pgsql_vista_credenciales].id_empresa,
 				$db[pgsql_vista_credenciales].empresa,
 				$db[pgsql_vista_credenciales].empresa_razon_social
 			FROM 
 				$db[pgsql_vista_credenciales]
+			WHERE
+				id_empresa in($id_empresa)
 			ORDER BY 
 				$db[pgsql_vista_credenciales].id_empresa;";
 				//echo $sql;
