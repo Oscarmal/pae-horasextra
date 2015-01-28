@@ -228,6 +228,7 @@ function vars_frame($urlParams, $inc, $modulo, $seccion){
 					 salir 			=> $dic[general][salir]
 					,usuario 		=> $dic[general][usuario]
 					,user 			=> $usuario[nombre].' - '.$usuario[usuario]
+					,empresa	 	=> $usuario[empresa]
 					,contrasenia 	=> $dic[general][contrasenia]
 				);
 		$data = array_merge($negocio, $texto);
