@@ -61,7 +61,7 @@ function primer_logueo(){
 }
 
 function contrasenia_popup(){
-	var modulo 	      = 'GENERAL'; // <-- Modulo actual del sistema
+	var modulo 	      = 'general'; // <-- Modulo actual del sistema
 	var seccion 	  = $("#sec").val();
 	var raiz 		  = raizPath();
 	var ajax_url 	  = raiz+"src/"+modulo+"/login.php";
@@ -79,7 +79,7 @@ function contrasenia_popup(){
 		success: function(respuesta){ 
 			if(respuesta.success){
 				var vistaHTML = respuesta.html;
-				ventana = popup('Cambio de Contraseña',contenidoHtml,0,200,3);
+				ventana = popup('Cambio de Contraseña',contenidoHtml,0,230,3);
 				$("#layout-popup").html(vistaHTML);
 			}else if(respuesta.success){
 				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";

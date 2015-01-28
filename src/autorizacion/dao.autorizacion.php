@@ -51,24 +51,11 @@ function select_autorizacion_1($data=array()){
 								,n1.estatus AS n1_estatus
 								,n1.id_usuario AS n1_id_usuario
 								,n1.timestamp AS n1_fecha
-							FROM 
-								he_horas_extra a
-							LEFT JOIN 
-								he_personal b 
-								ON 
-									a.id_empresa=b.id_empresa 
-								AND 
-									a.id_personal=b.id_personal
-							LEFT JOIN 
-								he_autorizaciones AS n1 
-								ON 
-									a.id_horas_extra=n1.id_horas_extra 
-								AND 
-									n1.id_cat_autorizacion=1          
-			               WHERE 1 
-			               $filtro 
-			               and 
-			               n1.estatus IS NULL
+							FROM he_horas_extra a
+							LEFT JOIN he_personal b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
+							LEFT JOIN he_autorizaciones AS n1 ON a.id_horas_extra=n1.id_horas_extra AND n1.id_cat_autorizacion=1          							
+			               WHERE 1 and n1.estatus IS NULL 
+			               $filtro 			               
 			               $grupo 
 			               $orden;";
 	               //dump_var($sql);
