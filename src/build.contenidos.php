@@ -492,7 +492,7 @@ function build_catalgo_empresa(){
 		$soloUno = (!is_array($empresa))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$empresa:$catalgo_empresa; #Seleccion de arreglo
 		for($i=1; $i<count($data)/2; $i++){
-			$select.='<option value="'.$data[id_empresa].'"">'.$data[nombre].'</option>';
+			$select.='<option value="'.$data[id_empresa].'"">'.utf8_encode($data[nombre]).'</option>';
 		}
 		if($soloUno) break;
 	}
@@ -505,10 +505,10 @@ function build_catalgo_usuarios_grupo(){
 	$select.='<select name="usuario" id="usuario">';
 	foreach($catalgo_usuarios as $usuario){
 		if($usuario[id_grupo]==60){
-			$select.='<option value='.$usuario[id_grupo].' selected>'.$usuario[grupo].'</option>';
+			$select.='<option value='.$usuario[id_grupo].' selected>'.$usuario[id_grupo].' - '.$usuario[grupo].'</option>';
 		}
 		else{
-			$select.='<option value='.$usuario[id_grupo].'>'.$usuario[grupo].'</option>';
+			$select.='<option value='.$usuario[id_grupo].'>'.$usuario[id_grupo].' - '.$usuario[grupo].'</option>';
 		}
 	}
 	$select.='</select>';

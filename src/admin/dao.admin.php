@@ -171,7 +171,7 @@ function select_catalgos_empresa(){
 				$db[tbl_empresas] 
 			WHERE 1 and id_empresa>1
 				$sql_alterno
-				group by id_empresa;";
+				group by nombre ASC;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;
@@ -184,7 +184,8 @@ function select_catalgo_usuarios_grupo(){
 			FROM 
 				$db[tbl_grupos]
 			WHERE 
-				id_grupo >20";
+				id_grupo BETWEEN 21 AND 60
+			ORDER BY id_grupo;";
 		//echo $sql;
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
