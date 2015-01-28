@@ -56,11 +56,13 @@ function buildMenu($elementos=0){
 			        	
 			         </ul>';
 					break;				
-			case 7 : $submenu = '
+			case 7 : 
+					$opt20 = ($usuario[id_grupo]<=20)?'<li><a href="#" onclick="location.href=\'{LINK_OPC73}\';" target="_self">{txt_opc73}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC71}\';" target="_self">{txt_opc71}</a></li>':'';
+					$submenu = '
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC72}\';" target="_self">{txt_opc72}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC73}\';" target="_self">{txt_opc73}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC71}\';" target="_self">{txt_opc71}</a></li>			        	
+			        '.$opt20.'		        	
 			         </ul>';
 					break;
 			default: $submenu = ''; break;
