@@ -7,6 +7,7 @@ general|autorizacion=Autorizaciones
 general|busqueda=Búsqueda
 general|consulta=Consulta
 general|reportes=Reportes
+general|inplant=Inplant PAE
 general|admin=Administración
 general|ayuda=Ayuda
 general|login=Iniciar sesión
@@ -95,19 +96,25 @@ reportes|reporte01_menu=Reporte General
 reportes|reporte01_titulo=Reporte General de Horas Extra
 reportes|reporte02_menu=Reportes Mensual
 reportes|reporte02_titulo=Reportes Mensual
+
+#Inplant
+inplant|titulo=Inplant PAE
+
+inplant|layout=Preparación de Layout NóminaPAE
+inplant|layout_menu=Preparar Layout NóminaPAE
+inplant|xls=Generación de Layout NóminaPAE
+inplant|xls_menu=Generar Layout NóminaPAE
+inplant|xls_lista=Descarga de Layout NóminaPAE Generados
+inplant|xls_lista_menu=Descargar Layout NóminaPAE
+
 #Administracion
 admin|titulo=Administración
 admin|usuarios_menu=Usuarios
 admin|usuarios_titulo=Administración de Usuarios
-admin|sincronizar_menu=Sincronizar
+admin|sincronizar_menu=Sincronizar Empleados
 admin|alta_usuario=Alta usuario
 admin|sincronizar_titulo=Sincronizar con NóminaPAE
 admin|sincronizar_usuarios=Sincronizar con datos de NóminaPAE
-admin|sincronizar_empresa_boton=Sincronizar Empresa
-admin|sincronizar_empresa=Sincronizar Empresa
-admin|layout=Preparación de Layout NóminaPAE
-admin|layout_menu=Preparar Layout NóminaPAE
-admin|xls=Generación de Layout NóminaPAE
-admin|xls_menu=Generar Layout NóminaPAE
-admin|xls_lista=Descarga de Layout NóminaPAE Generados
-admin|xls_lista_menu=Descargar Layout NóminaPAE
+admin|sincronizar_empresa_boton=Sincronizar Empresas
+admin|sincronizar_empresa=Sincronizar Empresas
+

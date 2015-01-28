@@ -45,21 +45,25 @@ function buildMenu($elementos=0){
 					break;
 				case 5 : $submenu = '
 					<ul>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC51}\';" target="_self">{txt_opc51}</a></li>
-			        	
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC51}\';" target="_self">{txt_opc51}</a></li>			        	
 			         </ul>';
 					break;
 				case 6 : $submenu = '
 					<ul>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC60}\';" target="_self">{txt_opc60}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC64}\';" target="_self">{txt_opc64}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC65}\';" target="_self">{txt_opc65}</a></li>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC61}\';" target="_self">{txt_opc61}</a></li>
 			        	<li><a href="#" onclick="location.href=\'{LINK_OPC62}\';" target="_self">{txt_opc62}</a></li>
-			        	<li><a href="#" onclick="location.href=\'{LINK_OPC63}\';" target="_self">{txt_opc63}</a></li>
+			        	
+			         </ul>';
+					break;				
+			case 7 : $submenu = '
+					<ul>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC72}\';" target="_self">{txt_opc72}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC73}\';" target="_self">{txt_opc73}</a></li>
+			        	<li><a href="#" onclick="location.href=\'{LINK_OPC71}\';" target="_self">{txt_opc71}</a></li>			        	
 			         </ul>';
 					break;
-				default: $submenu = ''; break;
+			default: $submenu = ''; break;
 			}
 			$opc   .= '<li><a href="#" onclick="location.href=\'{'.$link.'}\';" target="_self"><img src="'.$Path[img].'{'.$img.'}" alt="" class="icono_dos"/>{'.$txt.'}</a>'.$submenu.'</li>';
 		}

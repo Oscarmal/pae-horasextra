@@ -115,8 +115,20 @@ if($in[auth]){
 		$id_empresa 		=	$in[id_empresa];
 		$id_usuario_grupo 	=	$in[id_usuario];
 		$timestamp 			= 	date('Y-m-d H:i:s');
-		
-		insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$correo,$rfc,$nss,$sucursal,$puesto,$no_empleado,$id_empresa,$id_usuario_grupo,$timestamp);
+		$nuevo = insert_nuevo_registro($nombre,$apellido_paterno,$apellido_materno,$correo,$rfc,$nss,$sucursal,$puesto,$no_empleado,$id_empresa,$id_usuario_grupo,$timestamp);
+		for($x=1; $x<=5; $x++){
+			$nivel_vars = array(
+					 auth 			=> 1
+					,id_empresa 	=> $id_empresa
+					,id_usuario		=> $nuevo
+					,id_supervisor	=> $in['nivel'.$x]
+					,id_nivel 		=> $x
+				);
+
+			$nivel = insert_supervisor($nivel_vars);
+			$success++;
+		}
+		$msj = ($success)?'Guardado':'No guardó';
 		$data = array(success => $msj, message => $msj);		
 	}
 	elseif($in[accion]=='sincronizar_empresa'){

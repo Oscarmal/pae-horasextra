@@ -492,7 +492,7 @@ function build_catalgo_empresa(){
 		$soloUno = (!is_array($empresa))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$empresa:$catalgo_empresa; #Seleccion de arreglo
 		for($i=1; $i<count($data)/2; $i++){
-			$select.='<option value='.$data[id_nomina].'>'.$data[nombre].'</option>';
+			$select.='<option value="'.$data[id_empresa].'"">'.utf8_encode($data[nombre]).'</option>';
 		}
 		if($soloUno) break;
 	}
@@ -505,10 +505,10 @@ function build_catalgo_usuarios_grupo(){
 	$select.='<select name="usuario" id="usuario">';
 	foreach($catalgo_usuarios as $usuario){
 		if($usuario[id_grupo]==60){
-			$select.='<option value='.$usuario[id_grupo].' selected>'.$usuario[grupo].'</option>';
+			$select.='<option value='.$usuario[id_grupo].' selected>'.$usuario[id_grupo].' - '.$usuario[grupo].'</option>';
 		}
 		else{
-			$select.='<option value='.$usuario[id_grupo].'>'.$usuario[grupo].'</option>';
+			$select.='<option value='.$usuario[id_grupo].'>'.$usuario[id_grupo].' - '.$usuario[grupo].'</option>';
 		}
 	}
 	$select.='</select>';
@@ -536,6 +536,23 @@ function build_select_empresas_tabla(){
 	}
 	return $tbl_resultados;
 }
+function build_catalgo_supervisores($nivel=1){
+	global $usuario;
+	$sqlData = array(
+		 auth 			=> 1
+	);
+	$catalgo_supervisores=select_catalgo_supervisores($sqlData);	
+	$select.='<select name="nivel'.$nivel.'" id="nivel'.$nivel.'">';		
+	$select.='<option value="" selected>Seleccione el supervisor del Nivel-'.$nivel.'</option>';
+	if($catalgo_supervisores){		
+		foreach($catalgo_supervisores as $supervisor){
+			$select.='<option value="'.$supervisor[id_personal].'" >'.utf8_encode($supervisor[nombre]).' - '.$supervisor[empleado_num].'</option>';
+		}		
+	}
+	$select.='</select>';
+	return $select;
+}
+
 //*****************************************************************************************************************************************
 // REPORTES
 function build_reporte01($id_empresa=false, $anio=false){
@@ -615,12 +632,11 @@ function buil_autorizacion_1(){
 	$tabla = select_autorizacion_1($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
+				,'empresa'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'capturado_por'
-				,'capturado_el'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {		

@@ -101,6 +101,11 @@ function vars_alta_usuario($seccion, $urlParams){
 	$data_contenido = array();
 	$catalago_empresa=build_catalgo_empresa();
 	$catalogo_usuario_grupo=build_catalgo_usuarios_grupo();
+	$catalogo_nivel1=build_catalgo_supervisores(1);
+	$catalogo_nivel2=build_catalgo_supervisores(2);
+	$catalogo_nivel3=build_catalgo_supervisores(3);
+	$catalogo_nivel4=build_catalgo_supervisores(4);
+	$catalogo_nivel5=build_catalgo_supervisores(5);
 	$contenido 	= contenidoHtml(strtolower(MODULO).'/'.$vistas[strtoupper($seccion)], $data_contenido);
 	## Envio de valores ##
 	/*var_dump(MODULO);
@@ -111,11 +116,17 @@ function vars_alta_usuario($seccion, $urlParams){
 				,SECTION 	=> ($seccion)								 
 			);
 	$texto = array(
-				 ICONO 			=> $icono
-				,TITULO			=> $titulo
-				,CONTENIDO 		=> $contenido
-				,catalgo_empresa => $catalago_empresa
+				 ICONO 					=> $icono
+				,TITULO					=> $titulo
+				,CONTENIDO 				=> $contenido
+				,catalgo_empresa 		=> $catalago_empresa
 				,catalogo_usuario_grupo =>$catalogo_usuario_grupo
+				,catalogo_nivel1 		=>$catalogo_nivel1
+				,catalogo_nivel2 		=>$catalogo_nivel2
+				,catalogo_nivel3 		=>$catalogo_nivel3
+				,catalogo_nivel4 		=>$catalogo_nivel4
+				,catalogo_nivel5 		=>$catalogo_nivel5
+
 			);
 	$data = array_merge($negocio, $texto);
 	return $data;

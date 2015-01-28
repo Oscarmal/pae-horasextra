@@ -165,13 +165,13 @@ function select_catalgos_empresa(){
 	}
 	
 	$sql="SELECT 
-				id_nomina,
+				id_empresa,
 				nombre
 			FROM 
 				$db[tbl_empresas] 
 			WHERE 1 and id_empresa>1
 				$sql_alterno
-				group by id_empresa;";
+				group by nombre ASC;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	return $resultado;
@@ -184,7 +184,8 @@ function select_catalgo_usuarios_grupo(){
 			FROM 
 				$db[tbl_grupos]
 			WHERE 
-				id_grupo >20";
+				id_grupo BETWEEN 21 AND 60
+			ORDER BY id_grupo;";
 		//echo $sql;
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
@@ -796,4 +797,78 @@ function pgsql_select_periodo_activo($data=array()){
 }
 /*FinLayout*/
 
+function select_catalgo_supervisores($data=array()){
+/**
+* Listado de usuarios del sistema
+*/
+	if($data[auth]){
+		global $db, $usuario;
+		$id_nomina = (is_array($data[id_nomina]))?implode(',',$data[id_nomina]):$data[id_nomina];
+		$id_empresa = (is_array($data[id_empresa]))?implode(',',$data[id_empresa]):$data[id_empresa];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.=filtro_grupo(array(
+					 10 => ''
+					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]'"
+					,40 => "and a.id_empresa='$usuario[id_empresa]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]'"
+					,60 => "and a.id_personal='$usuario[id_personal]'"
+				));
+		$filtro.= ($id_nomina)?" and a.id_nomina IN ($id_nomina)":'';
+		$filtro.= ($id_empresa)?" and a.id_empresa IN ($id_empresa)":'';
+		$filtro.= ($id_number)?" and a.id_number IN ($id_number)":'';
+		$desc 	= ($desc)?" DESC":' ASC';
+		$orden 	= ($orden)?"ORDER BY $orden".$desc:'ORDER BY a.id_empresa, a.nombre, a.paterno, a.materno'.$desc;
+		$sql="SELECT 
+				 a.id_personal
+				,a.id_empresa
+				,b.razon as empresa
+				,a.empleado_num
+				,CONCAT(IFNULL(a.nombre,''),' ', IFNULL(a.paterno,''),' ',IFNULL(a.materno,'')) as nombre
+				,a.puesto
+				,a.sucursal
+				FROM $db[tbl_personal] a
+				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_empresa
+				LEFT JOIN $db[tbl_usuarios] c ON a.id_personal=c.id_personal
+				WHERE 1 AND c.id_grupo BETWEEN 30 AND 50 $filtro 
+				$grupo $orden ;";
+				// dump_var($sql);
+		$resultado = SQLQuery($sql);				
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}else{
+		$resultado = false;
+	}
+	return $resultado;
+}
+
+function insert_supervisor($data=array()){
+/**
+* Inserta Supervisor
+*/
+	$resultado = false;	
+	if($data[auth]){
+		global $db, $usuario;
+		$id_empresa 	= $data[id_empresa];
+		$id_usuario 	= $data[id_usuario];
+		$id_supervisor	= $data[id_supervisor];
+		$id_nivel 		= $data[id_nivel];
+		$timestamp 		= date('Y-m-d H:i:s');
+		$sql="SELECT id_personal FROM $db[tbl_usuarios] WHERE id_usuario='$id_usuario';";
+		$id_personal = SQLQuery($sql);
+		$sql="INSERT INTO $db[tbl_supervisores] 
+			SET
+				 id_empresa 	='$id_empresa'
+				,id_personal	='$id_personal[0]'
+				,id_supervisor	='$id_supervisor'
+				,id_nivel		='$id_nivel'
+				,id_usuario 	='$usuario[id_usuario]'
+				,timestamp 		='$timestamp'
+			;";
+		// $id = $id=SQLDo($sql);
+		$resultado = (SQLDo($sql))?true:false;
+		// $resultado = ($id)?$id:false;
+	}
+	return $resultado;
+}
 ?>
