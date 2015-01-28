@@ -615,12 +615,11 @@ function buil_autorizacion_1(){
 	$tabla = select_autorizacion_1($sqlData);	
 	$campos = array(
 				 'id_horas_extra'
+				,'empresa'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
 				,'horas'
-				,'capturado_por'
-				,'capturado_el'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {		
