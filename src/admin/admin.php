@@ -11,19 +11,33 @@ global $usuario,$db;
 
 if($in[auth]){
 	if($ins[accion]=='sincronizar'){
+		$datos=select_empresas_activas();
+		
+		if(count($datos[id_nomina])==1){
+			$id_empresa=$datos[id_nomina];
+		}
+		else{
+			for($j=0;$j<count($datos);$j++){
+				 
+				$id_empresa.=$datos[$j][id_nomina].',';
+			}
+		}
+			$id_empresa_nomina=trim($id_empresa,",");
+		
 		if($usuario[id_grupo]<20){
 			$filtrado=false;
-			$success=select_view_vista_credenciales($filtrado,$vacio);
+			$success=select_view_vista_credenciales($filtrado,$id_empresa_nomina);
 		}
 		else{
 			$filtrado=true;
 			$id_empresa=$usuario[id_empresa_nomina];
 			$success=select_view_vista_credenciales($filtrado,$id_empresa);
 		}
-		//dump_var($success);
+		
 		$msj = ($success)?'Guardado':'No guardó';
 			if($msj=='Guardado'){
 				$valor=count($success);
+
 				$query='';
 				for($i=0; $i<=$valor-1; $i++){
 				
@@ -106,19 +120,7 @@ if($in[auth]){
 		$data = array(success => $msj, message => $msj);		
 	}
 	elseif($in[accion]=='sincronizar_empresa'){
-		$select=select_he_empresas();
-		if(count($select[id_empresa])==1){			
-			$campo=$select[id_nomina];
-		}
-		else{
-			$empresas=count($select);
-			for($j=0;$j<$empresas;$j++){
-				$campo.=$select[$j][id_nomina].',';
-			}
-		}
-		$id_empresa=trim($campo, ',');
-		$success=select_empresas_nomina($id_empresa);
-
+			$success=select_empresas_nomina($filtrado,$vacio);
 		$msj = ($success)?'Guardado':'No guardó';
 			if($msj=='Guardado'){
 				$valor=count($success);
