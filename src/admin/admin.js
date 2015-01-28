@@ -72,7 +72,7 @@ function alta_usuario(){
 	var nivel4	 		 =  $( "#nivel4 option:selected" ).val();
 	var nivel5	 		 =  $( "#nivel5 option:selected" ).val();
 
-	if(nombre==''|| apellido_paterno==''|| sucursal==''|| puesto==''|| no_empleado ==''||id_empresa=='' ||id_usuario=='' || nivel1=='' || nivel2=='' || nivel3=='' || nivel4=='' || nivel5==''){
+	if(nombre==''|| apellido_paterno==''|| sucursal==''|| puesto==''|| no_empleado ==''||id_empresa=='' || correo=='' || id_usuario=='' || nivel1=='' || nivel2=='' || nivel3=='' || nivel4=='' || nivel5==''){
 		alert("Los campos con punto rojo son obligatorios");
 		return false;
 	}
