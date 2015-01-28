@@ -66,8 +66,13 @@ function alta_usuario(){
 	var no_empleado	     =	$('#no_empleado').val();
 	var id_empresa 		 =  $( "#empresa option:selected" ).val();
 	var id_usuario 		 =  $( "#usuario option:selected" ).val();
+	var nivel1	 		 =  $( "#nivel1 option:selected" ).val();
+	var nivel2	 		 =  $( "#nivel2 option:selected" ).val();
+	var nivel3	 		 =  $( "#nivel3 option:selected" ).val();
+	var nivel4	 		 =  $( "#nivel4 option:selected" ).val();
+	var nivel5	 		 =  $( "#nivel5 option:selected" ).val();
 
-	if(nombre==''|| apellido_materno==''|| sucursal==''|| puesto==''|| no_empleado ==''||id_empresa=='' ||id_usuario==''){
+	if(nombre==''|| apellido_paterno==''|| sucursal==''|| puesto==''|| no_empleado ==''||id_empresa=='' ||id_usuario=='' || nivel1=='' || nivel2=='' || nivel3=='' || nivel4=='' || nivel5==''){
 		alert("Los campos con punto rojo son obligatorios");
 		return false;
 	}
@@ -99,7 +104,12 @@ function alta_usuario(){
 			puesto   : puesto,
 			no_empleado : no_empleado,
 			id_empresa  : id_empresa,
-			id_usuario 	: id_usuario
+			id_usuario 	: id_usuario,
+			nivel1 : nivel1,
+			nivel2 : nivel2,
+			nivel3 : nivel3,
+			nivel4 : nivel4,
+			nivel5 : nivel5
 		}
 		,beforeSend: function(){ 
 			popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
@@ -112,7 +122,7 @@ function alta_usuario(){
 				popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
 				txt = "<div class='popup-txt'>La información ha sido sincronizada correctamente.</div>";
 				ventana = popup('Éxito',popup_ico+txt,0,0,3);				
-				//setTimeout(function(){location.reload(true);}, 2000);
+				setTimeout(function(){location.reload(true);}, 2000);
 			}else if(respuesta.success){
 				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
 				txt = respuesta.error;
@@ -120,10 +130,10 @@ function alta_usuario(){
 			}							
 		}
 		,complete: function(){ 
-		   /* setTimeout(function(){
+		    setTimeout(function(){
 					$("#"+ventana).dialog("close");
 					location.reload(true);					
-				}, 2000);*/
+				}, 2000);
 		}
     });
 }

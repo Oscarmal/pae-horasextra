@@ -492,7 +492,7 @@ function build_catalgo_empresa(){
 		$soloUno = (!is_array($empresa))?true:false; #Deteccion de total de registros
 		$data = (!$soloUno)?$empresa:$catalgo_empresa; #Seleccion de arreglo
 		for($i=1; $i<count($data)/2; $i++){
-			$select.='<option value='.$data[id_nomina].'>'.$data[nombre].'</option>';
+			$select.='<option value="'.$data[id_empresa].'"">'.$data[nombre].'</option>';
 		}
 		if($soloUno) break;
 	}
@@ -536,6 +536,23 @@ function build_select_empresas_tabla(){
 	}
 	return $tbl_resultados;
 }
+function build_catalgo_supervisores($nivel=1){
+	global $usuario;
+	$sqlData = array(
+		 auth 			=> 1
+	);
+	$catalgo_supervisores=select_catalgo_supervisores($sqlData);	
+	$select.='<select name="nivel'.$nivel.'" id="nivel'.$nivel.'">';		
+	$select.='<option value="" selected>Seleccione el supervisor del Nivel-'.$nivel.'</option>';
+	if($catalgo_supervisores){		
+		foreach($catalgo_supervisores as $supervisor){
+			$select.='<option value="'.$supervisor[id_personal].'" >'.utf8_encode($supervisor[nombre]).' - '.$supervisor[empleado_num].'</option>';
+		}		
+	}
+	$select.='</select>';
+	return $select;
+}
+
 //*****************************************************************************************************************************************
 // REPORTES
 function build_reporte01($id_empresa=false, $anio=false){
