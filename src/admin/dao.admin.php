@@ -413,6 +413,7 @@ function select_layout($data=array()){
 				WHERE 1 $filtro AND n5.estatus=1 AND d.id_autorizacion_nomina IS NULL
 				$grupo 
 				$orden;";
+				// dump_var($sql);
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}

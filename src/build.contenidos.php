@@ -883,6 +883,7 @@ function build_grid_layout($data=array()){
 			,activo 	=> 1
 			,orden		=> 'a.id_horas_extra DESC'
 		);
+
 	$tabla = select_layout($sqlData);
 	$campos = array(
 				 'id_horas_extra'
