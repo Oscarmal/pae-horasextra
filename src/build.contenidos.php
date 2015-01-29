@@ -584,15 +584,19 @@ function build_reporte01($id_empresa=false, $anio=false){
 				,'horas_rechazadas'
 				,'horas_dobles'
 				,'horas_triples'
-				,'tot_semanas'
 			);
-	foreach ($tabla as $registro) {		
-		$tbl_resultados .= '<tr >';
-		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
-		$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
-		for($i=0; $i<count($campos); $i++){
-			$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
-		}
+	if($tabla){
+		foreach ($tabla as $registro) {		
+			$tbl_resultados .= '<tr >';
+			$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
+			$data = (!$soloUno)?$registro:$tabla; #Seleccion de arreglo	
+			for($i=0; $i<count($campos); $i++){
+				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
+			}
+			$tbl_resultados .= '</tr>';
+			if($soloUno) break;
+		}		
+		return $tbl_resultados;
 	}		
 }
 function build_hitorial_usuario(){
