@@ -260,18 +260,18 @@ function guardar_autorizacion_2(array){
 						popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
 						txt = "<div class='popup-txt'><p>La información ha sido guardada correctamente. </p></div>";
 						ventana = popup('Éxito',popup_ico+txt,0,0,3);				
-						// setTimeout(function(){location.reload(true);}, 2000);
+						setTimeout(function(){location.reload(true);}, 2000);
 					}else if(respuesta.success){
 						txt = respuesta.error;
 						ventana = popup('Error',popup_ico+txt,0,0,3);
 					}				
 				}
-				// ,complete: function(){ 
-				// 	setTimeout(function(){
-				// 		$("#"+ventana).dialog("close");
-				// 		location.reload(true);
-				// 	}, 2000);
-				// }
+				,complete: function(){ 
+					setTimeout(function(){
+						$("#"+ventana).dialog("close");
+						location.reload(true);
+					}, 2000);
+				}
 		    });
 		}else{
 			popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
