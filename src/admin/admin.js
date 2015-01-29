@@ -323,38 +323,37 @@ function genera_xls_rebuild(accion){
 }
 /*Layout*/
 
-function supervisores(id_personal,id_empresa){
+function supervisores(id_personal){
 	/**
-* AJAX: Genera popup para validación de hotras extra
-*/
-	$("#layout-popup").empty();
-	var raiz = raizPath();
-	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
-	var seccion = $("#sec").val();	
-	var ajax_url = raiz+"src/"+modulo+"/admin.php";	
-	var contenidoHtml = '<div id="layout-popup"></div>';
-	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
-	$.ajax({
-		type: 'POST',
-		url: ajax_url,
-		dataType: "json",
-		data: {      
-			auth : 1,
-			modulo : modulo,
-			accion : 'supervisor-popup',
-			id_personal : id_personal,
-			id_empresa : id_empresa
-		}		
-		,success: function(respuesta){ 
-			if(respuesta.success){
-				var vistaHTML = respuesta.html;				
-				ventana = popup('Supervisor',contenidoHtml,550,200,3);
-				$("#layout-popup").html(vistaHTML);
-			}else if(respuesta.success){
-				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
-				txt = respuesta.error;
-				ventana = popup('Error',popup_ico+txt,0,0,3);
-			}				
-		}
-    });
+	* AJAX: Genera popup para validación de supervisor
+	*/
+		$("#layout-popup").empty();
+		var raiz = raizPath();
+		var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+		var seccion = $("#sec").val();	
+		var ajax_url = raiz+"src/"+modulo+"/admin.php";	
+		var contenidoHtml = '<div id="layout-popup"></div>';
+		popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+		$.ajax({
+			type: 'POST',
+			url: ajax_url,
+			dataType: "json",
+			data: {      
+				auth : 1,
+				modulo : modulo,
+				accion : 'supervisor-popup',
+				id_personal : id_personal
+			}		
+			,success: function(respuesta){ 
+				if(respuesta.success){
+					var vistaHTML = respuesta.html;				
+					ventana = popup('Supervisor',contenidoHtml,550,600,3);
+					$("#layout-popup").html(vistaHTML);
+				}else if(respuesta.success){
+					var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
+					txt = respuesta.error;
+					ventana = popup('Error',popup_ico+txt,0,0,3);
+				}				
+			}
+	    });
 }

@@ -486,12 +486,8 @@ function build_grid_usuarios(){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
 		}	
-		if($data[id_he_empresa]==''){
-			$id_empresa=0;
-		}else{
-			$id_empresa=$data[id_he_empresa];
-		}
-		$tbl_resultados .= '<td><span class="btn" onclick="supervisores('.$data[id_personal].','.$id_empresa.');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
+		
+		$tbl_resultados .= '<td><span class="btn" onclick="supervisores('.$data[id_personal].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}
