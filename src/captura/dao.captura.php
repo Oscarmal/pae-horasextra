@@ -74,5 +74,40 @@ function captura_insert($data=array()){
 	}
 	return $resultado;
 }
+function select_correos($data=array()){
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY a.id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY a.id_horas_extra ASC";		
+		$sql = "SELECT 
+					 a.id_horas_extra
+					,a.id_empresa
+					,c.nombre as empresa
+					,a.id_personal
+					,b.empleado_num
+					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+					,a.fecha
+					,a.horas
+					,a.semana_iso8601
+					,b.email
+					,s1p.email as s1_email
+				FROM $db[tbl_horas_extra] a
+				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
+				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
+				left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+				left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+				WHERE 1 $filtro 
+				$grupo 
+				$orden;";
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
 /*O3M*/
 ?>

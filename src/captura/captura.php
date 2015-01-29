@@ -20,15 +20,29 @@ if($ins[accion]=='insert'){
 		$success = false;
 		$msj = "Sin guardar por falta de datos.";
 	}		
-	if($success){	
+	if($success){
+	// extraccion de datos
+		$sqlData = array(
+			 auth 			=> 1
+			,id_horas_extra	=> $success
+		);
+		$data = select_correos($sqlData);
 	// envío de correo
 		if($html_tpl = email_tpl_captura($success)){
+			$destinatarios[] = array(
+				 email	=> 'oscar.maldonado@isolution.mx'
+				,nombre	=> 'Oscar Maldonado'
+			);
+			$destinatarios[] = array(
+				 email	=> 'oscarmaldonado_1@hotmail.com'
+				,nombre	=> 'Oscar Maldonado'
+			);
+			$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
 			$tplData = array(
-				 html_tpl 	=> $html_tpl
-				,email_to	=> 'oscarmaldonado_1@hotmail.com'
-				,nombre_to	=> 'Oscar Maldonado'
-				,asunto 	=> 'Sistema de Horas Extra'
-				,adjunto 	=> $Raiz[local].$cfg[path_img].'email_top.jpg'
+				 html_tpl 		=> $html_tpl
+				,destinatarios 	=> $destinatarios
+				,asunto 		=> 'Sistema de Horas Extra'
+				,adjuntos 		=> $adjuntos
 			);
 			send_mail_smtp($tplData);
 		}

@@ -61,18 +61,18 @@ function guardar(horas, fecha){
 				popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";	
 				txt = "<div class='popup-txt'>La información ha sido guardada correctamente.</div>";
 				ventana = popup('Éxito',popup_ico+txt,0,0,3);				
-				setTimeout(function(){location.reload(true);}, 2000);
+				// setTimeout(function(){location.reload(true);}, 2000);
 			}else if(respuesta.success){
 				txt = respuesta.error;
 				ventana = popup('Error',popup_ico+txt,0,0,3);
 			}				
 		}
-		,complete: function(){ 
-			setTimeout(function(){
-				$("#"+ventana).dialog("close");
-				$(location).attr('href', 'index.php?m=d3df3bcb86e5dab0114773964cfab1f4&s=d3df3bcb86e5dab0114773964cfab1f4');
-			}, 2000);
-		}
+		// ,complete: function(){ 
+		// 	setTimeout(function(){
+		// 		$("#"+ventana).dialog("close");
+		// 		$(location).attr('href', 'index.php?m=d3df3bcb86e5dab0114773964cfab1f4&s=d3df3bcb86e5dab0114773964cfab1f4');
+		// 	}, 2000);
+		// }
     });
 }
 
