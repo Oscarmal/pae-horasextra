@@ -977,5 +977,38 @@ function build_grid_xls_lista($data=array()){
 	}
 	return $tbl_resultados;
 }
+
+//*****************************************************************************************************************************************
+// E-MAIL
+function email_tpl_captura($id_horas_extra){
+	global $Path, $usuario;
+	// Extraccion de datos
+	$sqlData = array(
+			 auth 			=> true
+			,id_horas_extra => $id_horas_extra
+		);
+	$data = captura_select($sqlData);
+	// Envia datos a plantilla html
+	$vista_new 	= 'email/email_captura.html';
+	$tpl_data = array(
+			 TOP_IMG 		=> $Raiz[local].$cfg[path_img].'email_top.jpg'
+			,TITULO 		=> 'Registro de Horas Extra'	
+			,EMPLEADO_NUM 	=> $data[empleado_num]
+			,EMPLEADO 		=> $data[nombre_completo]
+			,FECHA_HE 		=> $data[fecha]
+			,HORAS 			=> $data[horas]
+			,CAPTURA 		=> $data[capturado_el]
+			,LINK 			=> ''			
+		);		
+	$HTML = contenidoHtml($vista_new, $tpl_data);
+	// Crea archivo html temporal
+	$fname = $Path[tmp].$usuario[id_empresa].$usuario[id_usuario].date('YmdHis').'.html';
+	$file = fopen($fname, "w");
+	fwrite($file, $HTML);
+	fclose($file);
+	// Devuelve ruta del archivo tmp
+	return $fname;
+}
+
 /*O3M*/
 ?>

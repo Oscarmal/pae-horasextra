@@ -41,6 +41,8 @@ require_once($Raiz[local].$cfg[php_postgres]);
 require_once($Raiz[local].$cfg[php_tpl]);
 require_once($Raiz[local].$cfg[path_php].'inc.constructHtml.php');
 require_once($Path[src].'dao.online.php');
+require_once($Path[local].'phpmailer/inc.email.smtp.php');
+
 // Parsea parámetros obtenidos por URL y los pone en arrays: $in[] y $ins[]
 parseFormSanitizer($_GET, $_POST); # $ins[]
 parseForm($_GET, $_POST); # $in[]
@@ -111,7 +113,7 @@ if($cfg[online_onoff] && $in[s]!=$var[LOGIN]){
 	}
 }
 #Limpiar carpeta \tmp
-$ext = array('xlsx','xls','csv', 'doc', 'docx', 'rft', 'pdf', 'rar', 'zip', 'txt', 'json', 'xml');
+$ext = array('xlsx','xls','csv', 'doc', 'docx', 'rft', 'pdf', 'rar', 'zip', 'txt', 'json', 'xml', 'htm', 'html');
 @limpiarTmp($Path[tmp], $ext, 60);
 /*O3M*/
 ?>

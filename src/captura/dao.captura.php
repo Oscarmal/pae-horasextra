@@ -68,7 +68,7 @@ function captura_insert($data=array()){
 					timestamp = '$timestamp'
 					;";		
 
-		$resultado = (SQLDo($sql))?true:false;
+		$resultado = SQLDo($sql);
 	}else{
 		$resultado = false;
 	}
