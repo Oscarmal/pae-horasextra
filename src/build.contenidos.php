@@ -1010,5 +1010,41 @@ function email_tpl_captura($id_horas_extra){
 	return $fname;
 }
 
+function email_tpl_autorizaciones($id_horas_extra, $nivel){
+	global $Path, $usuario;
+	// Extraccion de datos
+	$sqlData = array(
+			 auth 			=> true
+			,id_horas_extra => $id_horas_extra
+			,id_nivel		=> $nivel
+		);
+	$data = select_data_autorizaciones($sqlData);
+	// Envia datos a plantilla html
+	$vista_new 	= 'email/email_autorizacion_1.html';
+	$tpl_data = array(
+			 TOP_IMG 		=> $Raiz[local].$cfg[path_img].'email_top.jpg'
+			,TITULO 		=> utf8_decode("Autorización Nivel $nivel de Horas Extra")
+			,EMPLEADO_NUM 	=> $data[empleado_num]
+			,EMPLEADO 		=> utf8_decode($data[nombre_completo])
+			,FECHA_HE 		=> $data[fecha]
+			,DOBLES 		=> $data[h_dobles]
+			,TRIPLES 		=> $data[h_triples]
+			,RECHAZADAS 	=> $data[h_rechazadas]
+			,ARGUMENTO 		=> utf8_decode($data[argumento])
+			,ESTATUS 	=> $data[estatus]
+			,SUPERVISOR 	=> $data[supervisor]
+			,CAPTURA 		=> $data[timestamp]
+			,LINK 			=> ''			
+		);		
+	$HTML = contenidoHtml($vista_new, $tpl_data);
+	// Crea archivo html temporal
+	$fname = $Path[tmp].$usuario[id_empresa].$usuario[id_usuario].date('YmdHis').'.html';
+	$file = fopen($fname, "w");
+	fwrite($file, $HTML);
+	fclose($file);
+	// Devuelve ruta del archivo tmp
+	return $fname;
+}
+
 /*O3M*/
 ?>

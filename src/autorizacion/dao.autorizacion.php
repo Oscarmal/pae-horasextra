@@ -276,6 +276,7 @@ function select_autorizacion_2($data=array()){
 				WHERE 1 $filtro AND n1.estatus=1 AND n2.estatus IS NULL 
 				$grupo 
 				$orden;";
+				// dump_var($sql);
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
@@ -620,5 +621,131 @@ function insert_autorizacion_5($data=array()){
 }
 /*Fin5*/
 
+// EMAIL
+function select_correos_autorizaciones($data=array()){
+/**
+* Listado de autorizaciones nivel 1
+*/
+	$resultado = false;
+	if($data[auth]){
+	               global $db, $usuario;
+	               $id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+	               $id_personal    = (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+	                $empleado_num  = (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+	               $id_usuario     = (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
+	               $grupo          = (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+	               $orden          = (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+	               $filtro.=filtro_grupo(array(
+                                                  10 => ''
+                                                  ,20 => "and a.id_empresa='$usuario[id_empresa]'"
+                                                  ,30 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s5.id_supervisor='$usuario[id_personal]')"
+                                                  ,34 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s4.id_supervisor='$usuario[id_personal]')"
+                                                  ,35 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s3.id_supervisor='$usuario[id_personal]')"
+                                                  ,40 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s2.id_supervisor='$usuario[id_personal]')"
+                                                  ,50 => "and a.id_empresa='$usuario[id_empresa]' and s1.id_supervisor='$usuario[id_personal]'"
+                                                  ,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+	                                               ));
+	               $filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+	               $filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
+	               $filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';                              
+	               $filtro.= ($activo)?" and a.activo IN ($activo)":'';
+	               $filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';	
+	               $grupo  = ($grupo)?"GROUP BY $grupo":"GROUP BY a.id_horas_extra";
+	               $orden  = ($orden)?"ORDER BY $orden":"ORDER BY a.id_horas_extra ASC";                      
+	               $sql = "SELECT 
+								 a.id_horas_extra
+								,a.id_empresa
+								,c.nombre as empresa
+								,a.id_personal
+								,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+								,b.empleado_num
+								,a.fecha
+								,a.horas
+								,a.semana_iso8601
+								,b.email
+								,s1p.email as s1_email
+								,CONCAT(s1p.nombre,' ',IFNULL(s1p.paterno,''),' ',IFNULL(s1p.materno,'')) as s1_nombre_completo
+								,s2p.email as s2_email
+								,CONCAT(s2p.nombre,' ',IFNULL(s2p.paterno,''),' ',IFNULL(s2p.materno,'')) as s2_nombre_completo
+								,s3p.email as s3_email
+								,CONCAT(s3p.nombre,' ',IFNULL(s3p.paterno,''),' ',IFNULL(s3p.materno,'')) as s3_nombre_completo
+								,s4p.email as s4_email
+								,CONCAT(s4p.nombre,' ',IFNULL(s4p.paterno,''),' ',IFNULL(s4p.materno,'')) as s4_nombre_completo
+								,s5p.email as s5_email
+								,CONCAT(s5p.nombre,' ',IFNULL(s5p.paterno,''),' ',IFNULL(s5p.materno,'')) as s5_nombre_completo
+							FROM $db[tbl_horas_extra] a
+							LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
+							LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
+							LEFT JOIN $db[tbl_autorizaciones] AS n1 ON a.id_horas_extra=n1.id_horas_extra AND n1.id_cat_autorizacion=1							
+							left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+							left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+							left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+							left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+							left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+							left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+							left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+							left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+							left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+							left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal
+			               WHERE 1 
+			               $filtro 			               
+			               $grupo 
+			               $orden;";
+	               $resultado = SQLQuery($sql);
+	               $resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
+function select_data_autorizaciones($data=array()){
+/**
+* Listado de autorizaciones nivel 5
+*/
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_nivel 		= (is_array($data[id_nivel]))?implode(',',$data[id_nivel]):$data[id_nivel];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.= ($id_nivel)?" and s.id_nivel IN ($id_nivel) and d.id_cat_autorizacion IN ($id_nivel)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY a.id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY a.id_horas_extra ASC";		
+		$sql = "SELECT 
+					 a.id_horas_extra
+					,a.id_empresa
+					,c.nombre as empresa
+					,a.id_personal
+					,b.empleado_num
+					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+					,a.fecha
+					,a.horas
+					,e.h_dobles
+					,e.h_triples
+					,e.h_rechazadas
+					,d.argumento
+					,d.timestamp
+					,IF(d.estatus=1,'AUTORIZADO','NO AUTORIZADO') as estatus
+					,a.semana_iso8601
+					,s.id_nivel
+					,s.id_supervisor
+					,s.id_personal
+					,CONCAT(sp.nombre,' ',IFNULL(sp.paterno,''),' ',IFNULL(sp.materno,'')) as supervisor
+				FROM $db[tbl_horas_extra] a
+				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
+				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
+				LEFT JOIN $db[tbl_autorizaciones] d ON a.id_horas_extra=d.id_horas_extra
+				LEFT JOIN $db[tbl_autorizaciones] e ON a.id_horas_extra=e.id_horas_extra and e.id_cat_autorizacion=1
+				left join $db[tbl_supervisores] s on b.id_empresa=s.id_empresa and b.id_personal=s.id_personal
+				LEFT JOIN $db[tbl_personal] sp ON s.id_empresa=sp.id_empresa AND s.id_supervisor=sp.id_personal
+				WHERE 1 $filtro 
+				$grupo 
+				$orden;";
+				// dump_var($sql);
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
 /*O3M*/
 ?>

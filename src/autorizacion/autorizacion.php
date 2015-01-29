@@ -29,7 +29,7 @@ if($in[auth]){
 					,estatus 		=> $estatus
 					,argumento 		=> $argumento
 				);
-				$success = insert_autorizacion_1($sqlData);
+				$success = insert_autorizacion_1($sqlData);				
 				$msj = ($success)?'Guardado':'No guardó';	
 				$ids[] = $id_horas_extra;
 			}
@@ -104,6 +104,33 @@ if($in[auth]){
 						,id_concepto 		=> $id_concepto[$i]
 					);
 			$success  =  insert_layout_autorizacion_1($sqlData);
+			if($success){	
+			// envío de correo
+				if($html_tpl = email_tpl_autorizaciones($id_horas_extra,1)){
+					// extraccion de datos
+					$sqlData = array(
+						 auth 			=> 1
+						,id_horas_extra	=> $success
+					);
+					$data = select_correos_autorizaciones($sqlData);
+					$destinatarios[] = array(
+						 email	=> $data[email]
+						,nombre	=> $data[nombre_completo]
+					);
+					$destinatarios[] = array(
+						 email	=> $data[s2_email]
+						,nombre	=> $data[s2_nombre_completo]
+					);
+					$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
+					$tplData = array(
+						 html_tpl 		=> $html_tpl
+						,destinatarios 	=> $destinatarios
+						,asunto 		=> 'Sistema de Horas Extra'
+						,adjuntos 		=> $adjuntos
+					);
+					send_mail_smtp($tplData);
+				}
+			}
 			$msj = ($success)?'Guardado':'No guardó';			
 			$data = array(success => $success, message => $msj);
 		}else{
@@ -138,6 +165,33 @@ if($in[auth]){
 					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_2($sqlData);
+				if($success){	
+				// envío de correo
+					if($html_tpl = email_tpl_autorizaciones($id_horas_extra,2)){
+						// extraccion de datos
+						$sqlData = array(
+							 auth 			=> 1
+							,id_horas_extra	=> $success
+						);
+						$data = select_correos_autorizaciones($sqlData);
+						$destinatarios[] = array(
+							 email	=> $data[email]
+							,nombre	=> $data[nombre_completo]
+						);
+						$destinatarios[] = array(
+							 email	=> $data[s3_email]
+							,nombre	=> $data[s3_nombre_completo]
+						);
+						$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
+						$tplData = array(
+							 html_tpl 		=> $html_tpl
+							,destinatarios 	=> $destinatarios
+							,asunto 		=> 'Sistema de Horas Extra'
+							,adjuntos 		=> $adjuntos
+						);
+						send_mail_smtp($tplData);
+					}
+				}
 				$msj = ($success)?'Guardado':'No guardó';	
 				$ids[] = $id_horas_extra;
 			}
@@ -173,6 +227,33 @@ if($in[auth]){
 				);
 
 				$success = insert_autorizacion_3($sqlData);
+				if($success){	
+				// envío de correo
+					if($html_tpl = email_tpl_autorizaciones($id_horas_extra,3)){
+						// extraccion de datos
+						$sqlData = array(
+							 auth 			=> 1
+							,id_horas_extra	=> $success
+						);
+						$data = select_correos_autorizaciones($sqlData);
+						$destinatarios[] = array(
+							 email	=> $data[email]
+							,nombre	=> $data[nombre_completo]
+						);
+						$destinatarios[] = array(
+							 email	=> $data[s4_email]
+							,nombre	=> $data[s4_nombre_completo]
+						);
+						$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
+						$tplData = array(
+							 html_tpl 		=> $html_tpl
+							,destinatarios 	=> $destinatarios
+							,asunto 		=> 'Sistema de Horas Extra'
+							,adjuntos 		=> $adjuntos
+						);
+						send_mail_smtp($tplData);
+					}
+				}
 				$msj = ($success)?'Guardado':'No guardó';	
 				$ids[] = $id_horas_extra;
 			}
@@ -209,6 +290,33 @@ if($in[auth]){
 					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_4($sqlData);
+				if($success){	
+				// envío de correo
+					if($html_tpl = email_tpl_autorizaciones($id_horas_extra,4)){
+						// extraccion de datos
+						$sqlData = array(
+							 auth 			=> 1
+							,id_horas_extra	=> $success
+						);
+						$data = select_correos_autorizaciones($sqlData);
+						$destinatarios[] = array(
+							 email	=> $data[email]
+							,nombre	=> $data[nombre_completo]
+						);
+						$destinatarios[] = array(
+							 email	=> $data[s5_email]
+							,nombre	=> $data[s5_nombre_completo]
+						);
+						$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
+						$tplData = array(
+							 html_tpl 		=> $html_tpl
+							,destinatarios 	=> $destinatarios
+							,asunto 		=> 'Sistema de Horas Extra'
+							,adjuntos 		=> $adjuntos
+						);
+						send_mail_smtp($tplData);
+					}
+				}
 				$msj = ($success)?'Guardado':'No guardó';	
 				$ids[] = $id_horas_extra;
 			}
@@ -245,6 +353,38 @@ if($in[auth]){
 					,argumento 		=> $argumento
 				);
 				$success = insert_autorizacion_5($sqlData);
+				if($success){	
+				// envío de correo
+					if($html_tpl = email_tpl_autorizaciones($id_horas_extra,5)){
+						// extraccion de datos
+						$sqlData = array(
+							 auth 			=> 1
+							,id_horas_extra	=> $success
+						);
+						$data = select_correos_autorizaciones($sqlData);
+						$destinatarios[] = array(
+							 email	=> $data[email]
+							,nombre	=> $data[nombre_completo]
+						);
+						$destinatarios[] = array(
+							 email	=> $data[s5_email]
+							,nombre	=> $data[s5_nombre_completo]
+						);
+						// inplant mail
+						// $destinatarios[] = array(
+						// 	 email	=> $data[s5_email]
+						// 	,nombre	=> $data[s5_nombre_completo]
+						// );
+						$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
+						$tplData = array(
+							 html_tpl 		=> $html_tpl
+							,destinatarios 	=> $destinatarios
+							,asunto 		=> 'Sistema de Horas Extra'
+							,adjuntos 		=> $adjuntos
+						);
+						send_mail_smtp($tplData);
+					}
+				}
 				$msj = ($success)?'Guardado':'No guardó';	
 				$ids[] = $id_horas_extra;
 			}
