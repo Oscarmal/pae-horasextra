@@ -469,6 +469,7 @@ function listado_select_autorizaciones($data=array()){
 				 a.id_horas_extra
 				,a.id_empresa
 				,c.nombre as empresa
+				,b.sucursal
 				,a.id_personal
 				,b.empleado_num
 				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo

@@ -280,6 +280,7 @@ function build_grid_consulta_autorizaciones(){
 				,'nombre_completo'
 				,'empleado_num'
 				,'empresa'
+				,'sucursal'
 				,'fecha'
 				,'horas'
 			);
