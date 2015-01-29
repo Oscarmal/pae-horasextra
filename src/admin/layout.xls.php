@@ -18,9 +18,9 @@ function xsl_resumen($ids=array()){
                         ,'Fecha'
                         ,'Semana-iso8601'
                         ,'Horas'
-                        ,'Dobles'
-                        ,'Triples'
                         ,'Rechazadas'
+                        ,'Dobles'
+                        ,'Triples'                        
                         ,utf8_decode('Año')
                         ,'Periodo'         
                         ,'Semana'
@@ -51,7 +51,7 @@ function xsl_nomina($ids=array()){
                         ,orden         => 'a.id_horas_extra DESC'
                   );
       $tabla = select_xls_nomina($sqlData);
-      $nameArchivo = 'HE_Horas-Extra_Nomina';
+      $nameArchivo = 'HE_Horas-Extra_Nomina_'.$usuario[empresa];
       $tituloTabla = false;
       $titulos = array(
                          'ID Empleado'
@@ -90,7 +90,7 @@ function xls_nomina_rebuild($xls=array()){
                         ,orden         => 'a.id_horas_extra DESC'
                   );
       $tabla = select_xls_nomina_rebuild($sqlData);
-      $nameArchivo = 'HE_Horas-Extra_Nomina';
+      $nameArchivo = 'HE_Horas-Extra_Nomina_'.$usuario[empresa];
       $tituloTabla = false;
       $titulos = array(
                          'ID Empleado'

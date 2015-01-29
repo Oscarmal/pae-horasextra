@@ -383,10 +383,10 @@ function select_layout($data=array()){
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
-					,a.horas
-					,n1.h_dobles as dobles
-					,n1.h_triples as triples
-					,n1.h_rechazadas as rechazadas
+					,TIME_FORMAT(a.horas,'%H:%m') as horas
+					,TIME_FORMAT(n1.h_dobles,'%H:%m') as dobles
+					,TIME_FORMAT(n1.h_triples,'%H:%m') as triples
+					,TIME_FORMAT(n1.h_rechazadas,'%H:%m') as rechazadas
 					,a.semana_iso8601
 					,n1.estatus AS n1_estatus
 					,n1.id_usuario AS n1_id_usuario
@@ -636,8 +636,8 @@ function select_xls_nomina($data=array()){
 		$filtro.= ($activo)?" and n4.activo IN ($activo)":'';
 		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';		
 		$sql = "SELECT 
-					 c.id_nomina as id_empresa
-					,b.empleado_num
+					 /*c.id_nomina as id_empresa,*/
+					 b.id_nomina as id_empleado
 					,d.semana
 					,e.clave as id_concepto
 					,TIME_FORMAT(d.horas,'%H') as horas
@@ -646,7 +646,7 @@ function select_xls_nomina($data=array()){
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
 				LEFT JOIN $db[tbl_autorizaciones_nomina] d ON a.id_horas_extra=d.id_horas_extra
 				LEFT JOIN $db[tbl_conceptos] e ON d.id_concepto=e.id_concepto
-				WHERE 1 $filtro AND d.id_autorizacion_nomina IS NOT NULL AND d.xls IS NULL
+				WHERE 1 $filtro AND d.id_autorizacion_nomina IS NOT NULL AND d.xls IS NULL AND d.id_concepto>0
 				;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
@@ -765,7 +765,7 @@ function select_xls_nomina_rebuild($data=array()){
 		$filtro.= ($activo)?" and n4.activo IN ($activo)":'';
 		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';		
 		$sql = "SELECT 
-					 b.empleado_num
+					 b.id_nomina as id_empleado
 					,d.semana
 					,e.clave as id_concepto
 					,TIME_FORMAT(d.horas,'%H') as horas
@@ -774,7 +774,7 @@ function select_xls_nomina_rebuild($data=array()){
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
 				LEFT JOIN $db[tbl_autorizaciones_nomina] d ON a.id_horas_extra=d.id_horas_extra
 				LEFT JOIN $db[tbl_conceptos] e ON d.id_concepto=e.id_concepto
-				WHERE 1 $filtro AND d.id_autorizacion_nomina IS NOT NULL AND d.xls IS NOT NULL
+				WHERE 1 $filtro AND d.id_autorizacion_nomina IS NOT NULL AND d.xls IS NOT NULL AND d.id_concepto>0
 				;";
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;

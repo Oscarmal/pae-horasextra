@@ -56,7 +56,7 @@ function vars_reporte_general($seccion, $urlParams){
 	## Logica de negocio ##		
 	$titulo 	= $dic[reportes][reporte01_titulo];
 	$empresa_inicial = ($usuario[grupo]>=20)?$usuario[id_empresa]:0;
-	$tbl_resultados = build_reporte01($empresa_inicial);
+	$tbl_resultados = build_reporte01($empresa_inicial);	
 	$sel_empresa = build_select_empresas();
 	$id_empresa = ($usuario[grupo]>=20)?$usuario[id_empresa]:false;
 	$sel_anio = ($usuario[grupo]>=20)?build_select_anios($id_empresa):'';
