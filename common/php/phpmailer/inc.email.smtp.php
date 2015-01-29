@@ -39,6 +39,10 @@ function send_mail_smtp($data=array()){
 		foreach($destinatarios as $destinatario){
 			$mail->addAddress($destinatario[email], $destinatario[nombre]);
 		}
+		// Copia oculta - Acuses
+		if($cfg[email_bcc_onoff]){
+			$mail->addBCC($cfg[email_bcc], $cfg[email_bcc]);
+		}
 		//Asunto
 		$mail->Subject = $asunto;
 		//Insertar HTML
