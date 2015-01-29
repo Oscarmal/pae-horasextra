@@ -73,6 +73,87 @@ function select_autorizacion_1($data=array()){
 	}
 	return $resultado;
 }
+function select_layout_autorizacion_1($data=array()){
+/**
+* Listado de registros autorizados en todos sus niveles
+*/
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra = (is_array($data[id_horas_extra]))?implode(',',$data[id_horas_extra]):$data[id_horas_extra];
+		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
+		$activo 		= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
+		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
+		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		$filtro.=filtro_grupo(array(
+					 10 => ''
+					,20 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]'"
+					,40 => "and a.id_empresa='$usuario[id_empresa]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]'"
+					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+				));
+		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
+		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
+		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
+		$filtro.= ($activo)?" and n4.activo IN ($activo)":'';
+		$filtro.= ($id_usuario)?" and a.id_usuario IN ($id_usuario)":'';
+		$grupo 	= ($grupo)?"GROUP BY $grupo":"GROUP BY a.id_horas_extra";
+		$orden 	= ($orden)?"ORDER BY $orden":"ORDER BY a.id_horas_extra ASC";		
+		$sql = "SELECT 
+					 a.id_horas_extra
+					,a.id_empresa
+					,c.nombre as empresa
+					,a.id_personal
+					,b.empleado_num
+					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+					,a.fecha
+					,a.horas
+					,a.semana_iso8601
+				FROM $db[tbl_horas_extra] a
+				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
+				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
+				LEFT JOIN $db[tbl_autorizaciones_nomina] d ON a.id_horas_extra=d.id_horas_extra
+				WHERE 1 $filtro 
+				$grupo 
+				$orden;";
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
+function select_acumulado_semanal_2($data=array()){
+	if($data[auth]){
+		global $db;
+		$id_empresa 	= (is_array($data[id_empresa]))?implode(',',$data[id_empresa]):$data[id_empresa];
+		$id_personal 	= (is_array($data[id_personal]))?implode(',',$data[id_personal]):$data[id_personal];
+		$empleado_num 	= (is_array($data[empleado_num]))?implode(',',$data[empleado_num]):$data[empleado_num];
+		$fecha 			= (is_array($data[fecha]))?implode(',',date("Y-m-d", strtotime(str_replace('/', '-', $data[fecha])))):date("Y-m-d", strtotime(str_replace('/', '-', $data[fecha])));
+		$semana_iso8601 = semana_iso8601($fecha);
+		$filtro.= ($id_empresa)?" and a.id_empresa IN ($id_empresa)":'';
+		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
+		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';
+		$filtro.= ($semana_iso8601)?" and a.semana_iso8601 IN ('$semana_iso8601')":'';
+		$sql="SELECT 
+				 a.id_empresa
+				,a.id_personal
+				,b.empleado_num
+				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
+				,a.semana_iso8601
+				,COUNT(*) AS tot_regs
+				,SUM(DATE_FORMAT(c.horas,'%H')) AS tot_horas
+			FROM $db[tbl_horas_extra] a
+			LEFT JOIN $db[tbl_personal] b ON a.id_personal=b.id_personal
+			LEFT JOIN $db[tbl_autorizaciones_nomina] c ON a.id_horas_extra=c.id_horas_extra
+			WHERE 1 and c.activo=1 and c.horas IS NULL $filtro
+			GROUP BY  id_empresa ,id_personal, semana_iso8601 ASC;";
+		$resultado = SQLQuery($sql);
+		$resultado = (count($resultado)) ? $resultado : false ;
+	}
+	return $resultado;
+}
 function insert_autorizacion_1($data=array()){
 	global $db,$usuario;
 	$resultado = false;
@@ -96,6 +177,39 @@ function insert_autorizacion_1($data=array()){
 	}
 	return $resultado;
 
+}
+function insert_layout_autorizacion_1($data=array()){
+/**
+ * Inserta registros autorizados para generar el layout
+ */
+	$resultado = false;
+	if($data[auth]){
+		global $db, $usuario;
+		$id_horas_extra 	 = $data[id_horas_extra];
+		$dobles 			 = horas_int($data[dobles]);
+		$triples 			 = horas_int($data[triples]);
+		$rechazadas			 = horas_int($data[rechazadas]);
+		$id_concepto 		 = $data[id_concepto];	
+		$estatus 			 = $data[estatus];
+		$argumento 			 = $data[argumento];	
+		$timestamp 			 = date('Y-m-d H:i:s');
+		$sql="INSERT INTO
+			$db[tbl_autorizaciones]
+			SET 
+			id_horas_extra 		= '$id_horas_extra',
+			id_cat_autorizacion = '1',
+			estatus 	   		= '$estatus',
+			id_usuario 			= '$usuario[id_usuario]',
+			argumento 			= '$argumento',
+			h_dobles 			= '$dobles',
+			h_triples 			= '$triples',
+			h_rechazadas 		= '$rechazadas',
+			timestamp 			= '$timestamp',
+			activo 				= '1';";
+			// dump_var($sql);
+		$resultado = (SQLDo($sql))?true:false;
+	}
+	return $resultado;
 }
 /*Fin1*/
 

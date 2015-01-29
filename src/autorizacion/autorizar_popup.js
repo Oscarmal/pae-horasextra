@@ -1,9 +1,6 @@
 //O3M//
 $(document).ready(function(){
-	// $('#btnGuardar').hide();
 	slider_horas();
-	// $('#restan').val(parseInt($("#horas").val()));
-
 	$('#reload').click(function(){
 		reset_slider();	
 	});
@@ -12,6 +9,16 @@ $(document).ready(function(){
 function reset_slider(){
 	$('#btnGuardar').hide();
 	slider_horas();			
+}
+
+
+function btn_onoff(){
+	var restan = $('#restan').val();
+	if (restan!=0) {
+		$('#btnGuardar').hide();
+	}else{
+		$('#btnGuardar').show();
+	}
 }
 
 function slider_horas(){	
@@ -43,18 +50,8 @@ function slider_horas(){
 	build_slider("slider-dobles", dobles, dobles, 0, "dobles");
 	build_slider("slider-triples", triples, triples, 0, "triples");
 	build_slider("slider-rechazadas", 0, 0, 0, "rechazadas");
-	if(restan){$('#btnGuardar').hide();}else{$('#btnGuardar').show();}
+	btn_onoff();
 }
-
-// function slider_horas(){	
-// // RESPALDO ORIGINAL
-// // Contruye sliders con valores iniciales
-// 	var horas 			= $("#horas").val();
-// 	horas = parseInt(horas);
-// 	build_slider("slider-dobles", 0, horas, 0, "dobles");
-// 	build_slider("slider-triples", 0, horas, 0, "triples");
-// 	build_slider("slider-rechazadas", 0, horas, 0, "rechazadas");
-// }
 
 function build_slider(id_Objeto, valor, max, min, idMuestra) {
 // Funcion para contruir un slider
@@ -104,11 +101,7 @@ function rebuild_slider(horas){
 	// restan
 	$('#restan').val(restan);
 	// Boton Guardar
-	if(restan==0){
-		$('#btnGuardar').show();
-	}else{
-		$('#btnGuardar').hide();
-	}
+	btn_onoff();
 }
 
 function btnSubmit(){
@@ -117,6 +110,7 @@ function btnSubmit(){
 	var dobles = parseInt($('#dobles').val());
 	var triples = parseInt($('#triples').val());
 	var rechazadas = parseInt($('#rechazadas').val());
+	var argumento = $('#argumento').val();
 	var restan = maximo-(dobles+triples+rechazadas);
 	var msj = '';
 	var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
@@ -124,6 +118,12 @@ function btnSubmit(){
 		msj = "<div class='popup-txt'>Aún tiene <b>"+restan+"</b> horas por asignar en este registro...</div>";
 		popup('Validación',popup_ico+msj,0,0,1,'horas');
 		$("#horas").focus();
+		return false;
+	}	
+	if(rechazadas>0 && argumento==''){
+		msj = "<div class='popup-txt'>Agregue el argumento para las horas rechazadas.</div>";
+		popup('Validación',popup_ico+msj,0,0,1,'horas');
+		$("#rechazadas").focus();
 		return false;
 	}	
 	obtenerCampos();
@@ -134,16 +134,17 @@ function obtenerCampos(){
 	var dobles = parseInt($('#dobles').val());
 	var triples = parseInt($('#triples').val());
 	var rechazadas = parseInt($('#rechazadas').val());
+	var argumento = $('#argumento').val();
 	var fecha = $("#fecha").val(); 
 	var f = fecha.split('/');
 	var anio = f[2];
 	// Creación de array con todos los datos capturados
 	var array = [
 		'id_horas_extra=' + id_horas_extra,
-		'anio=' + anio,
 		'dobles=' + dobles,
 		'triples=' + triples,
-		'rechazadas=' + rechazadas
+		'rechazadas=' + rechazadas,
+		'argumento=' + argumento
 	];    
 	// Metemos creamos cadena con namescapes
 	var separador = '|';
@@ -168,7 +169,7 @@ function guardar(array){
 				auth : 1,
 				modulo : modulo,
 				seccion : seccion,
-				accion : 'autorizacion-guardar',
+				accion : 'autorizacion1-guardar',
 				datos : array
 			}
 			,beforeSend: function(){ 
@@ -191,8 +192,7 @@ function guardar(array){
 			,complete: function(){ 
 				setTimeout(function(){
 					$("#"+ventana).dialog("close");
-					location.reload(true);
-					// $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+					location.reload(true);					
 				}, 2000);
 			}
 	    });
@@ -201,8 +201,7 @@ function guardar(array){
 		var txt = "No hay datos para guardar.";		    
 	    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
 		setTimeout(function(){			
-			location.reload(true);
-			 // $(location).attr('href', 'index.php?m=e893515facb496962eb10c96de1ca208&s=7d1bf948636232e0a8702ea5abbc4965');
+			location.reload(true);			
 		}, 2000);
 	}
 }

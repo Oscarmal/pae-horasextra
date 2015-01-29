@@ -97,77 +97,111 @@ function btnSubmit_autorizacion_1(){
 	obtenerCampos(1);
 	
 }
-function guardar_autorizacion_1(array){
+// function guardar_autorizacion_1(array){
+// /**
+// * AJAX: Envia datoa para guardar en tabla
+// */
+// 	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+// 	var seccion = $("#sec").val();
+// 	var raiz = raizPath();
+// 	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
+// 	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
+// 	var valores = array.split('|');
+// 	var envio= true;
+// 	$.each(valores,function(indice, valor){
+//        	var valor1 = valores[indice].split('=');
+//        	var id = valor1[0].split('_');
+//        	var validacion= $('#asig_'+id[1]).val();
+//        if(validacion=='1'){
+//        		var validation = $('#muestra_'+id[1]).val();
+// 	       	if(validation==''){
+// 	       		alert('No puede estar el argumento vacío');
+// 	       		envio= false;
+// 	       	}
+//        }
+//     });
+//     if(envio){
+//     	if(array){
+// 			$.ajax({
+// 				type: 'POST',
+// 				url: ajax_url,
+// 				dataType: "json",
+// 				data: {      
+// 					auth : 1,
+// 					modulo : modulo,
+// 					seccion : seccion,
+// 					accion : 'guardar_autorizacion_1',
+// 					datos : array
+// 				}
+// 				,beforeSend: function(){ 
+// 					popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
+// 					var txt = "Guardando información, por favor espere...";
+// 			    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
+// 				}
+// 				,success: function(respuesta){ 
+// 					$("#"+ventana).dialog("close");
+// 					if(respuesta.success){
+// 						popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
+// 						txt = "<div class='popup-txt'><p>La información ha sido guardada correctamente. </p></div>";
+// 						ventana = popup('Éxito',popup_ico+txt,0,0,3);				
+// 						setTimeout(function(){location.reload(true);}, 2000);
+// 					}else if(respuesta.success){
+// 						txt = respuesta.error;
+// 						ventana = popup('Error',popup_ico+txt,0,0,3);
+// 					}				
+// 				}
+// 				,complete: function(){ 
+// 				 	setTimeout(function(){
+// 				 		$("#"+ventana).dialog("close");
+// 						location.reload(true);
+// 				 	}, 2000);
+// 				}
+// 		    });
+// 		}else{
+// 			popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
+// 			var txt = "No hay datos para guardar.";		    
+// 		    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
+// 			setTimeout(function(){			
+// 				location.reload(true);
+// 			}, 2000);
+// 		}
+//     }else{
+//     	return false;
+//     }
+// }
+function popup_autorizacion_1(id_horas_extra){
 /**
-* AJAX: Envia datoa para guardar en tabla
+* AJAX: Genera popup para validación de hotras extra
 */
-	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
-	var seccion = $("#sec").val();
+	$("#layout-popup").empty();
 	var raiz = raizPath();
-	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";
+	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
+	var seccion = $("#sec").val();	
+	var ajax_url = raiz+"src/"+modulo+"/autorizacion.php";	
+	var contenidoHtml = '<div id="layout-popup"></div>';
 	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
-	var valores = array.split('|');
-	var envio= true;
-	$.each(valores,function(indice, valor){
-       	var valor1 = valores[indice].split('=');
-       	var id = valor1[0].split('_');
-       	var validacion= $('#asig_'+id[1]).val();
-       if(validacion=='1'){
-       		var validation = $('#muestra_'+id[1]).val();
-	       	if(validation==''){
-	       		alert('No puede estar el argumento vacío');
-	       		envio= false;
-	       	}
-       }
-    });
-    if(envio){
-    	if(array){
-			$.ajax({
-				type: 'POST',
-				url: ajax_url,
-				dataType: "json",
-				data: {      
-					auth : 1,
-					modulo : modulo,
-					seccion : seccion,
-					accion : 'guardar_autorizacion_1',
-					datos : array
-				}
-				,beforeSend: function(){ 
-					popup_ico = "<img src='"+raiz+"common/img/popup/load.gif' valign='middle' align='texttop'>&nbsp";
-					var txt = "Guardando información, por favor espere...";
-			    	ventana = popup('Guardando...',popup_ico+txt,0,0,3);
-				}
-				,success: function(respuesta){ 
-					$("#"+ventana).dialog("close");
-					if(respuesta.success){
-						popup_ico = "<img src='"+raiz+"common/img/popup/info.png' class='popup-ico'>&nbsp";
-						txt = "<div class='popup-txt'><p>La información ha sido guardada correctamente. </p></div>";
-						ventana = popup('Éxito',popup_ico+txt,0,0,3);				
-						setTimeout(function(){location.reload(true);}, 2000);
-					}else if(respuesta.success){
-						txt = respuesta.error;
-						ventana = popup('Error',popup_ico+txt,0,0,3);
-					}				
-				}
-				,complete: function(){ 
-				 	setTimeout(function(){
-				 		$("#"+ventana).dialog("close");
-						location.reload(true);
-				 	}, 2000);
-				}
-		    });
-		}else{
-			popup_ico = "<img src='"+raiz+"common/img/popup/alert.png' valign='middle' align='texttop'>&nbsp";
-			var txt = "No hay datos para guardar.";		    
-		    ventana = popup('Mensaje!',popup_ico+txt,0,0,3);
-			setTimeout(function(){			
-				location.reload(true);
-			}, 2000);
+	$.ajax({
+		type: 'POST',
+		url: ajax_url,
+		dataType: "json",
+		data: {      
+			auth : 1,
+			modulo : modulo,
+			accion : 'autorizacion1-popup',
+			id_horas_extra : id_horas_extra
+		}		
+		,success: function(respuesta){ 
+			if(respuesta.success){
+				var vistaHTML = respuesta.html;				
+				ventana = popup('Layout',contenidoHtml,550,650,3);
+				$("#layout-popup").html(vistaHTML);
+			}else if(respuesta.success){
+				var popup_ico = "<img src='"+raiz+"common/img/popup/error.png' class='popup-ico'>&nbsp";
+				txt = respuesta.error;
+				ventana = popup('Error',popup_ico+txt,0,0,3);
+			}				
 		}
-    }else{
-    	return false;
-    }
+    });
 }
 /*1*/
 

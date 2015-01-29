@@ -66,6 +66,9 @@
                     <td colspan="3" class="slider-container">
                         <input type="text" id="semana" name="semana" onkeyup="slider_semana(this.value);" class="slider-label" />
                         <div id="slider-semana" class="slider-bar"></div>
+                        <input type="hidden" id="dobles" name="dobles" value="{dobles}" />
+                        <input type="hidden" id="triples" name="triples" value="{triples}"/>
+                        <input type="hidden" id="rechazadas" name="rechazadas" value="{rechazadas}" />
                     </td>
                   </tr>
                   <tr>
@@ -73,35 +76,7 @@
                   </tr>
                     <td colspan="4">
                         <div id="captura">                        
-                            <table width="100%" border="0">
-                                <tr>
-                                    <td align="right" width="30%">Restan:&nbsp;</td>
-                                    <td colspan="3" class="slider-container">
-                                        <input type="text" id="restan" name="restan" readonly class="slider-label" />
-                                    </td>
-                                    <td align="right" valign="middle"><span style="cursor: pointer;"><img src="{PATH_IMG}reload.png" id="reload" title="Reset"/></span></td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Dobles:&nbsp;</td>
-                                    <td colspan="4" class="slider-container">
-                                        <input type="text" id="dobles" name="dobles" readonly class="slider-label" />
-                                        <div id="slider-dobles" class="slider-bar"></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Triples:&nbsp;</td>
-                                    <td colspan="4" class="slider-container">
-                                        <input type="text" id="triples" name="triples" readonly class="slider-label" />
-                                        <div id="slider-triples" class="slider-bar"></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Rechazadas:&nbsp;</td>
-                                    <td colspan="4" class="slider-container">
-                                        <input type="text" id="rechazadas" name="rechazadas" readonly class="slider-label" />
-                                        <div id="slider-rechazadas" class="slider-bar"></div>
-                                    </td>
-                                </tr>
+                            <table width="100%" border="0">                                
                                 <tr>
                                     <td colspan="5" align="center">
                                         <input id="btnCerrar" type="button" class="btn btn-gray" value="{cerrar}" onclick="location.reload(true);">

@@ -382,6 +382,9 @@ function select_layout($data=array()){
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
 					,a.horas
+					,n1.h_dobles as dobles
+					,n1.h_triples as triples
+					,n1.h_rechazadas as rechazadas
 					,a.semana_iso8601
 					,n1.estatus AS n1_estatus
 					,n1.id_usuario AS n1_id_usuario

@@ -1,7 +1,6 @@
 //O3M//
 $(document).ready(function(){
 	slider_semana();
-	slider_horas();
 	$('#reload').click(function(){
 		reset_slider();	
 	});
@@ -9,8 +8,7 @@ $(document).ready(function(){
 
 function reset_slider(){
 	$('#btnGuardar').hide();
-	slider_semana();
-	slider_horas();			
+	slider_semana();		
 }
 
 function slider_semana(valor){
@@ -21,8 +19,7 @@ function slider_semana(valor){
 
 function btn_onoff(){
 	var semana = $("#semana").val();
-	var restan = $('#restan').val();
-	if (semana==0 || restan!=0) {
+	if (semana==0 ) {
 		$('#btnGuardar').hide();
 	}else{
 		$('#btnGuardar').show();

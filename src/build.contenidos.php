@@ -624,6 +624,7 @@ function build_hitorial_usuario(){
 // AUTORIZACION
 function buil_autorizacion_1(){
 	// Construye grid de autorizaciones
+	global $Path;
 	$sqlData = array(
 			 auth 		=> true
 			,estatus 	=> 0
@@ -647,21 +648,22 @@ function buil_autorizacion_1(){
 			for($i=0; $i<count($campos); $i++){
 				$tbl_resultados .= '<td>'.$data[$campos[$i]].'</td>';
 			}
-			$tbl_resultados .= '<td align="center">
-									<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
-										<option value="" selected></option>
-										<option value="si">Aceptar</option>
-										<option value="no">Declinar</option>
-									</select>
-								</td>';
-			$tbl_resultados .= '<td align="center">
-									<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
-									<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
-									<span>
-										<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
-										<input type="hidden" id="asig_'.$data[0].'" value="0">
-									</span>
-								</td>';
+			// $tbl_resultados .= '<td align="center">
+			// 						<select id="id_'.$data[0].'" name="id_'.$data[0].'" onChange="ok(this)" class="campos">
+			// 							<option value="" selected></option>
+			// 							<option value="si">Aceptar</option>
+			// 							<option value="no">Declinar</option>
+			// 						</select>
+			// 					</td>';
+			// $tbl_resultados .= '<td align="center">
+			// 						<input type="checkbox" id="ok_'.$data[0].'" class="element-checkbox" style="display: none;">
+			// 						<div id="ico-'.$data[0].'" class="ico-autorizacion" title="Pendiente"></div>
+			// 						<span>
+			// 							<input type="text" id="muestra_'.$data[0].'" style="display: none;" width="48">
+			// 							<input type="hidden" id="asig_'.$data[0].'" value="0">
+			// 						</span>
+			// 					</td>';
+			$tbl_resultados .= '<td><span class="btn" onclick="popup_autorizacion_1('.$data[0].');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 			$tbl_resultados .= '</tr>';
 			if($soloUno) break; 		
 		}
