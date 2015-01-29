@@ -1036,7 +1036,7 @@ function email_tpl_captura($id_horas_extra){
 			,FECHA_HE 		=> $data[fecha]
 			,HORAS 			=> $data[horas]
 			,CAPTURA 		=> $data[capturado_el]
-			,LINK 			=> ''			
+			,LINK 			=> '<a href="http://201.149.12.180/adminhorasextra" target="_blank">Sistema Horas Extra</a>'
 		);		
 	$HTML = contenidoHtml($vista_new, $tpl_data);
 	// Crea archivo html temporal
@@ -1072,7 +1072,7 @@ function email_tpl_autorizaciones($id_horas_extra, $nivel){
 			,ESTATUS 	=> $data[estatus]
 			,SUPERVISOR 	=> $data[supervisor]
 			,CAPTURA 		=> $data[timestamp]
-			,LINK 			=> ''			
+			,LINK 			=> '<a href="http://201.149.12.180/adminhorasextra" target="_blank">Sistema Horas Extra</a>'			
 		);		
 	$HTML = contenidoHtml($vista_new, $tpl_data);
 	// Crea archivo html temporal

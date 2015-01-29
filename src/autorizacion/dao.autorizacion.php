@@ -45,6 +45,7 @@ function select_autorizacion_1($data=array()){
 								 a.id_horas_extra
 								,a.id_empresa
 								,c.nombre as empresa
+								,b.sucursal
 								,a.id_personal
 								,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 								,b.empleado_num
@@ -119,7 +120,7 @@ function select_layout_autorizacion_1($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones_nomina] d ON a.id_horas_extra=d.id_horas_extra
 				WHERE 1 $filtro 
 				$grupo 
-				$orden;";
+				$orden;";				
 		$resultado = SQLQuery($sql);
 		$resultado = (count($resultado)) ? $resultado : false ;
 	}
