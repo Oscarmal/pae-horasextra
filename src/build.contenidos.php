@@ -457,6 +457,7 @@ function build_grid_autorizaciones_aprobadas(){
 //*****************************************************************************************************************************************
 // SINCRONIZACION
 function build_grid_usuarios(){
+	global $Path;
 	$sqlData = array(
 			 auth 			=> 1
 			,id_empresa		=> $usuario[id_empresa]
@@ -467,16 +468,17 @@ function build_grid_usuarios(){
 	//dump_var($tabla);
 
 	$campos = array(
-				 'empresa_razon_social'
-				,'id_empleado'
+				 'id_nomina'
+				,'empresa'
 				,'id_number'
+				,'id_empleado'
 				,'nombre'
 				,'rfc'
 				,'imss'
-				,'empresa_razon_social'
-			//	,'activo'
+				,'fecha_corte'
 
 			);
+	
 	foreach ($tabla as $registro) {		
 		$tbl_resultados .= '<tr class="gradeA">';
 		$soloUno = (!is_array($registro))?true:false; #Deteccion de total de registros
@@ -484,7 +486,12 @@ function build_grid_usuarios(){
 		for($i=0; $i<count($campos); $i++){
 			$tbl_resultados .= '<td>'.utf8_encode($data[$campos[$i]]).'</td>';
 		}	
-		$tbl_resultados .= '<td>'.date('d/m/Y H:i:s').'</td>';
+		if($data[id_he_empresa]==''){
+			$id_empresa=0;
+		}else{
+			$id_empresa=$data[id_he_empresa];
+		}
+		$tbl_resultados .= '<td><span class="btn" onclick="supervisores('.$data[id_personal].','.$id_empresa.');"><img src="'.$Path[img].'ico_edit.png" width="20" /></span></td>';
 		$tbl_resultados .= '</tr>';
 		if($soloUno) break; 		
 	}

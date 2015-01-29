@@ -34,6 +34,8 @@ function select_view_nomina($data=array()){
 		$sql="SELECT IF(a.id_empresa is null, c.id_nomina,a.id_empresa) as id_empresa
 				,IF(a.id_number is null, c.empleado_num,a.id_number) as id_number
 				,CONCAT(IFNULL(c.nombre,''),' ', IFNULL(c.paterno,''),' ',IFNULL(c.materno,'')) as nombre
+				,c.timestamp as fecha_corte
+				,c.id_personal
 				,a.position
 				,a.area
 				,a.rfc
@@ -42,7 +44,7 @@ function select_view_nomina($data=array()){
 				,IF(a.empresa is null, b.nombre,a.empresa) as empresa
 				,IF(a.empresa_razon_social is null, b.nombre,a.empresa_razon_social) as empresa_razon_social
 				,a.id_empleado
-				,b.id_nomina
+				,b.id_empresa as id_he_empresa
 				FROM 
 					$db[tbl_personal] c
 				LEFT JOIN 
@@ -99,11 +101,11 @@ function insert_sincronizacion_update(){
 						$db[view_nomina].imss,
 						$db[view_nomina].area,
 						$db[view_nomina].position,
-						$db[view_nomina].id_empleado,
+						$db[view_nomina].id_number,
 						$db[view_nomina].id_empresa,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp,
 						$usuario[id_usuario]
-						,$db[view_nomina].id_view_nomina
+						,$db[view_nomina].id_empleado
 					FROM 
 						 $db[view_nomina] 
 						LEFT JOIN
@@ -832,6 +834,7 @@ function select_catalgo_supervisores($data=array()){
 				,CONCAT(IFNULL(a.nombre,''),' ', IFNULL(a.paterno,''),' ',IFNULL(a.materno,'')) as nombre
 				,a.puesto
 				,a.sucursal
+				,c.id_grupo
 				FROM $db[tbl_personal] a
 				LEFT JOIN $db[tbl_empresas] b ON a.id_empresa=b.id_empresa
 				LEFT JOIN $db[tbl_usuarios] c ON a.id_personal=c.id_personal
@@ -874,5 +877,24 @@ function insert_supervisor($data=array()){
 		// $resultado = ($id)?$id:false;
 	}
 	return $resultado;
+}
+function insert_supervisor_sincronizacion($data=array()){
+	global $db,$usuario;
+	$nivel 			=	$data[nivel];
+	$id_personal 	=	$data[id_personal];
+	$id_empresa 	=	$data[id_empresa];
+	$id_supervisor 	=	$data[id_supervisor];
+	$timestamp 		= date('Y-m-d H:i:s');
+	$sql="INSERT INTO 
+			$db[tbl_supervisores]
+			SET 
+				id_empresa		=	$id_empresa
+				id_personal		=	$id_personal
+				id_supervisor	=	$id_supervisor
+				id_nivel 		=	$nivel
+				id_usuario  	=	$usuario[id_usuario]
+				timestamp      	= 	$timestamp;";
+		echo $sql;
+	$resultado = (SQLDo($sql))?true:false;
 }
 ?>
