@@ -96,6 +96,7 @@ function select_correos($data=array()){
 					,a.semana_iso8601
 					,b.email
 					,s1p.email as s1_email
+					,CONCAT(s1p.nombre,' ',IFNULL(s1p.paterno,''),' ',IFNULL(s1p.materno,'')) as s1_nombre_completo
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa

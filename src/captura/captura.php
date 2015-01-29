@@ -20,22 +20,22 @@ if($ins[accion]=='insert'){
 		$success = false;
 		$msj = "Sin guardar por falta de datos.";
 	}		
-	if($success){
-	// extraccion de datos
-		$sqlData = array(
-			 auth 			=> 1
-			,id_horas_extra	=> $success
-		);
-		$data = select_correos($sqlData);
+	if($success){	
 	// envío de correo
 		if($html_tpl = email_tpl_captura($success)){
+			// extraccion de datos
+			$sqlData = array(
+				 auth 			=> 1
+				,id_horas_extra	=> $success
+			);
+			$data = select_correos($sqlData);
 			$destinatarios[] = array(
-				 email	=> 'oscar.maldonado@isolution.mx'
-				,nombre	=> 'Oscar Maldonado'
+				 email	=> $data[email]
+				,nombre	=> $data[nombre_completo]
 			);
 			$destinatarios[] = array(
-				 email	=> 'oscarmaldonado_1@hotmail.com'
-				,nombre	=> 'Oscar Maldonado'
+				 email	=> $data[s1_email]
+				,nombre	=> $data[s1_nombre_completo]
 			);
 			$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
 			$tplData = array(
