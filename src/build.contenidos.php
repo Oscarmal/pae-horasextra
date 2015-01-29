@@ -922,6 +922,9 @@ function build_grid_layout($data=array()){
 				,'empleado_num'
 				,'fecha'
 				,'horas'
+				,'dobles'
+				,'triples'
+				,'rechazadas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {	
