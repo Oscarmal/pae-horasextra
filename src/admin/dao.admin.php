@@ -101,11 +101,11 @@ function insert_sincronizacion_update(){
 						$db[view_nomina].imss,
 						$db[view_nomina].area,
 						$db[view_nomina].position,
-						$db[view_nomina].id_empleado,
+						$db[view_nomina].id_number,
 						$db[view_nomina].id_empresa,
 						DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') as timestamp,
 						$usuario[id_usuario]
-						,$db[view_nomina].id_view_nomina
+						,$db[view_nomina].id_empleado
 					FROM 
 						 $db[view_nomina] 
 						LEFT JOIN
