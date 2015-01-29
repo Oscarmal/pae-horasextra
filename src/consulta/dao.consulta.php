@@ -97,14 +97,24 @@ function listado_select_autorizacion_1($data=array()){
 		$orden 			= $data[orden];
 		$desc 			= $data[desc];
 		
+		// $filtro.=filtro_grupo(array(
+		// 			 10 => ''
+		// 			,20 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,30 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+		// 		));	
 		$filtro.=filtro_grupo(array(
-					 10 => ''
-					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));	
+                  10 => ''
+                  ,20 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,30 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s5.id_supervisor='$usuario[id_personal]')"
+                  ,34 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s4.id_supervisor='$usuario[id_personal]')"
+                  ,35 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s3.id_supervisor='$usuario[id_personal]')"
+                  ,40 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s2.id_supervisor='$usuario[id_personal]')"
+                  ,50 => "and a.id_empresa='$usuario[id_empresa]' and s1.id_supervisor='$usuario[id_personal]'"
+                  ,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+                   ));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra='$id_horas_extra'":'';
 		$filtro.= ($id_personal)?" and a.id_personal='$id_personal'":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num='$empleado_num'":'';
@@ -121,6 +131,7 @@ function listado_select_autorizacion_1($data=array()){
 					,a.id_empresa
 					,a.id_personal
 					,c.nombre as empresa
+					,b.sucursal
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,b.empleado_num
 					,a.fecha
@@ -151,7 +162,17 @@ function listado_select_autorizacion_1($data=array()){
 					ON 
 						a.id_horas_extra=n2.id_horas_extra 
 					AND 
-						n2.id_cat_autorizacion=2          
+						n2.id_cat_autorizacion=2   
+				left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+				left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+				left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+				left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+				left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+				left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+				left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+				left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+				left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+				left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal       
 			   WHERE 
 			  	 	1 AND n2.estatus IS NULL
 			   		$filtro 
@@ -177,15 +198,24 @@ function listado_select_autorizacion_2($data=array()){
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
 	
+		// $filtro.=filtro_grupo(array(
+		// 			 10 => ''
+		// 			,20 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,30 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+		// 		));
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and (s2.id_supervisor='$usuario[id_personal]' or s5.id_supervisor='$usuario[id_personal]')"
+					,34 => "and a.id_empresa='$usuario[id_empresa]' and (s2.id_supervisor='$usuario[id_personal]' or s4.id_supervisor='$usuario[id_personal]')"
+					,35 => "and a.id_empresa='$usuario[id_empresa]' and (s2.id_supervisor='$usuario[id_personal]' or s3.id_supervisor='$usuario[id_personal]')"
+					,40 => "and a.id_empresa='$usuario[id_empresa]' and s2.id_supervisor='$usuario[id_personal]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and s2.id_supervisor='$usuario[id_personal]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));
-
+                ));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and $db[tbl_personal].empleado_num IN ($empleado_num)":'';		
@@ -198,6 +228,7 @@ function listado_select_autorizacion_2($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
@@ -221,6 +252,16 @@ function listado_select_autorizacion_2($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n2 ON a.id_horas_extra=n2.id_horas_extra AND n2.id_cat_autorizacion=2
 				LEFT JOIN $db[tbl_personal] d ON n1.id_usuario=d.id_personal	 
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3				
+				left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+				left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+				left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+				left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+				left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+				left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+				left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+				left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+				left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+				left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal
 				WHERE 1 $filtro AND n1.estatus=1 AND n3.estatus IS NULL
 				$grupo 
 				$orden;";
@@ -240,15 +281,24 @@ function listado_select_autorizacion_3($data=array()){
 		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		// $filtro.=filtro_grupo(array(
+		// 			 10 => ''
+		// 			,20 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,30 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+		// 		));
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and (s3.id_supervisor='$usuario[id_personal]' or s5.id_supervisor='$usuario[id_personal]')"
+					,34 => "and a.id_empresa='$usuario[id_empresa]' and (s3.id_supervisor='$usuario[id_personal]' or s4.id_supervisor='$usuario[id_personal]')"
+					,35 => "and a.id_empresa='$usuario[id_empresa]' and s3.id_supervisor='$usuario[id_personal]'"
+					,40 => "and a.id_empresa='$usuario[id_empresa]' and s3.id_supervisor='$usuario[id_personal]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and s3.id_supervisor='$usuario[id_personal]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));
-
+                ));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
@@ -262,6 +312,7 @@ function listado_select_autorizacion_3($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
@@ -289,6 +340,16 @@ function listado_select_autorizacion_3($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_personal] d ON n1.id_usuario=d.id_personal
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
+				left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+				left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+				left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+				left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+				left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+				left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+				left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+				left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+				left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+				left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal
 				WHERE 1 $filtro AND n2.estatus=1 AND n4.estatus IS NULL
 				$grupo 
 				$orden;";
@@ -307,15 +368,24 @@ function listado_select_autorizacion_4($data=array()){
 		$id_usuario		= (is_array($data[id_usuario]))?implode(',',$data[id_usuario]):$data[id_usuario];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		// $filtro.=filtro_grupo(array(
+		// 			 10 => ''
+		// 			,20 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,30 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+		// 			,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+		// 		));
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario!='$usuario[id_usuario]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and (s4.id_supervisor='$usuario[id_personal]' or s5.id_supervisor='$usuario[id_personal]')"
+					,34 => "and a.id_empresa='$usuario[id_empresa]' and s4.id_supervisor='$usuario[id_personal]'"
+					,35 => "and a.id_empresa='$usuario[id_empresa]' and s4.id_supervisor='$usuario[id_personal]'"
+					,40 => "and a.id_empresa='$usuario[id_empresa]' and s4.id_supervisor='$usuario[id_personal]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and s4.id_supervisor='$usuario[id_personal]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));
-
+                ));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
@@ -328,6 +398,7 @@ function listado_select_autorizacion_4($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
@@ -359,6 +430,16 @@ function listado_select_autorizacion_4($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
 				LEFT JOIN $db[tbl_autorizaciones] AS n5 ON a.id_horas_extra=n5.id_horas_extra AND n5.id_cat_autorizacion=5
 				LEFT JOIN $db[tbl_personal] d ON n1.id_usuario=d.id_personal
+				left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+				left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+				left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+				left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+				left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+				left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+				left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+				left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+				left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+				left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal
 				WHERE 1 $filtro AND n3.estatus=1 AND n5.estatus IS NULL
 				$grupo 
 				$orden;";
@@ -382,14 +463,24 @@ function listado_select_autorizacion_5($data=array()){
 		$activo 		= (is_array($data[activo]))?implode(',',$data[activo]):$data[activo];
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
+		// $filtro.=filtro_grupo(array(
+		// 			 10 => ''
+		// 			,20 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,30 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,40 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,50 => "and a.id_empresa='$usuario[id_empresa]'"
+		// 			,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+		// 		));
 		$filtro.=filtro_grupo(array(
 					 10 => ''
 					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]'"
+					,30 => "and a.id_empresa='$usuario[id_empresa]' and s5.id_supervisor='$usuario[id_personal]'"
+					,34 => "and a.id_empresa='$usuario[id_empresa]' and s5.id_supervisor='$usuario[id_personal]'"
+					,35 => "and a.id_empresa='$usuario[id_empresa]' and s5.id_supervisor='$usuario[id_personal]'"
+					,40 => "and a.id_empresa='$usuario[id_empresa]' and s5.id_supervisor='$usuario[id_personal]'"
+					,50 => "and a.id_empresa='$usuario[id_empresa]' and s5.id_supervisor='$usuario[id_personal]'"
 					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));
+                ));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
@@ -401,6 +492,7 @@ function listado_select_autorizacion_5($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
@@ -431,6 +523,16 @@ function listado_select_autorizacion_5($data=array()){
 				LEFT JOIN $db[tbl_autorizaciones] AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 				LEFT JOIN $db[tbl_autorizaciones] AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
 				LEFT JOIN $db[tbl_autorizaciones] AS n5 ON a.id_horas_extra=n5.id_horas_extra AND n5.id_cat_autorizacion=5
+				left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+				left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+				left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+				left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+				left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+				left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+				left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+				left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+				left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+				left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal
 				WHERE 1 $filtro AND n4.estatus =1
 				$grupo 
 				$orden;";
@@ -451,13 +553,15 @@ function listado_select_autorizaciones($data=array()){
 		$grupo 			= (is_array($data[grupo]))?implode(',',$data[grupo]):$data[grupo];
 		$orden 			= (is_array($data[orden]))?implode(',',$data[orden]):$data[orden];
 		$filtro.=filtro_grupo(array(
-					 10 => ''
-					,20 => "and a.id_empresa='$usuario[id_empresa]'"
-					,30 => "and a.id_empresa='$usuario[id_empresa]'"
-					,40 => "and a.id_empresa='$usuario[id_empresa]'"
-					,50 => "and a.id_empresa='$usuario[id_empresa]'"
-					,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
-				));
+                   10 => ''
+                  ,20 => "and a.id_empresa='$usuario[id_empresa]'"
+                  ,30 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s5.id_supervisor='$usuario[id_personal]')"
+                  ,34 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s4.id_supervisor='$usuario[id_personal]')"
+                  ,35 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s3.id_supervisor='$usuario[id_personal]')"
+                  ,40 => "and a.id_empresa='$usuario[id_empresa]' and (s1.id_supervisor='$usuario[id_personal]' or s2.id_supervisor='$usuario[id_personal]')"
+                  ,50 => "and a.id_empresa='$usuario[id_empresa]' and s1.id_supervisor='$usuario[id_personal]'"
+                  ,60 => "and a.id_empresa='$usuario[id_empresa]' and a.id_usuario='$usuario[id_usuario]'"
+       		));
 		$filtro.= ($id_horas_extra)?" and a.id_horas_extra IN ($id_horas_extra)":'';
 		$filtro.= ($id_personal)?" and a.id_personal IN ($id_personal)":'';
 		$filtro.= ($empleado_num)?" and b.empleado_num IN ($empleado_num)":'';		
@@ -469,6 +573,7 @@ function listado_select_autorizaciones($data=array()){
 				 a.id_horas_extra
 				,a.id_empresa
 				,c.nombre as empresa
+				,b.sucursal
 				,a.id_personal
 				,b.empleado_num
 				,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
@@ -504,6 +609,16 @@ function listado_select_autorizaciones($data=array()){
 			LEFT JOIN he_autorizaciones AS n3 ON a.id_horas_extra=n3.id_horas_extra AND n3.id_cat_autorizacion=3
 			LEFT JOIN he_autorizaciones AS n4 ON a.id_horas_extra=n4.id_horas_extra AND n4.id_cat_autorizacion=4 
 			LEFT JOIN he_autorizaciones AS n5 ON a.id_horas_extra=n5.id_horas_extra AND n5.id_cat_autorizacion=5
+			left join $db[tbl_supervisores] s1 on b.id_empresa=s1.id_empresa and b.id_personal=s1.id_personal and s1.id_nivel=1
+			left join $db[tbl_personal] s1p on s1.id_supervisor=s1p.id_personal
+			left join $db[tbl_supervisores] s2 on b.id_empresa=s2.id_empresa and b.id_personal=s2.id_personal and s2.id_nivel=2
+			left join $db[tbl_personal] s2p on s2.id_supervisor=s2p.id_personal
+			left join $db[tbl_supervisores] s3 on b.id_empresa=s3.id_empresa and b.id_personal=s3.id_personal and s3.id_nivel=3
+			left join $db[tbl_personal] s3p on s3.id_supervisor=s3p.id_personal
+			left join $db[tbl_supervisores] s4 on b.id_empresa=s4.id_empresa and b.id_personal=s4.id_personal and s4.id_nivel=4
+			left join $db[tbl_personal] s4p on s4.id_supervisor=s4p.id_personal
+			left join $db[tbl_supervisores] s5 on b.id_empresa=s5.id_empresa and b.id_personal=s5.id_personal and s5.id_nivel=5
+			left join $db[tbl_personal] s5p on s5.id_supervisor=s5p.id_personal
 			WHERE 1  $filtro $grupo $orden;";
 			//echo $sql;
 		$resultado = SQLQuery($sql);

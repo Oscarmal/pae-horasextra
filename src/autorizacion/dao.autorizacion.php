@@ -49,7 +49,7 @@ function select_autorizacion_1($data=array()){
 								,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 								,b.empleado_num
 								,a.fecha
-								,a.horas
+								,DATE_FORMAT(a.horas,'%H:%m') as horas
 								,a.semana_iso8601
 								,n1.estatus AS n1_estatus
 								,n1.id_usuario AS n1_id_usuario
@@ -106,11 +106,12 @@ function select_layout_autorizacion_1($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
-					,a.horas
+					,DATE_FORMAT(a.horas,'%H:%m') as horas
 					,a.semana_iso8601
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
@@ -251,11 +252,12 @@ function select_autorizacion_2($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
-					,a.horas
+					,DATE_FORMAT(a.horas,'%H:%m') as horas
 					,a.semana_iso8601
 					,n1.estatus AS n1_estatus
 					,n1.id_usuario AS n1_id_usuario
@@ -263,6 +265,9 @@ function select_autorizacion_2($data=array()){
 					,n2.estatus AS n2_estatus
 					,n2.id_usuario AS n2_id_usuario
 					,n2.timestamp AS n2_fecha
+					,DATE_FORMAT(n1.h_dobles,'%H:%m') as dobles
+					,DATE_FORMAT(n1.h_triples,'%H:%m') as triples
+					,DATE_FORMAT(n1.h_rechazadas,'%H:%m') as rechazadas
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
@@ -347,11 +352,12 @@ function select_autorizacion_3($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
-					,a.horas
+					,DATE_FORMAT(a.horas,'%H:%m') as horas
 					,a.semana_iso8601
 					,n1.estatus AS n1_estatus
 					,n1.id_usuario AS n1_id_usuario
@@ -362,6 +368,9 @@ function select_autorizacion_3($data=array()){
 					,n3.estatus AS n3_estatus
 					,n3.id_usuario AS n3_id_estatus
 					,n3.timestamp AS n3_fecha
+					,DATE_FORMAT(n1.h_dobles,'%H:%m') as dobles
+					,DATE_FORMAT(n1.h_triples,'%H:%m') as triples
+					,DATE_FORMAT(n1.h_rechazadas,'%H:%m') as rechazadas
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
@@ -447,11 +456,12 @@ function select_autorizacion_4($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
-					,a.horas
+					,DATE_FORMAT(a.horas,'%H:%m') as horas
 					,a.semana_iso8601
 					,n1.estatus AS n1_estatus
 					,n1.id_usuario AS n1_id_usuario
@@ -465,6 +475,9 @@ function select_autorizacion_4($data=array()){
 					,n4.estatus AS n4_estatus
 					,n4.id_usuario AS n4_id_usuario
 					,n4.timestamp AS n4_fecha
+					,DATE_FORMAT(n1.h_dobles,'%H:%m') as dobles
+					,DATE_FORMAT(n1.h_triples,'%H:%m') as triples
+					,DATE_FORMAT(n1.h_rechazadas,'%H:%m') as rechazadas
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
@@ -552,11 +565,12 @@ function select_autorizacion_5($data=array()){
 					 a.id_horas_extra
 					,a.id_empresa
 					,c.nombre as empresa
+					,b.sucursal
 					,a.id_personal
 					,b.empleado_num
 					,CONCAT(b.nombre,' ',IFNULL(b.paterno,''),' ',IFNULL(b.materno,'')) as nombre_completo
 					,a.fecha
-					,a.horas
+					,DATE_FORMAT(a.horas,'%H:%m') as horas
 					,a.semana_iso8601
 					,n1.estatus AS n1_estatus
 					,n1.id_usuario AS n1_id_usuario
@@ -573,6 +587,9 @@ function select_autorizacion_5($data=array()){
 					,n5.estatus AS n5_estatus
 					,n5.id_usuario AS n5_id_usuario
 					,n5.timestamp AS n5_fecha
+					,DATE_FORMAT(n1.h_dobles,'%H:%m') as dobles
+					,DATE_FORMAT(n1.h_triples,'%H:%m') as triples
+					,DATE_FORMAT(n1.h_rechazadas,'%H:%m') as rechazadas
 				FROM $db[tbl_horas_extra] a
 				LEFT JOIN $db[tbl_personal] b ON a.id_empresa=b.id_empresa AND a.id_personal=b.id_personal
 				LEFT JOIN $db[tbl_empresas] c ON a.id_empresa=c.id_empresa
