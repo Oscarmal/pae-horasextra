@@ -3,6 +3,7 @@
 define(MODULO, $in[modulo]);
 // Archivo DAO
 require_once($Path[src].MODULO.'/dao.captura.php');
+require_once($Path[src].'views.vars.'.MODULO.'.php');
 // Lógica de negocio
 if($ins[accion]=='insert'){
 	if(!empty($ins[horas]) && !empty($ins[fecha])){		
@@ -19,6 +20,33 @@ if($ins[accion]=='insert'){
 		$success = false;
 		$msj = "Sin guardar por falta de datos.";
 	}		
+	if($success){	
+	// envío de correo
+		if($html_tpl = email_tpl_captura($success)){
+			// extraccion de datos
+			$sqlData = array(
+				 auth 			=> 1
+				,id_horas_extra	=> $success
+			);
+			$data = select_correos($sqlData);
+			$destinatarios[] = array(
+				 email	=> $data[email]
+				,nombre	=> $data[nombre_completo]
+			);
+			$destinatarios[] = array(
+				 email	=> $data[s1_email]
+				,nombre	=> $data[s1_nombre_completo]
+			);
+			$adjuntos[] = $Raiz[local].$cfg[path_img].'email_top.jpg';
+			$tplData = array(
+				 html_tpl 		=> $html_tpl
+				,destinatarios 	=> $destinatarios
+				,asunto 		=> 'Sistema de Horas Extra'
+				,adjuntos 		=> $adjuntos
+			);
+			send_mail_smtp($tplData);
+		}
+	}
 	$data = array(success => $success, message => $msj);
 	$data = json_encode($data);
 }

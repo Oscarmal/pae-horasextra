@@ -263,8 +263,10 @@ function filtro_grupo($grupos=array()){
 		case 0 : $filtro = $grupos[0]; break;
 		#Administradores:
 		case 10 : $filtro = $grupos[10]; break;
-		#Super Usuarios:
+		#Super Usuarios - Inplant:
 		case 20 : $filtro = $grupos[20]; break;
+		#Super Usuarios - Cliente:
+		case 21 : $filtro = $grupos[21]; break;
 		#Grupo 1 - Nivel1:
 		case 30 : $filtro = $grupos[30]; break;
 		#Grupo 1 - Nivel2:

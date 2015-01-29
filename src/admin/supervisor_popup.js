@@ -6,6 +6,8 @@ function guardar_supervisor(){
 	var modulo = $("#mod").val().toLowerCase(); // <-- Modulo actual del sistema
 	var seccion = $("#sec").val();	
 	var ajax_url = raiz+"src/"+modulo+"/admin.php";	
+	var id_personal = $('#id_personal').val();
+	var id_empresa 	= $('#id_empresa').val();
 	popup_ico = "<img src='"+raiz+"common/img/wait.gif' valign='middle' align='center'>&nbsp";
 	if(id_supervisor==8){
 		nivel=1;
@@ -33,6 +35,8 @@ function guardar_supervisor(){
 				seccion : seccion,
 				accion : 'supervisor-guardar',
 				nivel : nivel,
+				id_personal : id_personal,
+				id_empresa 	: id_empresa,
 				id_supervisor: id_supervisor
 			}
 			,beforeSend: function(){ 

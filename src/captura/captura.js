@@ -66,8 +66,8 @@ function guardar(horas, fecha){
 				txt = respuesta.error;
 				ventana = popup('Error',popup_ico+txt,0,0,3);
 			}				
-		},
-		complete: function(){ 
+		}
+		,complete: function(){ 
 			setTimeout(function(){
 				$("#"+ventana).dialog("close");
 				$(location).attr('href', 'index.php?m=d3df3bcb86e5dab0114773964cfab1f4&s=d3df3bcb86e5dab0114773964cfab1f4');
