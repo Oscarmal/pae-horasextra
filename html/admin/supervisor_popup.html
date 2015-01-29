@@ -2,20 +2,74 @@
         <div id="" style="border: 0px solid #333; margin-left:-80px;">
             <table width="65%" border="0" cellspacing="0" cellpadding="0">            
                 <tbody>
-                  <tr>
-                    <th colspan="1" width="40%" align="right">Seleccione un Supervisor:&nbsp;</th>
+                    <tr>
+                    <th colspan="1" width="40%" align="right">Nombre Completo:&nbsp;</th>
                     <td colspan="3">
-                        {catalgo}
+                        <input type="text" id="nombre" value="{nombre}" readonly>
                         <input type="hidden" id="id_personal" value="{id_personal}">
                         <input type="hidden" id="id_empresa" value="{id_empresa}">
                     </td>
                   </tr>
-                   <tr>
-                        <td colspan="5" align="center">
-                            <input id="btnCerrar" type="button" class="btn btn-gray" value="{cerrar}" onclick="location.reload(true);">
-                            &nbsp;&nbsp;&nbsp;
-                            <input id="guardar" type="button" class="btn btn-gray" value="{guardar}" onclick="guardar_supervisor()">
-                        </td>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">RFC:&nbsp;</th>
+                    <td colspan="3">
+                        <input type="text" id="rfc" value="{rfc}" readonly>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">IMSS:&nbsp;</th>
+                    <td colspan="3">
+                        <input type="text" id="imss" value="{imss}" readonly>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">sucursal:&nbsp;</th>
+                    <td colspan="3">
+                        <input type="text" id="sucursal" value="{sucursal}" readonly>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">Empresa:&nbsp;</th>
+                    <td colspan="3">
+                        <input type="text" id="empresa" value="{empresa}" readonly>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">Seleccione el supervisor Nivel-1:&nbsp;</th>
+                    <td colspan="3">
+                        {catalogo_nivel1}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">Seleccione el supervisor Nivel-2:&nbsp;</th>
+                    <td colspan="3">
+                        {catalogo_nivel2}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">Seleccione el supervisor Nivel-3:&nbsp;</th>
+                    <td colspan="3">
+                        {catalogo_nivel3}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">Seleccione el supervisor Nivel-4:&nbsp;</th>
+                    <td colspan="3">
+                        {catalogo_nivel4}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="1" width="40%" align="right">Seleccione el supervisor Nivel-5:&nbsp;</th>
+                    <td colspan="3">
+                        {catalogo_nivel5}
+                    </td>
+                  </tr>
+                    <tr>
+                    <td colspan="5" align="center">
+                        <input id="btnCerrar" type="button" class="btn btn-gray" value="{cerrar}" onclick="location.reload(true);">
+                        &nbsp;&nbsp;&nbsp;
+                        <input id="guardar" type="button" class="btn btn-gray" value="{guardar}" onclick="guardar_supervisor()">
+                    </td>
                     </tr>
                 </tbody>
             </table>

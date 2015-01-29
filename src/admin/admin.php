@@ -201,26 +201,36 @@ if($in[auth]){
 	}
 	elseif($in[accion]=='supervisor-popup'){
 		$sqlData = array(
-			 auth 			=> 1
+			 auth 			=> 1,
+			 id_personal 	=> $in[id_personal]
 		);
-		$catalgo_supervisores=select_catalgo_supervisores($sqlData);	
-		$nivel=1;
-		$select.='<select name="nivel_supervisor" id="nivel_supervisor">';		
-		$select.='<option value="" selected>Seleccione el supervisor</option>';
-		if($catalgo_supervisores){		
-			foreach($catalgo_supervisores as $supervisor){
-				$select.='<option value="'.$supervisor[id_personal].'" >'.utf8_encode($supervisor[nombre]).' - '.$supervisor[empleado_num].'</option>';
-			}		
-		}
-		$select.='</select>';
+		$catalogo_nivel1=build_catalgo_supervisores(1);
+		$catalogo_nivel2=build_catalgo_supervisores(2);
+		$catalogo_nivel3=build_catalgo_supervisores(3);
+		$catalogo_nivel4=build_catalgo_supervisores(4);
+		$catalogo_nivel5=build_catalgo_supervisores(5);
+		$datos_usuario=select_datos_usuario($sqlData);
+		//dump_var($datos_usuario);
+
 		$vista_new 	= 'admin/supervisor_popup.html';
 		$tpl_data = array(
 				 MORE 			=> incJs($Path[srcjs].strtolower(MODULO).'/supervisor_popup.js')
 				,id_personal 	=> $in[id_personal]
-				,id_empresa 	=> $in[id_empresa]
 				,catalgo	 	=> $select
 				,guardar 		=> 'Guardar'			
-				,cerrar	 		=> 'Cerrar'			
+				,cerrar	 		=> 'Cerrar'
+				,id_personal 	=> $datos_usuario[id_personal]
+				,id_empresa 	=> $datos_usuario[id_empresa]
+				,nombre 		=> $datos_usuario[nombre].' '.$datos_usuario[paterno].' '.$datos_usuario[materno]
+				,rfc 			=> $datos_usuario[rfc]
+				,imss 			=> $datos_usuario[imss]
+				,sucursal 		=> $datos_usuario[sucursal]
+				,empresa 		=> $datos_usuario[empresa]
+				,catalogo_nivel1 		=>$catalogo_nivel1
+				,catalogo_nivel2 		=>$catalogo_nivel2
+				,catalogo_nivel3 		=>$catalogo_nivel3
+				,catalogo_nivel4 		=>$catalogo_nivel4
+				,catalogo_nivel5 		=>$catalogo_nivel5			
 				);		
 		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
 		// Envio de resultado
@@ -229,15 +239,16 @@ if($in[auth]){
 		$data = array(success => $success, message => $msj, html => $CONTENIDO);			
 	}
 	elseif($in[accion]=='supervisor-guardar'){
-		$sqlData = array(
-			 auth 			=> true,
-			nivel 			=>	$in[nivel],
-			id_personal 	=>	$in[id_personal],
-			id_empresa 		=>	$in[id_empresa],
-			id_supervisor	=>	$in[id_supervisor]
-		);
-		
-		$success=insert_supervisor_sincronizacion($sqlData);
+		for($x=1; $x<=5; $x++){
+			$nivel_vars = array(
+					 auth 			=> 1
+					 ,id_personal 	=>	$in[id_personal]
+					,id_empresa 	=> $in[id_empresa]
+					,id_supervisor	=> $in['nivel'.$x]
+					,id_nivel 		=> $x
+				);
+			$success=insert_supervisor_sincronizacion($nivel_vars);
+		}
 		$msj = ($success)?'Guardado':'No guardó';
 		$data = array(success => $success, message => $msj);
 	}

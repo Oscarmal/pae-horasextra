@@ -880,21 +880,55 @@ function insert_supervisor($data=array()){
 }
 function insert_supervisor_sincronizacion($data=array()){
 	global $db,$usuario;
-	$nivel 			=	$data[nivel];
-	$id_personal 	=	$data[id_personal];
-	$id_empresa 	=	$data[id_empresa];
-	$id_supervisor 	=	$data[id_supervisor];
-	$timestamp 		= date('Y-m-d H:i:s');
-	$sql="INSERT INTO 
-			$db[tbl_supervisores]
-			SET 
-				id_empresa		=	$id_empresa
-				id_personal		=	$id_personal
-				id_supervisor	=	$id_supervisor
-				id_nivel 		=	$nivel
-				id_usuario  	=	$usuario[id_usuario]
-				timestamp      	= 	$timestamp;";
-		echo $sql;
-	$resultado = (SQLDo($sql))?true:false;
+	$resultado = false;	
+	if($data[auth]){
+		$nivel 			=	$data[id_nivel];
+		$id_personal 	=	$data[id_personal];
+		$id_empresa 	=	$data[id_empresa];
+		$id_supervisor 	=	$data[id_supervisor];
+		$timestamp 		= date('Y-m-d H:i:s');
+		$sql="INSERT INTO 
+				$db[tbl_supervisores]
+				SET 
+					id_empresa		=	'$id_empresa',
+					id_personal		=	'$id_personal',
+					id_supervisor	=	'$id_supervisor',
+					id_nivel 		=	'$nivel',
+					id_usuario  	=	'$usuario[id_usuario]',
+					timestamp      	= 	'$timestamp';";
+			//echo $sql;
+			//die();
+		$resultado = (SQLDo($sql))?true:false;
+	}
+
+	return $resultado;
+}
+function select_datos_usuario($data=array()){
+	global $db;
+	if($data[auth]){
+		$sql="SELECT 
+				a.id_personal,
+				a.nombre,
+				a.paterno,
+				a.materno,
+				a.rfc,
+				a.imss,
+				a.sucursal,
+				b.nombre as empresa,
+				b.id_empresa
+			FROM 
+				$db[tbl_personal] a
+				LEFT JOIN 
+					$db[tbl_empresas] b
+					ON 
+					a.id_empresa=b.id_empresa
+			WHERE
+				a.id_personal=$data[id_personal]";
+		$resultado = SQLQuery($sql);				
+			$resultado = (count($resultado)) ? $resultado : false ;
+	}else{
+		$resultado = false;
+	}
+	return $resultado;
 }
 ?>
