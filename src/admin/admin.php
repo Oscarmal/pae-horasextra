@@ -133,7 +133,7 @@ if($in[auth]){
 	}
 	elseif($in[accion]=='sincronizar_empresa'){
 			$success=select_empresas_nomina($filtrado,$vacio);
-		$msj = ($success)?'Guardado':'No guardó';
+		  	$msj = ($success)?'Guardado':'No guardó';
 			if($msj=='Guardado'){
 				$valor=count($success);
 				$query='';
@@ -198,6 +198,48 @@ if($in[auth]){
 				 $msj='No guardó';
 			}
 		$data = array(success => $msj, message => $msj);
+	}
+	elseif($in[accion]=='supervisor-popup'){
+		$sqlData = array(
+			 auth 			=> 1
+		);
+		$catalgo_supervisores=select_catalgo_supervisores($sqlData);	
+		$nivel=1;
+		$select.='<select name="nivel_supervisor" id="nivel_supervisor">';		
+		$select.='<option value="" selected>Seleccione el supervisor</option>';
+		if($catalgo_supervisores){		
+			foreach($catalgo_supervisores as $supervisor){
+				$select.='<option value="'.$supervisor[id_personal].'" >'.utf8_encode($supervisor[nombre]).' - '.$supervisor[empleado_num].'</option>';
+			}		
+		}
+		$select.='</select>';
+		$vista_new 	= 'admin/supervisor_popup.html';
+		$tpl_data = array(
+				 MORE 			=> incJs($Path[srcjs].strtolower(MODULO).'/supervisor_popup.js')
+				,id_personal 	=> $in[id_personal]
+				,id_empresa 	=> $in[id_empresa]
+				,catalgo	 	=> $select
+				,guardar 		=> 'Guardar'			
+				,cerrar	 		=> 'Cerrar'			
+				);		
+		$CONTENIDO 	= contenidoHtml($vista_new, $tpl_data);
+		// Envio de resultado
+		$success = true;
+		$msj = ($success)?'Popup OK':'Popup Fail';
+		$data = array(success => $success, message => $msj, html => $CONTENIDO);			
+	}
+	elseif($in[accion]=='supervisor-guardar'){
+		$sqlData = array(
+			 auth 			=> true,
+			nivel 			=>	$in[nivel],
+			id_personal 	=>	$in[id_personal],
+			id_empresa 		=>	$in[id_empresa],
+			id_supervisor	=>	$in[id_supervisor]
+		);
+		
+		$success=insert_supervisor_sincronizacion($sqlData);
+		$msj = ($success)?'Guardado':'No guardó';
+		$data = array(success => $success, message => $msj);
 	}
 	elseif($in[accion]=='layout-popup'){
 		// Extraccion de datos
