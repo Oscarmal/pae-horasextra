@@ -73,6 +73,7 @@ function build_grid_consulta_autorizacion_1(){
 				,'nombre_completo'
 				,'empleado_num'
 				,'empresa'
+				,'sucursal'
 				,'fecha'
 				,'horas'
 			);	
@@ -114,6 +115,7 @@ function build_grid_consulta_autorizacion_2($data=array()){
 				,'nombre_completo'
 				,'empleado_num'
 				,'empresa'
+				,'sucursal'
 				,'fecha'
 				,'horas'
 			);
@@ -154,6 +156,7 @@ function build_grid_consulta_autorizacion_3(){
 				,'nombre_completo'
 				,'empleado_num'
 				,'empresa'
+				,'sucursal'
 				,'fecha'
 				,'horas'
 				//,'capturado_por'
@@ -198,6 +201,7 @@ function build_grid_consulta_autorizacion_4(){
 				,'nombre_completo'
 				,'empleado_num'
 				,'empresa'
+				,'sucursal'
 				,'fecha'
 				,'horas'
 			);
@@ -241,6 +245,7 @@ function build_grid_consulta_autorizacion_5($data=array()){
 				,'nombre_completo'
 				,'empleado_num'
 				,'empresa'
+				,'sucursal'
 				,'fecha'
 				,'horas'	
 			);
@@ -635,6 +640,7 @@ function buil_autorizacion_1(){
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
+				,'sucursal'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
@@ -687,10 +693,14 @@ function build_grid_autorizacion_2($data=array()){
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
+				,'sucursal'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'	
+				,'horas'
+				,'dobles'
+				,'triples'
+				,'rechazadas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {	
@@ -737,10 +747,14 @@ function build_grid_autorizacion_3($data=array()){
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
+				,'sucursal'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'	
+				,'horas'
+				,'dobles'
+				,'triples'
+				,'rechazadas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {	
@@ -787,10 +801,14 @@ function build_grid_autorizacion_4($data=array()){
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
+				,'sucursal'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'	
+				,'horas'
+				,'dobles'
+				,'triples'
+				,'rechazadas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {	
@@ -837,10 +855,14 @@ function build_grid_autorizacion_5($data=array()){
 	$campos = array(
 				 'id_horas_extra'
 				,'empresa'
+				,'sucursal'
 				,'nombre_completo'
 				,'empleado_num'
 				,'fecha'
-				,'horas'	
+				,'horas'
+				,'dobles'
+				,'triples'
+				,'rechazadas'
 			);
 	if($tabla){
 		foreach ($tabla as $registro) {	
